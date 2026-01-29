@@ -4,11 +4,11 @@ import { FiFileText, FiUsers, FiMessageSquare } from "react-icons/fi";
 import { motion } from "framer-motion";
 
 const faqCards = [
-  { title: "Activity Profile", icon: <FiFileText size={50} /> },
+  { title: "ACTIVITY PROFILE", icon: <FiFileText size={50} /> },
   { title: "LDI-DIP", icon: <FiFileText size={50} /> },
-  { title: "Participant Eligibility", icon: <FiUsers size={50} /> },
-  { title: "TA and Support", icon: <FiFileText size={50} /> },
-  { title: "L&D Standards", icon: <FiFileText size={50} /> },
+  { title: "PARTICIPANT ELIGIBILITY", icon: <FiUsers size={50} /> },
+  { title: "TA and SUPPORT", icon: <FiFileText size={50} /> },
+  { title: "L&D STANDARDS", icon: <FiFileText size={50} /> },
   { title: "CBAs", icon: <FiMessageSquare size={50} /> },
 ];
 
@@ -44,7 +44,7 @@ const HomePage = () => {
       {/* FAQ Section */}
       <section className="flex justify-center">
         <div className="bg-[#2e3192] rounded-3xl p-10 w-full max-w-[100rem]">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">
+          <h2 className="text-[#FFE066] text-3xl font-bold text-white mb-8 text-center">
             Frequently Asked Questions
           </h2>
 
