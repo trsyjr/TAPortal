@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['"Space Grotesk"', 'ui-sans-serif', 'system-ui'], // Set as default
+        sans: ['Montserrat', 'ui-sans-serif', 'system-ui'], // ✅ Set Montserrat as default
       },
     },
   },

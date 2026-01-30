@@ -84,7 +84,7 @@ const NewsEvents = () => {
       </div>
 
       {/* Centered hashtag below everything */}
-      <p className="mt-12 text-center text-[#2e3192] font-semibold text-xl md:text-3xl lg:text-4xl">
+      <p className="mt-12 text-center text-[#2e3192] font-bold text-xl md:text-3xl lg:text-4xl">
         #BawatBuhayMahalagaSaDSWD
       </p>
     </section>
