@@ -4,6 +4,7 @@ import Slider from "react-slick";
 // ✅ React Slick CSS imports
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import TABG from "../assets/TABG.png"; // your background image
 
 const NewsEvents = () => {
   const newsItems = [
@@ -42,51 +43,69 @@ const NewsEvents = () => {
   };
 
   return (
-    <section className="py-12 px-6 md:px-20 lg:px-40 font-sans">
-      {/* Header */}
-      <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center md:text-left">
-        NEWS & EVENTS
-      </h2>
+    <section className="relative pt-12 mt-12 px-6 md:px-20 lg:px-40 font-sans overflow-hidden">
+      {/* Background behind News & Events */}
+      <div
+        className="absolute top-0 left-0 right-0 z-0 mx-auto"
+        style={{
+          height: "1000px", // <-- adjust the height as needed
+          maxWidth: "110rem", // limit width if you want
+          backgroundImage: `url(${TABG})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          borderTopLeftRadius: "5rem", // top-left rounded corner
+          borderTopRightRadius: "5rem", // top-right rounded corner
+        }}
+      />
 
-      <div className="flex flex-col md:flex-row items-start gap-8">
-        {/* Left Carousel */}
-        <div className="flex-1 w-full md:max-w-2xl">
-          <Slider {...sliderSettings} className="rounded-2xl overflow-hidden shadow-md">
-            {newsItems.map((item, idx) => (
-              <div key={idx}>
-                <img
-                  src={item.image}
-                  alt={`News ${idx + 1}`}
-                  className="w-full h-[28rem] md:h-[36rem] object-cover rounded-2xl"
-                />
-              </div>
-            ))}
-          </Slider>
-        </div>
+      {/* Content */}
+      <div className="relative z-10">
+        {/* Header */}
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center md:text-left">
+          NEWS & EVENTS
+        </h2>
 
-        {/* Right Text */}
-        <div className="flex-1 flex flex-col justify-start space-y-6">
-          <div>
-            <h3 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-              {newsItems[currentSlide].title}
-            </h3>
-            <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed">
-              {newsItems[currentSlide].description}
-            </p>
+        <div className="flex flex-col md:flex-row items-start gap-8">
+          {/* Left Carousel */}
+          <div className="flex-1 w-full md:max-w-2xl">
+            <Slider {...sliderSettings} className="rounded-2xl overflow-hidden shadow-md">
+              {newsItems.map((item, idx) => (
+                <div key={idx}>
+                  <img
+                    src={item.image}
+                    alt={`News ${idx + 1}`}
+                    className="w-full h-[28rem] md:h-[36rem] object-cover rounded-2xl"
+                  />
+                </div>
+              ))}
+            </Slider>
           </div>
 
-          <div>
-            <button className="bg-[#FFE066] text-black px-8 py-4 rounded-full font-semibold text-lg md:text-xl border border-black transition transform hover:scale-105">
-              Learn More
-            </button>
+          {/* Right Text */}
+          <div className="flex-1 flex flex-col justify-start space-y-6">
+            <div>
+              <h3 className="text-4xl md:text-5xl font-bold text-[#ee1c25] mb-4">
+                {newsItems[currentSlide].title}
+              </h3>
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed">
+                {newsItems[currentSlide].description}
+              </p>
+            </div>
+
+            <div>
+              <button className="bg-[#FFE066] text-black px-8 py-4 rounded-full font-semibold text-lg md:text-xl border border-black transition transform hover:scale-105">
+                Learn More
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Centered hashtag */}
+        <p className="mt-12 mb-10 text-center text-[#2e3192] font-bold text-xl md:text-3xl lg:text-4xl">
+          #BawatBuhayMahalagaSaDSWD
+        </p>
       </div>
-
-      {/* Centered hashtag below everything */}
-      <p className="mt-12 text-center text-[#2e3192] font-bold text-xl md:text-3xl lg:text-4xl">
-        #BawatBuhayMahalagaSaDSWD
-      </p>
     </section>
   );
 };

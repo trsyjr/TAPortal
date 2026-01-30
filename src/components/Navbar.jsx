@@ -1,7 +1,9 @@
 // src/components/Navbar.jsx
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX } from "react-icons/fi"; // Import icons
+import { FiMenu, FiX } from "react-icons/fi";
+import TALogo from "../assets/TALogo.png";
+
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -11,10 +13,10 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <div className="text-xl font-bold text-gray-800">
-          <span className="text-blue-600">TA</span>Portal
+        <div>
+          <img src={TALogo} alt="TA Portal Logo" className="h-12 md:h-16" />
         </div>
+
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex space-x-8">
