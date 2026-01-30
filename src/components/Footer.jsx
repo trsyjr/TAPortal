@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="flex flex-col md:flex-row md:items-start md:gap-12">
         {/* Column 1 */}
         <div className="flex-[1.5] space-y-4">
-          <h3 className="text-xl md:text-2xl font-bold mb-2">Technical Assistance Portal</h3>
+          <h3 className="text-3xl md:text-5xl font-bold mb-2">Technical Assistance Portal</h3>
           <p className="text-sm md:text-base">
             111 Block 3, Taguig, 1630 Metro Manila
           </p>
