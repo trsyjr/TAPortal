@@ -5,6 +5,8 @@ import './App.css'
 import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
 import OtherOptions from './components/OtherOptions';
+import NewsEvents from './components/NewsEvents';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
       <Navbar />
       <HomePage />
       <OtherOptions />
+      <NewsEvents />
+      <Footer />
     </div>
   );
 }

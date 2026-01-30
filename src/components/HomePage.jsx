@@ -2,14 +2,16 @@
 import React from "react";
 import { FiFileText, FiUsers, FiMessageSquare } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { FaComment, FaCommentAlt, FaComments, FaCommentsDollar, FaFile, FaFileAlt, FaHandshake, FaNetworkWired } from "react-icons/fa";
+import { FaFileCircleCheck, FaFileLines, FaRegFileLines, FaRProject, FaUserCheck } from "react-icons/fa6";
 
 const faqCards = [
-  { title: "ACTIVITY PROFILE", icon: <FiFileText size={50} /> },
-  { title: "LDI-DIP", icon: <FiFileText size={50} /> },
-  { title: "PARTICIPANT ELIGIBILITY", icon: <FiUsers size={50} /> },
-  { title: "TA and SUPPORT", icon: <FiFileText size={50} /> },
-  { title: "L&D STANDARDS", icon: <FiFileText size={50} /> },
-  { title: "CBAs", icon: <FiMessageSquare size={50} /> },
+  { title: "ACTIVITY PROFILE", icon: <FaFileLines size={50} /> },
+  { title: "LDI-DIP", icon: <FaNetworkWired size={50} /> },
+  { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck size={50} /> },
+  { title: "TA and SUPPORT", icon: <FaHandshake size={50} /> },
+  { title: "L&D STANDARDS", icon: <FaFileCircleCheck size={50} /> },
+  { title: "CBAs", icon: <FaComments size={50} /> },
 ];
 
 const HomePage = () => {
@@ -44,7 +46,7 @@ const HomePage = () => {
       {/* FAQ Section */}
       <section className="flex justify-center">
         <div className="bg-[#2e3192] rounded-3xl p-10 w-full max-w-[100rem]">
-          <h2 className="text-[#FFE066] text-3xl font-bold text-white mb-8 text-center">
+          <h2 className="text-[#FFE066] text-3xl font-bold mb-8 text-center">
             Frequently Asked Questions
           </h2>
 
