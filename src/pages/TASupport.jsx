@@ -1,4 +1,4 @@
-// src/pages/ActiveProfile.jsx
+// src/pages/TASupport.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   FaTicket,
 } from "react-icons/fa6";
 
+// FAQ Cards for top navigation
 const faqCards = [
   { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
   { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
@@ -22,6 +23,7 @@ const faqCards = [
   { title: "CBAs", icon: <FaComments />, path: "/cbas" },
 ];
 
+// Floating cards data
 const floatingCards = [
   {
     title: "TA CLINIC",
@@ -36,6 +38,73 @@ const floatingCards = [
     description: "Submit a request ticket and we will reach out shortly.",
     buttonText: "Request Here",
     buttonAction: () => window.alert("Request Ticket Clicked"),
+  },
+];
+
+// Clean object-based FAQ data
+const faqPages = [
+  {
+    label: "TA Services",
+    items: [
+      {
+        q: "What types of concerns can be addressed through technical assistance by CBD-PLDS?",
+        a: (
+          <>
+            The CBD-PLDS provides technical assistance in the following areas of Capability Building:
+            <br />
+            <br />
+            <strong>Review of Training Proposals:</strong> This assistance ensures training proposals from the Offices, Bureaus, and Services (OBS) meet DSWD Academy’s standards by assessing design, content, objectives, methodologies, and alignment with competency frameworks for quality assurance in learning interventions.
+            <br />
+            <strong>Training Management Standards:</strong> This TA ensures DSWD Academy’s quality standards in training programs by guiding the application of standardized processes in planning, implementation, documentation, and evaluation, promoting efficiency, consistency, and learner-centered approaches.
+            <br />
+            <strong>Monitoring and Evaluation of Learning:</strong> This service offers technical support in measuring training effectiveness, including developing M&E tools, analyzing outcomes, and providing evidence-based recommendations for improving future initiatives.
+
+            <strong>Capability Building Planning and Reporting:</strong> This technical assistance helps DSWD offices develop and report CB Plans and Accomplishment Reports by guiding them in identifying development needs, aligning efforts with strategic priorities, setting targets, and documenting progress to inform future capability building.
+          </>
+        ),
+      },
+      {
+        q: "How can offices request technical assistance along capability building?",
+        a: (
+          <>
+            TA requests can be submitted through <strong>official communication channels</strong> or <strong>scheduled mechanisms</strong> such as TA Wednesdays.
+          </>
+        ),
+      },
+      {
+        q: "When should an office avail of TA Wednesdays instead of submitting documents for review?",
+        a: (
+          <>
+            TA Wednesdays are recommended for <strong>clarifications, initial guidance, and quick consultations</strong> prior to formal submission..
+          </>
+        ),
+      },
+      {
+        q: "What is the expected turnaround time for technical assistance requests?",
+        a: (
+          <>
+            Turnaround time varies <strong>depending on the nature and complexity of the request</strong> and <strong>existing workload</strong>, and is monitored by CBD-PLDS.
+            <br />
+            <br />
+            Per EODB Law, simple requests are processed within three (3) working days, while complex requests are processed within seven (7) working days.
+          </>
+        ),
+      },
+      {
+        q: "\u00A0",
+        a: (
+          <>
+            <strong>Reference:</strong>
+            <ul className="list-disc list-inside mt-2 space-y-1">
+              <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts.</li>
+              <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
+              <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
+              <li>Department of Social Welfare and Development (DSWD). Learning and Development (L&D) Guidebook.</li>
+            </ul>
+          </>
+        ),
+      },
+    ],
   },
 ];
 
@@ -141,22 +210,31 @@ const TASupport = () => {
         </div>
       </section>
 
-      {/* Section Header */}
-      <section className="max-w-[100rem] mx-auto px-4 md:px-20 lg:px-40 mb-12">
-        <h3 className="text-2xl md:text-3xl font-bold">
+      {/* Section Header / Clean FAQ Mapping */}
+      <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
+        <h3 className="text-2xl md:text-3xl font-bold mb-8">
           <span className="text-black">FAQS / </span>
           <span className="text-[#2e3192]">TA and Support</span>
         </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
+          {faqPages[0].items.map((faq, index) => (
+            <React.Fragment key={index}>
+              {faq.q && (
+                <div className="md:col-span-4 font-bold text-gray-800">{faq.q}</div>
+              )}
+              <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
+                {faq.a}
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
       </section>
 
       {/* Floating Split Deck (Lower Right, Footer Safe) */}
-      <div
-        className="fixed right-6 z-50 w-72 h-64"
-        style={{ bottom: `${bottomOffset}px` }}
-      >
+      <div className="fixed right-6 z-50 w-56 h-60" style={{ bottom: `${bottomOffset}px` }}>
         {floatingCards.map((card, index) => {
           const isTop = index === currentCard;
-          // Split effect: top card moves slightly left, back card slightly right
           const offsetX = isTop ? -10 : 10;
           const offsetY = 0;
           const rotation = isTop ? -5 : 5;
@@ -165,7 +243,7 @@ const TASupport = () => {
           return (
             <motion.div
               key={card.title}
-              className="absolute bg-white rounded-2xl shadow-xl w-64 cursor-pointer flex flex-col items-center p-4 md:p-6"
+              className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
               style={{ zIndex }}
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{
@@ -180,10 +258,10 @@ const TASupport = () => {
             >
               <div className="flex flex-col items-center text-center">
                 <div className="mb-2">
-                  {React.cloneElement(card.icon, { size: 40, className: "text-[#2e3192]" })}
+                  {React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-[#2e3192] mb-2">{card.title}</h3>
-                <p className="text-gray-600 text-xs md:text-sm mb-2">{card.description}</p>
+                <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
+                <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
                 <button className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base">
                   {card.buttonText}
                 </button>

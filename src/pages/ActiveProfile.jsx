@@ -1,4 +1,4 @@
-// src/pages/ActiveProfile.jsx
+// src/pages/ActivityProfile.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   FaTicket,
 } from "react-icons/fa6";
 
+// Top FAQ cards
 const faqCards = [
   { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
   { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
@@ -22,6 +23,7 @@ const faqCards = [
   { title: "CBAs", icon: <FaComments />, path: "/cbas" },
 ];
 
+// Floating cards
 const floatingCards = [
   {
     title: "TA CLINIC",
@@ -39,30 +41,114 @@ const floatingCards = [
   },
 ];
 
+// FAQ content as object
+const faqPages = [
+  {
+    label: "Activity Proposal",
+    items: [
+      {
+        q: "What types of training programs and learning activities require submission of an activity proposal to the DSWD Academy?",
+        a: (
+          <>
+            All <strong>capability building activities</strong> intended for DSWD personnel and intermediaries, whether face-to-face, online, or blended, <strong>require submission</strong> of an <strong>activity proposal</strong> to the <strong>DSWD Academy</strong> for review.
+          </>
+        ),
+      },
+      {
+        q: "When should an activity proposal be submitted to the DSWD Academy for review?",
+        a: (
+          <>
+          Activity proposals with complete attachments (LDI-DIP, Cover Memo with focal person, Approved CB Plan) should be submitted at the <strong>planning stage and at least a month or two prior to implementation</strong> to allow sufficient time for review, guidance, and alignment with L&D standards.
+          </>
+        ),
+      },
+      {
+        q: "What are the components of a compliant training or LDI proposal?",
+        a: (
+          <>
+            A compliant training or Learning and Development Intervention (LDI) proposal shall <strong>follow the prescribed LDI proposal template</strong> issued by the DSWD Academy. This is distinct from a project proposal. The prescribed LDI proposal <strong>focuses on the learning objectives of the activity</strong> and includes, at a minimum, the description of the LDI, profile of participants, learning objectives, and the monitoring and evaluation of learning.
+          </>
+        ),
+      },
+      {
+        q: "Are online, blended, and face-to-face trainings subject to the same proposal requirements?",
+        a: (
+          <>
+          Yes. <strong>Regardless of delivery mode</strong>, all capability building activities are <strong>subject to the same review and compliance requirements</strong>.
+          </>
+        ),
+      },
+      {
+        q: "Can an office proceed with implementation while the activity proposal is under review?",
+        a: (
+          <>
+            Implementation is <strong>not recommended</strong> while the proposal is under review. Offices are advised to await guidance or clearance from the DSWD Academy to ensure compliance with standards.
+          </>
+        ),
+      },
+      {
+        q: "Who is responsible for endorsing the activity proposal before submission to the DSWD Academy?",
+        a: (
+          <>
+          The <strong>Head of the concerned Office, Bureau, Service, or Unit (OBSU)</strong> shall endorse and sign the activity proposal prior to its submission to the DSWD Academy for review. This endorsement signifies official approval of the proposed activity and confirms alignment with office priorities and resource commitments.
+          </>
+        ),
+      },
+      {
+        q: "How does an activity proposal get approved?",
+        a: (
+          <>
+            Activity proposals are reviewed by the DSWD Academy, through the Capability Building Division-Professional Learning and Development Section (CBD-PLDS), to ensure alignment with Department standards and priorities. Here’s the usual flow:
+            <br />
+            <br />
+            <strong>Submission</strong> – The proponent submits a formal request to the DSWD Academy, along with a draft proposal and the Design and Implementation Plan (DIP).
+            <br />
+            <strong>Review</strong> – The Capability Building Division (CBD) reviews the proposal’s content, methodology, and resources. If aligned with standards, a memorandum reply is issued; if revisions are needed, technical inputs and recommendations are provided.
+            <br />
+            <strong>Revision</strong> – The proponent revises the proposal based on the comments and recommendations. Once updated, the revised proposal is routed back to the DSWD Academy.
+            <br />
+            <strong>Endorsement</strong> – If the revised proposal is found in order, the DSWD Academy issues a memorandum endorsement to the Financial Service (FS).
+            <br />
+            <strong>Final Submission</strong> – The proponent attaches the DSWD Academy’s endorsement when submitting the proposal for final approval of cluster head or head of OBSU, or Financial Service for funding approval if applicable.
+          </>
+        ),
+      },
+      {
+        q: "\u00A0",
+        a: (
+          <>
+          <h3 className="font-bold mt-4 mb-2">Reference:</h3>
+            <ul className="list-disc list-inside space-y-1">
+              <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
+              <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of CBAs.</li>
+              <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
+              <li>Memorandum from the Secretary (01 February 2024). Centralization of All CBAs to the SWIDB–DSWD Academy.</li>
+            </ul>
+          </>
+        ),
+      },
+    ],
+  },
+];
+
 const ActivityProfile = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const cardRefs = useRef([]);
   const [currentCard, setCurrentCard] = useState(0);
-  const [bottomOffset, setBottomOffset] = useState(32); // initial bottom-32
+  const [bottomOffset, setBottomOffset] = useState(32);
 
   const handleCardClick = (path) => {
     if (path) navigate(path);
   };
 
-  // Scroll active FAQ card into view
   useEffect(() => {
     const activeIndex = faqCards.findIndex((c) => c.path === location.pathname);
     if (activeIndex !== -1 && cardRefs.current[activeIndex]) {
-      cardRefs.current[activeIndex].scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
+      cardRefs.current[activeIndex].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
   }, [location.pathname]);
 
-  // Rotate floating cards every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCard((prev) => (prev + 1) % floatingCards.length);
@@ -70,17 +156,15 @@ const ActivityProfile = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Adjust floating deck so it doesn't cover footer
   useEffect(() => {
     const handleResize = () => {
-      const footer = document.getElementById("footer"); // make sure your footer has id="footer"
+      const footer = document.getElementById("footer");
       if (footer) {
         const footerRect = footer.getBoundingClientRect();
-        const spaceFromBottom = window.innerHeight - footerRect.top + 20; // 20px margin
+        const spaceFromBottom = window.innerHeight - footerRect.top + 20;
         setBottomOffset(Math.max(32, spaceFromBottom));
       }
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -88,14 +172,13 @@ const ActivityProfile = () => {
 
   return (
     <div className="pt-20 font-sans relative">
-      {/* FAQ Section */}
+      {/* FAQ Cards */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
           <div className="max-w-[100rem] mx-auto px-4 md:px-20 lg:px-40">
             <h2 className="text-[#FFE066] text-2xl md:text-3xl font-bold mb-8 text-center">
               Frequently Asked Questions
             </h2>
-
             <div className="flex gap-4 overflow-x-auto pb-6 md:grid md:grid-cols-2 lg:grid-cols-6 md:gap-6 md:overflow-visible p-2">
               {faqCards.map((card, index) => {
                 const isActive = location.pathname === card.path;
@@ -104,33 +187,16 @@ const ActivityProfile = () => {
                     key={card.title}
                     ref={(el) => (cardRefs.current[index] = el)}
                     onClick={() => handleCardClick(card.path)}
-                    className={`
-                      flex flex-col items-center justify-center cursor-pointer
-                      ${isActive ? "bg-[#FFE066]" : "bg-white"}
-                      rounded-3xl
-                      p-4 sm:p-5 md:p-8
-                      min-w-[140px] sm:min-w-[160px] md:min-w-0
-                      hover:shadow-2xl
-                    `}
+                    className={`flex flex-col items-center justify-center cursor-pointer ${isActive ? "bg-[#FFE066]" : "bg-white"} rounded-3xl p-4 sm:p-5 md:p-8 min-w-[140px] sm:min-w-[160px] md:min-w-0 hover:shadow-2xl`}
                     whileHover={{ scale: 1.05, rotate: -4 }}
                     animate={{ rotate: isActive ? -4 : 0 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <div className="mb-2 sm:mb-3 md:mb-4 text-center">
-                      {React.cloneElement(card.icon, {
-                        size: isActive ? 50 : 35,
-                        className: "md:hidden",
-                      })}
-                      {React.cloneElement(card.icon, {
-                        size: isActive ? 70 : 60,
-                        className: "hidden md:block",
-                      })}
+                      {React.cloneElement(card.icon, { size: isActive ? 50 : 35, className: "md:hidden" })}
+                      {React.cloneElement(card.icon, { size: isActive ? 70 : 60, className: "hidden md:block" })}
                     </div>
-                    <h3
-                      className={`font-semibold text-center text-xs sm:text-sm md:text-lg ${
-                        isActive ? "text-[#2e3192]" : "text-gray-800"
-                      }`}
-                    >
+                    <h3 className={`font-semibold text-center text-xs sm:text-sm md:text-lg ${isActive ? "text-[#2e3192]" : "text-gray-800"}`}>
                       {card.title}
                     </h3>
                   </motion.div>
@@ -141,129 +207,52 @@ const ActivityProfile = () => {
         </div>
       </section>
 
-      {/* Section Header */}
-            <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
-              <h3 className="text-2xl md:text-3xl font-bold mb-8">
-                <span className="text-black">FAQS / </span>
-                <span className="text-[#2e3192]">Activity Proposal</span>
-              </h3>
-      
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
-                {/* 1 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  What types of training programs and learning activities require submission of an activity proposal to the DSWD Academy?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  All <strong>capability building activities</strong> intended for DSWD personnel and intermediaries, whether face-to-face, online, or blended, <strong>require submission</strong> of an <strong>activity proposal</strong> to the <strong>DSWD Academy</strong> for review.
-                </div>
-      
-                {/* 2 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  When should an activity proposal be submitted to the DSWD Academy for review?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  Activity proposals with complete attachments (LDI-DIP, Cover Memo with focal person, Approved CB Plan) should be submitted at the <strong>planning stage and at least a month or two prior to implementation</strong> to allow sufficient time for review, guidance, and alignment with L&D standards.
-                </div>
-      
-                {/* 3 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  What are the components of a compliant training or LDI proposal?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  A compliant training or Learning and Development Intervention (LDI) proposal shall <strong>follow the prescribed LDI proposal template</strong> issued by the DSWD Academy. This is distinct from a project proposal. The prescribed LDI proposal <strong>focuses on the learning objectives of the activity</strong> and includes, at a minimum, the description of the LDI, profile of participants, learning objectives, and the monitoring and evaluation of learning.
-                </div>
-      
-                {/* 4 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  Are online, blended, and face-to-face trainings subject to the same proposal requirements?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  Yes. <strong>Regardless of delivery mode</strong>, all capability building activities are <strong>subject to the same review and compliance requirements</strong>.
-                </div>
-      
-                {/* 5 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  Can an office proceed with implementation while the activity proposal is under review?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  Implementation is <strong>not recommended</strong> while the proposal is under review. Offices are advised to await guidance or clearance from the DSWD Academy to ensure compliance with standards.
-                </div>
-      
-                {/* 6 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  Who is responsible for endorsing the activity proposal before submission to the DSWD Academy?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  The <strong>Head of the concerned Office, Bureau, Service, or Unit (OBSU)</strong> shall endorse and sign the activity proposal prior to its submission to the DSWD Academy for review. This endorsement signifies official approval of the proposed activity and confirms alignment with office priorities and resource commitments.
-                </div>
-      
-                {/* 7 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  How does an activity proposal get approved?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  Activity proposals are reviewed by the DSWD Academy, through the Capability Building Division-Professional Learning and Development Section (CBD-PLDS), to ensure alignment with Department standards and priorities. Here’s the usual flow:
-                  <br />
-                  <br />
-                  <p><strong>Submission</strong> – The proponent submits a formal request to the DSWD Academy, along with a draft proposal and the Design and Implementation Plan (DIP).</p>
-                  <p><strong>Review</strong> – The Capability Building Division (CBD) reviews the proposal’s content, methodology, and resources. If aligned with standards, a memorandum reply is issued; if revisions are needed, technical inputs and recommendations are provided.</p>
-                  <p><strong>Revision</strong> – The proponent revises the proposal based on the comments and recommendations. Once updated, the revised proposal is routed back to the DSWD Academy.</p>
-                  <p><strong>Endorsement</strong> – If the revised proposal is found in order, the DSWD Academy issues a memorandum endorsement to the Financial Service (FS).</p>
-                  <p><strong>Final Submission</strong> – The proponent attaches the DSWD Academy’s endorsement when submitting the proposal for final approval of cluster head or head of OBSU, or Financial Service for funding approval if applicable.</p>
-      
-                  <h3 className="font-bold mt-4 mb-2">Reference:</h3>
-                  <ul className="list-disc list-inside space-y-1">
-                    <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
-                    <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts.</li>
-                    <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
-                    <li>Memorandum from the Secretary (01 February 2024). Centralization of All Capability Building Activities (CBAs) of the Central Office to the SWIDB–DSWD Academy.</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-      
-            {/* Floating Split Deck (Lower Right, Footer Safe) */}
-            <div
-              className="fixed right-6 z-50 w-56 h-60"
-              style={{ bottom: `${bottomOffset}px` }}
+      {/* FAQ Content */}
+      <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
+        <h3 className="text-2xl md:text-3xl font-bold mb-8">
+          <span className="text-black">FAQS / </span>
+          <span className="text-[#2e3192]">{faqPages[0].label}</span>
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
+          {faqPages[0].items.map((faq, index) => (
+            <React.Fragment key={index}>
+              <div className="md:col-span-4 font-bold text-gray-800">{faq.q}</div>
+              <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">{faq.a}</div>
+            </React.Fragment>
+          ))}
+        </div>
+      </section>
+
+      {/* Floating Split Deck */}
+      <div className="fixed right-6 z-50 w-56 h-60" style={{ bottom: `${bottomOffset}px` }}>
+        {floatingCards.map((card, index) => {
+          const isTop = index === currentCard;
+          const offsetX = isTop ? -10 : 10;
+          const rotation = isTop ? -5 : 5;
+          const zIndex = isTop ? 20 : 10;
+
+          return (
+            <motion.div
+              key={card.title}
+              className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
+              style={{ zIndex }}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ x: offsetX, y: 0, rotate: rotation, scale: isTop ? 1 : 0.95, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              onClick={card.buttonAction}
             >
-              {floatingCards.map((card, index) => {
-                const isTop = index === currentCard;
-                const offsetX = isTop ? -10 : 10;
-                const offsetY = 0;
-                const rotation = isTop ? -5 : 5;
-                const zIndex = isTop ? 20 : 10;
-      
-                return (
-                  <motion.div
-                    key={card.title}
-                    className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
-                    style={{ zIndex }}
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{
-                      x: offsetX,
-                      y: offsetY,
-                      rotate: rotation,
-                      scale: isTop ? 1 : 0.95,
-                      opacity: 1,
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    onClick={card.buttonAction}
-                  >
-                    <div className="flex flex-col items-center text-center">
-                      <div className="mb-2">
-                        {React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}
-                      </div>
-                      <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
-                      <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
-                      <button className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base">
-                        {card.buttonText}
-                      </button>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+              <div className="flex flex-col items-center text-center">
+                <div className="mb-2">{React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}</div>
+                <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
+                <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
+                <button className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base">
+                  {card.buttonText}
+                </button>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
     </div>
   );
 };

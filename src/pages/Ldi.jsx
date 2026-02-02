@@ -1,4 +1,4 @@
-// src/pages/ActiveProfile.jsx
+// src/pages/Ldi.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   FaTicket,
 } from "react-icons/fa6";
 
+// Top FAQ cards
 const faqCards = [
   { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
   { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
@@ -22,6 +23,7 @@ const faqCards = [
   { title: "CBAs", icon: <FaComments />, path: "/cbas" },
 ];
 
+// Floating cards
 const floatingCards = [
   {
     title: "TA CLINIC",
@@ -39,30 +41,107 @@ const floatingCards = [
   },
 ];
 
+// Clean FAQ object
+const faqPages = [
+  {
+    label: "LDI-DIP",
+    items: [
+      {
+        q: "What is an LDI-DIP, and when is it required?",
+        a: (
+          <>
+            An LDI-DIP, or <strong>Learning and Development Intervention Design and Implementation Plan</strong>, is a structured matrix that provides <strong>clear guidance and direction to trainers</strong> in the conduct of a capability building activity. It outlines the <strong>flow of sessions using the 4As framework</strong> (Activity, Analysis, Abstraction, and Application) and specifies learning objectives, methods, and expected outputs. An LDI-DIP is required for structured capability building interventions.
+          </>
+        ),
+      },
+      {
+        q: "What is the difference between an LDI-DIP and an activity design matrix?",
+        a: (
+          <>
+            There is <strong>no substantive difference</strong> between an LDI-DIP and an activity design matrix. The LDI-DIP is the current term used by the DSWD Academy for what was formerly referred to as the activity design matrix. The <strong>terms may be used interchangeably</strong>, as both refer to the same matrix that outlines the session flow, learning objectives, methods, and expected outputs of a capability building activity.
+          </>
+        ),
+      },
+      {
+        q: "Which offices are required to prepare and submit LDI-DIPs?",
+        a: (
+          <>
+            All <strong>Offices, Bureaus, Services, and Units (OBSUs)</strong> proposing capability building activities are expected to prepare and submit an LDI-DIP to the DSWD Academy for review as an attachment to the activity proposal. An LDI-DIP <strong>may also be submitted as a standalone document</strong> when an OBSU requests guidance or technical assistance in the drafting or preparation of the activity design to <strong>ensure compliance with DSWD Academy learning and development standards</strong>.
+          </>
+        ),
+      },
+      {
+        q: "What are the common reasons for the return or revision of LDI-DIPs?",
+        a: (
+          <>
+            Common reasons include <strong>unclear</strong> objectives, <strong>misalignment</strong> with L&D standards, <strong>incomplete</strong> information, and <strong>inconsistencies</strong> between objectives, outputs, methods, and evaluation tools.
+          </>
+        ),
+      },
+      {
+        q: "Can previously approved LDI-DIPs be reused or adapted for similar activities?",
+        a: (
+          <>
+            Previously approved LDI-DIPs <strong>may be adapted</strong>, provided they are <strong>reviewed</strong> and <strong>updated</strong> to reflect the current <strong>context, participants,</strong> and <strong>objectives</strong>.
+          </>
+        ),
+      },
+      {
+        q: "How many iterations of review are allowed for an LDI-DIP?",
+        a: (
+          <>
+            LDI-DIPs <strong>may undergo several review iterations</strong> until minimum standards are met. The focus is on quality improvement rather than limiting the number of revisions.
+          </>
+        ),
+      },
+      {
+        q: "How many participants can join a capability building activity or training?",
+        a: (
+          <>
+            The <strong>appropriate number of participants</strong> in a capability building activity <strong>depends on the learning objectives and the nature of the activity</strong>. For activities with active skills practice and participatory learning, the DSWD Academy encourages a facilitator-to-participant <strong>ratio of 1:35</strong> to help ensure that learning objectives are met and participants have sufficient opportunities to engage and demonstrate learning. <strong>This ratio supports meaningful interaction and facilitation</strong>.
+            <br />
+            <strong>International practice</strong> shows that <strong>ideal group sizes</strong> for participatory adult learning tend to range between about <strong>15 to 30 participants</strong>, with smaller groups (e.g., 8–20) often recommended for deeper engagement and interaction, and larger groups managed through additional facilitators or breakout structures when learning goals are primarily informational or seminar-oriented.
+            <br />
+            Activities such as <strong>seminars or large conferences may accommodate more participants</strong> if the design and delivery approach support larger audiences, provided that <strong>additional facilitators or support mechanisms are in place</strong>. The major consideration in identifying participant numbers for any CBA remains the learning objectives and the methods required to achieve them.
+          </>
+        ),
+      },
+      {
+        q: "\u00A0",
+        a: (
+          <>
+            <strong>Reference:</strong>
+            <ul className="list-disc list-inside mt-2 space-y-1">
+              <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts.</li>
+              <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
+              <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
+              <li>Department of Social Welfare and Development (DSWD). Learning and Development (L&D) Guidebook.</li>
+            </ul>
+          </>
+        ),
+      },
+    ],
+  },
+];
+
 const Ldi = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const cardRefs = useRef([]);
   const [currentCard, setCurrentCard] = useState(0);
-  const [bottomOffset, setBottomOffset] = useState(32); // initial bottom-32
+  const [bottomOffset, setBottomOffset] = useState(32);
 
   const handleCardClick = (path) => {
     if (path) navigate(path);
   };
 
-  // Scroll active FAQ card into view
   useEffect(() => {
     const activeIndex = faqCards.findIndex((c) => c.path === location.pathname);
     if (activeIndex !== -1 && cardRefs.current[activeIndex]) {
-      cardRefs.current[activeIndex].scrollIntoView({
-        behavior: "smooth",
-        inline: "center",
-        block: "nearest",
-      });
+      cardRefs.current[activeIndex].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
   }, [location.pathname]);
 
-  // Rotate floating cards every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCard((prev) => (prev + 1) % floatingCards.length);
@@ -70,17 +149,15 @@ const Ldi = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Adjust floating deck so it doesn't cover footer
   useEffect(() => {
     const handleResize = () => {
-      const footer = document.getElementById("footer"); // make sure your footer has id="footer"
+      const footer = document.getElementById("footer");
       if (footer) {
         const footerRect = footer.getBoundingClientRect();
-        const spaceFromBottom = window.innerHeight - footerRect.top + 20; // 20px margin
+        const spaceFromBottom = window.innerHeight - footerRect.top + 20;
         setBottomOffset(Math.max(32, spaceFromBottom));
       }
     };
-
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -95,7 +172,6 @@ const Ldi = () => {
             <h2 className="text-[#FFE066] text-2xl md:text-3xl font-bold mb-8 text-center">
               Frequently Asked Questions
             </h2>
-
             <div className="flex gap-4 overflow-x-auto pb-6 md:grid md:grid-cols-2 lg:grid-cols-6 md:gap-6 md:overflow-visible p-2">
               {faqCards.map((card, index) => {
                 const isActive = location.pathname === card.path;
@@ -104,33 +180,16 @@ const Ldi = () => {
                     key={card.title}
                     ref={(el) => (cardRefs.current[index] = el)}
                     onClick={() => handleCardClick(card.path)}
-                    className={`
-                      flex flex-col items-center justify-center cursor-pointer
-                      ${isActive ? "bg-[#FFE066]" : "bg-white"}
-                      rounded-3xl
-                      p-4 sm:p-5 md:p-8
-                      min-w-[140px] sm:min-w-[160px] md:min-w-0
-                      hover:shadow-2xl
-                    `}
+                    className={`flex flex-col items-center justify-center cursor-pointer ${isActive ? "bg-[#FFE066]" : "bg-white"} rounded-3xl p-4 sm:p-5 md:p-8 min-w-[140px] sm:min-w-[160px] md:min-w-0 hover:shadow-2xl`}
                     whileHover={{ scale: 1.05, rotate: -4 }}
                     animate={{ rotate: isActive ? -4 : 0 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <div className="mb-2 sm:mb-3 md:mb-4 text-center">
-                      {React.cloneElement(card.icon, {
-                        size: isActive ? 50 : 35,
-                        className: "md:hidden",
-                      })}
-                      {React.cloneElement(card.icon, {
-                        size: isActive ? 70 : 60,
-                        className: "hidden md:block",
-                      })}
+                      {React.cloneElement(card.icon, { size: isActive ? 50 : 35, className: "md:hidden" })}
+                      {React.cloneElement(card.icon, { size: isActive ? 70 : 60, className: "hidden md:block" })}
                     </div>
-                    <h3
-                      className={`font-semibold text-center text-xs sm:text-sm md:text-lg ${
-                        isActive ? "text-[#2e3192]" : "text-gray-800"
-                      }`}
-                    >
+                    <h3 className={`font-semibold text-center text-xs sm:text-sm md:text-lg ${isActive ? "text-[#2e3192]" : "text-gray-800"}`}>
                       {card.title}
                     </h3>
                   </motion.div>
@@ -141,135 +200,52 @@ const Ldi = () => {
         </div>
       </section>
 
-      {/* Section Header */}
+      {/* Section Header / Clean FAQ Mapping */}
       <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
-              <h3 className="text-2xl md:text-3xl font-bold mb-8">
-                <span className="text-black">FAQS / </span>
-                <span className="text-[#2e3192]">Activity Proposal</span>
-              </h3>
-      
-              <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
-                {/* 1 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  What is an LDI-DIP, and when is it required?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  An LDI-DIP, or Learning and Development Intervention Design and Implementation Plan, is a structured matrix that provides clear guidance and direction to trainers in the conduct of a capability building activity. It outlines the flow of sessions using the 4As framework (Activity, Analysis, Abstraction, and Application) and specifies learning objectives, methods, and expected outputs. An LDI-DIP is required for structured capability building interventions.
-                </div>
-      
-                {/* 2 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  What is the difference between an LDI-DIP and an activity design matrix?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  There is no substantive difference between an LDI-DIP and an activity design matrix. The LDI-DIP is the current term used by the DSWD Academy for what was formerly referred to as the activity design matrix. The terms may be used interchangeably, as both refer to the same matrix that outlines the session flow, learning objectives, methods, and expected outputs of a capability building activity.
-                </div>
-      
-                {/* 3 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  Which offices are required to prepare and submit LDI-DIPs?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  All Offices, Bureaus, Services, and Units (OBSUs) proposing capability building activities are expected to prepare and submit an LDI-DIP to the DSWD Academy for review as an attachment to the activity proposal. An LDI-DIP may also be submitted as a standalone document when an OBSU requests guidance or technical assistance in the drafting or preparation of the activity design to ensure compliance with DSWD Academy learning and development standards.
-                </div>
-      
-                {/* 4 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  What are the common reasons for the return or revision of LDI-DIPs?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  Common reasons include unclear objectives, misalignment with L&D standards, incomplete information, and inconsistencies between objectives, outputs, methods, and evaluation tools.
-                </div>
-      
-                {/* 5 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  Can previously approved LDI-DIPs be reused or adapted for similar activities?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  Previously approved LDI-DIPs may be adapted, provided they are reviewed and updated to reflect the current context, participants, and objectives.
-                </div>
-      
-                {/* 6 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  How many iterations of review are allowed for an LDI-DIP?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  LDI-DIPs may undergo several review iterations until minimum standards are met. The focus is on quality improvement rather than limiting the number of revisions.
-                </div>
-      
-                {/* 7 */}
-                <div className="md:col-span-4 font-bold text-gray-800">
-                  How many participants can join a capability building activity or training?
-                </div>
-                <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
-                  The appropriate number of participants in a capability building activity depends on the learning objectives and the nature of the activity. For activities with active skills practice and participatory learning, the DSWD Academy encourages a facilitator-to-participant ratio of 1:35 to help ensure that learning objectives are met and participants have sufficient opportunities to engage and demonstrate learning. This ratio supports meaningful interaction and facilitation.
-                  <br />
-                  <br />
-                  International practice shows that ideal group sizes for participatory adult learning tend to range between about 15 to 30 participants, with smaller groups (e.g., 8–20) often recommended for deeper engagement and interaction, and larger groups managed through additional facilitators or breakout structures when learning goals are primarily informational or seminar-oriented.
-                  <br />
-                  <br />
-                  Activities such as seminars or large conferences may accommodate more participants if the design and delivery approach support larger audiences, provided that additional facilitators or support mechanisms are in place. The major consideration in identifying participant numbers for any CBA remains the learning objectives and the methods required to achieve them.
-                  <br />
-                  <br />
-                  <p><strong>Submission</strong> – The proponent submits a formal request to the DSWD Academy, along with a draft proposal and the Design and Implementation Plan (DIP).</p>
-                  <p><strong>Review</strong> – The Capability Building Division (CBD) reviews the proposal’s content, methodology, and resources. If aligned with standards, a memorandum reply is issued; if revisions are needed, technical inputs and recommendations are provided.</p>
-                  <p><strong>Revision</strong> – The proponent revises the proposal based on the comments and recommendations. Once updated, the revised proposal is routed back to the DSWD Academy.</p>
-                  <p><strong>Endorsement</strong> – If the revised proposal is found in order, the DSWD Academy issues a memorandum endorsement to the Financial Service (FS).</p>
-                  <p><strong>Final Submission</strong> – The proponent attaches the DSWD Academy’s endorsement when submitting the proposal for final approval of cluster head or head of OBSU, or Financial Service for funding approval if applicable.</p>
-      
-                  <h3 className="font-bold mt-4 mb-2">Reference:</h3>
-                  <ul className="list-disc list-inside space-y-1">
-                    <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts.</li>
-                    <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
-                    <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
-                    <li>Department of Social Welfare and Development (DSWD). Learning and Development (L&D) Guidebook.</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-      
-            {/* Floating Split Deck (Lower Right, Footer Safe) */}
-            <div
-              className="fixed right-6 z-50 w-56 h-60"
-              style={{ bottom: `${bottomOffset}px` }}
+        <h3 className="text-2xl md:text-3xl font-bold mb-8">
+          <span className="text-black">FAQS / </span>
+          <span className="text-[#2e3192]">LDI-DIP</span>
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
+          {faqPages[0].items.map((faq, index) => (
+            <React.Fragment key={index}>
+              {faq.q && <div className="md:col-span-4 font-bold text-gray-800">{faq.q}</div>}
+              <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">{faq.a}</div>
+            </React.Fragment>
+          ))}
+        </div>
+      </section>
+
+      {/* Floating Split Deck */}
+      <div className="fixed right-6 z-50 w-56 h-60" style={{ bottom: `${bottomOffset}px` }}>
+        {floatingCards.map((card, index) => {
+          const isTop = index === currentCard;
+          const offsetX = isTop ? -10 : 10;
+          const rotation = isTop ? -5 : 5;
+          const zIndex = isTop ? 20 : 10;
+
+          return (
+            <motion.div
+              key={card.title}
+              className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
+              style={{ zIndex }}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ x: offsetX, y: 0, rotate: rotation, scale: isTop ? 1 : 0.95, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              onClick={card.buttonAction}
             >
-              {floatingCards.map((card, index) => {
-                const isTop = index === currentCard;
-                const offsetX = isTop ? -10 : 10;
-                const offsetY = 0;
-                const rotation = isTop ? -5 : 5;
-                const zIndex = isTop ? 20 : 10;
-      
-                return (
-                  <motion.div
-                    key={card.title}
-                    className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
-                    style={{ zIndex }}
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{
-                      x: offsetX,
-                      y: offsetY,
-                      rotate: rotation,
-                      scale: isTop ? 1 : 0.95,
-                      opacity: 1,
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    onClick={card.buttonAction}
-                  >
-                    <div className="flex flex-col items-center text-center">
-                      <div className="mb-2">
-                        {React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}
-                      </div>
-                      <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
-                      <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
-                      <button className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base">
-                        {card.buttonText}
-                      </button>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+              <div className="flex flex-col items-center text-center">
+                <div className="mb-2">{React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}</div>
+                <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
+                <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
+                <button className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base">
+                  {card.buttonText}
+                </button>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-// src/pages/ActiveProfile.jsx
+// src/pages/Participant.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -13,6 +13,7 @@ import {
   FaTicket,
 } from "react-icons/fa6";
 
+// FAQ Cards for top navigation
 const faqCards = [
   { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
   { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
@@ -22,6 +23,7 @@ const faqCards = [
   { title: "CBAs", icon: <FaComments />, path: "/cbas" },
 ];
 
+// Floating cards data
 const floatingCards = [
   {
     title: "TA CLINIC",
@@ -36,6 +38,53 @@ const floatingCards = [
     description: "Submit a request ticket and we will reach out shortly.",
     buttonText: "Request Here",
     buttonAction: () => window.alert("Request Ticket Clicked"),
+  },
+];
+
+// Clean object-based FAQ data
+const faqPages = [
+  {
+    label: "Participant Eligibility",
+    items: [
+      {
+        q: "Who are eligible participants to capability building activities?",
+        a: (
+          <>
+            Eligible participants are <strong>determined by the objectives and target audience</strong> defined in the activity proposal and design.
+          </>
+        ),
+      },
+      {
+        q: "Are Contract of Service (COS) and Job Order (JO) personnel allowed to participate?",
+        a: (
+          <>
+            Participation of COS and JO personnel is <strong>subject to existing guidelines and the nature of the activity</strong> as indicated in the approved proposal.
+          </>
+        ),
+      },
+      {
+        q: "Are there limits on the number of participants per office or unit?",
+        a: (
+          <>
+            Limits may be set to ensure <strong>effective learning and equitable access</strong>, as specified in the invitation or activity design.
+          </>
+        ),
+      },
+      {
+        q: "\u00A0",
+        a: (
+          <>
+            <strong>Reference:</strong>
+            <ul className="list-disc list-inside mt-2 space-y-1">
+              <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts.</li>
+              <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
+              <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
+              <li>Department of Social Welfare and Development (DSWD). Learning and Development (L&D) Guidebook.</li>
+            </ul>
+          </>
+        ),
+      },
+    ],
   },
 ];
 
@@ -141,22 +190,31 @@ const Participant = () => {
         </div>
       </section>
 
-      {/* Section Header */}
-      <section className="max-w-[100rem] mx-auto px-4 md:px-20 lg:px-40 mb-12">
-        <h3 className="text-2xl md:text-3xl font-bold">
+      {/* Section Header / Clean FAQ Mapping */}
+      <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
+        <h3 className="text-2xl md:text-3xl font-bold mb-8">
           <span className="text-black">FAQS / </span>
           <span className="text-[#2e3192]">Participant Eligibility</span>
         </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
+          {faqPages[0].items.map((faq, index) => (
+            <React.Fragment key={index}>
+              {faq.q && (
+                <div className="md:col-span-4 font-bold text-gray-800">{faq.q}</div>
+              )}
+              <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
+                {faq.a}
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
       </section>
 
       {/* Floating Split Deck (Lower Right, Footer Safe) */}
-      <div
-        className="fixed right-6 z-50 w-72 h-64"
-        style={{ bottom: `${bottomOffset}px` }}
-      >
+      <div className="fixed right-6 z-50 w-56 h-60" style={{ bottom: `${bottomOffset}px` }}>
         {floatingCards.map((card, index) => {
           const isTop = index === currentCard;
-          // Split effect: top card moves slightly left, back card slightly right
           const offsetX = isTop ? -10 : 10;
           const offsetY = 0;
           const rotation = isTop ? -5 : 5;
@@ -165,7 +223,7 @@ const Participant = () => {
           return (
             <motion.div
               key={card.title}
-              className="absolute bg-white rounded-2xl shadow-xl w-64 cursor-pointer flex flex-col items-center p-4 md:p-6"
+              className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
               style={{ zIndex }}
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{
@@ -180,10 +238,10 @@ const Participant = () => {
             >
               <div className="flex flex-col items-center text-center">
                 <div className="mb-2">
-                  {React.cloneElement(card.icon, { size: 40, className: "text-[#2e3192]" })}
+                  {React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-[#2e3192] mb-2">{card.title}</h3>
-                <p className="text-gray-600 text-xs md:text-sm mb-2">{card.description}</p>
+                <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
+                <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
                 <button className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base">
                   {card.buttonText}
                 </button>
