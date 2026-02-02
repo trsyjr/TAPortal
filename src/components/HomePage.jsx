@@ -1,5 +1,7 @@
+// src/components/HomePage.jsx
 import React from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import {
   FaFileCircleCheck,
   FaFileLines,
@@ -11,22 +13,28 @@ import {
 import TABG from "../assets/TABG.png";
 
 const faqCards = [
-  { title: "ACTIVITY PROFILE", icon: <FaFileLines size={50} /> },
-  { title: "LDI-DIP", icon: <FaNetworkWired size={50} /> },
-  { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck size={50} /> },
-  { title: "TA and SUPPORT", icon: <FaHandshake size={50} /> },
-  { title: "L&D STANDARDS", icon: <FaFileCircleCheck size={50} /> },
-  { title: "CBAs", icon: <FaComments size={50} /> },
+  { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
+  { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
+  { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
+  { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
+  { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
+  { title: "CBAs", icon: <FaComments />, path: "/cbas" },
 ];
 
 const HomePage = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (path) => {
+    if (path) navigate(path);
+  };
+
   return (
     <div className="pt-20 font-sans relative">
-      {/* Background for entire HomePage up to FAQ middle */}
+      {/* Background */}
       <div
         className="absolute top-0 left-0 right-0 z-0"
         style={{
-          height: "680px", // <-- adjust this to control how far the BG extends
+          height: "680px",
           backgroundImage: `url(${TABG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -50,9 +58,7 @@ const HomePage = () => {
           <p className="text-gray-700 text-base md:text-lg leading-relaxed font-semibold">
             Coordination with the DSWD Academy is required at the planning stage,
             prior to implementation, when significant changes to the activity are
-            proposed, and whenever further technical assistance is needed, such as
-            requests for activity management, resource persons, facilitation, or
-            accreditation for CPD.
+            proposed, and whenever further technical assistance is needed.
           </p>
         </div>
 
@@ -62,23 +68,29 @@ const HomePage = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="flex justify-center relative z-10">
-        <div className="bg-[#2e3192] rounded-3xl p-10 w-full max-w-[100rem]">
-          <h2 className="text-[#FFE066] text-3xl font-bold mb-8 text-center">
+      <section className="relative z-10 mb-12">
+        <div className="bg-[#2e3192] rounded-3xl w-full max-w-[100rem] mx-auto p-6 md:p-10">
+          <h2 className="text-[#FFE066] text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">
             Frequently Asked Questions
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
+          {/* MOBILE: horizontal scroll | DESKTOP: grid */}
+          <div className="flex gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-2 lg:grid-cols-6 md:gap-4 md:overflow-visible">
             {faqCards.map((card) => (
               <motion.div
                 key={card.title}
-                className="bg-white rounded-lg p-8 flex flex-col items-center justify-center hover:shadow-xl cursor-pointer"
                 whileHover={{ scale: 1.05 }}
+                onClick={() => handleCardClick(card.path)}
+                className="min-w-[160px] sm:min-w-[180px] md:min-w-0 bg-white rounded-3xl p-4 md:p-8 flex flex-col items-center justify-center hover:shadow-xl cursor-pointer"
               >
-                <div className="text-[#2e3192] mb-4">
-                  {React.cloneElement(card.icon, { size: 70 })}
+                {/* Icon */}
+                <div className="text-[#2e3192] mb-2 md:mb-4">
+                  {React.cloneElement(card.icon, { size: 40, className: "md:hidden" })}
+                  {React.cloneElement(card.icon, { size: 70, className: "hidden md:block" })}
                 </div>
-                <h3 className="font-semibold text-gray-800 text-lg md:text-xl text-center">
+
+                {/* Title */}
+                <h3 className="font-semibold text-gray-800 text-sm md:text-lg text-center">
                   {card.title}
                 </h3>
               </motion.div>
