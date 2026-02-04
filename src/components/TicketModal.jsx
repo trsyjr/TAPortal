@@ -23,37 +23,35 @@ const TicketModal = ({ isOpen, onClose }) => {
   }, [isOpen, reset]);
 
   const onSubmit = async (data) => {
+  try {
+    const res = await fetch("http://localhost:5000/ticket", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    });
+
+    const text = await res.text();
+    console.log("RAW server response:", text);
+
+    let result;
     try {
-      // Call Vercel serverless API
-      const res = await fetch("/api/ticket", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const text = await res.text();
-      console.log("RAW response:", text);
-
-      let result;
-      try {
-        result = JSON.parse(text);
-      } catch (err) {
-        console.error("Invalid JSON from server:", err);
-        toast.error("Server returned invalid response. Check console.");
-        return;
-      }
-
-      if (result.success) {
-        toast.success(`Ticket #${result.id} submitted successfully!`);
-        onClose();
-      } else {
-        toast.error(`Error submitting ticket: ${result.error || result.message}`);
-      }
-    } catch (err) {
-      console.error("Fetch error:", err);
-      toast.error("Error submitting ticket. Please try again.");
+      result = JSON.parse(text);
+    } catch {
+      return alert("Server returned invalid response. Check console.");
     }
-  };
+
+    if (result.success) {
+      toast.success(`Ticket #${result.id} submitted successfully!`);
+      onClose();
+    } else {
+      toast.error(`Error submitting ticket: ${result.error || result.message}`);
+    }
+  } catch (err) {
+    console.error("Fetch error:", err);
+    toast.error("Error submitting ticket. Please try again.");
+  }
+};
+
 
   return (
     <AnimatePresence>
