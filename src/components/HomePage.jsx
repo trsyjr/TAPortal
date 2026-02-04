@@ -1,6 +1,7 @@
 // src/components/HomePage.jsx
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {
   FaFileCircleCheck,
@@ -62,9 +63,11 @@ const HomePage = () => {
           </p>
         </div>
 
-        <button className="mt-6 px-10 py-4 border border-gray-700 text-gray-700 rounded-lg text-lg font-semibold hover:bg-gray-100 transition">
-          Learn More
-        </button>
+        <Link to="/about">
+          <button className="mt-6 px-10 py-4 border border-gray-700 text-gray-700 rounded-lg text-lg font-semibold hover:bg-gray-100 transition">
+            Learn More
+          </button>
+        </Link>
       </section>
 
       {/* FAQ Section */}

@@ -53,13 +53,21 @@ const faqPages = [
             The CBD-PLDS provides technical assistance in the following areas of Capability Building:
             <br />
             <br />
-            <strong>Review of Training Proposals:</strong> This assistance ensures training proposals from the Offices, Bureaus, and Services (OBS) meet DSWD Academy’s standards by assessing design, content, objectives, methodologies, and alignment with competency frameworks for quality assurance in learning interventions.
+            <strong>Review of Training Proposals:</strong>
             <br />
-            <strong>Training Management Standards:</strong> This TA ensures DSWD Academy’s quality standards in training programs by guiding the application of standardized processes in planning, implementation, documentation, and evaluation, promoting efficiency, consistency, and learner-centered approaches.
+            This assistance ensures training proposals from the Offices, Bureaus, and Services (OBS) meet DSWD Academy’s standards by assessing design, content, objectives, methodologies, and alignment with competency frameworks for quality assurance in learning interventions.
             <br />
-            <strong>Monitoring and Evaluation of Learning:</strong> This service offers technical support in measuring training effectiveness, including developing M&E tools, analyzing outcomes, and providing evidence-based recommendations for improving future initiatives.
-
-            <strong>Capability Building Planning and Reporting:</strong> This technical assistance helps DSWD offices develop and report CB Plans and Accomplishment Reports by guiding them in identifying development needs, aligning efforts with strategic priorities, setting targets, and documenting progress to inform future capability building.
+            <strong>Training Management Standards:</strong>
+            <br />
+            This TA ensures DSWD Academy’s quality standards in training programs by guiding the application of standardized processes in planning, implementation, documentation, and evaluation, promoting efficiency, consistency, and learner-centered approaches.
+            <br />
+            <strong>Monitoring and Evaluation of Learning:</strong>
+            <br />
+            This service offers technical support in measuring training effectiveness, including developing M&E tools, analyzing outcomes, and providing evidence-based recommendations for improving future initiatives.
+            <br />
+            <strong>Capability Building Planning and Reporting:</strong>
+            <br />
+            This technical assistance helps DSWD offices develop and report CB Plans and Accomplishment Reports by guiding them in identifying development needs, aligning efforts with strategic priorities, setting targets, and documenting progress to inform future capability building.
           </>
         ),
       },
@@ -67,7 +75,7 @@ const faqPages = [
         q: "How can offices request technical assistance along capability building?",
         a: (
           <>
-            TA requests can be submitted through <strong>official communication channels</strong> or <strong>scheduled mechanisms</strong> such as TA Wednesdays.
+            TA requests may be submitted through <strong>official communication channels</strong> or <strong>scheduled mechanisms</strong> such as TA Wednesdays.
           </>
         ),
       },
@@ -75,7 +83,7 @@ const faqPages = [
         q: "When should an office avail of TA Wednesdays instead of submitting documents for review?",
         a: (
           <>
-            TA Wednesdays are recommended for <strong>clarifications, initial guidance, and quick consultations</strong> prior to formal submission..
+            TA Wednesdays are recommended for <strong>clarifications, initial guidance, and quick consultations</strong> prior to formal submission.
           </>
         ),
       },
@@ -96,10 +104,6 @@ const faqPages = [
           <>
             <strong>Reference:</strong>
             <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts.</li>
-              <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
-              <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
-              <li>Department of Social Welfare and Development (DSWD). Learning and Development (L&D) Guidebook.</li>
             </ul>
           </>
         ),

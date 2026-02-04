@@ -47,18 +47,18 @@ const faqPages = [
     label: "Participant Eligibility",
     items: [
       {
-        q: "Who are eligible participants to capability building activities?",
+        q: "Who are eligible participants to the capability building activities?",
         a: (
           <>
-            Eligible participants are <strong>determined by the objectives and target audience</strong> defined in the activity proposal and design.
+            Eligible participants to a CBA are <strong>subject to the objectives and target audience</strong> defined in the activity proposal and design.
           </>
         ),
       },
       {
-        q: "Are Contract of Service (COS) and Job Order (JO) personnel allowed to participate?",
+        q: "Are Contract of Service (COS) and Job Order (JO) personnel allowed to participate in activities?",
         a: (
           <>
-            Participation of COS and JO personnel is <strong>subject to existing guidelines and the nature of the activity</strong> as indicated in the approved proposal.
+            Participation of COS and JO personnel is <strong>subject to existing guidelines and the nature of the activity</strong>, as indicated in the approved proposal.
           </>
         ),
       },
@@ -66,7 +66,7 @@ const faqPages = [
         q: "Are there limits on the number of participants per office or unit?",
         a: (
           <>
-            Limits may be set to ensure <strong>effective learning and equitable access</strong>, as specified in the invitation or activity design.
+            Participant limits <strong>may be set</strong> to ensure effective learning and equitable access, as specified in the invitation or activity design.
           </>
         ),
       },
@@ -76,10 +76,7 @@ const faqPages = [
           <>
             <strong>Reference:</strong>
             <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts.</li>
-              <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
-              <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
-              <li>Department of Social Welfare and Development (DSWD). Learning and Development (L&D) Guidebook.</li>
+              <li>Memorandum from the Secretary (07 February 2024). Guidance on the Provision of Learning Activities for Contract of Service (COS) and Job Order (JO) Workers.</li>
             </ul>
           </>
         ),

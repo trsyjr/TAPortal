@@ -6,7 +6,7 @@ import HomePage from "./components/HomePage";
 import OtherOptions from "./components/OtherOptions";
 import NewsEvents from "./components/NewsEvents";
 import About from "./pages/About";
-
+import KnowledgeBank from "./pages/KnowledgeBank";
 import ActiveProfile from "./pages/ActiveProfile";
 import Ldi from "./pages/Ldi";
 import Participant from "./pages/Participant";
@@ -31,6 +31,7 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/calendar" element={<div className="pt-28 px-6">Training Calendar Page</div>} />
+        <Route path="/knowledgebank" element={<KnowledgeBank />} />
         <Route path="/resources" element={<div className="pt-28 px-6">Resources Page</div>} />
 
         {/* FAQ Pages */}

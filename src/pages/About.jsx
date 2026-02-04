@@ -58,9 +58,8 @@ const About = () => {
       <section className="max-w-[100rem] mx-auto px-6 md:px-20 lg:px-40 py-12 space-y-12">
         {/* Header */}
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">
-            <span className="text-black">ABOUT / </span>
-            <span className="text-[#2e3192]">The DSWD Academy</span>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#2e3192]">
+            The DSWD Academy
           </h2>
           <p className="text-gray-700 text-sm md:text-base leading-relaxed">
             The DSWD Academy is the Department of Social Welfare and Development’s (DSWD) professional learning institute, mandated to set standards and provide learning opportunities that enhance the competencies of its partner-stakeholders. It focuses on strengthening the delivery of gender-responsive and socially inclusive social welfare and development (SWD) and social protection programs and services.

@@ -200,7 +200,7 @@ const CBA = () => {
           <span className="text-[#2e3192]">Capability Building Activities (CBAs)</span>
         </h3>
 
-        <p className="text-[#2e3192] font-semibold mb-8">
+        <p className="text-[#2e3192] font-semibold mb-8 mt-8">
           {faqPages[faqPage].label}
         </p>
 
