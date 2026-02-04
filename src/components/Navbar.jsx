@@ -19,13 +19,15 @@ const Navbar = () => {
     <>
       {/* Navbar container */}
       <nav className="w-full fixed top-0 left-0 z-40 backdrop-blur-lg bg-white/20 border-b border-white/30 shadow-lg transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          {/* Logo */}
-          <div>
+        <div className="flex items-center justify-between w-full px-6 md:px-12 py-4">
+          
+          {/* Logo on the left */}
+          <div className="flex-shrink-0">
             <NavLink to="/">
               <img src={TALogo} alt="TA Portal Logo" className="h-12 md:h-16" />
             </NavLink>
           </div>
+
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex space-x-8 font-semibold text-gray-700">
@@ -65,7 +67,7 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl p-8 flex flex-col space-y-6 z-50 md:hidden" // hidden on desktop
+            className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl p-8 flex flex-col space-y-6 z-50 md:hidden"
           >
             {/* X Close Button */}
             <button

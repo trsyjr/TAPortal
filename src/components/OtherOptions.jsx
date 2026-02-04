@@ -1,7 +1,10 @@
-import React from "react";
-import { FaLaptopMedical, FaTicketAlt } from "react-icons/fa";
+import React, { useState } from "react";
+import TicketModal from "./TicketModal";
+import { FaTicketAlt, FaLaptopMedical } from "react-icons/fa";
 
 const OtherOptions = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <section className="py-5 px-6 md:px-20 lg:px-40 text-center font-sans">
       <h2 className="text-md md:text-lg font-semibold mb-12 text-gray-800">
@@ -9,7 +12,7 @@ const OtherOptions = () => {
       </h2>
 
       <div className="flex flex-col md:flex-row items-stretch justify-center space-y-6 md:space-y-0 md:space-x-6">
-        {/* Card 1 */}
+        {/* TA Clinic Card */}
         <div className="bg-white rounded-2xl p-16 flex-1 flex flex-col items-center shadow-md hover:shadow-xl transition transform hover:scale-105">
           <div className="relative mb-6">
             <FaLaptopMedical size={100} className="text-[#2e3192]" />
@@ -28,7 +31,7 @@ const OtherOptions = () => {
           OR
         </div>
 
-        {/* Card 2 */}
+        {/* Ticket Request Card */}
         <div className="bg-white rounded-2xl p-16 flex-1 flex flex-col items-center shadow-md hover:shadow-xl transition transform hover:scale-105">
           <div className="mb-6">
             <FaTicketAlt size={100} className="text-[#2e3192]" />
@@ -37,11 +40,17 @@ const OtherOptions = () => {
           <p className="text-gray-600 text-center mb-6 text-lg md:text-xl">
             Please submit a request ticket, and we will reach out to you shortly.
           </p>
-          <button className="bg-[#FFE066] mt-2 px-10 py-4 border border-gray-700 text-gray-700 rounded-full transition transform hover:scale-105 font-semibold text-lg md:text-xl">
+          <button
+            onClick={() => setModalOpen(true)}
+            className="bg-[#FFE066] mt-2 px-10 py-4 border border-gray-700 text-gray-700 rounded-full transition transform hover:scale-105 font-semibold text-lg md:text-xl"
+          >
             Request Here
           </button>
         </div>
       </div>
+
+      {/* Ticket Modal */}
+      <TicketModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </section>
   );
 };
