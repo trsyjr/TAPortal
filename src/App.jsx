@@ -15,6 +15,10 @@ import TASupport from "./pages/TASupport";
 import LD from "./pages/LD";
 import CBA from "./pages/CBA";
 
+// Import react-toastify
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
   return (
     <Router>
@@ -31,7 +35,10 @@ function App() {
           }
         />
         <Route path="/about" element={<About />} />
-        <Route path="/calendar" element={<div className="pt-28 px-6">Training Calendar Page</div>} />
+        <Route
+          path="/calendar"
+          element={<div className="pt-28 px-6">Training Calendar Page</div>}
+        />
         <Route path="/knowledgebank" element={<KnowledgeBank />} />
         <Route path="/resources" element={<Resources />} />
 
@@ -44,6 +51,9 @@ function App() {
         <Route path="/cbas" element={<CBA />} />
       </Routes>
       <Footer />
+
+      {/* Toast container added here */}
+      <ToastContainer position="top-right" autoClose={3000} />
     </Router>
   );
 }

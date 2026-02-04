@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTimes, FaChevronDown } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const TicketModal = ({ isOpen, onClose }) => {
   const {
@@ -23,39 +24,34 @@ const TicketModal = ({ isOpen, onClose }) => {
 
   const onSubmit = async (data) => {
     try {
-      // POST to your local proxy
-      const res = await fetch("http://localhost:5000/ticket", {
+      // Call Vercel serverless API
+      const res = await fetch("/api/ticket", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
 
-      // Get raw response for debugging
       const text = await res.text();
-      console.log("RAW Apps Script response:", text);
+      console.log("RAW response:", text);
 
-      // Try parsing JSON
       let result;
       try {
         result = JSON.parse(text);
       } catch (err) {
-        console.error("Failed to parse JSON:", err);
-        alert("Error: Invalid response from server. Check console.");
+        console.error("Invalid JSON from server:", err);
+        toast.error("Server returned invalid response. Check console.");
         return;
       }
 
-      // Handle success / error
       if (result.success) {
-        alert("Ticket submitted successfully!");
+        toast.success(`Ticket #${result.id} submitted successfully!`);
         onClose();
-        reset();
-        setCommunication("");
       } else {
-        alert("Error submitting ticket: " + (result.error || "Unknown error"));
+        toast.error(`Error submitting ticket: ${result.error || result.message}`);
       }
     } catch (err) {
       console.error("Fetch error:", err);
-      alert("Error submitting ticket. Please try again.");
+      toast.error("Error submitting ticket. Please try again.");
     }
   };
 
@@ -141,7 +137,7 @@ const TicketModal = ({ isOpen, onClose }) => {
                 )}
               </div>
 
-              {/* Ways to Communicate */}
+              {/* Communication */}
               <div className="flex flex-col relative">
                 <select
                   {...register("communication", { required: true })}
