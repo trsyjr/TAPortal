@@ -14,17 +14,19 @@ const TicketModal = ({ isOpen, onClose }) => {
   } = useForm();
 
   const [communication, setCommunication] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
       reset();
       setCommunication("");
+      setIsSubmitting(false);
     }
   }, [isOpen, reset]);
 
   const onSubmit = async (data) => {
+    setIsSubmitting(true);
     try {
-      // Always call the Vercel API route
       const res = await fetch("/api/ticket", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -38,7 +40,9 @@ const TicketModal = ({ isOpen, onClose }) => {
       try {
         result = JSON.parse(text);
       } catch {
-        return toast.error("Server returned invalid response. Check console.");
+        toast.error("Server returned invalid response. Check console.");
+        setIsSubmitting(false);
+        return;
       }
 
       if (result.success) {
@@ -50,6 +54,8 @@ const TicketModal = ({ isOpen, onClose }) => {
     } catch (err) {
       console.error("Fetch error:", err);
       toast.error("Error submitting ticket. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -74,6 +80,7 @@ const TicketModal = ({ isOpen, onClose }) => {
             exit={{ opacity: 0, y: "-50%", x: "-50%", scale: 0.8 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
+            {/* Close Button */}
             <button
               onClick={onClose}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
@@ -88,6 +95,7 @@ const TicketModal = ({ isOpen, onClose }) => {
             <form
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
               onSubmit={handleSubmit(onSubmit)}
+              autoComplete="off" // Disable browser autocomplete
             >
               {/* Full Name */}
               <div className="flex flex-col">
@@ -95,7 +103,10 @@ const TicketModal = ({ isOpen, onClose }) => {
                   {...register("fullname", { required: true })}
                   type="text"
                   placeholder="Full Name"
-                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.fullname ? "border-red-500" : "border-gray-300"}`}
+                  autoComplete="off"
+                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.fullname ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
                 {errors.fullname && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
@@ -106,7 +117,10 @@ const TicketModal = ({ isOpen, onClose }) => {
                   {...register("email", { required: true })}
                   type="email"
                   placeholder="Email Address"
-                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? "border-red-500" : "border-gray-300"}`}
+                  autoComplete="off"
+                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
                 {errors.email && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
@@ -117,7 +131,10 @@ const TicketModal = ({ isOpen, onClose }) => {
                   {...register("office", { required: true })}
                   type="text"
                   placeholder="Office / Bureau / Division"
-                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.office ? "border-red-500" : "border-gray-300"}`}
+                  autoComplete="off"
+                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.office ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
                 {errors.office && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
@@ -128,9 +145,13 @@ const TicketModal = ({ isOpen, onClose }) => {
                   {...register("communication", { required: true })}
                   value={communication}
                   onChange={(e) => setCommunication(e.target.value)}
-                  className={`border rounded-lg px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none ${errors.communication ? "border-red-500" : "border-gray-300"}`}
+                  className={`border rounded-lg px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none ${
+                    errors.communication ? "border-red-500" : "border-gray-300"
+                  }`}
                 >
-                  <option value="" disabled>Ways to Communicate</option>
+                  <option value="" disabled>
+                    Ways to Communicate
+                  </option>
                   <option value="Face to Face">Face to Face</option>
                   <option value="Gmeet">Gmeet</option>
                   <option value="Gchat">Gchat</option>
@@ -146,7 +167,10 @@ const TicketModal = ({ isOpen, onClose }) => {
                   {...register("issue", { required: true })}
                   placeholder="Issue / Concern"
                   rows={4}
-                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.issue ? "border-red-500" : "border-gray-300"}`}
+                  autoComplete="off"
+                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.issue ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
                 {errors.issue && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
@@ -154,9 +178,12 @@ const TicketModal = ({ isOpen, onClose }) => {
               {/* Submit */}
               <button
                 type="submit"
-                className="bg-[#2e3192] text-white font-semibold py-3 rounded-lg hover:bg-[#1b1f6f] transition md:col-span-2"
+                disabled={isSubmitting}
+                className={`bg-[#2e3192] text-white font-semibold py-3 rounded-lg transition md:col-span-2 ${
+                  isSubmitting ? "opacity-50 cursor-not-allowed" : "hover:bg-[#1b1f6f]"
+                }`}
               >
-                Submit
+                {isSubmitting ? "Sending..." : "Submit"}
               </button>
             </form>
           </motion.div>
