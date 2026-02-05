@@ -15,7 +15,6 @@ const TicketModal = ({ isOpen, onClose }) => {
 
   const [communication, setCommunication] = useState("");
 
-  // Reset form when modal closes
   useEffect(() => {
     if (!isOpen) {
       reset();
@@ -25,7 +24,7 @@ const TicketModal = ({ isOpen, onClose }) => {
 
   const onSubmit = async (data) => {
     try {
-      // Always use relative path; works on localhost (dev) and Vercel (prod)
+      // Use relative path for Vercel deployment
       const url = "/api/ticket";
 
       const res = await fetch(url, {
@@ -60,7 +59,6 @@ const TicketModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Dark overlay */}
           <motion.div
             className="fixed inset-0 bg-black/50 z-40"
             initial={{ opacity: 0 }}
@@ -68,8 +66,6 @@ const TicketModal = ({ isOpen, onClose }) => {
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
-
-          {/* Modal */}
           <motion.div
             className="fixed top-1/2 left-1/2 z-50 w-full max-w-2xl bg-white rounded-2xl p-8 md:p-12 shadow-xl"
             initial={{ opacity: 0, y: "-50%", x: "-50%", scale: 0.8 }}
@@ -77,7 +73,6 @@ const TicketModal = ({ isOpen, onClose }) => {
             exit={{ opacity: 0, y: "-50%", x: "-50%", scale: 0.8 }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
-            {/* Close Button */}
             <button
               onClick={onClose}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
@@ -89,11 +84,7 @@ const TicketModal = ({ isOpen, onClose }) => {
               Request Ticket
             </h2>
 
-            <form
-              className="grid grid-cols-1 md:grid-cols-2 gap-6"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              {/* Full Name */}
+            <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col">
                 <input
                   {...register("fullname", { required: true })}
@@ -106,7 +97,6 @@ const TicketModal = ({ isOpen, onClose }) => {
                 {errors.fullname && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
-              {/* Email */}
               <div className="flex flex-col">
                 <input
                   {...register("email", { required: true })}
@@ -119,7 +109,6 @@ const TicketModal = ({ isOpen, onClose }) => {
                 {errors.email && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
-              {/* Office */}
               <div className="flex flex-col">
                 <input
                   {...register("office", { required: true })}
@@ -132,7 +121,6 @@ const TicketModal = ({ isOpen, onClose }) => {
                 {errors.office && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
-              {/* Communication */}
               <div className="flex flex-col relative">
                 <select
                   {...register("communication", { required: true })}
@@ -154,7 +142,6 @@ const TicketModal = ({ isOpen, onClose }) => {
                 {errors.communication && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
-              {/* Issue */}
               <div className="md:col-span-2 flex flex-col">
                 <textarea
                   {...register("issue", { required: true })}
@@ -167,7 +154,6 @@ const TicketModal = ({ isOpen, onClose }) => {
                 {errors.issue && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
-              {/* Submit */}
               <button
                 type="submit"
                 className="bg-[#2e3192] text-white font-semibold py-3 rounded-lg hover:bg-[#1b1f6f] transition md:col-span-2"
