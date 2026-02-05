@@ -15,6 +15,7 @@ const TicketModal = ({ isOpen, onClose }) => {
 
   const [communication, setCommunication] = useState("");
 
+  // Reset form when modal closes
   useEffect(() => {
     if (!isOpen) {
       reset();
@@ -24,11 +25,8 @@ const TicketModal = ({ isOpen, onClose }) => {
 
   const onSubmit = async (data) => {
     try {
-      // Use relative path for Vercel deployment or localhost proxy
-      const url =
-        process.env.NODE_ENV === "production"
-          ? "/api/ticket" // Vercel deployment API route
-          : "http://localhost:5000/ticket"; // Local proxy
+      // Always use relative path; works on localhost (dev) and Vercel (prod)
+      const url = "/api/ticket";
 
       const res = await fetch(url, {
         method: "POST",
@@ -62,7 +60,7 @@ const TicketModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Dark background */}
+          {/* Dark overlay */}
           <motion.div
             className="fixed inset-0 bg-black/50 z-40"
             initial={{ opacity: 0 }}
@@ -105,9 +103,7 @@ const TicketModal = ({ isOpen, onClose }) => {
                     errors.fullname ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.fullname && (
-                  <span className="text-red-500 text-sm mt-1">Required</span>
-                )}
+                {errors.fullname && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
               {/* Email */}
@@ -120,9 +116,7 @@ const TicketModal = ({ isOpen, onClose }) => {
                     errors.email ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.email && (
-                  <span className="text-red-500 text-sm mt-1">Required</span>
-                )}
+                {errors.email && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
               {/* Office */}
@@ -135,9 +129,7 @@ const TicketModal = ({ isOpen, onClose }) => {
                     errors.office ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.office && (
-                  <span className="text-red-500 text-sm mt-1">Required</span>
-                )}
+                {errors.office && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
               {/* Communication */}
@@ -159,9 +151,7 @@ const TicketModal = ({ isOpen, onClose }) => {
                   <option value="Email">Email</option>
                 </select>
                 <FaChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
-                {errors.communication && (
-                  <span className="text-red-500 text-sm mt-1">Required</span>
-                )}
+                {errors.communication && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
               {/* Issue */}
@@ -174,9 +164,7 @@ const TicketModal = ({ isOpen, onClose }) => {
                     errors.issue ? "border-red-500" : "border-gray-300"
                   }`}
                 />
-                {errors.issue && (
-                  <span className="text-red-500 text-sm mt-1">Required</span>
-                )}
+                {errors.issue && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
               {/* Submit */}

@@ -1,7 +1,8 @@
-import fetch from "node-fetch"; // Node 18+ has global fetch, optional
+// pages/api/ticket.js
+import fetch from "node-fetch";
 
-// Your published Apps Script URL
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8pMXKyvw0OdRuRtJCh3nyvsjYLYpGcpE4_fQs9mnhUGZB7RCDzjxqf9dbWh3ktBgKdA/exec";
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycby8pMXKyvw0OdRuRtJCh3nyvsjYLYpGcpE4_fQs9mnhUGZB7RCDzjxqf9dbWh3ktBgKdA/exec";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -24,15 +25,13 @@ export default async function handler(req, res) {
     } catch {
       return res.status(500).json({
         success: false,
-        error: "Invalid response from Apps Script",
+        error: "Invalid JSON from Apps Script",
         raw: text,
       });
     }
 
-    return res.status(200).json(data);
-
+    res.status(200).json(data);
   } catch (err) {
-    console.error("Fetch error:", err);
-    return res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, error: err.message });
   }
 }
