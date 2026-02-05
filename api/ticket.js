@@ -1,7 +1,7 @@
 // pages/api/ticket.js
 import fetch from "node-fetch";
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8pMXKyvw0OdRuRtJCh3nyvsjYLYpGcpE4_fQs9mnhUGZB7RCDzjxqf9dbWh3ktBgKdA/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbylnm7jEORk1I-zvLHyYmBtYC8ZBU3nwng6uQjVpbCKnHXCtOWzH44YiPYAHTDuZxqo/exec";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
