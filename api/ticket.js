@@ -1,7 +1,8 @@
 // pages/api/ticket.js
-import fetch from "node-fetch";
+import fetch from "node-fetch"; // Node 18+ has fetch built-in, optional
 
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwc4-rHN6MUt5SlmkASV5lOVZ5Uq67ghZczOB5sQndLtnfVw_dbI0TdUDwYQaI1gGBdTg/exec";
+// Your deployed Google Apps Script URL (web app)
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwsZg3doNPMN7jWR-q6dpM15x829H6OD9zAwOUdrJCPO9W8jwqQlNjW2QP0Jh80qjBgTg/exec";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -23,17 +24,17 @@ export default async function handler(req, res) {
     try {
       data = JSON.parse(text);
     } catch (err) {
-      console.error("Failed to parse JSON:", err);
       return res.status(500).json({
         success: false,
-        error: "Invalid response from Apps Script",
+        error: "Invalid JSON returned by Apps Script",
         raw: text,
       });
     }
 
-    return res.status(200).json(data);
+    res.status(200).json(data);
+
   } catch (err) {
     console.error("Fetch error:", err);
-    return res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, error: err.message });
   }
 }

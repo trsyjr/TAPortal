@@ -24,10 +24,8 @@ const TicketModal = ({ isOpen, onClose }) => {
 
   const onSubmit = async (data) => {
     try {
-      // Use relative path for Vercel deployment
-      const url = "/api/ticket";
-
-      const res = await fetch(url, {
+      // Always call the Vercel API route
+      const res = await fetch("/api/ticket", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -59,6 +57,7 @@ const TicketModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Dark background */}
           <motion.div
             className="fixed inset-0 bg-black/50 z-40"
             initial={{ opacity: 0 }}
@@ -66,6 +65,8 @@ const TicketModal = ({ isOpen, onClose }) => {
             exit={{ opacity: 0 }}
             onClick={onClose}
           />
+
+          {/* Modal */}
           <motion.div
             className="fixed top-1/2 left-1/2 z-50 w-full max-w-2xl bg-white rounded-2xl p-8 md:p-12 shadow-xl"
             initial={{ opacity: 0, y: "-50%", x: "-50%", scale: 0.8 }}
@@ -84,55 +85,52 @@ const TicketModal = ({ isOpen, onClose }) => {
               Request Ticket
             </h2>
 
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              {/* Full Name */}
               <div className="flex flex-col">
                 <input
                   {...register("fullname", { required: true })}
                   type="text"
                   placeholder="Full Name"
-                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.fullname ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.fullname ? "border-red-500" : "border-gray-300"}`}
                 />
                 {errors.fullname && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
+              {/* Email */}
               <div className="flex flex-col">
                 <input
                   {...register("email", { required: true })}
                   type="email"
                   placeholder="Email Address"
-                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.email ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.email ? "border-red-500" : "border-gray-300"}`}
                 />
                 {errors.email && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
+              {/* Office */}
               <div className="flex flex-col">
                 <input
                   {...register("office", { required: true })}
                   type="text"
                   placeholder="Office / Bureau / Division"
-                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.office ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.office ? "border-red-500" : "border-gray-300"}`}
                 />
                 {errors.office && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
+              {/* Communication */}
               <div className="flex flex-col relative">
                 <select
                   {...register("communication", { required: true })}
                   value={communication}
                   onChange={(e) => setCommunication(e.target.value)}
-                  className={`border rounded-lg px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none ${
-                    errors.communication ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`border rounded-lg px-4 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none ${errors.communication ? "border-red-500" : "border-gray-300"}`}
                 >
-                  <option value="" disabled>
-                    Ways to Communicate
-                  </option>
+                  <option value="" disabled>Ways to Communicate</option>
                   <option value="Face to Face">Face to Face</option>
                   <option value="Gmeet">Gmeet</option>
                   <option value="Gchat">Gchat</option>
@@ -142,18 +140,18 @@ const TicketModal = ({ isOpen, onClose }) => {
                 {errors.communication && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
+              {/* Issue */}
               <div className="md:col-span-2 flex flex-col">
                 <textarea
                   {...register("issue", { required: true })}
                   placeholder="Issue / Concern"
                   rows={4}
-                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                    errors.issue ? "border-red-500" : "border-gray-300"
-                  }`}
+                  className={`border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 ${errors.issue ? "border-red-500" : "border-gray-300"}`}
                 />
                 {errors.issue && <span className="text-red-500 text-sm mt-1">Required</span>}
               </div>
 
+              {/* Submit */}
               <button
                 type="submit"
                 className="bg-[#2e3192] text-white font-semibold py-3 rounded-lg hover:bg-[#1b1f6f] transition md:col-span-2"
