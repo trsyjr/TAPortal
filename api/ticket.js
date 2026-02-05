@@ -1,8 +1,7 @@
 // pages/api/ticket.js
 import fetch from "node-fetch";
 
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycby8pMXKyvw0OdRuRtJCh3nyvsjYLYpGcpE4_fQs9mnhUGZB7RCDzjxqf9dbWh3ktBgKdA/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby8pMXKyvw0OdRuRtJCh3nyvsjYLYpGcpE4_fQs9mnhUGZB7RCDzjxqf9dbWh3ktBgKdA/exec";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -23,15 +22,12 @@ export default async function handler(req, res) {
     try {
       data = JSON.parse(text);
     } catch {
-      return res.status(500).json({
-        success: false,
-        error: "Invalid JSON from Apps Script",
-        raw: text,
-      });
+      return res.status(500).json({ success: false, error: "Invalid JSON from Apps Script", raw: text });
     }
 
-    res.status(200).json(data);
+    return res.status(200).json(data);
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    return res.status(500).json({ success: false, error: err.message });
   }
 }
+
