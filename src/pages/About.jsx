@@ -5,13 +5,29 @@ import Slider from "react-slick";
 // ✅ React Slick CSS imports
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import About1 from "../assets/About1.jpg";
+import About2 from "../assets/About2.jpg";
+import About3 from "../assets/About3.png";
+import About4 from "../assets/About4.jpg";
+import About5 from "../assets/About5.png";
+import About6 from "../assets/About6.jpg";
+import About7 from "../assets/About7.jpg";
+import About8 from "../assets/About8.png";
+import About9 from "../assets/About9.png";
+import About10 from "../assets/About10.png";
 const About = () => {
   // Placeholder slides
   const slides = [
-    "https://via.placeholder.com/1920x1080?text=Slide+1",
-    "https://via.placeholder.com/1920x1080?text=Slide+2",
-    "https://via.placeholder.com/1920x1080?text=Slide+3",
+    About1,
+    About2,
+    About3,
+    About4,
+    About5,
+    About6,
+    About7,
+    About8,
+    About9,
+    About10,
   ];
 
   const sliderSettings = {

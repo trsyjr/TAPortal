@@ -10,7 +10,7 @@ import {
   faEye,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
-import TABG from "../assets/TABG.png"; // Make sure you have this image
+import TABG from "../assets/TABG.png";
 
 // ---------- ICONS AND POSITIONS ----------
 const icons = [
