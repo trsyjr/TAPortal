@@ -257,4 +257,15 @@ const KnowledgeBankCardsSection = () => {
     </section>
   );
 };
-export default KnowledgeBank;
+
+// EXPORT BOTH
+const KnowledgeBankPage = () => {
+  return (
+    <>
+      <KnowledgeBank />
+      <KnowledgeBankCardsSection />
+    </>
+  );
+};
+
+export default KnowledgeBankPage;
