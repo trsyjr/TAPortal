@@ -45,7 +45,8 @@ const About = () => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
-    arrows: true,
+    arrows: false,
+    swipe: true,
   };
 
   // ✅ Floating cards for this page
