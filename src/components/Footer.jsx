@@ -26,8 +26,8 @@ const Footer = () => {
               {/* Column 2 */}
               <div className="flex flex-col gap-1">
                 <a href="https://academy.dswd.gov.ph/" target="_blank" className="underline hover:opacity-80">DSWD Academy Portal</a>
-                <a href="#" className="underline hover:opacity-80">CPD Portal</a>
-                <a href="#" className="underline hover:opacity-80">Knowledge Management Portal</a>
+                <a href="https://sites.google.com/dswd.gov.ph/swidb-cpd-portal/home" target="_blank" className="underline hover:opacity-80">CPD Portal</a>
+                <a href="https://kmportal.dswd.gov.ph/" target="_blank" className="underline hover:opacity-80">Knowledge Management Portal</a>
               </div>
 
               {/* Column 3 */}
