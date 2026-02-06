@@ -31,18 +31,183 @@ const positionsDesktop = [
 
 // ---------- TABLE TABS AND DATA ----------
 const tableTabs = [
-  "Centralization",
+  "CENTRALIZATION",
   "CBD PLAN AND\nACCOMPLISHMENT",
   "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
   "OTHERS",
 ];
 
 const tableData = [
-  { id: 1, type: "Memo", fileName: "CDO.pdf", dateIssued: "Jan 1", link: "#" },
-  { id: 2, type: "Report", fileName: "Annual.pdf", dateIssued: "Feb 10", link: "#" },
-  { id: 3, type: "Form", fileName: "Template.docx", dateIssued: "Mar 15", link: "#" },
-  { id: 4, type: "Memo", fileName: "Guidelines.pdf", dateIssued: "Apr 20", link: "#" },
+  {
+    id: 1,
+    category: "CENTRALIZATION",
+    type: "Memorandum",
+    fileName: "Centralization of all Capability Building Activities (CBAs) of the Central Office (CO) to the SWIDB-DSWD Academy",
+    dateIssued: "1 Feb, 2024",
+    link: "/pdfs/Memorandum-from-the-Secretary-Centralization-February.pdf",
+  },
+  {
+    id: 2,
+    category: "CENTRALIZATION",
+    type: "Memorandum",
+    fileName: "Operationalization of the Centralization of the Capability Building (CB) in the SWIDB-DSWD Academy",
+    dateIssued: "20 Jun, 2024",
+    link: "/pdfs/81648-DETAILS-AND-ARRANGEMENTS-FOR-THE-CENTRAL-OFFICE-TO-OPERATIONALIZE-THE-CENTRALIZATION-OF-THE-CAPABILITY-BUILDING-(CB)-IN-THE-SWIDB-DSWD-ACADEMY_0001.pdf",
+  },
+  {
+    id: 3,
+    category: "CENTRALIZATION",
+    type: "Memorandum",
+    fileName: "Details and Arrangements for the Field Office to Operationalize the Centralization of the Capability Building (CB) in the SWIDB-DSWD Academy",
+    dateIssued: "20 Jun, 2024",
+    link: "/pdfs/81643-DETAILS-AND-ARRANGEMENTS-FOR-THE-FIELD-OFFICE-TO-OPERATIONALIZE-THE-CENTRALIZATION-OF-THE-CAPABILITY-BUILDING-(CB)-IN-THE-SWIDB-DSWD-ACADEMY_0001.pdf",
+  },
+  {
+    id: 4,
+    category: "CENTRALIZATION",
+    type: "Memorandum",
+    fileName: "Endorsement of Lead and Alternate Designated Focal Persons for LDIs and Capability Building Programs for CY 2025-2027",
+    dateIssued: "19 Dec, 2024",
+    link: "/pdfs/33886-ENDORSEMENT-OF-LEAD-AND-ALTERNATE-DESIGNATED-FOCAL-PERSONS-FOR-LDIs-AND-CAPACITY-BUILDING-PROGRAMS-FOR-CY-2025-2027_0001.pdf",
+  },
+  {
+    id: 5,
+    category: "CBD PLAN AND\nACCOMPLISHMENT",
+    type: "MC No. 11, s. 2010",
+    fileName: "Guidelines in the Preperation and Submission of IDCB Plans and Accomplishment Reports",
+    dateIssued: "22 Jun, 2010",
+    link: "/pdfs/MC_2010-011-IDCB-GUIDELINES.pdf",
+  },
+  {
+    id: 6,
+    category: "CBD PLAN AND\nACCOMPLISHMENT",
+    type: "Memorandum",
+    fileName: "Call for Submission and Invitation for the Teachnical Assistance in Accomplishing the 2026 Capability Building Plan",
+    dateIssued: "6 Oct 2025",
+    link: "/pdfs/221049-CALL-FOR-SUBMISSION-AND-INVITATION-FOR-THE-TECHNICAL-ASSISTANCE-IN-ACCOMPLISHING-THE-2026-CAPABILITY-BUILDING-PLAN.pdf",
+  },
+  {
+    id: 7,
+    category: "CBD PLAN AND\nACCOMPLISHMENT",
+    type: "Attachments",
+    fileName: "Guidance Note for the Accomplishment of the Capability Building Plan Fiscal Year 2026",
+    dateIssued: "",
+    link: "/pdfs/221049-GUIDANCE-NOTES-IN-ACCOMPLISHING-THE-2026-CAPABILITY-BUILDING-PLAN-1.pdf",
+  },
+  {
+    id: 8,
+    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    type: "MC No. 23, s. 2003",
+    fileName: "Adoption of the DSWD Organizational Competencies",
+    dateIssued: "27 Jun, 2003",
+    link: "/pdfs/[SWIDB-Guideline]_DSWD-Organizational-Competencies.pdf",
+  },
+  {
+    id: 9,
+    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    type: "AO No. 20, s. 2004",
+    fileName: "Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts",
+    dateIssued: "3 Jun, 2004",
+    link: "/pdfs/[SWIDB-Guideline-]_Management-of-DSWD-Capability-Building-Efforts.pdf",
+  },
+  {
+    id: 10,
+    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    type: "BC No. 2007-1, s. 2007",
+    fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators and Facilitators",
+    dateIssued: "23 Apr, 2007",
+    link: "/pdfs/[DBM-Guideline]_Grant-of-Honoraria-to-Lecturers-Resource-Persons-Coordinators-and-Facilitators.pdf",
+  },
+  {
+    id: 11,
+    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    type: "MC No. 04, s. 2010",
+    fileName: "'Institutional Development' Framework Amending for the purpose Memorandum Circular No. 32, Series of 2004",
+    dateIssued: "15 Apr, 2010",
+    link: "/pdfs/[SWIDB Guideline]_Institutional Development Framework (Amendment of MC 32 s. 2004).pdf",
+  },
+  {
+    id: 12,
+    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    type: "MC No. 07, s. 2010",
+    fileName: "Terms of Reference on the Use of Standard Forms on Training Design, Syllabus and Documentation",
+    dateIssued: "13 May, 2010",
+    link: "/pdfs/[SWIDB Guideline]_Use of Standard Forms on Training Design, Syllabus and Documentation.pdf",
+  },
+  {
+    id: 13,
+    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    type: "AO No. 16, s. 2010",
+    fileName: "Framework and Guidelines for Capability Building of DSWD Social Protection Intermediaries and Stakeholders",
+    dateIssued: "16 Dec, 2010",
+    link: "/pdfs/AO 16 Series of 2010_Framework and Guidelines for Capability Building of DSWD Social Protection Intermediaries and Stakeholders.pdf",
+  },
+  {
+    id: 14,
+    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    type: "AO No. 10, s. 2019",
+    fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators, Facilitators in Seminars, Training Programs, and other Similar Activities",
+    dateIssued: "15 May, 2019",
+    link: "/pdfs/[SWIDB Guideline]_Guidelines on the Grant of Honoraria.pdf",
+  },
+  {
+    id: 15,
+    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    type: "Memorandum",
+    fileName: "Guidance on the Provision of Learning Activities for Contract of Service (COS) and Job Order (JO) Workers",
+    dateIssued: "7 Feb, 2024",
+    link: "/pdfs/Memorandum from the Secretary-Guidance on the Provision of Learning Activities for Contract of Service and Job Order Workers (1).pdf",
+  },
+  {
+    id: 16,
+    category: "OTHERS",
+    type: "AO No. 17, s. 2011",
+    fileName: "Knowledge Management (KM) Framework of the Department of Social Welfare and Development (DSWD)",
+    dateIssued: "31 Aug, 2011",
+    link: "/pdfs/AO_2011-017 Knowledge Management Framework.pdf",
+  },
+  {
+    id: 17,
+    category: "OTHERS",
+    type: "AO No. 11, s. 2015",
+    fileName: "DSWD Strategic Performance Management System (DSPMS)",
+    dateIssued: "30 Jun, 2015",
+    link: "/pdfs/AO 11 series of 2015_DSWD Strategic Performance Management System (DSPMS).pdf",
+  },
+  {
+    id: 18,
+    category: "OTHERS",
+    type: "MC No. 10, s. 2018",
+    fileName: "Guidelines on the Provision of Technical Assistance and Resource Augmentation to Local Government Units through Local Social Welfare and Development Offices",
+    dateIssued: "10 May, 2018",
+    link: "/pdfs/MC_2018-010 Technical Assistance and Resource Augmentation.pdf",
+  },
+  {
+    id: 19,
+    category: "OTHERS",
+    type: "AO No. 04, s. 2021",
+    fileName: "Guidelines in Conducting the Department of Social Welfare and Development's Knowledge Sharing Sessions)",
+    dateIssued: "23 Mar, 2021",
+    link: "/pdfs/AO_2021-004 Guidelines on the Conduct of Knowledge Sharing Sessions.pdf",
+  },
+  {
+    id: 20,
+    category: "OTHERS",
+    type: "AO No. 09, s. 2022",
+    fileName: "Implementing Guidelines of the DSWD Knowledge Management Framework",
+    dateIssued: "18 Mar 2022",
+    link: "/pdfs/AO_2022-009 Implementing Guidelines of the Knowledge Management Frameworkpdf",
+  },
+  {
+    id: 21,
+    category: "OTHERS",
+    type: "Memorandum",
+    fileName: "Fiscal Year (FY) 2025 Work and Financial Planning Guidelines",
+    dateIssued: "31 May 2024",
+    link: "/pdfs/FY 2025 WORK AND FINANCIAL PLANNING GUIDELINES.pdf",
+  },
 ];
+
 
 // ---------- KNOWLEDGE BANK COMPONENT ----------
 const KnowledgeBank = () => {
@@ -95,7 +260,7 @@ const KnowledgeBank = () => {
           <h1 className="text-3xl lg:text-5xl font-bold mb-6 text-[#2e3192]">
             Resources for Capability Building Technical Assistance
           </h1>
-          <p className="text-black mb-4 leading-relaxed">
+          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">
             This page provides access to curated resources that support the
             planning, implementation, and monitoring of capability building
             initiatives. The materials available here are intended to guide
@@ -103,14 +268,14 @@ const KnowledgeBank = () => {
             with applicable standards, and enhancing the quality of their
             learning and development interventions.
           </p>
-          <p className="text-black mb-4 leading-relaxed">
+          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">
             Resources may include reference materials, guidelines, tools,
             templates, and other knowledge products developed or adopted by the
             DSWD Academy to support technical assistance delivery. These materials
             are aligned with existing policies and are continuously updated to
             reflect current practices and emerging needs.
           </p>
-          <p className="text-black mb-4 leading-relaxed">
+          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">
             Clients are encouraged to review the available resources prior to
             submitting a technical assistance request, as these may already
             address common concerns and provide practical guidance for capability
@@ -148,12 +313,12 @@ const Resources = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const tabsRef = useRef(null);
 
-  const filteredData = tableData
-    .filter((item) => {
-      const tabText = activeTab.replace(/\n/g, "");
-      return item.type.toLowerCase().includes(tabText.toLowerCase()) || tabText === "OTHERS";
-    })
-    .filter((item) => item.fileName.toLowerCase().includes(searchQuery.toLowerCase()));
+const filteredData = tableData
+  .filter((item) => item.category === activeTab)
+  .filter((item) =>
+    item.fileName.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
 
   return (
     <div>
@@ -161,85 +326,160 @@ const Resources = () => {
       <KnowledgeBank />
 
       {/* TABLE SECTION */}
-      <section className="w-full flex flex-col items-center mt-12 px-4 sm:px-6 lg:px-32 gap-4">
-        {/* Tabs + Search */}
-        <div className="w-full flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          {/* Tabs swipeable */}
-          <div
-            ref={tabsRef}
-            className="flex gap-4 overflow-x-auto scrollbar-hide pb-1 sm:flex-1"
-          >
-            {tableTabs.map((tab) => (
+      <section className="w-full flex flex-col items-center mt-10 px-4 sm:px-6 lg:px-36 mb-12">
+        {/* Tabs + Search Row */}
+        <div className="w-full flex flex-col sm:flex-row gap-4 mb-0">
+          {/* Tabs container */}
+          <div className="flex gap-0 overflow-x-auto sm:overflow-visible scrollbar-hide flex-1">
+            {tableTabs.map((tab, idx) => (
               <button
                 key={tab}
-                className={`flex-shrink-0 w-64 sm:w-auto h-16 rounded-lg font-semibold text-center whitespace-pre-line transition-all duration-200 px-6 py-2 ${
-                  activeTab === tab
-                    ? "bg-[#2e3192] text-white shadow-lg"
-                    : "bg-white text-gray-700 hover:bg-gray-100"
-                }`}
+                className={`
+                  flex-shrink-0 sm:flex-1 h-16
+                  font-semibold text-center
+                  transition-all duration-200
+                  px-6 py-3
+                  ${activeTab === tab
+                    ? "text-[#2e3192] border-b-2 border-[#2e3192] z-10" // active: underline
+                    : "text-gray-700 hover:text-[#2e3192] hover:border-b-2 hover:border-[#2e3192]" // inactive: no bg, hover underline
+                  }
+                  ${idx !== 0 ? "-ml-px" : ""} 
+                `}
                 onClick={() => setActiveTab(tab)}
               >
-                {tab.split("\n").map((line, idx) => (
-                  <div key={idx}>{line}</div>
+                {tab.split("\n").map((line, i) => (
+                  <div key={i}>{line}</div>
                 ))}
               </button>
             ))}
           </div>
 
+
           {/* Search bar */}
-          <div className="w-full sm:w-64 mt-2 sm:mt-0 flex-shrink-0">
+          <div className="w-full sm:w-64 flex-shrink-0 mt-2 sm:mt-0">
             <input
               type="text"
               placeholder="Search..."
-              className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2e3192]"
+              className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2e3192]"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
         </div>
 
-        {/* Responsive Table */}
-        <div className="w-full mb-12 overflow-x-auto">
-          <table className="w-full min-w-[600px] border-separate border-spacing-y-3">
+        {/* Table */}
+        <div className="w-full overflow-x-auto mt-4 sm:overflow-visible">
+          <table className="w-full border-separate border-spacing-y-4 hidden sm:table">
             <thead>
-              <tr className="bg-gray-100 rounded-lg">
-                <th className="px-6 py-3 text-left">Type</th>
-                <th className="px-6 py-3 text-left w-[35%]">File Name</th>
-                <th className="px-6 py-3 text-left">Date Issued</th>
-                <th className="px-6 py-3 text-left w-[20%]">Action</th>
+              <tr className="bg-white">
+                <th className="px-6 py-3 text-left w-[20%]">Type</th>
+                <th className="px-6 py-3 text-left w-[60%]">File Name</th>
+                <th className="px-6 py-3 text-left w-[10%]">Date Issued</th>
+                <th className="px-6 py-3 text-right w-[18%]"></th>
               </tr>
             </thead>
             <tbody>
               {filteredData.length === 0 ? (
                 <tr className="bg-white rounded-lg shadow">
-                  <td colSpan={4} className="text-center py-4">
-                    No results found.
-                  </td>
+                  <td colSpan={4} className="text-center py-4">No results found.</td>
                 </tr>
               ) : (
-                filteredData.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="bg-white rounded-lg shadow hover:bg-gray-50 transition"
-                  >
-                    <td className="px-6 py-3">{item.type}</td>
-                    <td className="px-6 py-3">{item.fileName}</td>
-                    <td className="px-6 py-3">{item.dateIssued}</td>
-                    <td className="px-6 py-3 flex gap-3 justify-center">
-                      <a href={item.link} className="text-blue-600 hover:underline">
-                        <FontAwesomeIcon icon={faEye} />
-                      </a>
-                      <a href={item.link} className="text-green-600 hover:underline">
-                        <FontAwesomeIcon icon={faDownload} />
-                      </a>
-                    </td>
-                  </tr>
-                ))
+                filteredData.map((item, index) => {
+                  const isPrimary = index % 2 === 0;
+                  return (
+                    <tr
+                      key={item.id}
+                      className={`transition rounded-lg shadow ${isPrimary ? "bg-[#2e3192] text-white" : "bg-white text-black"}`}
+                    >
+                      <td className="px-6 py-3">{item.type}</td>
+                      <td className="px-6 py-3 truncate">
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:underline"
+                        >
+                          {item.fileName}
+                        </a>
+                      </td>
+                      <td className="px-6 py-3 whitespace-nowrap">{item.dateIssued}</td>
+                      <td className="px-6 py-3">
+                        <div className="flex justify-end gap-5">
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-[#2e3192]"}`}
+                          >
+                            <FontAwesomeIcon icon={faEye} />
+                          </a>
+                          <a
+                            href={item.link}
+                            download={item.fileName}
+                            className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-green-600"}`}
+                          >
+                            <FontAwesomeIcon icon={faDownload} />
+                          </a>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
               )}
             </tbody>
           </table>
+
+          {/* MOBILE CARD-LIKE ROWS */}
+          <div className="sm:hidden flex flex-col gap-4">
+            {filteredData.length === 0 ? (
+              <div className="bg-white rounded-xl shadow p-4 text-center">
+                No results found.
+              </div>
+            ) : (
+              filteredData.map((item, index) => {
+                const isPrimary = index % 2 === 0;
+                return (
+                  <div
+                    key={item.id}
+                    className={`p-4 rounded-xl shadow transition ${
+                      isPrimary ? "bg-[#2e3192] text-white" : "bg-white text-black"
+                    }`}
+                  >
+                    <div className="flex justify-between mb-2">
+                      <span className="font-semibold">Type:</span>
+                      <span>{item.type}</span>
+                    </div>
+                    <div className="flex justify-between mb-2">
+                      <span className="font-semibold">File Name:</span>
+                      <span className="truncate">{item.fileName}</span>
+                    </div>
+                    <div className="flex justify-between mb-2">
+                      <span className="font-semibold">Date Issued:</span>
+                      <span>{item.dateIssued}</span>
+                    </div>
+                    <div className="flex justify-end gap-5">
+                      <a
+                        href={item.link}
+                        className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-[#2e3192]"}`}
+                      >
+                        <FontAwesomeIcon icon={faEye} />
+                      </a>
+                      <a
+                        href={item.link}
+                        className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-green-600]"}`}
+                      >
+                        <FontAwesomeIcon icon={faDownload} />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })
+            )}
+          </div>
         </div>
       </section>
+
+
     </div>
   );
 };
