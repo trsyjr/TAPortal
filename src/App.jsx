@@ -1,5 +1,5 @@
 // src/App.jsx
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./components/HomePage";
@@ -20,70 +20,74 @@ import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
 import Preloader from "./components/Preloader";
 
-function App() {
+function AppContent() {
+  const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const images = Array.from(document.images);
+    // Show preloader on route change
+    setIsLoading(true);
+
+    // Preload images for the new page
+    const preloadImages = ["/assets/TALogo.png"];
     let loadedCount = 0;
 
-    if (images.length === 0) {
-      setIsLoading(false);
-      return;
-    }
-
-    images.forEach((img) => {
-      if (img.complete) {
+    preloadImages.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = img.onerror = () => {
         loadedCount++;
-      } else {
-        img.onload = () => {
-          loadedCount++;
-          if (loadedCount === images.length) setIsLoading(false);
-        };
-        img.onerror = () => {
-          loadedCount++;
-          if (loadedCount === images.length) setIsLoading(false);
-        };
-      }
+        if (loadedCount === preloadImages.length) {
+          // Small delay so animation is visible
+          setTimeout(() => setIsLoading(false), 500);
+        }
+      };
     });
-  }, []);
+
+    // Optional: minimum preloader duration
+    const minTimeout = setTimeout(() => setIsLoading(false), 1000);
+
+    return () => clearTimeout(minTimeout);
+  }, [location.pathname]); // triggers on route change
+
+  if (isLoading) return <Preloader />;
 
   return (
     <>
-      {isLoading && <Preloader />}
-      {!isLoading && (
-        <Router>
-          <Navbar />
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <>
-                  <HomePage />
-                  <OtherOptions />
-                  <NewsEvents />
-                </>
-              }
-            />
-            <Route path="/about" element={<About />} />
-            <Route
-              path="/calendar"
-              element={<div className="pt-28 px-6">Training Calendar Page</div>}
-            />
-            <Route path="/knowledgebank" element={<KnowledgeBank />} />
-            <Route path="/resources" element={<Resources />} />
-            <Route path="/active-profile" element={<ActiveProfile />} />
-            <Route path="/ldi-dip" element={<Ldi />} />
-            <Route path="/participant-eligibility" element={<Participant />} />
-            <Route path="/ta-support" element={<TASupport />} />
-            <Route path="/ld-standards" element={<LD />} />
-            <Route path="/cbas" element={<CBA />} />
-          </Routes>
-          <Footer />
-          <ToastContainer position="top-right" autoClose={3000} />
-        </Router>
-      )}
+      <Navbar />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <HomePage />
+              <OtherOptions />
+              <NewsEvents />
+            </>
+          }
+        />
+        <Route path="/about" element={<About />} />
+        {/* <Route path="/calendar" element={<div className="pt-28 px-6">Training Calendar Page</div>} /> */}
+        <Route path="/knowledgebank" element={<KnowledgeBank />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/active-profile" element={<ActiveProfile />} />
+        <Route path="/ldi-dip" element={<Ldi />} />
+        <Route path="/participant-eligibility" element={<Participant />} />
+        <Route path="/ta-support" element={<TASupport />} />
+        <Route path="/ld-standards" element={<LD />} />
+        <Route path="/cbas" element={<CBA />} />
+      </Routes>
+      <Footer />
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 
