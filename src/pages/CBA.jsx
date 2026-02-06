@@ -219,6 +219,9 @@ const CBA = () => {
           <span className="text-black">FAQS / </span>
           <span className="text-[#2e3192]">Capability Building Activities (CBAs)</span>
         </h3>
+        <h3 className="text-sm md:text-md font-bold mb-2 text-gray-500">
+          As of 14 January, 2026
+        </h3>
 
         <p className="text-[#2e3192] font-semibold mb-8 mt-8">
           {faqPages[faqPage].label}

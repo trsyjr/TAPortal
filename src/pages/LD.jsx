@@ -168,6 +168,9 @@ const LD = () => {
           <span className="text-black">FAQS / </span>
           <span className="text-[#2e3192]">{faqPage.label}</span>
         </h3>
+        <h3 className="text-sm md:text-md font-bold mb-2 text-gray-500">
+          As of 14 January, 2026
+        </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start mt-10">
           {faqPage.items.map((item, idx) => (

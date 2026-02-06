@@ -91,7 +91,7 @@ const tableData = [
     category: "CBD PLAN AND\nACCOMPLISHMENT",
     type: "Attachments",
     fileName: "Guidance Note for the Accomplishment of the Capability Building Plan Fiscal Year 2026",
-    dateIssued: "",
+    dateIssued: "6 Oct 2025",
     link: "/pdfs/221049-GUIDANCE-NOTES-IN-ACCOMPLISHING-THE-2026-CAPABILITY-BUILDING-PLAN-1.pdf",
   },
   {

@@ -25,14 +25,21 @@ const Footer = () => {
             <div className="flex gap-12">
               {/* Column 2 */}
               <div className="flex flex-col gap-1">
-                <a href="#" className="underline hover:opacity-80">DSWD Academy Portal</a>
+                <a href="https://academy.dswd.gov.ph/" target="_blank" className="underline hover:opacity-80">DSWD Academy Portal</a>
                 <a href="#" className="underline hover:opacity-80">CPD Portal</a>
                 <a href="#" className="underline hover:opacity-80">Knowledge Management Portal</a>
               </div>
 
               {/* Column 3 */}
               <div className="flex flex-col gap-1">
-                <a href="#" className="underline hover:opacity-80">L&D Guidebook</a>
+                <a
+                  href="/pdfs/Official_DSWD L&D Guidebook v.2021.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  L&D Guidebook
+                </a>
                 <a href="#" className="underline hover:opacity-80">Privacy Policy</a>
                 <a href="#" className="underline hover:opacity-80">Terms & Conditions</a>
               </div>
