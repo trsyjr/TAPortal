@@ -130,18 +130,37 @@ const tableTabs = [
   "CBA PLANNING",
 ];
 
+// Sample Data
+const sampleData = [
+  {
+    name: "Carmina A. Llanto",
+    date: "26 Jan 2026",
+    body: "The client sought technical guidance on whether the proposed DSWD airport caravans for Overseas Filipino Workers (OFWs) could be classified as an institutional development activity for inclusion in their IDCB Plan, particularly to support the approval of transportation expenses for social workers who will implement the activity. The inquiry aimed to determine the appropriate categorization of the caravans in line with existing DSWD definitions and planning requirements.",
+    extra: "PLDS staff clarified that the proposed OFW airport caravans are primarily service delivery and outreach activities intended to provide direct assistance and information to beneficiaries and, as such, do not strictly fall under institutional development activities as defined by the DSWD...",
+    tags: "IDCB, CB PLAN, ID PLAN",
+    category: "TRAINING PROPOSAL",
+  },
+  {
+    name: "Carmina A. Llanto",
+    date: "28 Jan 2026",
+    body: "The office inquired whether the provision of meals and transportation may be programmed under the Work and Financial Plan (WFP) as part of the Training Expense for an upcoming capability building activity.",
+    extra: "The client was advised that programming meals and transportation under Training Expense for capability building activities is generally not allowed. Based on DSWD Academy practice,...",
+    tags: "ACTIVITY PROPOSAL, WFP, TRAINING EXPENSE, PARTICIPANTS TRANSPORTATION AND MEALS",
+    category: "TRAINING PROPOSAL",
+  },
+];
+
 const KnowledgeBankCardsSection = () => {
   const [activeTab, setActiveTab] = useState(tableTabs[0]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(sampleData);
+  const [expanded, setExpanded] = useState({});
   const rowsPerPage = 4;
 
   const filteredData = data
     .filter((item) => item.category === activeTab)
     .filter((item) =>
-      item.body?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.extra?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.tags?.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -157,8 +176,12 @@ const KnowledgeBankCardsSection = () => {
   const truncateText = (text) => {
     if (!text) return "";
     const words = text.split(" ");
-    if (words.length <= 50) return text;
-    return words.slice(0, 50).join(" ") + "...";
+    if (words.length <= 20) return text; // <-- shortened to show See more
+    return words.slice(0, 20).join(" ") + "...";
+  };
+
+  const toggleExpand = (idx) => {
+    setExpanded((prev) => ({ ...prev, [idx]: !prev[idx] }));
   };
 
   return (
@@ -192,41 +215,59 @@ const KnowledgeBankCardsSection = () => {
 
       {/* CARDS */}
       <div className="w-full mt-4 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {paginatedData.length === 0 ? (
-          <div className="col-span-2 bg-white rounded-xl shadow p-6 text-center">
-            No results found.
-          </div>
-        ) : (
+        {paginatedData.length > 0 ? (
           paginatedData.map((item, idx) => {
-            const isPrimary = idx % 2 === 0;
-            const extraText = truncateText(item.extra);
-            const showSeeMore = item.extra && item.extra.split(" ").length > 50;
+            const isExpanded = expanded[idx] || false;
+            const extraText = isExpanded ? item.extra : truncateText(item.extra);
+            const showSeeMore = item.extra && item.extra.split(" ").length > 20;
 
             return (
-              <div key={idx} className={`p-6 rounded-xl shadow transition ${isPrimary ? "bg-[#2e3192] text-white" : "bg-white text-black"}`}>
+              <div
+                key={idx}
+                className={`p-6 rounded-xl shadow transition bg-white text-[#2e3192]`}
+              >
                 <div className="flex justify-between mb-2 text-sm font-medium">
-                  <span>By {item.name}</span>
-                  <span>{item.date}</span>
+                  <span className="text-[#ee1c25] font-bold">
+                    <span className="text-gray-500">By</span> {item.name}
+                  </span>
+                  <span className="text-gray-500 font-bold">{item.date}</span>
                 </div>
 
-                <div className="mb-3 font-semibold">{item.body}</div>
+                <div className="mb-3 font-bold text-xl">{item.body}</div>
 
                 {extraText && (
-                  <div className="mb-3 text-sm">
-                    {extraText} {showSeeMore && <span className="text-blue-500 font-medium cursor-pointer">See more</span>}
+                  <div className="mb-3 text-sm text-gray-500">
+                    {extraText}{" "}
+                    {showSeeMore && (
+                      <span
+                        className="text-[#2e3192] font-bold cursor-pointer ml-1"
+                        onClick={() => toggleExpand(idx)}
+                      >
+                        {isExpanded ? "See less" : "See more"}
+                      </span>
+                    )}
                   </div>
                 )}
 
                 {item.tags && (
-                  <div className="flex flex-wrap gap-2 text-xs">
+                  <div className="flex flex-wrap gap-2 text-base font-semibold">
                     {item.tags.split(",").map((tag, i) => (
-                      <span key={i} className="px-2 py-1 bg-gray-200 rounded-full">{tag.trim()}</span>
+                      <span
+                        key={i}
+                        className="px-3 py-1 bg-gray-200 rounded-full text-gray-600"
+                      >
+                        {tag.trim()}
+                      </span>
                     ))}
                   </div>
                 )}
               </div>
             );
           })
+        ) : (
+          <div className="col-span-1 sm:col-span-2 text-center text-gray-500 font-semibold py-10">
+            No results found.
+          </div>
         )}
       </div>
 
@@ -236,34 +277,34 @@ const KnowledgeBankCardsSection = () => {
           <span className="mr-4 text-[#2e3192] font-bold">
             Showing {currentPage} out of {totalPages}
           </span>
-          <button disabled={currentPage === 1} className={`px-2 py-1 rounded font-bold ${currentPage === 1 ? "bg-gray-200" : "bg-[#2e3192] text-white"}`} onClick={() => setCurrentPage(currentPage - 1)}>&lt;</button>
+          <button
+            disabled={currentPage === 1}
+            className={`px-2 py-1 rounded font-bold ${currentPage === 1 ? "bg-gray-200" : "bg-[#2e3192] text-white"}`}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            &lt;
+          </button>
           {Array.from({ length: totalPages }, (_, i) => (
-            <button key={i} className={`px-2 py-1 rounded font-bold ${currentPage === i + 1 ? "bg-[#2e3192] text-white" : "bg-gray-200"}`} onClick={() => setCurrentPage(i + 1)}>{i + 1}</button>
+            <button
+              key={i}
+              className={`px-2 py-1 rounded font-bold ${currentPage === i + 1 ? "bg-[#2e3192] text-white" : "bg-gray-200"}`}
+              onClick={() => setCurrentPage(i + 1)}
+            >
+              {i + 1}
+            </button>
           ))}
-          <button disabled={currentPage === totalPages} className={`px-2 py-1 rounded font-bold ${currentPage === totalPages ? "bg-gray-200" : "bg-[#2e3192] text-white"}`} onClick={() => setCurrentPage(currentPage + 1)}>&gt;</button>
+          <button
+            disabled={currentPage === totalPages}
+            className={`px-2 py-1 rounded font-bold ${currentPage === totalPages ? "bg-gray-200" : "bg-[#2e3192] text-white"}`}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            &gt;
+          </button>
         </div>
       )}
     </section>
   );
 };
-
-// ✅ Floating cards for KnowledgeBank page
-// const floatingCards = [
-//   {
-//     title: "TA WEDNESDAY",
-//     icon: <FaLaptopMedical />,
-//     description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
-//     buttonText: "Join Here",
-//     onClick: () => window.alert("TA CLINIC Clicked"),
-//   },
-//   {
-//     title: "REQUEST TICKET",
-//     icon: <FaTicket />,
-//     description: "Submit a request ticket and we will reach out shortly.",
-//     buttonText: "Request Here",
-//     onClick: () => window.alert("Request Ticket Clicked"),
-//   },
-// ];
 
 // EXPORT BOTH
 const KnowledgeBankPage = () => {
