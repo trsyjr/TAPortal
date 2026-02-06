@@ -317,7 +317,8 @@ const Resources = () => {
   const filteredData = tableData
     .filter((item) => item.category === activeTab)
     .filter((item) =>
-      item.fileName.toLowerCase().includes(searchQuery.toLowerCase())
+      item.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.type.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
   // PAGINATION
