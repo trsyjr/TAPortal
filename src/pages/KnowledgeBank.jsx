@@ -135,18 +135,18 @@ const KnowledgeBankCardsSection = () => {
   const [data, setData] = useState([]);
   const rowsPerPage = 4;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("YOUR_WEB_APP_URL_HERE"); // Replace with your Apps Script URL
-        const json = await res.json();
-        setData(json);
-      } catch (err) {
-        console.error("Error fetching data:", err);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await fetch("YOUR_WEB_APP_URL_HERE"); // Replace with your Apps Script URL
+  //       const json = await res.json();
+  //       setData(json);
+  //     } catch (err) {
+  //       console.error("Error fetching data:", err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const filteredData = data
     .filter((item) => item.category === activeTab)
@@ -174,6 +174,10 @@ const KnowledgeBankCardsSection = () => {
 
   return (
     <section className="w-full flex flex-col items-center mt-20 px-4 sm:px-6 lg:px-36 mb-20">
+      <h2 className="text-3xl lg:text-4xl font-bold text-[#2e3192] mb-8 text-center">
+        Knowledge Bank Cards
+      </h2>
+
       {/* Tabs + Search */}
       <div className="w-full flex flex-col sm:flex-row gap-4 mb-6">
         <div className="flex gap-0 overflow-x-auto sm:overflow-visible scrollbar-hide flex-1">
