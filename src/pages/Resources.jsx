@@ -257,7 +257,7 @@ const KnowledgeBank = () => {
         {/* LEFT SIDE: Text */}
         <div className="flex-1 max-w-5xl text-center lg:text-left">
           <h1 className="text-3xl lg:text-5xl font-bold mb-6 text-[#2e3192]">
-            Resources for Capability Building Technical Assistance
+            Resources for DSWD Learning and Development Standards
           </h1>
           <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">
             This page provides access to curated resources that support the
