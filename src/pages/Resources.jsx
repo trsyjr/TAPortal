@@ -208,7 +208,6 @@ const tableData = [
   },
 ];
 
-
 // ---------- KNOWLEDGE BANK COMPONENT ----------
 const KnowledgeBank = () => {
   const [order, setOrder] = useState([0, 1, 2, 3, 4]);
@@ -311,14 +310,22 @@ const KnowledgeBank = () => {
 const Resources = () => {
   const [activeTab, setActiveTab] = useState(tableTabs[0]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5;
   const tabsRef = useRef(null);
 
-const filteredData = tableData
-  .filter((item) => item.category === activeTab)
-  .filter((item) =>
-    item.fileName.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredData = tableData
+    .filter((item) => item.category === activeTab)
+    .filter((item) =>
+      item.fileName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
+  // PAGINATION
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+  const paginatedData = filteredData.slice(
+    (currentPage - 1) * rowsPerPage,
+    currentPage * rowsPerPage
+  );
 
   return (
     <div>
@@ -340,12 +347,15 @@ const filteredData = tableData
                   transition-all duration-200
                   px-6 py-3
                   ${activeTab === tab
-                    ? "text-[#2e3192] border-b-2 border-[#2e3192] z-10" // active: underline
-                    : "text-gray-700 hover:text-[#2e3192] hover:border-b-2 hover:border-[#2e3192]" // inactive: no bg, hover underline
+                    ? "text-[#2e3192] border-b-2 border-[#2e3192] z-10"
+                    : "text-gray-700 hover:text-[#2e3192] hover:border-b-2 hover:border-[#2e3192]"
                   }
                   ${idx !== 0 ? "-ml-px" : ""} 
                 `}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => {
+                  setActiveTab(tab);
+                  setCurrentPage(1); // reset page when switching tabs
+                }}
               >
                 {tab.split("\n").map((line, i) => (
                   <div key={i}>{line}</div>
@@ -354,7 +364,6 @@ const filteredData = tableData
             ))}
           </div>
 
-
           {/* Search bar */}
           <div className="w-full sm:w-64 flex-shrink-0 mt-2 sm:mt-0">
             <input
@@ -362,7 +371,10 @@ const filteredData = tableData
               placeholder="Search..."
               className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2e3192]"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1); // reset page when searching
+              }}
             />
           </div>
         </div>
@@ -379,12 +391,12 @@ const filteredData = tableData
               </tr>
             </thead>
             <tbody>
-              {filteredData.length === 0 ? (
+              {paginatedData.length === 0 ? (
                 <tr className="bg-white rounded-lg shadow">
                   <td colSpan={4} className="text-center py-4">No results found.</td>
                 </tr>
               ) : (
-                filteredData.map((item, index) => {
+                paginatedData.map((item, index) => {
                   const isPrimary = index % 2 === 0;
                   return (
                     <tr
@@ -431,19 +443,17 @@ const filteredData = tableData
 
           {/* MOBILE CARD-LIKE ROWS */}
           <div className="sm:hidden flex flex-col gap-4">
-            {filteredData.length === 0 ? (
+            {paginatedData.length === 0 ? (
               <div className="bg-white rounded-xl shadow p-4 text-center">
                 No results found.
               </div>
             ) : (
-              filteredData.map((item, index) => {
+              paginatedData.map((item, index) => {
                 const isPrimary = index % 2 === 0;
                 return (
                   <div
                     key={item.id}
-                    className={`p-4 rounded-xl shadow transition ${
-                      isPrimary ? "bg-[#2e3192] text-white" : "bg-white text-black"
-                    }`}
+                    className={`p-4 rounded-xl shadow transition ${isPrimary ? "bg-[#2e3192] text-white" : "bg-white text-black"}`}
                   >
                     <div className="flex justify-between mb-2">
                       <span className="font-semibold">Type:</span>
@@ -466,7 +476,7 @@ const filteredData = tableData
                       </a>
                       <a
                         href={item.link}
-                        className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-green-600]"}`}
+                        className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-green-600"}`}
                       >
                         <FontAwesomeIcon icon={faDownload} />
                       </a>
@@ -477,9 +487,43 @@ const filteredData = tableData
             )}
           </div>
         </div>
+
+        {/* PAGINATION CONTROLS */}
+        {totalPages > 1 && (
+          <div className="w-full flex justify-end items-center mt-4 text-sm gap-2">
+            <span className="mr-4 text-[#2e3192] font-bold">
+              Showing {currentPage} out of {totalPages}
+            </span>
+
+            <button
+              disabled={currentPage === 1}
+              className={`px-2 py-1 rounded font-bold ${currentPage === 1 ? "bg-gray-200" : "bg-[#2e3192] text-white"}`}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              &lt;
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                className={`px-2 py-1 rounded font-bold ${currentPage === i + 1 ? "bg-[#2e3192] text-white" : "bg-gray-200"}`}
+                onClick={() => setCurrentPage(i + 1)}
+              >
+                {i + 1}
+              </button>
+            ))}
+
+            <button
+              disabled={currentPage === totalPages}
+              className={`px-2 py-1 rounded font-bold ${currentPage === totalPages ? "bg-gray-200" : "bg-[#2e3192] text-white"}`}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              &gt;
+            </button>
+          </div>
+        )}
+
       </section>
-
-
     </div>
   );
 };
