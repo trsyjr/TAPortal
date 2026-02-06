@@ -17,7 +17,7 @@ const OtherOptions = () => {
           <div className="relative mb-6">
             <FaLaptopMedical size={100} className="text-[#2e3192]" />
           </div>
-          <h3 className="text-3xl font-bold text-[#2e3192] mb-4">TA CLINIC</h3>
+          <h3 className="text-3xl font-bold text-[#2e3192] mb-4">TA WEDNESDAY</h3>
           <p className="text-gray-600 text-center mb-6 text-lg md:text-xl">
             Virtual Clinic for Technical Assistance opens every Wednesday.
           </p>

@@ -12,6 +12,7 @@ import {
   FaLaptopMedical,
   FaTicket,
 } from "react-icons/fa6";
+import TicketModal from "../components/TicketModal"; // make sure this path is correct
 
 // Top FAQ cards
 const faqCards = [
@@ -20,25 +21,7 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
   { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "CBAs", icon: <FaComments />, path: "/cbas" },
-];
-
-// Floating cards
-const floatingCards = [
-  {
-    title: "TA CLINIC",
-    icon: <FaLaptopMedical />,
-    description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
-    buttonText: "Join Here",
-    buttonAction: () => window.alert("TA CLINIC Clicked"),
-  },
-  {
-    title: "REQUEST TICKET",
-    icon: <FaTicket />,
-    description: "Submit a request ticket and we will reach out shortly.",
-    buttonText: "Request Here",
-    buttonAction: () => window.alert("Request Ticket Clicked"),
-  },
+  { title: "CB PLAN and ACCOMPLISHMENTS", icon: <FaComments />, path: "/cbas" },
 ];
 
 // FAQ content as object
@@ -58,7 +41,7 @@ const faqPages = [
         q: "When should an activity proposal be submitted to the DSWD Academy for review?",
         a: (
           <>
-          Activity proposals with complete attachments (LDI-DIP, Cover Memo with focal person, Approved CB Plan) should be submitted at the <strong>planning stage and at least a month or two prior to implementation</strong> to allow sufficient time for review, guidance, and alignment with L&D standards.
+            Activity proposals with complete attachments (LDI-DIP, Cover Memo with focal person, Approved CB Plan) should be submitted at the <strong>planning stage and at least a month or two prior to implementation</strong> to allow sufficient time for review, guidance, and alignment with L&D standards.
           </>
         ),
       },
@@ -74,7 +57,7 @@ const faqPages = [
         q: "Are online, blended, and face-to-face trainings subject to the same proposal requirements?",
         a: (
           <>
-          Yes. <strong>Regardless of delivery mode</strong>, all capability building activities are <strong>subject to the same review and compliance requirements</strong>.
+            Yes. <strong>Regardless of delivery mode</strong>, all capability building activities are <strong>subject to the same review and compliance requirements</strong>.
           </>
         ),
       },
@@ -90,7 +73,7 @@ const faqPages = [
         q: "Who is responsible for endorsing the activity proposal before submission to the DSWD Academy?",
         a: (
           <>
-          The <strong>Head of the concerned Office, Bureau, Service, or Unit (OBSU)</strong> shall endorse and sign the activity proposal prior to its submission to the DSWD Academy for review. This endorsement signifies official approval of the proposed activity and confirms alignment with office priorities and resource commitments.
+            The <strong>Head of the concerned Office, Bureau, Service, or Unit (OBSU)</strong> shall endorse and sign the activity proposal prior to its submission to the DSWD Academy for review. This endorsement signifies official approval of the proposed activity and confirms alignment with office priorities and resource commitments.
           </>
         ),
       },
@@ -117,7 +100,7 @@ const faqPages = [
         q: "\u00A0",
         a: (
           <>
-          <h3 className="font-bold mt-4 mb-2">Reference:</h3>
+            <h3 className="font-bold mt-4 mb-2">Reference:</h3>
             <ul className="list-disc list-inside space-y-1">
               <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
               <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of CBAs.</li>
@@ -137,6 +120,27 @@ const ActivityProfile = () => {
   const cardRefs = useRef([]);
   const [currentCard, setCurrentCard] = useState(0);
   const [bottomOffset, setBottomOffset] = useState(32);
+
+  // ✅ state moved inside component
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+
+  // ✅ floating cards inside component to access state
+  const floatingCards = [
+    {
+      title: "TA WEDNESDAY",
+      icon: <FaLaptopMedical />,
+      description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
+      buttonText: "Join Here",
+      buttonAction: () => window.alert("TA CLINIC Clicked"),
+    },
+    {
+      title: "REQUEST TICKET",
+      icon: <FaTicket />,
+      description: "Submit a request ticket and we will reach out shortly.",
+      buttonText: "Request Here",
+      buttonAction: () => setIsTicketModalOpen(true),
+    },
+  ];
 
   const handleCardClick = (path) => {
     if (path) navigate(path);
@@ -239,13 +243,15 @@ const ActivityProfile = () => {
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ x: offsetX, y: 0, rotate: rotation, scale: isTop ? 1 : 0.95, opacity: 1 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              onClick={card.buttonAction}
             >
               <div className="flex flex-col items-center text-center">
                 <div className="mb-2">{React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}</div>
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
-                <button className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base">
+                <button
+                  onClick={card.buttonAction} // ✅ fixed
+                  className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
+                >
                   {card.buttonText}
                 </button>
               </div>
@@ -253,6 +259,12 @@ const ActivityProfile = () => {
           );
         })}
       </div>
+
+      {/* Ticket Modal */}
+      <TicketModal
+        isOpen={isTicketModalOpen}
+        onClose={() => setIsTicketModalOpen(false)}
+      />
     </div>
   );
 };

@@ -12,6 +12,7 @@ import {
   FaLaptopMedical,
   FaTicket,
 } from "react-icons/fa6";
+import TicketModal from "../components/TicketModal"; 
 
 // Top FAQ cards
 const faqCards = [
@@ -20,25 +21,7 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
   { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "CBAs", icon: <FaComments />, path: "/cbas" },
-];
-
-// Floating cards
-const floatingCards = [
-  {
-    title: "TA CLINIC",
-    icon: <FaLaptopMedical />,
-    description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
-    buttonText: "Join Here",
-    buttonAction: () => window.alert("TA CLINIC Clicked"),
-  },
-  {
-    title: "REQUEST TICKET",
-    icon: <FaTicket />,
-    description: "Submit a request ticket and we will reach out shortly.",
-    buttonText: "Request Here",
-    buttonAction: () => window.alert("Request Ticket Clicked"),
-  },
+  { title: "CB PLAN and ACCOMPLISHMENTS", icon: <FaComments />, path: "/cbas" },
 ];
 
 // Clean FAQ object
@@ -131,9 +114,29 @@ const Ldi = () => {
   const [currentCard, setCurrentCard] = useState(0);
   const [bottomOffset, setBottomOffset] = useState(32);
 
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+
   const handleCardClick = (path) => {
     if (path) navigate(path);
   };
+
+  // Floating cards
+const floatingCards = [
+    {
+      title: "TA WEDNESDAY",
+      icon: <FaLaptopMedical />,
+      description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
+      buttonText: "Join Here",
+      buttonAction: () => window.alert("TA CLINIC Clicked"),
+    },
+    {
+      title: "REQUEST TICKET",
+      icon: <FaTicket />,
+      description: "Submit a request ticket and we will reach out shortly.",
+      buttonText: "Request Here",
+      buttonAction: () => setIsTicketModalOpen(true), // ✅ now works
+    },
+  ];
 
   useEffect(() => {
     const activeIndex = faqCards.findIndex((c) => c.path === location.pathname);
@@ -246,6 +249,7 @@ const Ldi = () => {
           );
         })}
       </div>
+      <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
     </div>
   );
 };

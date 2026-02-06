@@ -19,7 +19,7 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
   { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "CBAs", icon: <FaComments />, path: "/cbas" },
+  { title: "CB PLAN and ACCOMPLISHMENTS", icon: <FaComments />, path: "/cbas" },
 ];
 
 const HomePage = () => {
@@ -57,9 +57,11 @@ const HomePage = () => {
 
         <div className="mx-auto max-w-5xl p-4 rounded-lg">
           <p className="text-gray-700 text-base md:text-lg leading-relaxed font-semibold">
-            Coordination with the DSWD Academy is required at the planning stage,
-            prior to implementation, when significant changes to the activity are
-            proposed, and whenever further technical assistance is needed.
+            This portal is designed to support Offices, Bureaus, Services, and Units (OBSUs), Field Offices (FOs), 
+            and partner-stakeholders by providing clear guidance on available technical assistance services, standard 
+            processes, resources, and frequently asked questions. It aims to promote transparency, consistency, and 
+            efficiency in the delivery of technical assistance, while ensuring alignment with Department policies, 
+            standards, and learning and development priorities.
           </p>
         </div>
 

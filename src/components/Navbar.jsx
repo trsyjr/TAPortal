@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <>
       {/* Navbar container */}
-      <nav className="w-full fixed top-0 left-0 z-40 backdrop-blur-lg bg-white/20 border-b border-white/30 shadow-lg transition-all duration-300">
+      <nav className="w-full fixed top-0 left-0 z-40 backdrop-blur-lg bg-white border-b border-white shadow-lg transition-all duration-300">
         <div className="flex items-center justify-between w-full px-6 md:px-12 py-4">
           
           {/* Logo on the left */}

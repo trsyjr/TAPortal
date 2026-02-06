@@ -11,6 +11,7 @@ import {
   FaLaptopMedical,
   FaTicket,
 } from "react-icons/fa6";
+import TicketModal from "../components/TicketModal";
 
 /* ---------------- FAQ CARDS (TOP) ---------------- */
 const faqCards = [
@@ -19,13 +20,13 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
   { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "CBAs", icon: <FaComments />, path: "/cbas" },
+  { title: "CB PLAN and ACCOMPLISHMENTS", icon: <FaComments />, path: "/cbas" },
 ];
 
 /* ---------------- FLOATING CARDS ---------------- */
 const floatingCards = [
   {
-    title: "TA CLINIC",
+    title: "TA WEDNESDAY",
     icon: <FaLaptopMedical />,
     description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
     buttonText: "Join Here",
@@ -114,9 +115,28 @@ const CBA = () => {
   const [bottomOffset, setBottomOffset] = useState(32);
   const [faqPage, setFaqPage] = useState(0);
 
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+
   const handleCardClick = (path) => {
     if (path) navigate(path);
   };
+
+  const floatingCards = [
+    {
+      title: "TA WEDNESDAY",
+      icon: <FaLaptopMedical />,
+      description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
+      buttonText: "Join Here",
+      buttonAction: () => window.alert("TA CLINIC Clicked"),
+    },
+    {
+      title: "REQUEST TICKET",
+      icon: <FaTicket />,
+      description: "Submit a request ticket and we will reach out shortly.",
+      buttonText: "Request Here",
+      buttonAction: () => setIsTicketModalOpen(true), // ✅ opens modal
+    },
+  ];
 
   /* Scroll active FAQ card into view */
   useEffect(() => {
@@ -269,7 +289,10 @@ const CBA = () => {
                       {React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}
                       <h3 className="text-sm md:text-md font-bold text-[#2e3192] mt-2">{card.title}</h3>
                       <p className="text-gray-600 text-3xs md:text-xs mt-2">{card.description}</p>
-                      <button className="mt-3 bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base">
+                      <button
+                        className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
+                        onClick={card.buttonAction} // ✅ button works
+                      >
                         {card.buttonText}
                       </button>
                     </div>
@@ -277,6 +300,7 @@ const CBA = () => {
                 );
               })}
             </div>
+            <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
     </div>
   );
 };

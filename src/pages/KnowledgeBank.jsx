@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import FloatingCardDeck from "../components/FloatingCardDeck";
 import {
   faSquarePollVertical,
   faBookOpen,
@@ -11,6 +12,7 @@ import {
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import TABG from "../assets/TABG.png";
+import { FaLaptopMedical, FaTicket } from "react-icons/fa6"; // Added for floating cards
 
 // ICONS
 const icons = [
@@ -135,19 +137,6 @@ const KnowledgeBankCardsSection = () => {
   const [data, setData] = useState([]);
   const rowsPerPage = 4;
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const res = await fetch("YOUR_WEB_APP_URL_HERE"); // Replace with your Apps Script URL
-  //       const json = await res.json();
-  //       setData(json);
-  //     } catch (err) {
-  //       console.error("Error fetching data:", err);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
-
   const filteredData = data
     .filter((item) => item.category === activeTab)
     .filter((item) =>
@@ -258,12 +247,31 @@ const KnowledgeBankCardsSection = () => {
   );
 };
 
+// ✅ Floating cards for KnowledgeBank page
+// const floatingCards = [
+//   {
+//     title: "TA WEDNESDAY",
+//     icon: <FaLaptopMedical />,
+//     description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
+//     buttonText: "Join Here",
+//     onClick: () => window.alert("TA CLINIC Clicked"),
+//   },
+//   {
+//     title: "REQUEST TICKET",
+//     icon: <FaTicket />,
+//     description: "Submit a request ticket and we will reach out shortly.",
+//     buttonText: "Request Here",
+//     onClick: () => window.alert("Request Ticket Clicked"),
+//   },
+// ];
+
 // EXPORT BOTH
 const KnowledgeBankPage = () => {
   return (
     <>
       <KnowledgeBank />
       <KnowledgeBankCardsSection />
+      {/* <FloatingCardDeck cards={floatingCards} /> */}
     </>
   );
 };
