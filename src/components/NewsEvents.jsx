@@ -19,7 +19,7 @@ const NewsEvents = () => {
       image: News1,
       title: "𝗗𝗦𝗪𝗗 𝗔𝗰𝗮𝗱𝗲𝗺𝘆 𝗛𝗼𝘀𝘁𝘀 𝗞𝗻𝗼𝘄𝗹𝗲𝗱𝗴𝗲 𝗦𝗵𝗮𝗿𝗶𝗻𝗴 𝗦𝗲𝘀𝘀𝗶𝗼𝗻 (𝗞𝗦𝗦) 𝘄𝗶𝘁𝗵 𝗞𝗻𝗼𝘄𝗹𝗲𝗱𝗴𝗲 𝗠𝗮𝗻𝗮𝗴𝗲𝗺𝗲𝗻𝘁 𝗦𝘆𝘀𝘁𝗲𝗺𝘀 𝗕𝘂𝗿𝗲𝗮𝘂-𝗟𝗲𝗴𝗶𝘀𝗹𝗮𝘁𝗶𝘃𝗲 𝗧𝗿𝗮𝗶𝗻𝗶𝗻𝗴 𝗖𝗲𝗻𝘁𝗲𝗿  𝘁𝗼 𝗦𝘁𝗿𝗲𝗻𝗴𝘁𝗵𝗲𝗻 𝗜𝗻𝘀𝘁𝗶𝘁𝘂𝘁𝗶𝗼𝗻𝗮𝗹 𝗟𝗲𝗮𝗿𝗻𝗶𝗻𝗴 𝗦𝘆𝘀𝘁𝗲𝗺𝘀",
       description:
-        "The DSWD, through the DSWD Academy, held a Knowledge Sharing Session with the Knowledge Management Systems Bureau–House of Representatives on 28 January 2026 in Taguig City, reinforcing inter-agency collaboration and institutional capacity building. Serving as a benchmark for the House’s proposed Legislative Training Center, the session was led by DSWD Academy Director IV Atty. Justin Caesar Anthony D. Batocabe, who highlighted the Academy’s role as the Department’s institutional hub for professional development, competency standardization, and knowledge sharing.",
+        "The DSWD, through the DSWD Academy, held a Knowledge Sharing Session with the Knowledge Management Systems Bureau–House of Representatives on 28 January 2026 in Taguig City, reinforcing inter-agency collaboration and institutional capacity building.",
       link: "https://www.facebook.com/dswdacademy/posts/122172801110397679?ref=embed_post",
     },
     {
@@ -47,7 +47,7 @@ const NewsEvents = () => {
       image: News5,
       title: "𝗛𝗮𝗻𝗱𝘀-𝗢𝗻 𝗟𝗲𝗮𝗿𝗻𝗶𝗻𝗴 𝗕𝗲𝗴𝗶𝗻𝘀: 𝗨𝗣 𝗗𝗶𝗹𝗶𝗺𝗮𝗻 𝗦𝘁𝘂𝗱𝗲𝗻𝘁𝘀 𝗘𝘅𝗽𝗹𝗼𝗿𝗲 𝗗𝗦𝗪𝗗’𝘀 𝗛𝗶𝗴𝗵-𝗜𝗺𝗽𝗮𝗰𝘁 𝗦𝗼𝗰𝗶𝗮𝗹 𝗦𝗲𝗿𝘃𝗶𝗰𝗲𝘀",
       description:
-        "The Department of Social Welfare and Development (DSWD) Academy welcomed 24 participants from the University of the Philippines–Diliman’s College of Social Work and Community Development for a Knowledge Sharing Session at the Protective Services Bureau (PSB) Conference Room held last 1 December 2025, bringing together 18 first-year Bachelor of Science in Social Work students and their lead faculty member, Assistant Professor Rosalie T. Quilicol, to deepen their understanding of the Department’s mandate, organizational structure, and key programs such as Residential Care Facilities, Statutory Programs, and Crisis Intervention. DSWD Academy Director Atty. Justin Caesar Anthony D. Batocabe opened the session by underscoring the importance of bridging academic learning with real-world social work practice, highlighting how firsthand accounts from practitioners help students appreciate the profession’s principles, ethics, competencies, and helping process.",
+        "The Department of Social Welfare and Development (DSWD) Academy welcomed 24 participants from the University of the Philippines–Diliman’s College of Social Work and Community Development for a Knowledge Sharing Session at the Protective Services Bureau (PSB) Conference Room held last 1 December 2025, bringing together 18 first-year Bachelor of Science in Social Work students and their lead faculty member, Assistant Professor Rosalie T. Quilicol, to deepen their understanding of the Department’s mandate, organizational structure, and key programs such as Residential Care Facilities, Statutory Programs, and Crisis Intervention.",
       link: "https://www.facebook.com/dswdacademy/posts/122168352176397679?ref=embed_post",
     },
   ];
