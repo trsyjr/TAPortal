@@ -72,7 +72,7 @@ const NewsEvents = () => {
       <div
         className="absolute top-0 left-0 right-0 z-0 mx-auto"
         style={{
-          height: "1000px",
+          height: "2000px",
           maxWidth: "110rem",
           backgroundImage: `url(${TABG})`,
           backgroundSize: "cover",
