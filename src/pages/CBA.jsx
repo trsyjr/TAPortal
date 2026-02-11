@@ -196,6 +196,8 @@ const CBA = () => {
                       ${isActive ? "bg-[#FFE066]" : "bg-white"}
                       rounded-3xl p-4 sm:p-5 md:p-8 min-w-[140px] sm:min-w-[160px] md:min-w-0`}
                     whileHover={{ scale: 1.05, rotate: -4 }}
+                    animate={{ rotate: isActive ? -4 : 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <div className="mb-3">
                       {React.cloneElement(card.icon, {
