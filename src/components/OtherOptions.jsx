@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import TicketModal from "./TicketModal";
+import JoinModal from "./JoinModal";
 import { FaTicketAlt, FaLaptopMedical } from "react-icons/fa";
 
 const OtherOptions = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [joinModalOpen, setJoinModalOpen] = useState(false);
 
   return (
     <section className="py-5 px-6 md:px-20 lg:px-40 text-center font-sans">
@@ -21,7 +23,10 @@ const OtherOptions = () => {
           <p className="text-gray-600 text-center mb-6 text-lg md:text-xl">
             Virtual Clinic for Technical Assistance opens every Wednesday.
           </p>
-          <button className="bg-[#FFE066] mt-2 px-10 py-4 border border-gray-700 text-gray-700 rounded-full transition transform hover:scale-105 font-semibold text-lg md:text-xl">
+          <button
+            onClick={() => setJoinModalOpen(true)}
+            className="bg-[#FFE066] mt-2 px-10 py-4 border border-gray-700 text-gray-700 rounded-full transition transform hover:scale-105 font-semibold text-lg md:text-xl"
+          >
             Join Here
           </button>
         </div>
@@ -49,8 +54,9 @@ const OtherOptions = () => {
         </div>
       </div>
 
-      {/* Ticket Modal */}
+      {/* Modals */}
       <TicketModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      <JoinModal isOpen={joinModalOpen} onClose={() => setJoinModalOpen(false)} />
     </section>
   );
 };
