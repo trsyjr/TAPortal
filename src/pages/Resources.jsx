@@ -97,7 +97,7 @@ const tableData = [
   },
   {
     id: 8,
-    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
     type: "MC No. 23, s. 2003",
     fileName: "Adoption of the DSWD Organizational Competencies",
     dateIssued: "27 Jun, 2003",
@@ -105,7 +105,7 @@ const tableData = [
   },
   {
     id: 9,
-    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
     type: "AO No. 20, s. 2004",
     fileName: "Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts",
     dateIssued: "3 Jun, 2004",
@@ -113,7 +113,7 @@ const tableData = [
   },
   {
     id: 10,
-    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
     type: "BC No. 2007-1, s. 2007",
     fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators and Facilitators",
     dateIssued: "23 Apr, 2007",
@@ -121,7 +121,7 @@ const tableData = [
   },
   {
     id: 11,
-    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
     type: "MC No. 04, s. 2010",
     fileName: "'Institutional Development' Framework Amending for the purpose Memorandum Circular No. 32, Series of 2004",
     dateIssued: "15 Apr, 2010",
@@ -129,7 +129,7 @@ const tableData = [
   },
   {
     id: 12,
-    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
     type: "MC No. 07, s. 2010",
     fileName: "Terms of Reference on the Use of Standard Forms on Training Design, Syllabus and Documentation",
     dateIssued: "13 May, 2010",
@@ -137,7 +137,7 @@ const tableData = [
   },
   {
     id: 13,
-    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
     type: "AO No. 16, s. 2010",
     fileName: "Framework and Guidelines for Capability Building of DSWD Social Protection Intermediaries and Stakeholders",
     dateIssued: "16 Dec, 2010",
@@ -145,7 +145,7 @@ const tableData = [
   },
   {
     id: 14,
-    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
     type: "AO No. 10, s. 2019",
     fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators, Facilitators in Seminars, Training Programs, and other Similar Activities",
     dateIssued: "15 May, 2019",
@@ -153,7 +153,7 @@ const tableData = [
   },
   {
     id: 15,
-    category: "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
     type: "Memorandum",
     fileName: "Guidance on the Provision of Learning Activities for Contract of Service (COS) and Job Order (JO) Workers",
     dateIssued: "7 Feb, 2024",
