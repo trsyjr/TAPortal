@@ -13,6 +13,7 @@ import {
   FaTicket,
 } from "react-icons/fa6";
 import TicketModal from "../components/TicketModal";
+import JoinModal from "../components/JoinModal";
 
 
 // FAQ Cards for top navigation
@@ -77,6 +78,7 @@ const Participant = () => {
   const [bottomOffset, setBottomOffset] = useState(32); // initial bottom-32
 
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
 
   const handleCardClick = (path) => {
     if (path) navigate(path);
@@ -88,7 +90,7 @@ const Participant = () => {
       icon: <FaLaptopMedical />,
       description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
       buttonText: "Join Here",
-      buttonAction: () => window.alert("TA CLINIC Clicked"),
+      buttonAction: () => setIsJoinModalOpen(true),
     },
     {
       title: "REQUEST TICKET",
@@ -257,6 +259,7 @@ const Participant = () => {
         })}
       </div>
       <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
+      <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)}/>
     </div>
   );
 };

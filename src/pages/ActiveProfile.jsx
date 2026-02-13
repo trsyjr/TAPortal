@@ -12,7 +12,8 @@ import {
   FaLaptopMedical,
   FaTicket,
 } from "react-icons/fa6";
-import TicketModal from "../components/TicketModal"; // make sure this path is correct
+import TicketModal from "../components/TicketModal";
+import JoinModal from "../components/JoinModal";
 
 // Top FAQ cards
 const faqCards = [
@@ -123,6 +124,7 @@ const ActivityProfile = () => {
 
   // ✅ state moved inside component
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
 
   // ✅ floating cards inside component to access state
   const floatingCards = [
@@ -131,7 +133,7 @@ const ActivityProfile = () => {
       icon: <FaLaptopMedical />,
       description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
       buttonText: "Join Here",
-      buttonAction: () => window.alert("TA CLINIC Clicked"),
+      buttonAction: () => setIsJoinModalOpen(true),
     },
     {
       title: "REQUEST TICKET",
@@ -267,6 +269,10 @@ const ActivityProfile = () => {
       <TicketModal
         isOpen={isTicketModalOpen}
         onClose={() => setIsTicketModalOpen(false)}
+      />
+      <JoinModal
+        isOpen={isJoinModalOpen}
+        onClose={() => setIsJoinModalOpen(false)}
       />
     </div>
   );

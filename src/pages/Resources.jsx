@@ -33,8 +33,9 @@ const positionsDesktop = [
 const tableTabs = [
   "CENTRALIZATION",
   "CBD PLAN AND\nACCOMPLISHMENT",
-  "MANAGEMENT OF CAPABILITY\nBUILDING EFFORTS",
+  "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
   "OTHERS",
+  "TEMPLATES"
 ];
 
 const tableData = [
@@ -206,6 +207,46 @@ const tableData = [
     dateIssued: "31 May 2024",
     link: "/pdfs/FY 2025 WORK AND FINANCIAL PLANNING GUIDELINES.pdf",
   },
+  {
+    id: 22,
+    category: "OTHERS",
+    type: "Guidebook",
+    fileName: "DSWD L&D Guidebook",
+    dateIssued: "",
+    link: "https://drive.google.com/drive/folders/1t3P41pSDNz_iOfUNk4OySMWAMPhoMKdW?usp=drive_link",
+  },
+  {
+    id: 23,
+    category: "OTHERS",
+    type: "FAQs",
+    fileName: "L&D Standards FAQs",
+    dateIssued: "",
+    link: "https://docs.google.com/spreadsheets/d/1IO9v5WsCPmifqk5w5URI1koQ73JgS2acH93OZeKl40o/edit?usp=drive_link",
+  },
+  {
+    id: 24,
+    category: "OTHERS",
+    type: "Annexes",
+    fileName: "DSWD L&D Guidebook Annexes",
+    dateIssued: "",
+    link: "https://drive.google.com/u/0/open?id=1N53g9D3p1VXDmPWXey-2zAsjGZ0qQbk-",
+  },
+  {
+    id: 25,
+    category: "TEMPLATES",
+    type: "Prescribed Template",
+    fileName: "LDI-DIP",
+    dateIssued: "",
+    link: "https://docs.google.com/document/d/12IsrxW1x10kDH5mhe5CWHZVoOGIvRxFY/edit?usp=drive_link&ouid=101943665772154647256&rtpof=true&sd=true",
+  },
+  {
+    id: 26,
+    category: "TEMPLATES",
+    type: "Prescribed Template",
+    fileName: "LDI Proposal",
+    dateIssued: "",
+    link: "https://docs.google.com/document/d/1uDx9lifnme2-R7l3v8VpP_HUo3Nhn9lO/edit?usp=drive_link&ouid=101943665772154647256&rtpof=true&sd=true",
+  },
 ];
 
 // ---------- KNOWLEDGE BANK COMPONENT ----------
@@ -334,9 +375,9 @@ const Resources = () => {
       <KnowledgeBank />
 
       {/* TABLE SECTION */}
-      <section className="w-full flex flex-col items-center mt-10 px-4 sm:px-6 lg:px-36 mb-12">
+      <section className="w-full flex flex-col items-center mt-10 px-4 sm:px-6 lg:px-14 mb-12">
         {/* Tabs + Search Row */}
-        <div className="w-full flex flex-col sm:flex-row gap-4 mb-0">
+        <div className="w-full flex flex-col sm:flex-row gap-4 mb-0 ">
           {/* Tabs container */}
           <div className="flex gap-0 overflow-x-auto sm:overflow-visible scrollbar-hide flex-1">
             {tableTabs.map((tab, idx) => (
@@ -366,7 +407,7 @@ const Resources = () => {
           </div>
 
           {/* Search bar */}
-          <div className="w-full sm:w-64 flex-shrink-0 mt-2 sm:mt-0">
+          <div className="w-full sm:w-64 flex-shrink-0 pt-2 mt-2 sm:mt-0">
             <input
               type="text"
               placeholder="Search..."

@@ -12,6 +12,7 @@ import {
   FaTicket,
 } from "react-icons/fa6";
 import TicketModal from "../components/TicketModal";
+import JoinModal from "../components/JoinModal";
 
 /* ---------------- FAQ CARDS (TOP) ---------------- */
 const faqCards = [
@@ -21,24 +22,6 @@ const faqCards = [
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
   { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
   { title: "CB PLAN and ACCOMPLISHMENTS", icon: <FaComments />, path: "/cbas" },
-];
-
-/* ---------------- FLOATING CARDS ---------------- */
-const floatingCards = [
-  {
-    title: "TA WEDNESDAY",
-    icon: <FaLaptopMedical />,
-    description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
-    buttonText: "Join Here",
-    buttonAction: () => window.alert("TA CLINIC Clicked"),
-  },
-  {
-    title: "REQUEST TICKET",
-    icon: <FaTicket />,
-    description: "Submit a request ticket and we will reach out shortly.",
-    buttonText: "Request Here",
-    buttonAction: () => window.alert("Request Ticket Clicked"),
-  },
 ];
 
 /* ---------------- FAQ PAGES ---------------- */
@@ -116,6 +99,7 @@ const CBA = () => {
   const [faqPage, setFaqPage] = useState(0);
 
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
 
   const handleCardClick = (path) => {
     if (path) navigate(path);
@@ -127,7 +111,7 @@ const CBA = () => {
       icon: <FaLaptopMedical />,
       description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
       buttonText: "Join Here",
-      buttonAction: () => window.alert("TA CLINIC Clicked"),
+      buttonAction: () => setIsJoinModalOpen(true),
     },
     {
       title: "REQUEST TICKET",
@@ -306,6 +290,7 @@ const CBA = () => {
               })}
             </div>
             <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
+            <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)}/>
     </div>
   );
 };
