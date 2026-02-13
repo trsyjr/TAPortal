@@ -109,11 +109,8 @@ const JoinModal = ({ isOpen, onClose }) => {
                   <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-lg shadow-sm hover:shadow-md transition">
                     <p className="font-semibold text-blue-700 mb-1">Time</p>
                     <p>
-                      {`${sessionStartHour}:00–${
-                        sessionStartHour + sessionDurationHours
-                      }:00 PM`}
+                      2:00 PM - 4:00 PM
                     </p>
-                    <p>Philippine Time</p>
                     <p>Every Wednesday</p>
                   </div>
 
