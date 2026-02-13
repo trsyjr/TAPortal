@@ -164,13 +164,13 @@ const JoinModal = ({ isOpen, onClose }) => {
                     <p className="text-gray-500 mt-2 text-sm">
                       Next session in: {countdown}
                     </p>
-                    <p className="text-gray-500 mt-1 text-sm">
+                    {/* <p className="text-gray-500 mt-1 text-sm">
                       Current PH Time:{" "}
                       {new Date().toLocaleString("en-US", {
                         timeZone: "Asia/Manila",
                         hour12: false,
                       })}
-                    </p>
+                    </p> */}
                   </>
                 )}
               </div>
