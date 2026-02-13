@@ -6,6 +6,11 @@ const JoinModal = ({ isOpen, onClose }) => {
   const [canJoin, setCanJoin] = useState(false);
   const [countdown, setCountdown] = useState("");
 
+  // ====================== CONFIG ======================
+  const sessionDay = 3; // Wednesday (0=Sun,1=Mon,...)
+  const sessionStartHour = 14; // 14 = 2 PM
+  const sessionDurationHours = 2; // duration in hours
+
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") onClose();
@@ -14,53 +19,53 @@ const JoinModal = ({ isOpen, onClose }) => {
 
     const updateCountdown = () => {
       const now = new Date();
-      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-      const hkNow = new Date(utc + 8 * 60 * 60 * 1000);
 
-      const day = hkNow.getDay(); // 0 = Sunday
-      const hour = hkNow.getHours();
-      const minute = hkNow.getMinutes();
-      const second = hkNow.getSeconds();
+      // ===== PHILIPPINE TIME =====
+      const phNow = new Date(
+        now.toLocaleString("en-US", { timeZone: "Asia/Manila" })
+      );
 
-      // Check if it's Wednesday 2–4 PM
-      if (day === 3 && hour >= 14 && hour < 16) {
-        setCanJoin(true);
-        setCountdown("");
-        return;
-      } else {
-        setCanJoin(false);
-      }
+      // ===== NEXT SESSION START & END =====
+      let daysUntilSession = (sessionDay - phNow.getDay() + 7) % 7;
 
-      // Calculate next Wednesday 2 PM
-      let daysUntilWednesday = (3 - day + 7) % 7; // 0 if today is Wednesday
-      if (daysUntilWednesday === 0 && hour >= 16) daysUntilWednesday = 7; // already past 4 PM
-
-      const nextWednesday2PM = new Date(
-        hkNow.getFullYear(),
-        hkNow.getMonth(),
-        hkNow.getDate() + daysUntilWednesday,
-        14,
+      const nextSessionStart = new Date(
+        phNow.getFullYear(),
+        phNow.getMonth(),
+        phNow.getDate() + daysUntilSession,
+        sessionStartHour,
         0,
         0
       );
 
-      const diff = nextWednesday2PM - hkNow;
+      const nextSessionEnd = new Date(
+        nextSessionStart.getTime() + sessionDurationHours * 60 * 60 * 1000
+      );
 
-      const hoursLeft = Math.floor(diff / (1000 * 60 * 60));
-      const minutesLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const secondsLeft = Math.floor((diff % (1000 * 60)) / 1000);
+      // ===== JOIN BUTTON LOGIC =====
+      if (phNow >= nextSessionStart && phNow < nextSessionEnd) {
+        setCanJoin(true);
+        setCountdown("");
+      } else {
+        setCanJoin(false);
 
-      setCountdown(`${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`);
+        // ===== COUNTDOWN =====
+        const diff = nextSessionStart - phNow;
+        const hoursLeft = Math.floor(diff / (1000 * 60 * 60));
+        const minutesLeft = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const secondsLeft = Math.floor((diff % (1000 * 60)) / 1000);
+
+        setCountdown(`${hoursLeft}h ${minutesLeft}m ${secondsLeft}s`);
+      }
     };
 
     updateCountdown();
-    const interval = setInterval(updateCountdown, 1000); // update every second
+    const interval = setInterval(updateCountdown, 1000);
 
     return () => {
       window.removeEventListener("keydown", handleEsc);
       clearInterval(interval);
     };
-  }, [onClose]);
+  }, [onClose, sessionDay, sessionStartHour, sessionDurationHours]);
 
   return (
     <AnimatePresence>
@@ -90,7 +95,7 @@ const JoinModal = ({ isOpen, onClose }) => {
 
             {/* Heading */}
             <h2 className="text-2xl md:text-3xl font-bold text-[#2e3192] mt-10 text-center">
-              DSWD ACADEMY CBD-PLDS TA WEDNESDAYS:
+              DSWD ACADEMY CBD-PLDS TA:
               <br />
               <span className="text-gray-700 text-lg">A VIRTUAL CLINIC</span>
             </h2>
@@ -103,8 +108,12 @@ const JoinModal = ({ isOpen, onClose }) => {
                   {/* Time Card */}
                   <div className="bg-blue-50 border-l-4 border-blue-600 p-4 rounded-lg shadow-sm hover:shadow-md transition">
                     <p className="font-semibold text-blue-700 mb-1">Time</p>
-                    <p>Feb 18, 2026 | 02:00–4:00 PM</p>
-                    <p>Hong Kong SAR</p>
+                    <p>
+                      {`${sessionStartHour}:00–${
+                        sessionStartHour + sessionDurationHours
+                      }:00 PM`}
+                    </p>
+                    <p>Philippine Time</p>
                     <p>Every Wednesday</p>
                   </div>
 
@@ -151,9 +160,18 @@ const JoinModal = ({ isOpen, onClose }) => {
                 </a>
 
                 {!canJoin && countdown && (
-                  <p className="text-gray-500 mt-2 text-sm">
-                    Next session in: {countdown}
-                  </p>
+                  <>
+                    <p className="text-gray-500 mt-2 text-sm">
+                      Next session in: {countdown}
+                    </p>
+                    <p className="text-gray-500 mt-1 text-sm">
+                      Current PH Time:{" "}
+                      {new Date().toLocaleString("en-US", {
+                        timeZone: "Asia/Manila",
+                        hour12: false,
+                      })}
+                    </p>
+                  </>
                 )}
               </div>
             </div>
