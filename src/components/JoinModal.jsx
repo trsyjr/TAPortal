@@ -7,7 +7,7 @@ const JoinModal = ({ isOpen, onClose }) => {
   const [countdown, setCountdown] = useState("");
 
   // ====================== CONFIG ======================
-  const sessionDay = 1; // Wednesday (0=Sun,1=Mon,...)
+  const sessionDay = 3; // Wednesday (0=Sun,1=Mon,...)
   const sessionStartHour = 14; // 14 = 2 PM
   const sessionDurationHours = 2; // duration in hours
 
@@ -158,16 +158,16 @@ const JoinModal = ({ isOpen, onClose }) => {
 
                 {!canJoin && countdown && (
                   <>
-                    <p className="text-gray-500 mt-2 text-sm">
+                    {/* <p className="text-gray-500 mt-2 text-sm">
                       Next session in: {countdown}
-                    </p>
-                    {/* <p className="text-gray-500 mt-1 text-sm">
-                      Current PH Time:{" "}
+                    </p> */}
+                    <p className="text-gray-500 mt-1 text-sm">
+                      Current Time:{" "}
                       {new Date().toLocaleString("en-US", {
                         timeZone: "Asia/Manila",
-                        hour12: false,
+                        hour12: true,
                       })}
-                    </p> */}
+                    </p>
                   </>
                 )}
               </div>
