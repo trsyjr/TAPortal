@@ -7,7 +7,7 @@ const JoinModal = ({ isOpen, onClose }) => {
   const [countdown, setCountdown] = useState("");
 
   // ====================== CONFIG ======================
-  const sessionDay = 3; // Wednesday (0=Sun,1=Mon,...)
+  const sessionDay = 1; // Wednesday (0=Sun,1=Mon,...)
   const sessionStartHour = 14; // 14 = 2 PM
   const sessionDurationHours = 2; // duration in hours
 
