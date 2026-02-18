@@ -73,7 +73,7 @@ const tableData = [
   },
   {
     id: 5,
-    category: "CBD PLAN AND\nACCOMPLISHMENT",
+    category: "CB PLAN AND\nACCOMPLISHMENT",
     type: "MC No. 11, s. 2010",
     fileName: "Guidelines in the Preperation and Submission of IDCB Plans and Accomplishment Reports",
     dateIssued: "22 Jun, 2010",
@@ -81,7 +81,7 @@ const tableData = [
   },
   {
     id: 6,
-    category: "CBD PLAN AND\nACCOMPLISHMENT",
+    category: "CB PLAN AND\nACCOMPLISHMENT",
     type: "Memorandum",
     fileName: "Call for Submission and Invitation for the Technical Assistance in Accomplishing the 2026 Capability Building Plan",
     dateIssued: "6 Oct 2025",
@@ -89,7 +89,7 @@ const tableData = [
   },
   {
     id: 7,
-    category: "CBD PLAN AND\nACCOMPLISHMENT",
+    category: "CB PLAN AND\nACCOMPLISHMENT",
     type: "Attachments",
     fileName: "Guidance Note for the Accomplishment of the Capability Building Plan Fiscal Year 2026",
     dateIssued: "6 Oct 2025",

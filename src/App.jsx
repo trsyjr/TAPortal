@@ -15,6 +15,10 @@ import TASupport from "./pages/TASupport";
 import LD from "./pages/LD";
 import CBA from "./pages/CBA";
 
+// New pages for CB Plan and CB Accomplishment
+import CBPlan from "./pages/CBPlan";
+import CBAccomplishment from "./pages/CBAccomplishment";
+
 // Import new pages
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndCondition";
@@ -76,6 +80,10 @@ function AppContent() {
         <Route path="/ta-support" element={<TASupport />} />
         <Route path="/ld-standards" element={<LD />} />
         <Route path="/cbas" element={<CBA />} />
+
+        {/* CB Plan and Accomplishment Routes */}
+        <Route path="/cbplan" element={<CBPlan />} />
+        <Route path="/cbaccomplishment" element={<CBAccomplishment />} />
 
         {/* New full pages */}
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
