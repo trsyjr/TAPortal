@@ -11,13 +11,7 @@ const Navbar = () => {
 
   const menuItems = [
     { name: "Home", path: "/" },
-    {
-      name: "CB Plan and Accomplishment",
-      subMenu: [
-        { name: "CB Plan", path: "/cbplan" },
-        { name: "CB Accomplishment", path: "/cbaccomplishment" },
-      ],
-    },
+    { name: "CB Plan", path: "/CBPlan" },
     { name: "Knowledge Bank", path: "/knowledgebank" },
     { name: "Resources", path: "/resources" },
     { name: "About", path: "/about" },
