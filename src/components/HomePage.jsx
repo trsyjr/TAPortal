@@ -31,11 +31,25 @@ const HomePage = () => {
 
   return (
     <div className="pt-20 font-sans relative">
-      {/* Background */}
+      {/* Background for MOBILE only */}
       <div
-        className="absolute top-0 left-0 right-0 z-0"
+        className="absolute top-0 left-0 right-0 z-0 md:hidden" // hidden on md+
         style={{
-          height: "680px",
+          height: "900px", // adjust mobile height
+          backgroundImage: `url(${TABG})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          borderBottomLeftRadius: "3rem",
+          borderBottomRightRadius: "3rem",
+        }}
+      />
+
+      {/* Background for DESKTOP only (optional) */}
+      <div
+        className="absolute top-0 left-0 right-0 z-0 hidden md:block" // show only md+
+        style={{
+          height: "670px",
           backgroundImage: `url(${TABG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -48,20 +62,19 @@ const HomePage = () => {
       {/* Hero Section */}
       <section className="relative z-10 text-center px-6 md:px-20 lg:px-40 py-12">
         <h1 className="text-md md:text-lg mb-2 text-gray-800 font-semibold">
-          CBD-PLDS
+          DSWD ACADEMY CBD-PLDS
         </h1>
 
-        <h2 className="text-4xl md:text-5xl font-bold mb-4 text-[#ee1c25]">
+        <h2 className="max-w-7xl mx-auto text-center text-3xl md:text-4xl font-bold mb-4 text-[#ee1c25]">
           Technical Assistance Portal
         </h2>
 
-        <div className="mx-auto max-w-5xl p-4 rounded-lg">
-          <p className="text-gray-700 text-base md:text-lg leading-relaxed font-semibold">
-            This portal is designed to support Offices, Bureaus, Services, and Units (OBSUs), Field Offices (FOs), 
-            and partner-stakeholders by providing clear guidance on available technical assistance services, standard 
-            processes, resources, and frequently asked questions. It aims to promote transparency, consistency, and 
-            efficiency in the delivery of technical assistance, while ensuring alignment with Department policies, 
-            standards, and learning and development priorities.
+        <div className="mx-auto max-w-7xl p-4 rounded-lg">
+          <p className="text-gray-700 text-base md:text-md leading-relaxed font-semibold mb-3">
+            This portal is designed to support Offices, Bureaus, Services, and Units (OBSUs), Field Offices (FOs), and 
+            partner-stakeholders by providing clear guidance on available technical assistance services, standard processes, 
+            resources, and frequently asked questions. It aims to promote transparency, consistency, and efficiency in the delivery 
+            of technical assistance, while ensuring alignment with Department policies, standards, and learning and development priorities.
           </p>
         </div>
 

@@ -89,7 +89,7 @@ const About = () => {
           <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg">
             Welcome to the DSWD Academy CBD-PLDS
           </h1>
-          <p className="text-lg md:text-2xl text-white drop-shadow-lg">
+          <p className="text-3xl md:text-5xl font-bold text-white drop-shadow-lg">
             Technical Assistance Portal!
           </p>
         </div>
@@ -123,6 +123,18 @@ const About = () => {
             program implementation, effective service delivery, and positive
             outcomes for the Department’s target clientele.
           </p>
+        </div>
+
+        <div className="mt-8">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1931.127807428279!2d121.0249467!3d14.527366099999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c92e958db053%3A0x753f0abd6b2f3b60!2sDSWD%20Academy%20(formerly%20SWADCAP)!5e0!3m2!1sen!2sph!4v1771383098009!5m2!1sen!2sph"
+            className="w-full h-96 md:h-[500px] rounded-3xl shadow-lg"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="DSWD Academy Map"
+          ></iframe>
         </div>
 
         <div>

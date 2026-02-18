@@ -32,7 +32,7 @@ const positionsDesktop = [
 // ---------- TABLE TABS AND DATA ----------
 const tableTabs = [
   "CENTRALIZATION",
-  "CBD PLAN AND\nACCOMPLISHMENT",
+  "CB PLAN AND\nACCOMPLISHMENT",
   "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
   "TEMPLATES",
   "OTHERS",
@@ -83,7 +83,7 @@ const tableData = [
     id: 6,
     category: "CBD PLAN AND\nACCOMPLISHMENT",
     type: "Memorandum",
-    fileName: "Call for Submission and Invitation for the Teachnical Assistance in Accomplishing the 2026 Capability Building Plan",
+    fileName: "Call for Submission and Invitation for the Technical Assistance in Accomplishing the 2026 Capability Building Plan",
     dateIssued: "6 Oct 2025",
     link: "/pdfs/221049-CALL-FOR-SUBMISSION-AND-INVITATION-FOR-THE-TECHNICAL-ASSISTANCE-IN-ACCOMPLISHING-THE-2026-CAPABILITY-BUILDING-PLAN.pdf",
   },

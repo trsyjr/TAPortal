@@ -1,4 +1,6 @@
+// src/components/Footer.jsx
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -7,14 +9,31 @@ const Footer = () => {
         {/* Column 1 */}
         <div className="flex-[1.5] space-y-4">
           <h3 className="text-3xl md:text-5xl font-bold mb-2">Technical Assistance Portal</h3>
-          <p className="text-sm md:text-base">
+
+          {/* Clickable Address */}
+          <a
+            href="https://maps.app.goo.gl/2m6GUmgQ4TKPXpYDA"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm md:text-base hover:underline"
+          >
             111 Block 3, Taguig, 1630 Metro Manila
-          </p>
+          </a>
+
           <p className="text-sm md:text-base">
             Contact Us at VOIPP: 10010
           </p>
-          <p className="text-xs md:text-sm mt-4">
-            © 2026 TA Portal. All rights reserved.
+
+          <p className="text-sm md:text-base">
+            Follow Us on{" "}
+            <a 
+              href="https://www.facebook.com/dswdacademy"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm md:text-base hover:underline"
+            >
+              Facebook
+            </a>
           </p>
         </div>
 
@@ -25,9 +44,30 @@ const Footer = () => {
             <div className="flex gap-12">
               {/* Column 2 */}
               <div className="flex flex-col gap-1">
-                <a href="https://academy.dswd.gov.ph/" target="_blank" className="underline hover:opacity-80">DSWD Academy Portal</a>
-                <a href="https://sites.google.com/dswd.gov.ph/swidb-cpd-portal/home" target="_blank" className="underline hover:opacity-80">CPD Portal</a>
-                <a href="https://kmportal.dswd.gov.ph/" target="_blank" className="underline hover:opacity-80">Knowledge Management Portal</a>
+                <a
+                  href="https://academy.dswd.gov.ph/"
+                  target="_blank"
+                  className="underline hover:opacity-80"
+                  rel="noopener noreferrer"
+                >
+                  DSWD Academy Portal
+                </a>
+                <a
+                  href="https://sites.google.com/dswd.gov.ph/swidb-cpd-portal/home"
+                  target="_blank"
+                  className="underline hover:opacity-80"
+                  rel="noopener noreferrer"
+                >
+                  CPD Portal
+                </a>
+                <a
+                  href="https://kmportal.dswd.gov.ph/"
+                  target="_blank"
+                  className="underline hover:opacity-80"
+                  rel="noopener noreferrer"
+                >
+                  Knowledge Management Portal
+                </a>
               </div>
 
               {/* Column 3 */}
@@ -40,13 +80,28 @@ const Footer = () => {
                 >
                   L&D Guidebook
                 </a>
-                <a href="#" className="underline hover:opacity-80">Privacy Policy</a>
-                <a href="#" className="underline hover:opacity-80">Terms & Conditions</a>
+
+                {/* React Router Links for full pages */}
+                <Link
+                  to="/privacy-policy"
+                  className="underline hover:opacity-80"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  to="/terms-and-conditions"
+                  className="underline hover:opacity-80"
+                >
+                  Terms & Conditions
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <p className="text-xs md:text-sm mt-10 text-center">
+            © 2026 CBD TA Portal. All rights reserved.
+          </p>
     </footer>
   );
 };

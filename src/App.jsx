@@ -15,6 +15,10 @@ import TASupport from "./pages/TASupport";
 import LD from "./pages/LD";
 import CBA from "./pages/CBA";
 
+// Import new pages
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndCondition";
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState, useEffect } from "react";
@@ -38,17 +42,14 @@ function AppContent() {
       img.onload = img.onerror = () => {
         loadedCount++;
         if (loadedCount === preloadImages.length) {
-          // Small delay so animation is visible
           setTimeout(() => setIsLoading(false), 500);
         }
       };
     });
 
-    // Optional: minimum preloader duration
     const minTimeout = setTimeout(() => setIsLoading(false), 1000);
-
     return () => clearTimeout(minTimeout);
-  }, [location.pathname]); // triggers on route change
+  }, [location.pathname]);
 
   if (isLoading) return <Preloader />;
 
@@ -67,7 +68,6 @@ function AppContent() {
           }
         />
         <Route path="/about" element={<About />} />
-        {/* <Route path="/calendar" element={<div className="pt-28 px-6">Training Calendar Page</div>} /> */}
         <Route path="/knowledgebank" element={<KnowledgeBank />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/active-profile" element={<ActiveProfile />} />
@@ -76,6 +76,10 @@ function AppContent() {
         <Route path="/ta-support" element={<TASupport />} />
         <Route path="/ld-standards" element={<LD />} />
         <Route path="/cbas" element={<CBA />} />
+
+        {/* New full pages */}
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
       </Routes>
       <Footer />
       <ToastContainer position="top-right" autoClose={3000} />
