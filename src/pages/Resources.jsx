@@ -212,7 +212,7 @@ const tableData = [
     category: "OTHERS",
     type: "Guidebook",
     fileName: "DSWD L&D Guidebook",
-    dateIssued: "",
+    dateIssued: "2021",
     link: "https://drive.google.com/drive/folders/1t3P41pSDNz_iOfUNk4OySMWAMPhoMKdW?usp=drive_link",
   },
   {
@@ -220,7 +220,7 @@ const tableData = [
     category: "OTHERS",
     type: "FAQs",
     fileName: "L&D Standards FAQs",
-    dateIssued: "",
+    dateIssued: "2021",
     link: "https://docs.google.com/spreadsheets/d/1IO9v5WsCPmifqk5w5URI1koQ73JgS2acH93OZeKl40o/edit?usp=drive_link",
   },
   {
@@ -228,7 +228,7 @@ const tableData = [
     category: "OTHERS",
     type: "Annexes",
     fileName: "DSWD L&D Guidebook Annexes",
-    dateIssued: "",
+    dateIssued: "2021",
     link: "https://drive.google.com/u/0/open?id=1N53g9D3p1VXDmPWXey-2zAsjGZ0qQbk-",
   },
   {
@@ -236,7 +236,7 @@ const tableData = [
     category: "TEMPLATES",
     type: "Prescribed Template",
     fileName: "LDI-DIP",
-    dateIssued: "",
+    dateIssued: "2021",
     link: "https://docs.google.com/document/d/12IsrxW1x10kDH5mhe5CWHZVoOGIvRxFY/edit?usp=drive_link&ouid=101943665772154647256&rtpof=true&sd=true",
   },
   {
@@ -244,7 +244,7 @@ const tableData = [
     category: "TEMPLATES",
     type: "Prescribed Template",
     fileName: "LDI Proposal",
-    dateIssued: "",
+    dateIssued: "2021",
     link: "https://docs.google.com/document/d/1uDx9lifnme2-R7l3v8VpP_HUo3Nhn9lO/edit?usp=drive_link&ouid=101943665772154647256&rtpof=true&sd=true",
   },
   {
