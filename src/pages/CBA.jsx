@@ -21,7 +21,7 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
   { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "CB PLAN and ACCOMPLISHMENTS", icon: <FaComments />, path: "/cbas" },
+  { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
 ];
 
 /* ---------------- FAQ PAGES ---------------- */
@@ -71,17 +71,58 @@ const faqPages = [
     label: "Planning and Reporting",
     items: [
       {
-        q: "What capability building plans are required to be submitted to the DSWD Academy?",
-        a: "",
+        q: "When is the submission of the Capability Building Plan?",
+        a: "Pursuant to Memorandum Circular No. 11, Series of 2010, OBS is expected to submit the required document simultaneously with the draft Work and Financial Plan, scheduled every November.",
       },
       {
-        q: "How often should capability building plans and reports be updated?",
-        a: "",
+        q: "How would be the review and technical assistance done by DSWD Academy?",
+        a: "The review and technical assistance of the document shall be done via the google sheet.",
       },
       {
-        q: "What are the required reports after the conduct of a capability building activity?",
-        a: "",
+        q: "What is the process of submission of the Capability Building Plan?",
+        a: `Access the CB Plan template through the provided link.
+
+            Locate your respective Cluster and Office.
+
+            Once located, proceed to the Dashboard tab.
+
+            In the CB Focal Area, enter your email address. This email will serve as the contact person of the DSWD Academy for the CB Plan processes.
+
+            Go to your assigned sheet and fill in the required information.
+
+            After completing the necessary details, return to the Dashboard and update the status 'DONE'. This will notify the DSWD Academy Technical Assistance Focal to begin the review.
+
+            If the document meets the required standards, the DSWD Academy Focal will update the status to "For Endorsement."
+
+            Once marked For Endorsement, the OBS may proceed to print the document for the signatures of the Cluster Head and the Head of the DSWD Academy.`,
       },
+      {
+        q: "All Capability Building Activities from the Work and Financial Plan.",
+        a: (
+          <>
+            <p>The review and technical assistance of the document shall be done via the google sheet.</p>
+            <p className="mt-2 font-semibold">More Specifically:</p>
+            <ul className="list-disc list-inside ml-4 mt-1">
+              {[
+                "Training",
+                "Training of Trainers",
+                "Forum",
+                "Workshop",
+                "Conference",
+                "Summit",
+                "Meeting",
+                "Seminar",
+                "Brown Bag Session",
+                "Coaching Session",
+                "Program Review and Evaluation",
+              ].map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </>
+        ),
+      },
+
       {
         q: "",
         a: (<><strong>Reference:</strong></>),
@@ -118,7 +159,7 @@ const CBA = () => {
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true), // ✅ opens modal
+      buttonAction: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -217,7 +258,7 @@ const CBA = () => {
           {faqPages[faqPage].items.map((item, idx) => (
             <React.Fragment key={idx}>
               <div className="md:col-span-4 font-bold text-gray-800">{item.q}</div>
-              <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">
+              <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed whitespace-pre-line">
                 {item.a || <span className="italic text-gray-400">&lt;Blank&gt;</span>}
               </div>
             </React.Fragment>
@@ -247,50 +288,51 @@ const CBA = () => {
       </section>
 
       {/* ---------------- FLOATING CARDS ---------------- */}
-<div
-              className="fixed right-6 z-50 w-56 h-60"
-              style={{ bottom: `${bottomOffset}px` }}
+      <div
+        className="fixed right-6 z-50 w-56 h-60"
+        style={{ bottom: `${bottomOffset}px` }}
+      >
+        {floatingCards.map((card, index) => {
+          const isTop = index === currentCard;
+          const offsetX = isTop ? -10 : 10;
+          const offsetY = 0;
+          const rotation = isTop ? -5 : 5;
+          const zIndex = isTop ? 20 : 10;
+
+          return (
+            <motion.div
+              key={card.title}
+              className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
+              style={{ zIndex }}
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{
+                x: offsetX,
+                y: offsetY,
+                rotate: rotation,
+                scale: isTop ? 1 : 0.95,
+                opacity: 1,
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              onClick={card.buttonAction}
             >
-              {floatingCards.map((card, index) => {
-                const isTop = index === currentCard;
-                const offsetX = isTop ? -10 : 10;
-                const offsetY = 0;
-                const rotation = isTop ? -5 : 5;
-                const zIndex = isTop ? 20 : 10;
-      
-                return (
-                  <motion.div
-                    key={card.title}
-                    className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
-                    style={{ zIndex }}
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{
-                      x: offsetX,
-                      y: offsetY,
-                      rotate: rotation,
-                      scale: isTop ? 1 : 0.95,
-                      opacity: 1,
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    onClick={card.buttonAction}
-                  >
-                    <div className="flex flex-col items-center text-center">
-                      {React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}
-                      <h3 className="text-sm md:text-md font-bold text-[#2e3192] mt-2">{card.title}</h3>
-                      <p className="text-gray-600 text-3xs md:text-xs mt-2">{card.description}</p>
-                      <button
-                        className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
-                        onClick={card.buttonAction} // ✅ button works
-                      >
-                        {card.buttonText}
-                      </button>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-            <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
-            <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)}/>
+              <div className="flex flex-col items-center text-center">
+                {React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}
+                <h3 className="text-sm md:text-md font-bold text-[#2e3192] mt-2">{card.title}</h3>
+                <p className="text-gray-600 text-3xs md:text-xs mt-2">{card.description}</p>
+                <button
+                  className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
+                  onClick={card.buttonAction}
+                >
+                  {card.buttonText}
+                </button>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
+      <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)} />
     </div>
   );
 };

@@ -32,7 +32,7 @@ const positionsDesktop = [
 // ---------- TABLE TABS AND DATA ----------
 const tableTabs = [
   "CENTRALIZATION",
-  "CB PLAN AND\nACCOMPLISHMENT",
+  "CAPABILITY BUILDING PLAN",
   "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
   "TEMPLATES",
   "OTHERS",
@@ -73,7 +73,7 @@ const tableData = [
   },
   {
     id: 5,
-    category: "CB PLAN AND\nACCOMPLISHMENT",
+    category: "CAPABILITY BUILDING PLAN",
     type: "MC No. 11, s. 2010",
     fileName: "Guidelines in the Preperation and Submission of IDCB Plans and Accomplishment Reports",
     dateIssued: "22 Jun, 2010",
@@ -81,7 +81,7 @@ const tableData = [
   },
   {
     id: 6,
-    category: "CB PLAN AND\nACCOMPLISHMENT",
+    category: "CAPABILITY BUILDING PLAN",
     type: "Memorandum",
     fileName: "Call for Submission and Invitation for the Technical Assistance in Accomplishing the 2026 Capability Building Plan",
     dateIssued: "6 Oct 2025",
@@ -89,7 +89,7 @@ const tableData = [
   },
   {
     id: 7,
-    category: "CB PLAN AND\nACCOMPLISHMENT",
+    category: "CAPABILITY BUILDING PLAN",
     type: "Attachments",
     fileName: "Guidance Note for the Accomplishment of the Capability Building Plan Fiscal Year 2026",
     dateIssued: "6 Oct 2025",
@@ -247,7 +247,17 @@ const tableData = [
     dateIssued: "",
     link: "https://docs.google.com/document/d/1uDx9lifnme2-R7l3v8VpP_HUo3Nhn9lO/edit?usp=drive_link&ouid=101943665772154647256&rtpof=true&sd=true",
   },
+  {
+    id: 27,
+    category: "OTHERS",
+    type: "Memorandum",
+    fileName: "Guidelines on the Establishment and Operationalization of the DSWD Academy",
+    dateIssued: "12 Feb, 2026",
+    link: "/pdfs/Memorandum Circular_05_2026_Guidelines on the Establishment and Operationalization of the DSWD Academy.pdf",
+  },
 ];
+
+
 
 // ---------- KNOWLEDGE BANK COMPONENT ----------
 const KnowledgeBank = () => {

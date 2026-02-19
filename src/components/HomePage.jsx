@@ -19,7 +19,7 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
   { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "CB PLAN and ACCOMPLISHMENTS", icon: <FaComments />, path: "/cbas" },
+  { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
 ];
 
 const HomePage = () => {
@@ -71,10 +71,10 @@ const HomePage = () => {
 
         <div className="mx-auto max-w-7xl p-4 rounded-lg">
           <p className="text-gray-700 text-base md:text-md leading-relaxed font-semibold mb-3">
-            This portal is designed to support Offices, Bureaus, Services, and Units (OBSUs), Field Offices (FOs), and 
-            partner-stakeholders by providing clear guidance on available technical assistance services, standard processes, 
-            resources, and frequently asked questions. It aims to promote transparency, consistency, and efficiency in the delivery 
-            of technical assistance, while ensuring alignment with Department policies, standards, and learning and development priorities.
+            This portal is designed to support Offices, Bureaus, Services, and Units (OBSUs), Field Offices (FOs), and partner-stakeholders 
+            by providing clear guidance on available technical assistance services, standard processes, resources, and frequently asked 
+            questions along capability building. It aims to promote transparency, consistency, and efficiency in the delivery of technical 
+            assistance, while ensuring alignment with Department policies, standards, and learning and development priorities.
           </p>
         </div>
 
