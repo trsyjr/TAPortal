@@ -10,6 +10,7 @@ import {
   faEye,
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
+import { CgArrowsExchangeAltV } from "react-icons/cg";
 import TABG from "../assets/TABG.png"; // Make sure you have this image
 
 // ---------- ICONS AND POSITIONS ----------
@@ -257,8 +258,6 @@ const tableData = [
   },
 ];
 
-
-
 // ---------- KNOWLEDGE BANK COMPONENT ----------
 const KnowledgeBank = () => {
   const [order, setOrder] = useState([0, 1, 2, 3, 4]);
@@ -363,14 +362,29 @@ const Resources = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const rowsPerPage = 5;
+  const [dateSort, setDateSort] = useState(null);
   const tabsRef = useRef(null);
 
+  const toggleDateSort = () => {
+  if (!dateSort) setDateSort("asc");
+  else if (dateSort === "asc") setDateSort("desc");
+  else setDateSort(null);
+  setCurrentPage(1); // reset to first page
+  };
+
   const filteredData = tableData
-    .filter((item) => item.category === activeTab)
-    .filter((item) =>
-      item.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.type.toLowerCase().includes(searchQuery.toLowerCase())
-    );
+  .filter((item) => item.category === activeTab)
+  .filter((item) =>
+    item.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.type.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+  .sort((a, b) => {
+  if (!dateSort) return 0;
+  const parseDate = (d) => (d ? new Date(d.replace(",", "")) : new Date(0));
+  const dateA = parseDate(a.dateIssued);
+  const dateB = parseDate(b.dateIssued);
+  return dateSort === "asc" ? dateB - dateA : dateA - dateB;
+});
 
   // PAGINATION
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
@@ -438,7 +452,23 @@ const Resources = () => {
               <tr className="bg-white">
                 <th className="px-6 py-3 text-left w-[20%]">Type</th>
                 <th className="px-6 py-3 text-left w-[60%]">File Name</th>
-                <th className="px-6 py-3 text-left w-[10%]">Date Issued</th>
+                <th
+                  className="px-6 py-3 text-left w-[10%] cursor-pointer"
+                  onClick={toggleDateSort}
+                >
+                  <div className="flex items-center gap-2 select-none">
+                    Date Issued
+                    <CgArrowsExchangeAltV
+                      className={`ml-2 transition-transform duration-200 text-xl ${
+                        dateSort === "asc"
+                          ? "text-blue-500 rotate-180"
+                          : dateSort === "desc"
+                          ? "text-red-500"
+                          : "text-gray-400"
+                      }`}
+                    />
+                  </div>
+                </th>
                 <th className="px-6 py-3 text-right w-[18%]"></th>
               </tr>
             </thead>
