@@ -18,12 +18,12 @@ import JoinModal from "../components/JoinModal";
 
 // FAQ Cards for top navigation
 const faqCards = [
-  { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
-  { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
-  { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
-  { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
-  { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+    { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
+    { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
+    { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
+    { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
+    { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+    { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
 ];
 
 // Clean object-based FAQ data
@@ -61,7 +61,16 @@ const faqPages = [
           <>
             <strong>Reference:</strong>
             <ul className="list-disc list-inside mt-2 space-y-1">
-              <li>Memorandum from the Secretary (07 February 2024). Guidance on the Provision of Learning Activities for Contract of Service (COS) and Job Order (JO) Workers.</li>
+              <li>
+                <a 
+                  href="/pdfs/Memorandum from the Secretary-Guidance on the Provision of Learning Activities for Contract of Service and Job Order Workers (1).pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  Memorandum from the Secretary (07 February 2024). Guidance on the Provision of Learning Activities for Contract of Service (COS) and Job Order (JO) Workers.
+                </a>
+              </li>
             </ul>
           </>
         ),

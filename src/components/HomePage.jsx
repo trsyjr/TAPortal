@@ -17,9 +17,9 @@ const faqCards = [
   { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
   { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
-  { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
   { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
   { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+  { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
 ];
 
 const HomePage = () => {

@@ -17,12 +17,12 @@ import JoinModal from "../components/JoinModal";
 
 // Top FAQ cards
 const faqCards = [
-  { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
-  { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
-  { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
-  { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
-  { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+    { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
+    { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
+    { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
+    { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
+    { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+    { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
 ];
 
 // FAQ content as object
@@ -103,10 +103,47 @@ const faqPages = [
           <>
             <h3 className="font-bold mt-4 mb-2">Reference:</h3>
             <ul className="list-disc list-inside space-y-1">
-              <li>Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.</li>
-              <li>Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of CBAs.</li>
-              <li>Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.</li>
-              <li>Memorandum from the Secretary (01 February 2024). Centralization of All CBAs to the SWIDB–DSWD Academy.</li>
+              <li>
+                <a
+                  href="/pdfs/FY 2025 WORK AND FINANCIAL PLANNING GUIDELINES.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  Memorandum from the Secretary (31 May 2024). FY 2025 Work and Financial Planning Guidelines.
+                </a>
+              </li>
+
+              <li>
+                <a 
+                  href="/pdfs/[SWIDB-Guideline-]_Management-of-DSWD-Capability-Building-Efforts.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                  >
+                    Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of CBAs.
+                  </a>
+              </li>
+              <li>
+                <a 
+                  href="/pdfs/[SWIDB Guideline]_Use of Standard Forms on Training Design, Syllabus and Documentation.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  Memorandum Circular No. 07, s. 2010. Terms of Reference on the Use of Standard Forms on Training Design, Syllabus, and Documentation.
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/pdfs/Memorandum-from-the-Secretary-Centralization-February.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  Memorandum from the Secretary (01 February 2024). Centralization of All CBAs to the SWIDB–DSWD Academy.
+                </a>
+              </li>
             </ul>
           </>
         ),

@@ -16,12 +16,12 @@ import JoinModal from "../components/JoinModal";
 
 /* ---------------- FAQ CARDS (TOP) ---------------- */
 const faqCards = [
-  { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
-  { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
-  { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
-  { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
-  { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+    { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
+    { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
+    { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
+    { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
+    { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+    { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
 ];
 
 /* ---------------- FAQ PAGES ---------------- */
@@ -125,7 +125,23 @@ const faqPages = [
 
       {
         q: "",
-        a: (<><strong>Reference:</strong></>),
+        a: (
+          <>
+            <strong>Reference:</strong>
+            <ul className="list-disc list-inside space-y-1 mt-2">
+              <li>
+                <a 
+                  href="/pdfs/MC_2010-011-IDCB-GUIDELINES.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  Memorandum Circular No. 11, s. 2010.
+                </a>
+              </li>
+            </ul>
+          </>
+        ),
       },
     ],
   },

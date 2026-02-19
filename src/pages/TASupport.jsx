@@ -17,12 +17,12 @@ import JoinModal from "../components/JoinModal";
 
 // FAQ Cards for top navigation
 const faqCards = [
-  { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
-  { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
-  { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
-  { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
-  { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+    { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
+    { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
+    { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
+    { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
+    { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
+    { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
 ];
 
 // Clean object-based FAQ data
@@ -83,15 +83,27 @@ const faqPages = [
         ),
       },
       {
-        q: "\u00A0",
+        q: "Are there designated focal persons from the DSWD Academy–CBD–PLDS assigned to provide Technical Assistance (TA) per OBSU?",
         a: (
           <>
-            <strong>Reference:</strong>
-            <ul className="list-disc list-inside mt-2 space-y-1">
-            </ul>
+            Yes. The DSWD Academy–Capability Building Division – Professional Learning and Development Section (CBD–PLDS) designates focal persons 
+            for each Office, Bureau, Service, and Unit (OBSU) to provide technical assistance related to capability building initiatives.
+            <br />
+            <br />
+            To identify your assigned Academy focal person, please refer to the official OBSU–Academy Focal Person directory here.
           </>
         ),
       },
+      // {
+      //   q: "\u00A0",
+      //   a: (
+      //     <>
+      //       <strong>Reference:</strong>
+      //       <ul className="list-disc list-inside mt-2 space-y-1">
+      //       </ul>
+      //     </>
+      //   ),
+      // },
     ],
   },
 ];
