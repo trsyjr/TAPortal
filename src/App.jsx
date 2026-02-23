@@ -16,6 +16,9 @@ import LD from "./pages/LD";
 import CBA from "./pages/CBA";
 import CBPlan from "./pages/CBPlan";
 
+// New import for TrainingCalendar
+import TrainingCalendar from "./components/TrainingCalendar";
+
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndCondition";
 
@@ -29,10 +32,7 @@ function AppContent() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Show preloader on route change
     setIsLoading(true);
-
-    // Preload images for the new page
     const preloadImages = ["/assets/TALogo.png"];
     let loadedCount = 0;
 
@@ -77,6 +77,9 @@ function AppContent() {
         <Route path="/ld-standards" element={<LD />} />
         <Route path="/cbas" element={<CBA />} />
         <Route path="/cbplan" element={<CBPlan />} />
+
+        {/* New Training Calendar Route */}
+        <Route path="/training-calendar" element={<TrainingCalendar />} />
 
         {/* New full pages */}
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />

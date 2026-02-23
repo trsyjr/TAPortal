@@ -12,6 +12,7 @@ const Navbar = () => {
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "CB Plan", path: "/CBPlan" },
+    { name: "Training Calendar", path: "/training-calendar" },
     { name: "Knowledge Bank", path: "/knowledgebank" },
     { name: "Resources", path: "/resources" },
     { name: "About", path: "/about" },

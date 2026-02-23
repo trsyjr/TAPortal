@@ -1,38 +1,23 @@
-// // server/api/ticket.js
-// import fetch from "node-fetch"; // Node 18+ has fetch built-in, optional
+// const express = require("express");
+// const cors = require("cors");
+// const app = express();
+// const PORT = 5000;
 
-// export default async function handler(req, res) {
-//   if (req.method !== "POST") {
-//     return res.status(405).json({ success: false, error: "Method not allowed" });
-//   }
+// app.use(cors());
 
-//   try {
-//     // Send data to your Google Apps Script
-//     const response = await fetch(
-//       "https://script.google.com/macros/s/AKfycby8pMXKyvw0OdRuRtJCh3nyvsjYLYpGcpE4_fQs9mnhUGZB7RCDzjxqf9dbWh3ktBgKdA/exec",
-//       {
-//         method: "POST",
-//         headers: { "Content-Type": "application/json" },
-//         body: JSON.stringify(req.body),
-//       }
-//     );
+// const events = [
+//   { id: 1, title: "React Training", date: "2026-02-25", description: "Full-day React training" },
+//   { id: 2, title: "Tailwind Workshop", date: "2026-02-28", description: "Hands-on Tailwind CSS workshop" },
+//   { id: 3, title: "Node.js Bootcamp", date: "2026-03-05", description: "Backend development with Node.js" },
+// ];
 
-//     const text = await response.text();
-//     console.log("Apps Script RAW response:", text);
+// app.get("/events/:year/:month", (req, res) => {
+//   const { year, month } = req.params;
+//   const filtered = events.filter(
+//     e => new Date(e.date).getFullYear() === parseInt(year) &&
+//          new Date(e.date).getMonth() + 1 === parseInt(month)
+//   );
+//   res.json(filtered);
+// });
 
-//     let data;
-//     try {
-//       data = JSON.parse(text);
-//     } catch {
-//       return res.status(500).json({
-//         success: false,
-//         error: "Invalid JSON from Apps Script",
-//         raw: text,
-//       });
-//     }
-
-//     res.status(200).json(data);
-//   } catch (err) {
-//     res.status(500).json({ success: false, error: err.message });
-//   }
-// }
+// app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
