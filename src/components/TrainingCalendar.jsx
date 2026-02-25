@@ -1,12 +1,12 @@
-// src/components/TrainingCalendar.jsx
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { BsPeopleFill } from "react-icons/bs";
+import { IoClose } from "react-icons/io5"; 
 import TABG from "../assets/TABG.png";
 import News3 from "../assets/News3.png";
 
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-// Multi-day events: startDate and endDate
 const exampleEvents = [
   {
     id: 1,
@@ -29,7 +29,7 @@ const exampleEvents = [
     venue: "Bataan (Central Luzon)",
     tag: "WITH CPD UNITS",
     target: "Local Government Units",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 2,
   },
   {
@@ -41,7 +41,7 @@ const exampleEvents = [
     venue: "Baguio City (Cordillera Administrative Region)",
     tag: "TRAINING OF TRAINERS",
     target: "Field Offices, Provincial Social Welfare and Development Office (PSWDOs)",
-    image: "/assets/christmas.jpg",
+    image: "",
     colorId: 1,
   },
   {
@@ -53,7 +53,7 @@ const exampleEvents = [
     venue: "Palompon (Eastern Visayas)",
     tag: "WITH CPD UNITS",
     target: "Local Government Units",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 2,
   },
   {
@@ -65,7 +65,7 @@ const exampleEvents = [
     venue: "Region VI",
     tag: "PILOT",
     target: "Supervising Social Work, Houseparent, Teacher, Psychometrician, Psychologists",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 3,
   },
   {
@@ -77,7 +77,7 @@ const exampleEvents = [
     venue: "MIMAROPA",
     tag: "TRAINING OF TRAINERS",
     target: "Supervising Houseparent, Nutritionist, Medical Personnel",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 3,
   },
   {
@@ -89,7 +89,7 @@ const exampleEvents = [
     venue: "National Capital Region",
     tag: "TRAINING OF TRAINERS",
     target: "Field Offices, Provincial Social Welfare and Development Office (PSWDOs)",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 1,
   },
   {
@@ -101,7 +101,7 @@ const exampleEvents = [
     venue: "Cordillera Administrative Region",
     tag: "",
     target: "Cities, Municipalities",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 1,
   },
   {
@@ -113,7 +113,7 @@ const exampleEvents = [
     venue: "DSWD Academy (Taguig City, National Capital Region)",
     tag: "",
     target: "GAD Focal Persons",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 2,
   },
   {
@@ -125,7 +125,7 @@ const exampleEvents = [
     venue: "Cordillera Administrative Region",
     tag: "",
     target: "Cities, Municipalities",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 2,
   },
   {
@@ -137,7 +137,7 @@ const exampleEvents = [
     venue: "Region I, Region III, Region IV-A, Region V, Region VI, and others.",
     tag: "",
     target: "Cities, Municipalities",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 1,
   },
   {
@@ -149,7 +149,7 @@ const exampleEvents = [
     venue: "DSWD Academy (Taguig City, National Capital Region)",
     tag: "TRAINING OF TRAINERS",
     target: "Core Group of Specialists, Learning Management Team",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 1,
   },
   {
@@ -161,7 +161,7 @@ const exampleEvents = [
     venue: "DSWD Academy (Taguig City, National Capital Region)",
     tag: "TRAINING OF TRAINERS",
     target: "Core Group of Specialists, Learning Management Team",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 2,
   },
   {
@@ -173,7 +173,7 @@ const exampleEvents = [
     venue: "Region I",
     tag: "TRAINING OF TRAINERS",
     target: "Supervising Social Worker, Supervising Houseparent",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 3,
   },
   {
@@ -185,19 +185,161 @@ const exampleEvents = [
     venue: "Cordillera Administrative Region",
     tag: "TRAINING OF TRAINERS",
     target: "Houseparent, Nutritionist, Medical Personnel",
-    image: "/assets/valentine.jpg",
+    image: "",
     colorId: 2,
+  },
+  {
+    id: 16,
+    startDate: new Date(2026, 4, 3),
+    endDate: new Date(2026, 4, 8),
+    title: "Rollout Parent Effectiveness Service",
+    description: "The Roll-Out Training on the Parent Effectiveness Service (PES) is designed for the facilitators who will directly conduct all the sessions with parents in their respective communities. It equips them with the knowledge, skills, and standardized tools needed to effectively deliver the PES modules in line with Republic Act No. 11908 and its Implementing Rules and Regulations.",
+    venue: "NCR, Region XII, Region III, Region V, Region VI, Region II, and others.",
+    tag: "",
+    target: "Cities, Municipalities",
+    image: "",
+    colorId: 1,
+  },
+  {
+    id: 17,
+    startDate: new Date(2026, 4, 5),
+    endDate: new Date(2026, 4, 8),
+    title: "4Ps RPC Conference (1st sem)",
+    description: "The conference is a semestral gathering that serves as a venue to discuss implementation, targets, directives, updates and other program-related issues both at the 4Ps national and regional levels.",
+    venue: "Region VI",
+    tag: "",
+    target: "4Ps Regional Program Coordinators, NPMO Division Chiefs, OICs and Technical Staff",
+    image: "",
+    colorId: 5,
+  },
+  {
+    id: 18,
+    startDate: new Date(2026, 4, 5),
+    endDate: new Date(2026, 4, 8),
+    title: "Rollout of Training Manual on Basic Psychological Strategies",
+    description: "The DSWD CRCF Multidisciplinary Teams  will be equipped with the essential knowledge, skills, and mindset to deliver responsive and compassionate psychological support to children and adolescents facing emotional or behavioral challenges.",
+    venue: "Region III",
+    tag: "",
+    target: "Social Worker, Psychometrician, Houseparent, MO",
+    image: "",
+    colorId: 3,
+  },
+  {
+    id: 19,
+    startDate: new Date(2026, 4, 6),
+    endDate: new Date(2026, 4, 8),
+    title: "Internal Training for Administrative Staff",
+    description: "This training is designed to enhance efficiency, accuracy, and confidence among administrative personnel while reinforcing their critical role in public service delivery. Equipped with the new set of skills, they will be able to perform their tasks more productively, effectively, and efficiently, leading to better individual and organizational performance and quality service delivery.",
+    venue: "DSWD Academy (Taguig City, National Capital Region)",
+    tag: "",
+    target: "Administrative and Technical Staffs",
+    image: "",
+    colorId: 2,
+  },
+  {
+    id: 20,
+    startDate: new Date(2026, 4, 10),
+    endDate: new Date(2026, 4, 15),
+    title: "Rollout Parent Effectiveness Service",
+    description: "The Roll-Out Training on the Parent Effectiveness Service (PES) is designed for the facilitators who will directly conduct all the sessions with parents in their respective communities. It equips them with the knowledge, skills, and standardized tools needed to effectively deliver the PES modules in line with Republic Act No. 11908 and its Implementing Rules and Regulations.",
+    venue: "Region VII, Region XI, Region II, Region IV-A, MIMAROPA, and others.",
+    tag: "",
+    target: "Cities, Municipalities",
+    image: "",
+    colorId: 1,
+  },
+  {
+    id: 21,
+    startDate: new Date(2026, 4, 11),
+    endDate: new Date(2026, 4, 15),
+    title: "TOT of the Facilitator’s Manual for Social Work Case Management for CANE+D Children in Center and Residential Care Facilities: A Training  Course for CRCF Social Workers",
+    description: "This training of trainers will be done in order to equip the future trainers and facilitators of the Case Management for CANE+D Children in Center and Residential Care Facilities Training.  It will review basic principles of adult learning as well as go through the entire training course.",
+    venue: "Region X",
+    tag: "",
+    target: "Center Head, Supervising Social Worker",
+    image: "",
+    colorId: 3,
+  },
+  {
+    id: 22,
+    startDate: new Date(2026, 4, 11),
+    endDate: new Date(2026, 4, 15),
+    title: "Training on Pre-Marriage Counseling batch 2",
+    description: "This training enhances the competencies of pre-marriage counselors at the Local Government Units in conducting the Pre-marriage Orientation and Counseling (PMOC) Program.",
+    venue: "DSWD Academy (Taguig City, National Capital Region)",
+    tag: "WITH CPD UNITS",
+    target: "Local Social Welfare and Development Officers (LSWDOs)",
+    image: "",
+    colorId: 2,
+  },
+  {
+    id: 23,
+    startDate: new Date(2026, 4, 17),
+    endDate: new Date(2026, 4, 22),
+    title: "Rollout Parent Effectiveness Service",
+    description: "The Roll-Out Training on the Parent Effectiveness Service (PES) is designed for the facilitators who will directly conduct all the sessions with parents in their respective communities. It equips them with the knowledge, skills, and standardized tools needed to effectively deliver the PES modules in line with Republic Act No. 11908 and its Implementing Rules and Regulations.",
+    venue: "Region III, Region IV-A, and CARAGA",
+    tag: "",
+    target: "Cities, Municipalities",
+    image: "",
+    colorId: 1,
+  },
+  {
+    id: 24,
+    startDate: new Date(2026, 4, 19),
+    endDate: new Date(2026, 4, 22),
+    title: "TOT of training manual on Parenting  LGBTQ+ Residents in DSWD Centers and Residential Care Facilities: Creating a Safe, Affirming and Inclusive Environment",
+    description: "It aims to strengthen the knowledge, attitudes, and facilitation skills of caregivers and service providers in supporting LGBTQ+ residents in DSWD centers and residential care facilities. It equips trainers with practical, gender-responsive and trauma-informed approaches to guide parenting and caregiving practices that promote safety, dignity, and inclusion.",
+    venue: "Region IX",
+    tag: "TRAINING OF TRAINERS",
+    target: "Center Head, Supervising Social Worker, Social Worker, Supervising Houseparent, Teacher, Psychometrician,Psychologists",
+    image: "",
+    colorId: 3,
+  },
+  {
+    id: 25,
+    startDate: new Date(2026, 4, 24),
+    endDate: new Date(2026, 4, 26),
+    title: "Rollout Parent Effectiveness Service",
+    description: "",
+    venue: "Region I, Region VII, Region V, Region X, and MIMAROPA",
+    tag: "",
+    target: "Cities, Municipalities",
+    image: "",
+    colorId: 3,
+  },
+  {
+    id: 27,
+    startDate: new Date(2026, 4, 24),
+    endDate: new Date(2026, 4, 26),
+    title: "rollout Parent Effectiveness Service",
+    description: "The Roll-Out Training on the Parent Effectiveness Service (PES) is designed for the facilitators who will directly conduct all the sessions with parents in their respective communities. It equips them with the knowledge, skills, and standardized tools needed to effectively deliver the PES modules in line with Republic Act No. 11908 and its Implementing Rules and Regulations.",
+    venue: "Region I, Region VII, Region V, Region X, and MIMAROPA",
+    tag: "",
+    target: "Cities, Municipalities",
+    image: "",
+    colorId: 1,
+  },
+  {
+    id: 28,
+    startDate: new Date(2026, 4, 31),
+    endDate: new Date(2026, 5, 5),
+    title: "rollout Parent Effectiveness Service",
+    description: "The Roll-Out Training on the Parent Effectiveness Service (PES) is designed for the facilitators who will directly conduct all the sessions with parents in their respective communities. It equips them with the knowledge, skills, and standardized tools needed to effectively deliver the PES modules in line with Republic Act No. 11908 and its Implementing Rules and Regulations.",
+    venue: "Region VIII, Region XI, Region VI, Region IX, and others.",
+    tag: "",
+    target: "Cities, Municipalities",
+    image: "",
+    colorId: 1,
   },
 ];
 
-// Tag colors
 const tagColors = {
   "WITH CPD UNITS": "#EF474E",
   "TRAINING OF TRAINERS": "#5658A6",
   PILOT: "#FCF231",
 };
 
-// Bottom bar colors per event id
 const eventColors = {
   1: "#B083FB",
   2: "#FF69C7",
@@ -225,17 +367,24 @@ const TrainingCalendar = () => {
   const [selectedMonth, setSelectedMonth] = useState(today.getMonth());
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  const containerRef = useRef(null);
-  const innerRef = useRef(null);
-  const [dragConstraints, setDragConstraints] = useState({ left: 0, right: 0 });
+  const scrollContainerRef = useRef(null);
+  const monthRefs = useRef([]);
 
   useEffect(() => {
-    if (containerRef.current && innerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth;
-      const innerWidth = innerRef.current.scrollWidth;
-      setDragConstraints({ left: -(innerWidth - containerWidth), right: 0 });
+    if (monthRefs.current[selectedMonth] && scrollContainerRef.current) {
+      const container = scrollContainerRef.current;
+      const target = monthRefs.current[selectedMonth];
+      const targetOffset = target.offsetLeft - (container.offsetWidth / 2) + (target.offsetWidth / 2);
+      container.scrollTo({ left: targetOffset, behavior: "smooth" });
     }
-  }, []);
+  }, [selectedMonth]);
+
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.toLocaleString("en-US", { month: "short" });
+    const year = date.getFullYear();
+    return `${day} ${month}, ${year}`;
+  };
 
   const getDaysInMonth = (year, month) => {
     const firstDay = new Date(year, month, 1).getDay();
@@ -246,29 +395,90 @@ const TrainingCalendar = () => {
 
   const { firstDay, daysArray } = getDaysInMonth(fixedYear, selectedMonth);
 
-  // Only show events on their first day
-  const eventsForDate = (date) => {
-    return exampleEvents.filter(
-      (e) => date.toDateString() === e.startDate.toDateString()
-    );
-  };
+  const renderCalendarRows = () => {
+    const totalSlots = firstDay + daysArray.length;
+    const numRows = Math.ceil(totalSlots / 7);
+    const rows = [];
 
-  // Format date as DD MMM, YYYY
-  const formatDate = (date) => {
-    const day = date.getDate();
-    const month = date.toLocaleString("en-US", { month: "short" });
-    const year = date.getFullYear();
-    return `${day} ${month}, ${year}`;
+    for (let r = 0; r < numRows; r++) {
+      const weekStartOffset = r * 7;
+      const weekStartDate = new Date(fixedYear, selectedMonth, weekStartOffset - firstDay + 1);
+      const weekEndDate = new Date(fixedYear, selectedMonth, weekStartOffset - firstDay + 7);
+
+      const eventsInWeek = exampleEvents.filter(e => e.startDate <= weekEndDate && e.endDate >= weekStartDate);
+      const sortedEvents = [...eventsInWeek].sort((a, b) => (b.endDate - b.startDate) - (a.endDate - a.startDate));
+
+      rows.push(
+        <div key={`row-${r}`} className="relative border-b border-gray-200 min-h-[120px] flex flex-col">
+          <div className="absolute inset-0 grid grid-cols-7 pointer-events-none">
+            {Array.from({ length: 7 }).map((_, i) => (
+              <div key={`bg-${i}`} className="border-r border-gray-200 last:border-r-0 h-full" />
+            ))}
+          </div>
+          <div className="grid grid-cols-7 relative z-10">
+            {Array.from({ length: 7 }).map((_, i) => {
+              const dayIdx = weekStartOffset + i - firstDay;
+              const date = new Date(fixedYear, selectedMonth, dayIdx + 1);
+              const isCurrentMonth = date.getMonth() === selectedMonth;
+              const isToday = date.toDateString() === today.toDateString();
+
+              return (
+                <div key={`date-${i}`} className="p-2 h-10">
+                  <div className={`font-semibold text-xs md:text-sm 
+                    ${isToday ? "bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center" : ""}
+                    ${!isToday && isCurrentMonth ? "text-gray-700" : ""}
+                    ${!isCurrentMonth ? "text-gray-600 opacity-70 font-bold" : "opacity-100"}`}
+                  >
+                    {date.getDate()}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div className="relative z-20 pb-2 px-0.5 flex flex-col gap-y-1">
+            {sortedEvents.map((event) => {
+              const eventStart = event.startDate < weekStartDate ? weekStartDate : event.startDate;
+              const eventEnd = event.endDate > weekEndDate ? weekEndDate : event.endDate;
+              const startCol = (eventStart.getDay() % 7) + 1;
+              const duration = Math.round((eventEnd - eventStart) / (1000 * 60 * 60 * 24)) + 1;
+              const showTitle = event.startDate >= weekStartDate || eventStart.getDay() === 0;
+              return (
+                <div key={`${event.id}-${r}`} className="grid grid-cols-7 w-full">
+                  <motion.div
+                    className="text-white text-[10px] md:text-xs h-6 flex items-center px-2 cursor-pointer shadow-sm truncate font-medium"
+                    style={{
+                      gridColumn: `${startCol} / span ${duration}`,
+                      backgroundColor: eventColors[event.colorId] || "#2e3192",
+                      borderRadius: "4px",
+                    }}
+                    onClick={() => setSelectedEvent(event)}
+                    whileHover={{ filter: "brightness(1.1)", scaleY: 1.1, zIndex: 30 }}
+                  >
+                    {showTitle && <span className="truncate">{event.title}</span>}
+                  </motion.div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      );
+    }
+    return rows;
   };
 
   return (
-    <div className="pt-24 font-sans relative select-none">
+    <div className="pt-24 font-sans relative select-none bg-gray-50/30">
+      <style>{`
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .month-card { backface-visibility: hidden; transform: translateZ(0); -webkit-font-smoothing: subpixel-antialiased; will-change: transform; }
+      `}</style>
 
-      {/* Background */}
+      {/* Responsive Backgrounds */}
       <div
         className="absolute top-0 left-0 right-0 z-0 md:hidden"
         style={{
-          height: "600px",
+          height: "370px",
           backgroundImage: `url(${TABG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -280,7 +490,7 @@ const TrainingCalendar = () => {
       <div
         className="absolute top-0 left-0 right-0 z-0 hidden md:block"
         style={{
-          height: "630px",
+          height: "400px",
           backgroundImage: `url(${TABG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -290,188 +500,98 @@ const TrainingCalendar = () => {
         }}
       />
 
-      {/* Year and Title */}
-      <div className="relative z-10 w-full text-center mb-16 mt-20">
-        <h1 className="text-4xl md:text-[10rem] font-bold text-[#2e3192] leading-[1]">
-          2026
-        </h1>
-        <h1 className="text-4xl md:text-7xl font-bold text-[#2e3192] mt-4">
-          TRAINING CALENDAR
-        </h1>
+      <div className="relative z-10 w-full text-center mb-12 mt-10">
+        <h1 className="text-4xl md:text-6xl font-bold text-[#2e3192] leading-[1]">2026</h1>
+        <h1 className="text-4xl md:text-6xl font-bold text-[#2e3192] mt-2">TRAINING CALENDAR</h1>
       </div>
 
-      {/* Month Cards */}
-      <section className="relative z-10 w-full mt-8">
-        <div className="bg-[#2e3192] rounded-3xl w-full max-w-[100rem] mx-auto p-6 md:p-10 overflow-hidden">
-          <motion.div ref={containerRef} className="overflow-hidden p-3">
-            <motion.div
-              ref={innerRef}
-              className="flex gap-6 cursor-grab"
-              drag="x"
-              dragConstraints={dragConstraints}
-              dragElastic={0.2}
-            >
-              {monthCards.map((card, index) => {
-                const isActive = selectedMonth === index;
-                return (
-                  <motion.div
-                    key={card.title}
-                    onClick={() => setSelectedMonth(index)}
-                    className={`flex-shrink-0 flex items-center justify-center rounded-3xl p-12 min-w-[10%] cursor-pointer ${
-                      isActive ? "bg-[#FFE066]" : "bg-white"
-                    }`}
-                    whileHover={{ scale: 1.05, rotate: -4 }}
-                  >
-                    <h3 className="font-bold text-7xl text-center text-[#2e3192]">
-                      {card.title}
-                    </h3>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </motion.div>
+      <section className="relative z-10 w-full px-4 mb-8">
+        <div className="bg-[#2e3192]/95 backdrop-blur-sm rounded-[2.5rem] w-full max-w-[100rem] mx-auto p-4 md:p-6 shadow-2xl overflow-hidden">
+          <div ref={scrollContainerRef} className="flex overflow-x-auto no-scrollbar items-center gap-4 py-4 scroll-smooth">
+            {monthCards.map((card, index) => {
+              const isActive = selectedMonth === index;
+              return (
+                <motion.div
+                  key={card.title}
+                  ref={(el) => (monthRefs.current[index] = el)}
+                  onClick={() => setSelectedMonth(index)}
+                  initial={false}
+                  animate={{ scale: isActive ? 1.05 : 1, backgroundColor: isActive ? "#FFE066" : "#FFFFFF" }}
+                  transition={{ type: "tween", duration: 0.2 }}
+                  whileHover={{ scale: isActive ? 1.05 : 1.02 }}
+                  className={`month-card flex-shrink-0 flex items-center justify-center rounded-2xl py-8 cursor-pointer w-[40%] md:w-[15.5%] shadow-md transition-shadow duration-300 ${isActive ? "shadow-lg" : ""}`}
+                >
+                  <h3 className="font-black text-2xl md:text-4xl text-[#2e3192] tracking-tighter">{card.title}</h3>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* Month + Year Text */}
-      <div className="text-center mt-10 relative z-10">
-        <h2 className="text-3xl font-bold text-[#2e3192]">
-          {fullMonths[selectedMonth]} {fixedYear}
-        </h2>
+      <div className="text-center mt-8 relative z-10">
+        <h2 className="text-4xl font-black text-[#2e3192] tracking-tight">{fullMonths[selectedMonth]} {fixedYear}</h2>
       </div>
 
-      {/* Calendar Grid */}
-      <section className="relative z-10 mt-6 max-w-[100rem] mx-auto mb-20">
-        <div className="grid grid-cols-7 text-center font-semibold mb-2">
-          {weekdays.map((day) => (
-            <div key={day} className="py-2">{day}</div>
-          ))}
+      <section className="relative z-10 mt-6 max-w-[100rem] mx-auto mb-20 px-4">
+        <div className="grid grid-cols-7 text-center font-bold text-gray-400 mb-2 uppercase text-sm tracking-widest">
+          {weekdays.map((day) => <div key={day} className="py-2">{day}</div>)}
         </div>
-
-        <div className="grid grid-cols-7 gap-0">
-          {Array.from({ length: firstDay }).map((_, i) => (
-            <div key={`empty-${i}`} />
-          ))}
-
-          {daysArray.map((date) => {
-            const dateEvents = eventsForDate(date);
-            const isToday = date.toDateString() === today.toDateString();
-
-            return (
-              <div
-                key={date}
-                className={`border rounded p-4 min-h-[180px] relative ${
-                  isToday
-                    ? "bg-blue-100 border-blue-500"
-                    : "bg-white border-gray-300"
-                }`}
-              >
-                <div className="font-semibold mb-2 text-lg">{date.getDate()}</div>
-
-                {dateEvents.map((event) => (
-                  <motion.div
-                    key={event.id}
-                    className="text-white text-sm rounded px-2 py-1 mb-1 cursor-pointer truncate"
-                    style={{
-                      backgroundColor: eventColors[event.colorId] || "#2e3192",
-                    }}
-                    onClick={() => setSelectedEvent(event)}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    {event.title}
-                  </motion.div>
-                ))}
-              </div>
-            );
-          })}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+          {renderCalendarRows()}
         </div>
       </section>
 
-      {/* Modal */}
       <AnimatePresence>
         {selectedEvent && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
-          >
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              exit={{ scale: 0.8 }}
-              className="rounded-2xl shadow-xl max-w-3xl w-full overflow-hidden relative bg-white"
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/70 backdrop-blur-md flex items-center justify-center z-50 p-4" onClick={() => setSelectedEvent(null)}>
+            <motion.div 
+              initial={{ scale: 0.9, y: 50, opacity: 0 }} 
+              animate={{ scale: 1, y: 0, opacity: 1 }} 
+              exit={{ scale: 0.9, y: 50, opacity: 0 }} 
+              className="rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto relative bg-white no-scrollbar flex flex-col" 
+              style={{ 
+                boxShadow: `0 25px 0px 0px ${eventColors[selectedEvent.colorId] || "#2e3192"}` 
+              }}
+              onClick={(e) => e.stopPropagation()}
             >
-              {/* Image */}
-              <div className="w-full h-64 bg-gray-300 overflow-hidden relative rounded-t-2xl">
-                {selectedEvent.image && (
-                  <img
-                    src={selectedEvent.image}
-                    alt={selectedEvent.title}
-                    className="w-full h-full object-cover"
-                  />
-                )}
-
-                {/* Close X */}
-                <button
-                  onClick={() => setSelectedEvent(null)}
-                  className="absolute top-3 right-3 text-black text-3xl font-bold hover:text-red-600"
-                >
-                  ×
+              <div className="w-full h-64 md:h-72 flex-shrink-0 relative">
+                {selectedEvent.image && <img src={selectedEvent.image} alt={selectedEvent.title} className="w-full h-full object-cover" />}
+                <button onClick={() => setSelectedEvent(null)} className="absolute top-5 right-5 bg-white/90 text-black rounded-full w-10 h-10 flex items-center justify-center shadow-lg hover:bg-red-500 hover:text-white transition-all duration-200">
+                  <IoClose size={28} />
                 </button>
               </div>
 
-              {/* Card Content */}
-              <div className="p-6 bg-white rounded-b-2xl relative">
-
-                <div className="flex justify-between max-w-xl space-y-4 flex-col">
-
-                  {/* Date | Venue */}
-                  <div className="text-gray-500 text-sm">
-                    <span>
-                      {formatDate(selectedEvent.startDate)}
-                      {selectedEvent.endDate && selectedEvent.endDate > selectedEvent.startDate
-                        ? ` – ${formatDate(selectedEvent.endDate)}`
-                        : ""}
-                    </span>
-                    {selectedEvent.venue && <> | <span>{selectedEvent.venue}</span></>}
+              <div className="p-8 flex-grow">
+                <div className="flex flex-col gap-6">
+                  <div className="flex flex-wrap items-start justify-between gap-4 border-b border-gray-100 pb-6">
+                    <div className="flex flex-col gap-2">
+                      <div className="flex items-center text-[#2e3192] font-bold text-sm md:text-base">
+                        <span className="bg-blue-50 px-4 py-2 rounded-lg">
+                          {formatDate(selectedEvent.startDate)} {selectedEvent.endDate > selectedEvent.startDate ? ` – ${formatDate(selectedEvent.endDate)}` : ""}
+                        </span>
+                      </div>
+                      <div className="flex items-center text-gray-600 font-medium">
+                        <span className="bg-gray-100 px-4 py-2 rounded-lg text-sm md:text-base">{selectedEvent.venue}</span>
+                      </div>
+                    </div>
+                    {selectedEvent.tag && (
+                      <span className="text-xs md:text-sm px-6 py-3 rounded-xl text-white font-black tracking-widest uppercase shadow-md" style={{ backgroundColor: tagColors[selectedEvent.tag] || "#2e3192" }}>
+                        {selectedEvent.tag}
+                      </span>
+                    )}
                   </div>
-
-                  {/* Title */}
-                  <h2 className="text-2xl font-bold text-gray-800">{selectedEvent.title}</h2>
-
-                  {/* Description */}
-                  {selectedEvent.description && (
-                    <p className="text-gray-700">{selectedEvent.description}</p>
-                  )}
-
-                  {/* Target Participant */}
-                  {selectedEvent.target && (
-                    <p className="text-gray-600 font-medium">
-                      <span className="font-bold">Target Participant:</span> {selectedEvent.target}
-                    </p>
-                  )}
+                  <h2 className="text-3xl font-black text-gray-900 leading-tight">{selectedEvent.title}</h2>
+                  {selectedEvent.description && <p className="text-gray-600 leading-relaxed text-base md:text-lg">{selectedEvent.description}</p>}
                 </div>
+              </div>
 
-                {/* Tag stays on right */}
-                {selectedEvent.tag && (
-                  <span
-                    className="absolute top-6 right-6 text-xs px-3 py-1 rounded text-white font-semibold whitespace-nowrap"
-                    style={{
-                      backgroundColor: tagColors[selectedEvent.tag] || "#2e3192",
-                    }}
-                  >
-                    {selectedEvent.tag}
-                  </span>
-                )}
-
-                {/* Bottom Thin Solid Color */}
-                <div
-                  className="absolute bottom-0 left-0 w-full h-[4px] rounded-b-2xl"
-                  style={{
-                    backgroundColor: eventColors[selectedEvent.colorId] || "#2e3192",
-                  }}
-                />
+              <div className="bg-gray-50 p-8 border-t border-gray-100 mt-auto">
+                <span className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-3 block">Target Participants</span>
+                <div className="flex items-start gap-3">
+                  <BsPeopleFill className="text-[#2e3192] flex-shrink-0 mt-1" size={24} />
+                  <p className="text-[#2e3192] font-bold text-base md:text-lg leading-snug">{selectedEvent.target}</p>
+                </div>
               </div>
             </motion.div>
           </motion.div>
