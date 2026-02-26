@@ -20,8 +20,8 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Navbar container */}
-      <nav className="w-full fixed top-0 left-0 z-40 backdrop-blur-lg bg-white border-b border-white shadow-lg transition-all duration-300">
+      {/* Navbar container - Added select-none to prevent highlighting */}
+      <nav className="w-full fixed top-0 left-0 z-40 backdrop-blur-lg bg-white border-b border-white shadow-lg transition-all duration-300 select-none">
         <div className="flex items-center justify-between w-full px-6 md:px-12 py-4">
           
           {/* Logo */}
@@ -36,14 +36,13 @@ const Navbar = () => {
             {menuItems.map((item) => (
               <li
                 key={item.name}
-                className="relative group cursor-pointer"
+                className="relative group cursor-pointer flex items-center"
                 onMouseEnter={() => setDropdown(item.name)}
                 onMouseLeave={() => setDropdown(null)}
               >
                 {item.subMenu ? (
                   <>
-                    {/* Parent item with rotating icon */}
-                    <div className="flex items-center gap-1 select-none">
+                    <div className="flex items-center gap-1">
                       <span>{item.name}</span>
                       <motion.span
                         animate={{ rotate: dropdown === item.name ? 180 : 0 }}
@@ -54,7 +53,6 @@ const Navbar = () => {
                       </motion.span>
                     </div>
 
-                    {/* Desktop Dropdown */}
                     <ul
                       className={`absolute top-full left-0 bg-white shadow-lg mt-2 rounded-md overflow-hidden transition-all duration-300 ${
                         dropdown === item.name ? "opacity-100 visible" : "opacity-0 invisible"
@@ -77,10 +75,11 @@ const Navbar = () => {
                     </ul>
                   </>
                 ) : (
+                  /* Changed: The NavLink now wraps the entire hit area for better click response */
                   <NavLink
                     to={item.path}
                     className={({ isActive }) =>
-                      `relative transition-colors duration-300 ${
+                      `relative py-2 transition-colors duration-300 ${
                         isActive ? "text-[#ee1c25]" : "text-gray-700"
                       }`
                     }
@@ -111,7 +110,7 @@ const Navbar = () => {
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl p-6 flex flex-col items-start space-y-2 z-50 md:hidden"
+            className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl p-6 flex flex-col items-start space-y-2 z-50 md:hidden select-none"
           >
             {/* Close Button */}
             <button
@@ -125,7 +124,6 @@ const Navbar = () => {
               <div key={item.name} className="flex flex-col w-full">
                 {item.subMenu ? (
                   <>
-                    {/* Parent with rotating icon */}
                     <button
                       onClick={() =>
                         setDropdown(dropdown === item.name ? null : item.name)
@@ -142,7 +140,6 @@ const Navbar = () => {
                       </motion.span>
                     </button>
 
-                    {/* Mobile submenu */}
                     <AnimatePresence>
                       {dropdown === item.name && (
                         <motion.ul
@@ -156,7 +153,10 @@ const Navbar = () => {
                             <NavLink
                               key={sub.name}
                               to={sub.path}
-                              onClick={() => setOpen(false)}
+                              onClick={() => {
+                                setOpen(false);
+                                setDropdown(null);
+                              }}
                               className="py-2 text-gray-700 hover:text-[#ee1c25] w-full text-left"
                             >
                               {sub.name}
