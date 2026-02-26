@@ -11,9 +11,13 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaArrowUpRightFromSquare, // Added for the button icon
 } from "react-icons/fa6";
 import TicketModal from "../components/TicketModal";
 import JoinModal from "../components/JoinModal";
+
+// Add your directory link here
+const directoryUrl = "https://your-link-here.com";
 
 // FAQ Cards for top navigation
 const faqCards = [
@@ -41,13 +45,16 @@ const faqPages = [
             <br />
             This assistance ensures training proposals from the Offices, Bureaus, and Services (OBS) meet DSWD Academy’s standards by assessing design, content, objectives, methodologies, and alignment with competency frameworks for quality assurance in learning interventions.
             <br />
+            <br />
             <strong>Training Management Standards:</strong>
             <br />
             This TA ensures DSWD Academy’s quality standards in training programs by guiding the application of standardized processes in planning, implementation, documentation, and evaluation, promoting efficiency, consistency, and learner-centered approaches.
             <br />
+            <br />
             <strong>Monitoring and Evaluation of Learning:</strong>
             <br />
             This service offers technical support in measuring training effectiveness, including developing M&E tools, analyzing outcomes, and providing evidence-based recommendations for improving future initiatives.
+            <br />
             <br />
             <strong>Capability Building Planning and Reporting:</strong>
             <br />
@@ -91,19 +98,20 @@ const faqPages = [
             <br />
             <br />
             To identify your assigned Academy focal person, please refer to the official OBSU–Academy Focal Person directory here.
+            <br />
+            {/* Added Button Below */}
+            <a 
+              href="/pdfs/OBSU-Academy Focal Persons Directory.pdf"
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 mt-4 bg-[#2e3192] text-white px-6 py-3 rounded-3xl font-bold hover:scale-105 transition-transform shadow-md italic"
+            >
+              OBSU-Academy Focal Directory 
+              <FaArrowUpRightFromSquare className="text-md" />
+            </a>
           </>
         ),
       },
-      // {
-      //   q: "\u00A0",
-      //   a: (
-      //     <>
-      //       <strong>Reference:</strong>
-      //       <ul className="list-disc list-inside mt-2 space-y-1">
-      //       </ul>
-      //     </>
-      //   ),
-      // },
     ],
   },
 ];
@@ -135,12 +143,10 @@ const TASupport = () => {
         icon: <FaTicket />,
         description: "Submit a request ticket and we will reach out shortly.",
         buttonText: "Request Here",
-        buttonAction: () => setIsTicketModalOpen(true), // ✅ opens modal
+        buttonAction: () => setIsTicketModalOpen(true),
       },
     ];
 
-
-  // Scroll active FAQ card into view
   useEffect(() => {
     const activeIndex = faqCards.findIndex((c) => c.path === location.pathname);
     if (activeIndex !== -1 && cardRefs.current[activeIndex]) {
@@ -152,7 +158,6 @@ const TASupport = () => {
     }
   }, [location.pathname]);
 
-  // Rotate floating cards every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentCard((prev) => (prev + 1) % floatingCards.length);
@@ -160,13 +165,12 @@ const TASupport = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Adjust floating deck so it doesn't cover footer
   useEffect(() => {
     const handleResize = () => {
-      const footer = document.getElementById("footer"); // make sure your footer has id="footer"
+      const footer = document.getElementById("footer"); 
       if (footer) {
         const footerRect = footer.getBoundingClientRect();
-        const spaceFromBottom = window.innerHeight - footerRect.top + 20; // 20px margin
+        const spaceFromBottom = window.innerHeight - footerRect.top + 20; 
         setBottomOffset(Math.max(32, spaceFromBottom));
       }
     };
@@ -178,7 +182,6 @@ const TASupport = () => {
 
   return (
     <div className="pt-20 font-sans relative">
-      {/* FAQ Section */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
           <div className="max-w-[100rem] mx-auto px-4 md:px-20 lg:px-40">
@@ -231,7 +234,6 @@ const TASupport = () => {
         </div>
       </section>
 
-      {/* Section Header / Clean FAQ Mapping */}
       <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
         <h3 className="text-2xl md:text-3xl font-bold mb-1">
           <span className="text-black">FAQS / </span>
@@ -255,7 +257,6 @@ const TASupport = () => {
         </div>
       </section>
 
-      {/* Floating Split Deck (Lower Right, Footer Safe) */}
       <div className="fixed right-6 z-50 w-56 h-60" style={{ bottom: `${bottomOffset}px` }}>
         {floatingCards.map((card, index) => {
           const isTop = index === currentCard;
@@ -288,7 +289,10 @@ const TASupport = () => {
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
                  <button
                   className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
-                  onClick={card.buttonAction} // ✅ button works
+                  onClick={(e) => {
+                    e.stopPropagation(); // Prevent card trigger
+                    card.buttonAction();
+                  }}
                 >
                   {card.buttonText}
                 </button>

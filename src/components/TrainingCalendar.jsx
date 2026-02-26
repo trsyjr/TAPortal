@@ -642,7 +642,7 @@ const TrainingCalendar = () => {
 
       <section className="relative z-10 w-full px-4 mb-8">
         <div className="bg-[#2e3192]/95 backdrop-blur-sm rounded-[2.5rem] w-full max-w-[100rem] mx-auto p-4 md:p-6 shadow-2xl overflow-hidden">
-          <div ref={scrollContainerRef} className="flex overflow-x-auto no-scrollbar items-center gap-4 py-4 scroll-smooth">
+          <div ref={scrollContainerRef} className="flex overflow-x-auto no-scrollbar items-center gap-4 p-4 scroll-smooth">
             {monthCards.map((card, index) => {
               const isActive = selectedMonth === index;
               return (
