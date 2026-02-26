@@ -23,18 +23,18 @@ const CBPlan = () => {
   const [layout, setLayout] = useState("grid");
   const [searchTerm, setSearchTerm] = useState("");
 
+  const getGoogleId = (url) => {
+    const match = url.match(/\/d\/(.+?)\//);
+    return match ? match[1] : null;
+  };
+
   const FileIcon = ({ type, size = 24 }) => {
     switch (type) {
-      case "sheet":
-        return <SiGooglesheets size={size} className="text-green-600" />;
-      case "doc":
-        return <SiGoogledocs size={size} className="text-blue-600" />;
-      case "slides":
-        return <SiGoogleslides size={size} className="text-yellow-500" />;
-      case "pdf":
-        return <FaFilePdf size={size} className="text-red-600" />;
-      default:
-        return <FiFileText size={size} className="text-gray-400" />;
+      case "sheet": return <SiGooglesheets size={size} className="text-green-600" />;
+      case "doc": return <SiGoogledocs size={size} className="text-blue-600" />;
+      case "slides": return <SiGoogleslides size={size} className="text-yellow-500" />;
+      case "pdf": return <FaFilePdf size={size} className="text-red-600" />;
+      default: return <FiFileText size={size} className="text-gray-400" />;
     }
   };
 
@@ -51,62 +51,19 @@ const CBPlan = () => {
       {/* Hero Section */}
       <section
         className="w-full h-72 md:h-96 flex items-center justify-center relative overflow-hidden"
-        style={{
-          backgroundImage: `url(${TABG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
+        style={{ backgroundImage: `url(${TABG})`, backgroundSize: "cover", backgroundPosition: "center" }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/20"></div>
         <div className="relative text-center text-white font-bold px-6 md:px-12">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4">
-            Capability Building Planning
-          </h1>
-          <p className="text-sm md:text-lg max-w-2xl mx-auto">
-            Browse the Capability Building files below.
-          </p>
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">Capability Building Planning</h1>
+          <p className="text-sm md:text-lg max-w-2xl mx-auto">Browse the Capability Building files below.</p>
         </div>
       </section>
 
       {/* Layout Switch + Search */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
         <h2 className="text-2xl font-semibold text-gray-800">Files</h2>
-
-        {/* Mobile Search */}
-        <div className="md:hidden w-full flex flex-col items-center gap-2 mb-2">
-          <input
-            type="text"
-            placeholder="Search files..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="px-3 py-1 border rounded-lg text-sm w-full max-w-xs focus:outline-none focus:ring focus:border-blue-300"
-          />
-          <div className="flex gap-2">
-            <button
-              onClick={() => setLayout("grid")}
-              className={`p-2 rounded-lg border ${
-                layout === "grid"
-                  ? "bg-blue-100 text-blue-700"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              <HiOutlineViewGrid size={20} />
-            </button>
-            <button
-              onClick={() => setLayout("list")}
-              className={`p-2 rounded-lg border ${
-                layout === "list"
-                  ? "bg-blue-100 text-blue-700"
-                  : "bg-white text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              <HiOutlineViewList size={20} />
-            </button>
-          </div>
-        </div>
-
-        {/* Desktop: search + grid/list */}
-        <div className="hidden md:flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <input
             type="text"
             placeholder="Search files..."
@@ -114,85 +71,67 @@ const CBPlan = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             className="px-3 py-1 border rounded-lg text-sm w-64 focus:outline-none focus:ring focus:border-blue-300"
           />
-          <button
-            onClick={() => setLayout("grid")}
-            className={`p-2 rounded-lg border ${
-              layout === "grid"
-                ? "bg-blue-100 text-blue-700"
-                : "bg-white text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            <HiOutlineViewGrid size={22} />
-          </button>
-          <button
-            onClick={() => setLayout("list")}
-            className={`p-2 rounded-lg border ${
-              layout === "list"
-                ? "bg-blue-100 text-blue-700"
-                : "bg-white text-gray-700 hover:bg-gray-100"
-            }`}
-          >
-            <HiOutlineViewList size={22} />
-          </button>
+          <button onClick={() => setLayout("grid")} className={`p-2 rounded-lg border ${layout === "grid" ? "bg-blue-100 text-blue-700" : "bg-white text-gray-700 hover:bg-gray-100"}`}><HiOutlineViewGrid size={22} /></button>
+          <button onClick={() => setLayout("list")} className={`p-2 rounded-lg border ${layout === "list" ? "bg-blue-100 text-blue-700" : "bg-white text-gray-700 hover:bg-gray-100"}`}><HiOutlineViewList size={22} /></button>
         </div>
       </section>
 
       {/* Files Section */}
       <section className="max-w-7xl mx-auto px-6 md:px-12 pb-12">
-        <div
-          className={`transition-all duration-300 ${
-            layout === "grid"
-              ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-              : "flex flex-col space-y-4"
-          }`}
-        >
-          {filteredFiles.map((file) => (
-            <a
-              key={file.link}
-              href={file.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group ${
-                layout === "list"
-                  ? "flex items-center p-4"
-                  : "flex flex-col p-4"
-              }`}
-            >
-              {layout === "grid" ? (
-                <>
-                  <div className="flex items-center gap-2 font-semibold text-gray-800 mb-2">
-                    <FileIcon type={file.type} size={22} />
-                    <span className="hidden md:block truncate max-w-[180px]">
-                      {truncateName(file.name, 20)}
-                    </span>
-                    <span className="block md:hidden truncate max-w-full">
-                      {truncateName(file.name, 30)}
-                    </span>
-                  </div>
+        <div className={`transition-all duration-300 ${layout === "grid" ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" : "flex flex-col space-y-4"}`}>
+          {filteredFiles.map((file) => {
+            const fileId = getGoogleId(file.link);
+            // sz=w1000 ensures high resolution. w=400 or 600 often adds white borders.
+            const thumbnailUrl = `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
 
-                  <div className="w-full h-36 rounded-lg bg-gray-50 flex items-center justify-center mb-2">
-                    <FileIcon type={file.type} size={60} />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-20 h-14 rounded-lg bg-gray-50 flex items-center justify-center mr-4">
-                    <FileIcon type={file.type} size={40} />
-                  </div>
-
-                  <div className="flex-1 flex items-center justify-between">
-                    <div className="flex items-center gap-2 font-semibold text-gray-800 max-w-full">
-                      <FileIcon type={file.type} size={18} />
-                      <span className="block md:hidden truncate max-w-[150px]">
-                        {truncateName(file.name, 25)}
-                      </span>
-                      <span className="hidden md:block">{file.name}</span>
+            return (
+              <a
+                key={file.link}
+                href={file.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group ${layout === "list" ? "flex items-center p-4" : "flex flex-col p-4"}`}
+              >
+                {layout === "grid" ? (
+                  <>
+                    <div className="flex items-center gap-2 font-semibold text-gray-800 mb-2">
+                      <FileIcon type={file.type} size={22} />
+                      <span className="truncate">{truncateName(file.name, 22)}</span>
                     </div>
-                  </div>
-                </>
-              )}
-            </a>
-          ))}
+
+                    <div className="w-full h-40 rounded-lg bg-gray-50 flex items-center justify-center mb-2 overflow-hidden border border-gray-100">
+                      <img 
+                        src={thumbnailUrl} 
+                        alt=""
+                        referrerPolicy="no-referrer"
+                        className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                        onError={(e) => {
+                          // If thumbnail still fails, show the large icon
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="hidden w-full h-full items-center justify-center">
+                        <FileIcon type={file.type} size={60} />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="w-16 h-12 rounded bg-gray-50 flex items-center justify-center mr-4 overflow-hidden border">
+                      <img src={thumbnailUrl} referrerPolicy="no-referrer" alt="" className="w-full h-full object-cover object-top" />
+                    </div>
+                    <div className="flex-1 flex items-center justify-between">
+                      <div className="flex items-center gap-2 font-semibold text-gray-800 truncate">
+                        <FileIcon type={file.type} size={18} />
+                        <span>{file.name}</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </a>
+            );
+          })}
         </div>
       </section>
     </div>

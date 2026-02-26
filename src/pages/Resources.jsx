@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,9 +11,8 @@ import {
   faDownload,
 } from "@fortawesome/free-solid-svg-icons";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
-import TABG from "../assets/TABG.png"; // Make sure you have this image
+import TABG from "../assets/TABG.png"; 
 
-// ---------- ICONS AND POSITIONS ----------
 const icons = [
   { icon: faSquarePollVertical, label: "Chart", size: "text-[15rem]", color: "text-[#ee1c25]" },
   { icon: faBookOpen, label: "Book", size: "text-[10rem]", color: "text-[#2e3192]" },
@@ -30,7 +29,6 @@ const positionsDesktop = [
   { x: -250, y: -80 },
 ];
 
-// ---------- TABLE TABS AND DATA ----------
 const tableTabs = [
   "CENTRALIZATION",
   "CAPABILITY BUILDING PLAN",
@@ -258,7 +256,6 @@ const tableData = [
   },
 ];
 
-// ---------- KNOWLEDGE BANK COMPONENT ----------
 const KnowledgeBank = () => {
   const [order, setOrder] = useState([0, 1, 2, 3, 4]);
   const [isMobile, setIsMobile] = useState(false);
@@ -278,23 +275,13 @@ const KnowledgeBank = () => {
     return () => clearInterval(interval);
   }, [isMobile]);
 
-  const mobileIconSize = "text-4xl";
-
   return (
-    <div
-      className="min-h-screen px-6 lg:px-20 py-16 flex flex-col gap-12 lg:gap-16 items-center justify-center bg-cover bg-center"
-      style={{ backgroundImage: `url(${TABG})` }}
-    >
-      {/* MOBILE ICONS */}
+    <div className="min-h-screen px-6 lg:px-20 py-16 flex flex-col gap-12 lg:gap-16 items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${TABG})` }}>
       {isMobile && (
         <div className="w-full overflow-hidden py-8">
-          <motion.div
-            className="flex gap-12"
-            animate={{ x: ["0%", "-100%"] }}
-            transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
-          >
+          <motion.div className="flex gap-12" animate={{ x: ["0%", "-100%"] }} transition={{ repeat: Infinity, duration: 10, ease: "linear" }}>
             {icons.concat(icons).map((item, i) => (
-              <div key={i} className={`flex-shrink-0 ${mobileIconSize} ${item.color}`}>
+              <div key={i} className={`flex-shrink-0 text-4xl ${item.color}`}>
                 <FontAwesomeIcon icon={item.icon} />
               </div>
             ))}
@@ -302,49 +289,19 @@ const KnowledgeBank = () => {
         </div>
       )}
 
-      {/* MAIN CONTENT */}
-      <div className="flex flex-col lg:flex-row w-full max-w-[100rem]">
-        {/* LEFT SIDE: Text */}
+      <div className="flex flex-col lg:flex-row w-full max-w-[120rem]">
         <div className="flex-1 max-w-5xl text-center lg:text-left">
-          <h1 className="text-3xl lg:text-5xl font-bold mb-6 text-[#2e3192]">
-            Resources for DSWD Learning and Development Standards
-          </h1>
-          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">
-            This page provides access to curated resources that support the
-            planning, implementation, and monitoring of capability building
-            initiatives. The materials available here are intended to guide
-            clients in understanding technical assistance processes, complying
-            with applicable standards, and enhancing the quality of their
-            learning and development interventions.
-          </p>
-          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">
-            Resources may include reference materials, guidelines, tools,
-            templates, and other knowledge products developed or adopted by the
-            DSWD Academy to support technical assistance delivery. These materials
-            are aligned with existing policies and are continuously updated to
-            reflect current practices and emerging needs.
-          </p>
-          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">
-            Clients are encouraged to review the available resources prior to
-            submitting a technical assistance request, as these may already
-            address common concerns and provide practical guidance for capability
-            building activities.
-          </p>
+          <h1 className="text-3xl lg:text-5xl font-bold mb-6 text-[#2e3192]">Resources for DSWD Learning and Development Standards</h1>
+          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">This page provides access to curated resources that support the planning, implementation, and monitoring of capability building initiatives.</p>
+          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl hidden sm:block">The materials available here are intended to guide clients in understanding technical assistance processes and enhancing the quality of their learning interventions.</p>
         </div>
-
-        {/* DESKTOP ICONS */}
         {!isMobile && (
-          <div className="flex-1 flex justify-center items-center relative w-72 h-72 pr-5">
+          <div className="flex-1 flex justify-center items-center relative w-72 h-72">
             {order.map((posIndex, i) => {
               const { x, y } = positionsDesktop[posIndex];
               const { icon, size, color } = icons[i];
               return (
-                <motion.div
-                  key={i}
-                  className="absolute top-1/2 left-1/2"
-                  animate={{ x, y }}
-                  transition={{ duration: 0.8, ease: "easeInOut" }}
-                >
+                <motion.div key={i} className="absolute top-1/2 left-1/2" animate={{ x, y }} transition={{ duration: 0.8, ease: "easeInOut" }}>
                   <FontAwesomeIcon icon={icon} className={`${color} ${size}`} />
                 </motion.div>
               );
@@ -356,256 +313,164 @@ const KnowledgeBank = () => {
   );
 };
 
-// ---------- RESOURCES PAGE ----------
 const Resources = () => {
   const [activeTab, setActiveTab] = useState(tableTabs[0]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
+  const rowsPerPage = 5; 
   const [dateSort, setDateSort] = useState(null);
-  const tabsRef = useRef(null);
 
   const toggleDateSort = () => {
-  if (!dateSort) setDateSort("asc");
-  else if (dateSort === "asc") setDateSort("desc");
-  else setDateSort(null);
-  setCurrentPage(1); // reset to first page
+    if (!dateSort) setDateSort("asc");
+    else if (dateSort === "asc") setDateSort("desc");
+    else setDateSort(null);
+    setCurrentPage(1);
   };
 
   const filteredData = tableData
-  .filter((item) => item.category === activeTab)
-  .filter((item) =>
-    item.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    item.type.toLowerCase().includes(searchQuery.toLowerCase())
-  )
-  .sort((a, b) => {
-  if (!dateSort) return 0;
-  const parseDate = (d) => (d ? new Date(d.replace(",", "")) : new Date(0));
-  const dateA = parseDate(a.dateIssued);
-  const dateB = parseDate(b.dateIssued);
-  return dateSort === "asc" ? dateB - dateA : dateA - dateB;
-});
+    .filter((item) => item.category === activeTab)
+    .filter((item) =>
+      item.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.type.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (!dateSort) return 0;
+      const parseDate = (d) => (d ? new Date(d.replace(",", "")) : new Date(0));
+      return dateSort === "asc" ? parseDate(b.dateIssued) - parseDate(a.dateIssued) : parseDate(a.dateIssued) - parseDate(b.dateIssued);
+    });
 
-  // PAGINATION
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-  const paginatedData = filteredData.slice(
-    (currentPage - 1) * rowsPerPage,
-    currentPage * rowsPerPage
-  );
+  const paginatedData = filteredData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   return (
-    <div>
-      {/* UPPER PART */}
+    <div className="bg-white min-h-screen pb-20">
       <KnowledgeBank />
 
-      {/* TABLE SECTION */}
-      <section className="w-full flex flex-col items-center mt-10 px-4 sm:px-6 lg:px-14 mb-12">
-        {/* Tabs + Search Row */}
-        <div className="w-full flex flex-col sm:flex-row gap-4 mb-0 ">
-          {/* Tabs container */}
-          <div className="flex gap-0 overflow-x-auto sm:overflow-visible scrollbar-hide flex-1">
-            {tableTabs.map((tab, idx) => (
+      <section className="w-full max-w-[120rem] mx-auto flex flex-col mt-10 px-4 sm:px-6 lg:px-14">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+          <div className="flex overflow-x-auto no-scrollbar gap-1 whitespace-nowrap scroll-smooth touch-pan-x z-20">
+            {tableTabs.map((tab) => (
               <button
                 key={tab}
-                className={`
-                  flex-shrink-0 sm:flex-1 h-16
-                  font-semibold text-center
-                  transition-all duration-200
-                  px-6 py-3
-                  ${activeTab === tab
-                    ? "text-[#2e3192] border-b-2 border-[#2e3192] z-10"
-                    : "text-gray-700 hover:text-[#2e3192] hover:border-b-2 hover:border-[#2e3192]"
-                  }
-                  ${idx !== 0 ? "-ml-px" : ""} 
-                `}
-                onClick={() => {
-                  setActiveTab(tab);
-                  setCurrentPage(1); // reset page when switching tabs
-                }}
+                className={`flex-shrink-0 px-5 py-3 rounded-t-xl font-bold text-[10px] lg:text-xs transition-all duration-200 relative ${
+                  activeTab === tab 
+                    ? "bg-[#2e3192] text-white h-[45px]" 
+                    : "bg-gray-100 text-gray-500 border-t border-l border-r border-gray-200 hover:bg-gray-200"
+                }`}
+                style={activeTab === tab ? { marginBottom: "-1px" } : {}}
+                onClick={() => { setActiveTab(tab); setCurrentPage(1); }}
               >
-                {tab.split("\n").map((line, i) => (
-                  <div key={i}>{line}</div>
-                ))}
+                {tab}
               </button>
             ))}
           </div>
 
-          {/* Search bar */}
-          <div className="w-full sm:w-64 flex-shrink-0 pt-2 mt-2 sm:mt-0">
+          <div className="pb-2 w-full lg:w-72">
             <input
               type="text"
-              placeholder="Search..."
-              className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#2e3192]"
+              placeholder="Search resources..."
+              className="w-full border border-gray-300 rounded-full px-5 py-2 text-sm shadow-sm focus:ring-2 focus:ring-[#2e3192] outline-none"
               value={searchQuery}
-              onChange={(e) => {
-                setSearchQuery(e.target.value);
-                setCurrentPage(1); // reset page when searching
-              }}
+              onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
             />
           </div>
         </div>
 
-        {/* Table */}
-        <div className="w-full overflow-x-auto mt-4 sm:overflow-visible">
-          <table className="w-full border-separate border-spacing-y-4 hidden sm:table">
+        <div className="w-full overflow-x-auto relative z-10 hidden sm:block">
+          <table className="w-full border-separate border-spacing-0 min-w-[900px]">
             <thead>
-              <tr className="bg-white">
-                <th className="px-6 py-3 text-left w-[20%]">Type</th>
-                <th className="px-6 py-3 text-left w-[60%]">File Name</th>
-                <th
-                  className="px-6 py-3 text-left w-[10%] cursor-pointer"
-                  onClick={toggleDateSort}
-                >
-                  <div className="flex items-center gap-2 select-none">
-                    Date Issued
-                    <CgArrowsExchangeAltV
-                      className={`ml-2 transition-transform duration-200 text-xl ${
-                        dateSort === "asc"
-                          ? "text-blue-500 rotate-180"
-                          : dateSort === "desc"
-                          ? "text-red-500"
-                          : "text-gray-400"
-                      }`}
-                    />
-                  </div>
+              <tr className="bg-[#2e3192] text-white">
+                <th className="px-6 py-6 text-left font-bold uppercase text-[11px] rounded-bl-3xl">Type</th>
+                <th className="px-6 py-6 text-left font-bold uppercase text-[11px]">File Name</th>
+                <th className="px-6 py-6 text-left font-bold cursor-pointer uppercase text-[11px]" onClick={toggleDateSort}>
+                  <div className="flex items-center gap-2">Date Issued <CgArrowsExchangeAltV className="text-xl" /></div>
                 </th>
-                <th className="px-6 py-3 text-right w-[18%]"></th>
+                <th className="px-6 py-6 text-center font-bold uppercase text-[11px] rounded-br-3xl">Actions</th>
               </tr>
             </thead>
             <tbody>
               {paginatedData.length === 0 ? (
-                <tr className="bg-white rounded-lg shadow">
-                  <td colSpan={4} className="text-center py-4">No results found.</td>
+                <tr>
+                  <td colSpan={4} className="text-center py-20 text-gray-400 italic">No results found.</td>
                 </tr>
               ) : (
                 paginatedData.map((item, index) => {
-                  const isPrimary = index % 2 === 0;
+                  const isAlt = index % 2 !== 0;
                   return (
-                    <tr
-                      key={item.id}
-                      className={`transition rounded-lg shadow ${isPrimary ? "bg-[#2e3192] text-white" : "bg-white text-black"}`}
-                    >
-                      <td className="px-6 py-3">{item.type}</td>
-                      <td className="px-6 py-3 truncate">
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="hover:underline"
-                        >
-                          {item.fileName}
-                        </a>
-                      </td>
-                      <td className="px-6 py-3 whitespace-nowrap">{item.dateIssued}</td>
-                      <td className="px-6 py-3">
-                        <div className="flex justify-end gap-5">
-                          <a
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-[#2e3192]"}`}
-                          >
-                            <FontAwesomeIcon icon={faEye} />
-                          </a>
-                          <a
-                            href={item.link}
-                            download={item.fileName}
-                            className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-green-600"}`}
-                          >
-                            <FontAwesomeIcon icon={faDownload} />
-                          </a>
-                        </div>
-                      </td>
-                    </tr>
+                    <React.Fragment key={item.id}>
+                      <tr className="h-5 bg-transparent"><td colSpan={4}></td></tr>
+                      <tr className="group transition-all">
+                        <td className={`px-6 py-5 border-t border-b border-l rounded-l-3xl ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                          <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${isAlt ? "bg-white text-[#2e3192]" : "bg-blue-100 text-[#2e3192]"}`}>{item.type}</span>
+                        </td>
+                        <td className={`px-6 py-5 border-t border-b font-semibold ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                          <a href={item.link} target="_blank" rel="noreferrer" className="hover:underline line-clamp-1">{item.fileName}</a>
+                        </td>
+                        <td className={`px-6 py-5 border-t border-b text-sm font-medium ${isAlt ? "bg-[#4f54e0] text-gray-200 border-transparent" : "bg-gray-50 text-gray-500 border-gray-200"}`}>{item.dateIssued}</td>
+                        <td className={`px-6 py-5 border-t border-b border-r rounded-r-3xl ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                          <div className="flex justify-center gap-3">
+                            <a href={item.link} target="_blank" rel="noreferrer" className={`p-2.5 rounded-xl transition shadow-sm border ${isAlt ? "bg-white text-[#2e3192] border-transparent" : "bg-white text-blue-600 border-gray-200"}`}><FontAwesomeIcon icon={faEye} /></a>
+                            <a href={item.link} download className={`p-2.5 rounded-xl transition shadow-sm border ${isAlt ? "bg-white text-[#2e3192] border-transparent" : "bg-white text-green-600 border-gray-200"}`}><FontAwesomeIcon icon={faDownload} /></a>
+                          </div>
+                        </td>
+                      </tr>
+                    </React.Fragment>
                   );
                 })
               )}
             </tbody>
           </table>
-
-          {/* MOBILE CARD-LIKE ROWS */}
-          <div className="sm:hidden flex flex-col gap-4">
-            {paginatedData.length === 0 ? (
-              <div className="bg-white rounded-xl shadow p-4 text-center">
-                No results found.
-              </div>
-            ) : (
-              paginatedData.map((item, index) => {
-                const isPrimary = index % 2 === 0;
-                return (
-                  <div
-                    key={item.id}
-                    className={`p-4 rounded-xl shadow transition ${isPrimary ? "bg-[#2e3192] text-white" : "bg-white text-black"}`}
-                  >
-                    <div className="flex justify-between mb-2">
-                      <span className="font-semibold">Type:</span>
-                      <span>{item.type}</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                      <span className="font-semibold">File Name:</span>
-                      <span className="truncate">{item.fileName}</span>
-                    </div>
-                    <div className="flex justify-between mb-2">
-                      <span className="font-semibold">Date Issued:</span>
-                      <span>{item.dateIssued}</span>
-                    </div>
-                    <div className="flex justify-end gap-5">
-                      <a
-                        href={item.link}
-                        className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-[#2e3192]"}`}
-                      >
-                        <FontAwesomeIcon icon={faEye} />
-                      </a>
-                      <a
-                        href={item.link}
-                        className={`hover:opacity-80 ${isPrimary ? "text-white" : "text-green-600"}`}
-                      >
-                        <FontAwesomeIcon icon={faDownload} />
-                      </a>
-                    </div>
-                  </div>
-                );
-              })
-            )}
-          </div>
         </div>
 
-        {/* PAGINATION CONTROLS */}
-        {totalPages > 1 && (
-          <div className="w-full flex justify-end items-center mt-4 text-sm gap-2">
-            <span className="mr-4 text-[#2e3192] font-bold">
-              Showing {currentPage} out of {totalPages}
-            </span>
+        <div className="sm:hidden flex flex-col gap-4 mt-6">
+          {paginatedData.length === 0 ? (
+            <p className="text-center py-10 text-gray-400 italic">No results found.</p>
+          ) : (
+            paginatedData.map((item, index) => {
+              const isPrimary = index % 2 === 0;
+              return (
+                /* Card color updated to #4f54e0 */
+                <div key={item.id} className={`p-5 rounded-3xl shadow-lg transition-all ${isPrimary ? "bg-[#4f54e0] text-white" : "bg-gray-50 text-black border border-gray-200"}`}>
+                  <div className="flex justify-between items-start mb-4">
+                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${isPrimary ? "bg-white text-[#2e3192]" : "bg-blue-100 text-[#2e3192]"}`}>{item.type}</span>
+                    <span className={`text-xs font-medium ${isPrimary ? "text-gray-300" : "text-gray-500"}`}>{item.dateIssued}</span>
+                  </div>
+                  <h3 className="font-bold mb-6 text-sm leading-snug line-clamp-3">{item.fileName}</h3>
+                  <div className="flex justify-end gap-4 border-t pt-4 border-white/20">
+                    <a href={item.link} target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-xs font-bold ${isPrimary ? "text-white" : "text-[#2e3192]"}`}>
+                      <FontAwesomeIcon icon={faEye} /> VIEW
+                    </a>
+                    <a href={item.link} download className={`flex items-center gap-2 text-xs font-bold ${isPrimary ? "text-white" : "text-green-600"}`}>
+                      <FontAwesomeIcon icon={faDownload} /> SAVE
+                    </a>
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
 
-            <button
-              disabled={currentPage === 1}
-              className={`px-2 py-1 rounded font-bold ${currentPage === 1 ? "bg-gray-200" : "bg-[#2e3192] text-white"}`}
-              onClick={() => setCurrentPage(currentPage - 1)}
-            >
-              &lt;
-            </button>
-
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i}
-                className={`px-2 py-1 rounded font-bold ${currentPage === i + 1 ? "bg-[#2e3192] text-white" : "bg-gray-200"}`}
-                onClick={() => setCurrentPage(i + 1)}
-              >
-                {i + 1}
-              </button>
-            ))}
-
-            <button
-              disabled={currentPage === totalPages}
-              className={`px-2 py-1 rounded font-bold ${currentPage === totalPages ? "bg-gray-200" : "bg-[#2e3192] text-white"}`}
-              onClick={() => setCurrentPage(currentPage + 1)}
-            >
-              &gt;
-            </button>
+        {filteredData.length > rowsPerPage && (
+          <div className="w-full flex justify-end items-center mt-10 gap-4 sm:gap-6">
+            <button disabled={currentPage === 1} onClick={() => setCurrentPage(prev => prev - 1)} className="text-sm font-bold text-[#2e3192] disabled:text-gray-300 hover:underline uppercase">Prev</button>
+            <div className="flex items-center gap-2">
+              <span className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#2e3192] text-white font-bold text-xs sm:text-sm">{currentPage}</span>
+              <span className="text-gray-400 font-bold uppercase text-[10px] sm:text-xs">of {totalPages}</span>
+            </div>
+            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(prev => prev + 1)} className="text-sm font-bold text-[#2e3192] disabled:text-gray-300 hover:underline uppercase">Next</button>
           </div>
         )}
-
       </section>
+      
+      <style dangerouslySetInnerHTML={{ __html: `
+        .no-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .no-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}} />
     </div>
   );
 };

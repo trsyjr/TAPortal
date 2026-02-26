@@ -324,13 +324,121 @@ const exampleEvents = [
     id: 28,
     startDate: new Date(2026, 4, 31),
     endDate: new Date(2026, 5, 5),
-    title: "rollout Parent Effectiveness Service",
+    title: "Rollout Parent Effectiveness Service",
     description: "The Roll-Out Training on the Parent Effectiveness Service (PES) is designed for the facilitators who will directly conduct all the sessions with parents in their respective communities. It equips them with the knowledge, skills, and standardized tools needed to effectively deliver the PES modules in line with Republic Act No. 11908 and its Implementing Rules and Regulations.",
     venue: "Region VIII, Region XI, Region VI, Region IX, and others.",
     tag: "",
     target: "Cities, Municipalities",
     image: "",
     colorId: 1,
+  },
+  {
+    id: 29,
+    startDate: new Date(2026, 5, 1),
+    endDate: new Date(2026, 5, 5),
+    title: "Training on Pre-Marriage Counseling BATCH 3",
+    description: "This training enhances the competencies of pre-marriage counselors at the Local Government Units in conducting the Pre-marriage Orientation and Counseling (PMOC) Program.",
+    venue: "DSWD Academy (Taguig City, National Capital Region)",
+    tag: "WITH CPD UNITS",
+    target: "Local Social Welfare and Development Officers (LSWDOs)",
+    image: "",
+    colorId: 2,
+  },
+  {
+    id: 30,
+    startDate: new Date(2026, 5, 1),
+    endDate: new Date(2026, 5, 5),
+    title: "Training on Pre-Marriage Counseling BATCH 4",
+    description: "This training enhances the competencies of pre-marriage counselors at the Local Government Units in conducting the Pre-marriage Orientation and Counseling (PMOC) Program.",
+    venue: "DSWD Academy (Taguig City, National Capital Region)",
+    tag: "WITH CPD UNITS",
+    target: "Local Social Welfare and Development Officers (LSWDOs)",
+    image: "",
+    colorId: 2,
+  },
+  {
+    id: 31,
+    startDate: new Date(2026, 5, 1),
+    endDate: new Date(2026, 5, 5),
+    title: "Upskilling on Social Work Counseling: Counseling Competencies for Today’s Social Worker Batch 1",
+    description: "This training equips DSWD CRCF social workers with essential counseling competencies to effectively assess and support vulnerable and high-need clients in both in-person and remote settings. Participants will strengthen their key counseling skills, ethical decision-making, and cultural competence while applying trauma-informed and client-centered approaches in diverse practice situations. The program also emphasizes practical self-care strategies to help social workers manage stress, prevent burnout, and sustain professional effectiveness in demanding work environments.",
+    venue: "Region VII",
+    tag: "",
+    target: "Child, Youth, Women, Family, OP, Persons With Disabillities",
+    image: "",
+    colorId: 3,
+  },
+  {
+    id: 32,
+    startDate: new Date(2026, 5, 1),
+    endDate: new Date(2026, 5, 5),
+    title: "Upskilling on Strategic Communications",
+    description: "This Upskilling Program on Strategic Communication is designed for CRCF Center Heads and Supervising Social Workers to strengthen their communication and leadership skills in managing teams and engaging stakeholders. It enhances their ability to deliver clear messages, handle difficult conversations, and manage conflict effectively, especially in sensitive and high-pressure situations. The program equips participants with practical strategies to promote collaboration, transparency, and effective service delivery within their centers.",
+    venue: "CARAGA",
+    tag: "",
+    target: "Center Head, Supervising Social Worker",
+    image: "",
+    colorId: 3,
+  },
+  {
+    id: 33,
+    startDate: new Date(2026, 5, 14),
+    endDate: new Date(2026, 5, 19),
+    title: "Rollout Parent Effectiveness Service",
+    description: "The Roll-Out Training on the Parent Effectiveness Service (PES) is designed for the facilitators who will directly conduct all the sessions with parents in their respective communities. It equips them with the knowledge, skills, and standardized tools needed to effectively deliver the PES modules in line with Republic Act No. 11908 and its Implementing Rules and Regulations.",
+    venue: "Region VIII, Region IX, Region XII, Region VI, and others.",
+    tag: "",
+    target: "Cities, Municipalities",
+    image: "",
+    colorId: 1,
+  },
+  {
+    id: 34,
+    startDate: new Date(2026, 5, 22),
+    endDate: new Date(2026, 5, 27),
+    title: "Training on Houseparenting",
+    description: "This training aims to improve the competencies of houseparents, as frontline service providers, in handling and managing children under their care.",
+    venue: "DSWD Academy (Taguig City, National Capital Region)",
+    tag: "",
+    target: "Field Offices, Social Welfare and Developmental Agencies, and LGU-Managed Centers/Residential Care Facilities",
+    image: "",
+    colorId: 2,
+  },
+  {
+    id: 35,
+    startDate: new Date(2026, 5, 28),
+    endDate: new Date(2026, 6, 3),
+    title: "Rollout Parent Effectiveness Service",
+    description: "The Roll-Out Training on the Parent Effectiveness Service (PES) is designed for the facilitators who will directly conduct all the sessions with parents in their respective communities. It equips them with the knowledge, skills, and standardized tools needed to effectively deliver the PES modules in line with Republic Act No. 11908 and its Implementing Rules and Regulations.",
+    venue: "Region IX, Region IV-A, Region V, Region VIII, and Region X",
+    tag: "",
+    target: "Cities, Municipalities",
+    image: "",
+    colorId: 1,
+  },
+  {
+    id: 35,
+    startDate: new Date(2026, 5, 29),
+    endDate: new Date(2026, 6, 3),
+    title: "Ladderized 1: Training on Leadership and Management for Local Social Welfare and Development Officers: Catalysts for Change",
+    description: "The Leadership Training for Local Social Welfare and Development Officers (LSWDOs) is designed to build the essential skills, knowledge, and mindset required for effective leadership in social welfare programs. This training equips LSWDOs to navigate policy changes, manage resources, lead teams, and respond to various community challenges. Through a focus on ethical leadership, accountability, emotional intelligence, decision-making, and problem-solving, the program enhances their  capacity to deliver impactful services. It also promotes stakeholder collaboration to ensure more efficient service delivery and greater community impact. By empowering LSWDOs to advocate for marginalized populations, promote social justice.  mentor future leaders, and design sustainable, inclusive programs, the training contributes to the long-term well-being and development of the communities they serve.",
+    venue: "Region IX, Region IV-A, Region V, Region VIII, and Region X",
+    tag: "",
+    target: "Local Social Welfare and Development Officers (LSWDOs) from LGUs (Level 1-2 Rating in the SDCA)",
+    image: "",
+    colorId: 6,
+  },
+  {
+    id: 36,
+    startDate: new Date(2026, 5, 29),
+    endDate: new Date(2026, 6, 3),
+    title: "Training on Pre-Marriage Counseling BATCH 5",
+    description: "This training enhances the competencies of pre-marriage counselors at the Local Government Units in conducting the Pre-marriage Orientation and Counseling (PMOC) Program.",
+    venue: "DSWD Academy (Taguig City, National Capital Region)",
+    tag: "WITH CPD UNITS",
+    target: "Local Social Welfare and Development Officers (LSWDOs)",
+    image: "",
+    colorId: 2,
   },
 ];
 
@@ -360,6 +468,33 @@ const fullMonths = [
   "MAY", "JUNE", "JULY", "AUGUST",
   "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER",
 ];
+
+// --- Added helper component for the 30 words limit ---
+const ExpandableDescription = ({ text }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const words = text.split(" ");
+  const isOverLimit = words.length > 30;
+
+  if (!isOverLimit) {
+    return <p className="text-gray-600 leading-relaxed text-base md:text-lg">{text}</p>;
+  }
+
+  const displayText = isExpanded ? text : words.slice(0, 30).join(" ") + "...";
+
+  return (
+    <div className="text-gray-600 leading-relaxed text-base md:text-lg">
+      <p>
+        {displayText}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="ml-2 text-[#2e3192] font-bold hover:underline underline-offset-4"
+        >
+          {isExpanded ? "See Less" : "See More"}
+        </button>
+      </p>
+    </div>
+  );
+};
 
 const TrainingCalendar = () => {
   const today = new Date();
@@ -582,7 +717,11 @@ const TrainingCalendar = () => {
                     )}
                   </div>
                   <h2 className="text-3xl font-black text-gray-900 leading-tight">{selectedEvent.title}</h2>
-                  {selectedEvent.description && <p className="text-gray-600 leading-relaxed text-base md:text-lg">{selectedEvent.description}</p>}
+                  
+                  {/* --- Integrated the Expandable component here --- */}
+                  {selectedEvent.description && (
+                    <ExpandableDescription text={selectedEvent.description} />
+                  )}
                 </div>
               </div>
 

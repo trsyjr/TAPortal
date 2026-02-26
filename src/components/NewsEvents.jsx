@@ -12,7 +12,6 @@ import News3 from "../assets/News3.png";
 import News4 from "../assets/News4.png";
 import News5 from "../assets/News5.png";
 
-
 const NewsEvents = () => {
   const newsItems = [
     {
@@ -53,6 +52,7 @@ const NewsEvents = () => {
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isExpanded, setIsExpanded] = useState(false); // State to track description expansion
 
   const sliderSettings = {
     dots: true,
@@ -63,7 +63,28 @@ const NewsEvents = () => {
     autoplay: true,
     autoplaySpeed: 3000,
     arrows: true,
-    afterChange: (index) => setCurrentSlide(index),
+    afterChange: (index) => {
+      setCurrentSlide(index);
+      setIsExpanded(false); // Reset expansion when slide changes
+    },
+  };
+
+  // Helper function to handle the 30-word limit
+  const renderDescription = (text) => {
+    const words = text.split(" ");
+    if (words.length <= 30) return text;
+
+    return (
+      <>
+        {isExpanded ? text : words.slice(0, 30).join(" ") + "..."}
+        <button
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="ml-2 text-[#2e3192] font-extrabold hover:underline focus:outline-none"
+        >
+          {isExpanded ? " See Less" : " See More"}
+        </button>
+      </>
+    );
   };
 
   return (
@@ -85,7 +106,6 @@ const NewsEvents = () => {
 
       {/* Content */}
       <div className="relative z-10">
-        {/* Header */}
         <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-12 text-center md:text-left">
           NEWS & EVENTS
         </h2>
@@ -99,11 +119,7 @@ const NewsEvents = () => {
             >
               {newsItems.map((item, idx) => (
                 <div key={idx}>
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <a href={item.link} target="_blank" rel="noopener noreferrer">
                     <img
                       src={item.image}
                       alt={item.title}
@@ -116,13 +132,13 @@ const NewsEvents = () => {
           </div>
 
           {/* Right Text */}
-          <div className="flex-1 flex flex-col justify-start space-y-6">
+          <div className="flex-1 flex flex-col justify-start space-y-6 overflow-hidden">
             <div>
-              <h3 className="text-4xl md:text-5xl font-bold text-[#ee1c25] mb-4">
+              <h3 className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#ee1c25] mb-4 leading-tight">
                 {newsItems[currentSlide].title}
               </h3>
-              <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed">
-                {newsItems[currentSlide].description}
+              <p className="text-lg md:text-xl lg:text-2xl text-gray-700 leading-relaxed transition-all duration-300">
+                {renderDescription(newsItems[currentSlide].description)}
               </p>
             </div>
 
