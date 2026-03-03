@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiExternalLink } from "react-icons/fi";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import TALogo from "../assets/TALogo.png";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const [dropdown, setDropdown] = useState(null); // track which dropdown is open
+  const [dropdown, setDropdown] = useState(null);
 
   const menuItems = [
     { name: "Home", path: "/" },
     { name: "CB Plan", path: "/CBPlan" },
-    { name: "Training Calendar", path: "/training-calendar" },
+    { name: "Training Calendar", path: "https://training-calendar-three.vercel.app/", isExternal: true },
     { name: "Knowledge Bank", path: "/knowledgebank" },
     { name: "Resources", path: "/resources" },
     { name: "About", path: "/about" },
@@ -20,11 +20,9 @@ const Navbar = () => {
 
   return (
     <>
-      {/* Navbar container - Added select-none to prevent highlighting */}
       <nav className="w-full fixed top-0 left-0 z-40 backdrop-blur-lg bg-white border-b border-white shadow-lg transition-all duration-300 select-none">
         <div className="flex items-center justify-between w-full px-6 md:px-12 py-4">
           
-          {/* Logo */}
           <div className="flex-shrink-0">
             <NavLink to="/">
               <img src={TALogo} alt="TA Portal Logo" className="h-12 md:h-16" />
@@ -74,13 +72,24 @@ const Navbar = () => {
                       ))}
                     </ul>
                   </>
+                ) : item.isExternal ? (
+                  /* Updated External Link: Same font, style, and color transition as NavLink */
+                  <a
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative py-2 inline-flex items-center gap-2 transition-colors duration-300 hover:text-[#ee1c25]"
+                  >
+                    <span>{item.name}</span>
+                    <FiExternalLink size={16} className="mb-0.5" /> 
+                    <span className="absolute left-1/2 bottom-0 w-0 h-[2px] bg-[#2e3192] group-hover:w-full group-hover:left-0 transition-all duration-300 ease-in-out" />
+                  </a>
                 ) : (
-                  /* Changed: The NavLink now wraps the entire hit area for better click response */
                   <NavLink
                     to={item.path}
                     className={({ isActive }) =>
                       `relative py-2 transition-colors duration-300 ${
-                        isActive ? "text-[#ee1c25]" : "text-gray-700"
+                        isActive ? "text-[#ee1c25]" : "text-gray-700 hover:text-[#ee1c25]"
                       }`
                     }
                   >
@@ -92,7 +101,6 @@ const Navbar = () => {
             ))}
           </ul>
 
-          {/* Mobile Burger Icon */}
           <button
             onClick={() => setOpen(!open)}
             className="md:hidden text-gray-700 text-3xl focus:outline-none"
@@ -112,7 +120,6 @@ const Navbar = () => {
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             className="fixed top-0 right-0 h-full w-64 bg-white shadow-xl p-6 flex flex-col items-start space-y-2 z-50 md:hidden select-none"
           >
-            {/* Close Button */}
             <button
               onClick={() => setOpen(false)}
               className="self-end text-3xl text-gray-700 focus:outline-none mb-4"
@@ -166,6 +173,17 @@ const Navbar = () => {
                       )}
                     </AnimatePresence>
                   </>
+                ) : item.isExternal ? (
+                  <a
+                    href={item.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setOpen(false)}
+                    className="font-semibold text-gray-700 py-2 w-full flex items-center gap-2 text-left hover:text-[#ee1c25]"
+                  >
+                    {item.name}
+                    <FiExternalLink size={16} />
+                  </a>
                 ) : (
                   <NavLink
                     to={item.path}
