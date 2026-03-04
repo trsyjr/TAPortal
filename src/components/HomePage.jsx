@@ -1,8 +1,7 @@
 // src/components/HomePage.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaFileCircleCheck,
   FaFileLines,
@@ -22,6 +21,16 @@ const faqCards = [
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
 ];
 
+// Motion Settings
+const fadeInUp = {
+  initial: { opacity: 0, y: 30 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+};
+
+const stagger = {
+  animate: { transition: { staggerChildren: 0.1 } }
+};
+
 const HomePage = () => {
   const navigate = useNavigate();
 
@@ -30,12 +39,12 @@ const HomePage = () => {
   };
 
   return (
-    <div className="pt-20 font-sans relative">
+    <div className="pt-20 font-sans relative overflow-x-hidden">
       {/* Background for MOBILE only */}
       <div
-        className="absolute top-0 left-0 right-0 z-0 md:hidden" // hidden on md+
+        className="absolute top-0 left-0 right-0 z-0 md:hidden"
         style={{
-          height: "900px", // adjust mobile height
+          height: "840px",
           backgroundImage: `url(${TABG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -45,11 +54,11 @@ const HomePage = () => {
         }}
       />
 
-      {/* Background for DESKTOP only (optional) */}
+      {/* Background for DESKTOP only */}
       <div
-        className="absolute top-0 left-0 right-0 z-0 hidden md:block" // show only md+
+        className="absolute top-0 left-0 right-0 z-0 hidden md:block"
         style={{
-          height: "670px",
+          height: "740px",
           backgroundImage: `url(${TABG})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -60,61 +69,81 @@ const HomePage = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative z-10 text-center px-6 md:px-20 lg:px-40 py-12">
-        <h1 className="text-md md:text-lg mb-2 text-gray-800 font-semibold">
+      <motion.section 
+        initial="initial"
+        animate="animate"
+        variants={stagger}
+        className="relative z-10 text-center px-6 md:px-20 lg:px-40 py-12"
+      >
+        <motion.h1 variants={fadeInUp} className="text-sm md:text-base mb-3 text-gray-800 font-bold tracking-[0.15em] uppercase">
           DSWD ACADEMY CBD-PLDS
-        </h1>
+        </motion.h1>
 
-        <h2 className="max-w-7xl mx-auto text-center text-3xl md:text-4xl font-bold mb-4 text-[#ee1c25]">
+        <motion.h2 variants={fadeInUp} className="max-w-7xl mx-auto text-center text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-[#ee1c25] tracking-tight leading-tight">
           Technical Assistance Portal
-        </h2>
+        </motion.h2>
 
-        <div className="mx-auto max-w-7xl p-4 rounded-lg">
-          <p className="text-gray-700 text-base md:text-md leading-relaxed font-semibold mb-3">
+        <motion.div variants={fadeInUp} className="mx-auto max-w-4xl p-4 rounded-lg">
+          <p className="text-gray-700 text-base md:text-lg leading-relaxed font-semibold mb-3 opacity-90">
             This portal is designed to support Offices, Bureaus, Services, and Units (OBSUs), Field Offices (FOs), and partner-stakeholders 
             by providing clear guidance on available technical assistance services, standard processes, resources, and frequently asked 
-            questions along capability building. It aims to promote transparency, consistency, and efficiency in the delivery of technical 
-            assistance, while ensuring alignment with Department policies, standards, and learning and development priorities.
+            questions along capability building.
           </p>
-        </div>
+        </motion.div>
 
-        <Link to="/about">
-          <button className="mt-6 px-10 py-4 border border-gray-700 text-gray-700 rounded-lg text-lg font-semibold hover:bg-gray-100 transition">
-            Learn More
-          </button>
-        </Link>
-      </section>
+        <motion.div variants={fadeInUp}>
+          <Link to="/about">
+            <button className="mt-6 px-12 py-4 border-2 border-gray-800 text-gray-800 rounded-xl text-lg font-bold hover:bg-[#FFE066] hover:text-[#2e3192] hover:border-[#2e3192] transition-all duration-300 active:scale-95 shadow-lg shadow-black/5">
+              Learn More
+            </button>
+          </Link>
+        </motion.div>
+      </motion.section>
 
       {/* FAQ Section */}
-      <section className="relative z-10 mb-12">
-        <div className="bg-[#2e3192] rounded-3xl w-full max-w-[100rem] mx-auto p-6 md:p-10">
-          <h2 className="text-[#FFE066] text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center">
+      <section className="relative z-10 mb-20 px-4 md:px-8">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="bg-[#2e3192] rounded-[3rem] w-full max-w-[95rem] mx-auto p-8 md:p-12 shadow-2xl shadow-indigo-900/40"
+        >
+          <h2 className="text-[#FFE066] text-2xl md:text-4xl font-bold mb-10 text-center tracking-tight">
             Frequently Asked Questions
           </h2>
 
-          {/* MOBILE: horizontal scroll | DESKTOP: grid */}
-          <div className="flex gap-3 overflow-x-auto pb-4 md:grid md:grid-cols-2 lg:grid-cols-6 md:gap-4 md:overflow-visible">
+          <motion.div 
+            variants={stagger}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            className="flex gap-4 overflow-x-auto pb-6 md:grid md:grid-cols-2 lg:grid-cols-6 md:gap-6 md:overflow-visible no-scrollbar"
+          >
             {faqCards.map((card) => (
               <motion.div
                 key={card.title}
-                whileHover={{ scale: 1.05 }}
+                variants={fadeInUp}
+                whileHover={{ 
+                  scale: 1.03, 
+                  y: -10,
+                  transition: { type: "spring", stiffness: 400, damping: 20 }
+                }}
                 onClick={() => handleCardClick(card.path)}
-                className="min-w-[160px] sm:min-w-[180px] md:min-w-0 bg-white rounded-3xl p-4 md:p-8 flex flex-col items-center justify-center hover:shadow-xl cursor-pointer"
+                className="min-w-[170px] sm:min-w-[200px] md:min-w-0 bg-white rounded-[2.5rem] p-6 md:p-10 flex flex-col items-center justify-center cursor-pointer shadow-md hover:shadow-2xl transition-shadow duration-300 border border-transparent hover:border-indigo-50"
               >
-                {/* Icon */}
-                <div className="text-[#2e3192] mb-2 md:mb-4">
-                  {React.cloneElement(card.icon, { size: 40, className: "md:hidden" })}
-                  {React.cloneElement(card.icon, { size: 70, className: "hidden md:block" })}
+                <div className="text-[#2e3192] mb-4 pointer-events-none transition-transform group-hover:scale-110">
+                  {React.cloneElement(card.icon, { size: 45, className: "md:hidden" })}
+                  {React.cloneElement(card.icon, { size: 75, className: "hidden md:block" })}
                 </div>
 
-                {/* Title */}
-                <h3 className="font-semibold text-gray-800 text-sm md:text-lg text-center">
+                <h3 className="font-bold text-gray-800 text-xs md:text-base text-center leading-tight uppercase tracking-wide">
                   {card.title}
                 </h3>
               </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
     </div>
   );

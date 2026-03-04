@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSquarePollVertical,
@@ -9,16 +9,17 @@ import {
   faGear,
   faEye,
   faDownload,
+  faInbox,
 } from "@fortawesome/free-solid-svg-icons";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
-import TABG from "../assets/TABG.png"; 
+import TABG from "../assets/TABG.png";
 
 const icons = [
-  { icon: faSquarePollVertical, label: "Chart", size: "text-[15rem]", color: "text-[#ee1c25]" },
-  { icon: faBookOpen, label: "Book", size: "text-[10rem]", color: "text-[#2e3192]" },
-  { icon: faChartPie, label: "Pie", size: "text-[15rem]", color: "text-[#FFE066]" },
-  { icon: faCommentDots, label: "Comments", size: "text-[13rem]", color: "text-[#ee1c25]" },
-  { icon: faGear, label: "Gear", size: "text-[10rem]", color: "text-[#2e3192]" },
+  { icon: faSquarePollVertical, size: "text-[15rem]", color: "text-[#ee1c25]" },
+  { icon: faBookOpen, size: "text-[10rem]", color: "text-[#2e3192]" },
+  { icon: faChartPie, size: "text-[15rem]", color: "text-[#FFE066]" },
+  { icon: faCommentDots, size: "text-[13rem]", color: "text-[#ee1c25]" },
+  { icon: faGear, size: "text-[10rem]", color: "text-[#2e3192]" },
 ];
 
 const positionsDesktop = [
@@ -271,41 +272,63 @@ const KnowledgeBank = () => {
     if (isMobile) return;
     const interval = setInterval(() => {
       setOrder((prev) => [prev[prev.length - 1], ...prev.slice(0, prev.length - 1)]);
-    }, 2000);
+    }, 3000);
     return () => clearInterval(interval);
   }, [isMobile]);
 
-  return (
-    <div className="min-h-screen px-6 lg:px-20 py-16 flex flex-col gap-12 lg:gap-16 items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${TABG})` }}>
-      {isMobile && (
-        <div className="w-full overflow-hidden py-8">
-          <motion.div className="flex gap-12" animate={{ x: ["0%", "-100%"] }} transition={{ repeat: Infinity, duration: 10, ease: "linear" }}>
-            {icons.concat(icons).map((item, i) => (
-              <div key={i} className={`flex-shrink-0 text-4xl ${item.color}`}>
-                <FontAwesomeIcon icon={item.icon} />
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      )}
+  const textContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3, delayChildren: 0.2 },
+    },
+  };
 
-      <div className="flex flex-col lg:flex-row w-full max-w-[120rem]">
-        <div className="flex-1 max-w-5xl text-center lg:text-left">
-          <h1 className="text-3xl lg:text-5xl font-bold mb-6 text-[#2e3192]">Resources for DSWD Learning and Development Standards</h1>
-          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl">This page provides access to curated resources that support the planning, implementation, and monitoring of capability building initiatives.</p>
-          <p className="text-black mb-4 leading-relaxed text-md lg:text-xl hidden sm:block">The materials available here are intended to guide clients in understanding technical assistance processes and enhancing the quality of their learning interventions.</p>
-        </div>
-        {!isMobile && (
-          <div className="flex-1 flex justify-center items-center relative w-72 h-72">
-            {order.map((posIndex, i) => {
-              const { x, y } = positionsDesktop[posIndex];
-              const { icon, size, color } = icons[i];
-              return (
-                <motion.div key={i} className="absolute top-1/2 left-1/2" animate={{ x, y }} transition={{ duration: 0.8, ease: "easeInOut" }}>
-                  <FontAwesomeIcon icon={icon} className={`${color} ${size}`} />
-                </motion.div>
-              );
-            })}
+  const textItemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  return (
+    <div className={`min-h-[85vh] px-6 lg:px-24 flex items-center justify-center bg-cover bg-center ${isMobile ? "pt-32 pb-16" : "pt-40 pb-20"}`} style={{ backgroundImage: `url(${TABG})` }}>
+      <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-[110rem] gap-20">
+        <motion.div 
+          className="flex-1 text-center lg:text-left z-10"
+          initial="hidden"
+          animate="visible"
+          variants={textContainerVariants}
+        >
+          <motion.h1 variants={textItemVariants} className="text-3xl lg:text-6xl font-extrabold mb-8 text-[#2e3192] leading-tight">
+            Resources for DSWD Learning and Development Standards
+          </motion.h1>
+          <motion.p variants={textItemVariants} className="text-black mb-4 leading-relaxed text-lg lg:text-2xl opacity-90">
+            This page provides access to curated resources that support the planning, implementation, and monitoring of capability building initiatives.
+          </motion.p>
+          <motion.p variants={textItemVariants} className="text-black mb-6 leading-relaxed text-lg lg:text-2xl opacity-90">
+            The materials available here are intended to guide clients in understanding technical assistance processes and enhancing the quality of their learning interventions.
+          </motion.p>
+        </motion.div>
+        {!isMobile ? (
+          <div className="flex-1 flex justify-center items-center relative h-[600px]">
+            <div className="relative w-full h-full flex items-center justify-center">
+              {order.map((posIndex, i) => {
+                const { x, y } = positionsDesktop[posIndex];
+                const { icon, size, color } = icons[i];
+                return (
+                  <motion.div key={i} className="absolute" animate={{ x, y }} transition={{ duration: 1.5, ease: "easeInOut" }}>
+                    <FontAwesomeIcon icon={icon} className={`${color} ${size} filter drop-shadow-xl`} />
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          <div className="w-full overflow-hidden py-10">
+            <motion.div className="flex gap-16 items-center w-max" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, duration: 20, ease: "linear" }}>
+              {icons.concat(icons).map((item, i) => (
+                <div key={i} className={`flex-shrink-0 ${item.color} text-7xl`}><FontAwesomeIcon icon={item.icon} /></div>
+              ))}
+            </motion.div>
           </div>
         )}
       </div>
@@ -317,8 +340,21 @@ const Resources = () => {
   const [activeTab, setActiveTab] = useState(tableTabs[0]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5; 
+  const rowsPerPage = 5;
   const [dateSort, setDateSort] = useState(null);
+  const scrollContainerRef = useRef(null);
+
+  // Auto-centering active tab logic
+  useEffect(() => {
+    const activeBtn = scrollContainerRef.current?.querySelector(".active-tab");
+    if (activeBtn) {
+      activeBtn.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [activeTab]);
 
   const toggleDateSort = () => {
     if (!dateSort) setDateSort("asc");
@@ -342,135 +378,148 @@ const Resources = () => {
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
   const paginatedData = filteredData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
+  const rowVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: (i) => ({ opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut", delay: i * 0.1 } }),
+    exit: { opacity: 0, scale: 0.95, transition: { duration: 0.4 } },
+  };
+
   return (
-    <div className="bg-white min-h-screen pb-20">
+    <div className="bg-white min-h-screen pb-20 overflow-x-hidden">
       <KnowledgeBank />
 
-      <section className="w-full max-w-[120rem] mx-auto flex flex-col mt-10 px-4 sm:px-6 lg:px-14">
+      <section className="w-full max-w-[110rem] mx-auto flex flex-col mt-10 px-4 sm:px-6 lg:px-14">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
-          <div className="flex overflow-x-auto no-scrollbar gap-1 whitespace-nowrap scroll-smooth touch-pan-x z-20">
+          <div 
+            ref={scrollContainerRef}
+            className="flex overflow-x-auto no-scrollbar gap-1 whitespace-nowrap scroll-smooth touch-pan-x z-20 justify-start"
+          >
             {tableTabs.map((tab) => (
               <button
                 key={tab}
-                className={`flex-shrink-0 px-5 py-3 rounded-t-xl font-bold text-[10px] lg:text-xs transition-all duration-200 relative ${
+                className={`flex-shrink-0 px-6 py-4 rounded-t-2xl font-bold text-sm lg:text-md transition-all duration-200 relative ${
                   activeTab === tab 
-                    ? "bg-[#2e3192] text-white h-[45px]" 
-                    : "bg-gray-100 text-gray-500 border-t border-l border-r border-gray-200 hover:bg-gray-200"
+                  ? "bg-[#2e3192] text-white h-[60px] active-tab" 
+                  : "bg-gray-100 text-gray-500 border-t border-l border-r border-gray-200 hover:bg-gray-200"
                 }`}
-                style={activeTab === tab ? { marginBottom: "-1px" } : {}}
                 onClick={() => { setActiveTab(tab); setCurrentPage(1); }}
               >
                 {tab}
               </button>
             ))}
           </div>
-
-          <div className="pb-2 w-full lg:w-72">
+          <div className="pb-2 w-full lg:w-80">
             <input
               type="text"
               placeholder="Search resources..."
-              className="w-full border border-gray-300 rounded-full px-5 py-2 text-sm shadow-sm focus:ring-2 focus:ring-[#2e3192] outline-none"
+              className="w-full border border-gray-300 rounded-full px-6 py-3 text-sm shadow-sm focus:ring-2 focus:ring-[#2e3192] outline-none"
               value={searchQuery}
               onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
             />
           </div>
         </div>
 
-        <div className="w-full overflow-x-auto relative z-10 hidden sm:block">
-          <table className="w-full border-separate border-spacing-0 min-w-[900px]">
+        {/* Desktop View */}
+        <div className="w-full overflow-hidden no-scrollbar relative z-10 hidden sm:block">
+          <table className="w-full border-separate border-spacing-0 min-w-[1000px] table-fixed">
             <thead>
               <tr className="bg-[#2e3192] text-white">
-                <th className="px-6 py-6 text-left font-bold uppercase text-[11px] rounded-bl-3xl">Type</th>
-                <th className="px-6 py-6 text-left font-bold uppercase text-[11px]">File Name</th>
-                <th className="px-6 py-6 text-left font-bold cursor-pointer uppercase text-[11px]" onClick={toggleDateSort}>
+                <th className="w-[270px] px-8 py-6 text-left font-bold uppercase text-xs tracking-wider rounded-bl-3xl">Type</th>
+                <th className="px-8 py-6 text-left font-bold uppercase text-xs tracking-wider">File Name</th>
+                <th className="w-[180px] px-8 py-6 text-left font-bold uppercase text-xs tracking-wider cursor-pointer hover:bg-[#1e2060] transition" onClick={toggleDateSort}>
                   <div className="flex items-center gap-2">Date Issued <CgArrowsExchangeAltV className="text-xl" /></div>
                 </th>
-                <th className="px-6 py-6 text-center font-bold uppercase text-[11px] rounded-br-3xl">Actions</th>
+                <th className="w-[180px] px-8 py-6 text-center font-bold uppercase text-xs tracking-wider rounded-br-3xl">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {paginatedData.length === 0 ? (
-                <tr>
-                  <td colSpan={4} className="text-center py-20 text-gray-400 italic">No results found.</td>
-                </tr>
-              ) : (
-                paginatedData.map((item, index) => {
-                  const isAlt = index % 2 !== 0;
-                  return (
-                    <React.Fragment key={item.id}>
-                      <tr className="h-5 bg-transparent"><td colSpan={4}></td></tr>
-                      <tr className="group transition-all">
-                        <td className={`px-6 py-5 border-t border-b border-l rounded-l-3xl ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
-                          <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${isAlt ? "bg-white text-[#2e3192]" : "bg-blue-100 text-[#2e3192]"}`}>{item.type}</span>
-                        </td>
-                        <td className={`px-6 py-5 border-t border-b font-semibold ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
-                          <a href={item.link} target="_blank" rel="noreferrer" className="hover:underline line-clamp-1">{item.fileName}</a>
-                        </td>
-                        <td className={`px-6 py-5 border-t border-b text-sm font-medium ${isAlt ? "bg-[#4f54e0] text-gray-200 border-transparent" : "bg-gray-50 text-gray-500 border-gray-200"}`}>{item.dateIssued}</td>
-                        <td className={`px-6 py-5 border-t border-b border-r rounded-r-3xl ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
-                          <div className="flex justify-center gap-3">
-                            <a href={item.link} target="_blank" rel="noreferrer" className={`p-2.5 rounded-xl transition shadow-sm border ${isAlt ? "bg-white text-[#2e3192] border-transparent" : "bg-white text-blue-600 border-gray-200"}`}><FontAwesomeIcon icon={faEye} /></a>
-                            <a href={item.link} download className={`p-2.5 rounded-xl transition shadow-sm border ${isAlt ? "bg-white text-[#2e3192] border-transparent" : "bg-white text-green-600 border-gray-200"}`}><FontAwesomeIcon icon={faDownload} /></a>
-                          </div>
-                        </td>
-                      </tr>
-                    </React.Fragment>
-                  );
-                })
-              )}
+              <AnimatePresence mode="wait">
+                {paginatedData.length > 0 ? (
+                  paginatedData.map((item, index) => {
+                    const isAlt = index % 2 !== 0;
+                    return (
+                      <React.Fragment key={`${activeTab}-${currentPage}-${item.id}`}>
+                        <tr className="h-4 bg-transparent"><td colSpan={4}></td></tr>
+                        <motion.tr custom={index} variants={rowVariants} initial="initial" animate="animate" exit="exit" className="group">
+                          <td className={`px-8 py-6 border-t border-b border-l rounded-l-3xl text-xs ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                            <span className={`inline-block px-5 py-2 rounded-full text-md font-black uppercase whitespace-nowrap ${isAlt ? "bg-white text-[#2e3192]" : "bg-blue-100 text-[#2e3192]"}`}>{item.type}</span>
+                          </td>
+                          <td className={`px-8 py-6 border-t border-b font-bold text-sm overflow-hidden ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                            <a href={item.link} target="_blank" rel="noreferrer" className="block truncate hover:underline" title={item.fileName}>
+                              {item.fileName}
+                            </a>
+                          </td>
+                          <td className={`px-8 py-6 border-t border-b text-sm font-semibold ${isAlt ? "bg-[#4f54e0] text-gray-100 border-transparent" : "bg-gray-50 text-gray-500 border-gray-200"}`}>{item.dateIssued}</td>
+                          <td className={`px-8 py-6 border-t border-b border-r rounded-r-3xl text-sm ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                            <div className="flex justify-center gap-4">
+                              <a href={item.link} target="_blank" rel="noreferrer" className="p-3 bg-white text-blue-600 rounded-2xl shadow-md border border-gray-200 hover:bg-blue-50 transition"><FontAwesomeIcon icon={faEye} /></a>
+                              <a href={item.link} download className="p-3 bg-white text-green-600 rounded-2xl shadow-md border border-gray-200 hover:bg-green-50 transition"><FontAwesomeIcon icon={faDownload} /></a>
+                            </div>
+                          </td>
+                        </motion.tr>
+                      </React.Fragment>
+                    );
+                  })
+                ) : (
+                  <motion.tr initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                    <td colSpan={4} className="py-20 text-center text-gray-400">
+                      <FontAwesomeIcon icon={faInbox} className="text-5xl mb-4 opacity-20" />
+                      <p className="text-lg font-medium italic">No results found.</p>
+                    </td>
+                  </motion.tr>
+                )}
+              </AnimatePresence>
             </tbody>
           </table>
         </div>
 
-        <div className="sm:hidden flex flex-col gap-4 mt-6">
-          {paginatedData.length === 0 ? (
-            <p className="text-center py-10 text-gray-400 italic">No results found.</p>
-          ) : (
-            paginatedData.map((item, index) => {
-              const isPrimary = index % 2 === 0;
-              return (
-                /* Card color updated to #4f54e0 */
-                <div key={item.id} className={`p-5 rounded-3xl shadow-lg transition-all ${isPrimary ? "bg-[#4f54e0] text-white" : "bg-gray-50 text-black border border-gray-200"}`}>
-                  <div className="flex justify-between items-start mb-4">
-                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase ${isPrimary ? "bg-white text-[#2e3192]" : "bg-blue-100 text-[#2e3192]"}`}>{item.type}</span>
-                    <span className={`text-xs font-medium ${isPrimary ? "text-gray-300" : "text-gray-500"}`}>{item.dateIssued}</span>
-                  </div>
-                  <h3 className="font-bold mb-6 text-sm leading-snug line-clamp-3">{item.fileName}</h3>
-                  <div className="flex justify-end gap-4 border-t pt-4 border-white/20">
-                    <a href={item.link} target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-xs font-bold ${isPrimary ? "text-white" : "text-[#2e3192]"}`}>
-                      <FontAwesomeIcon icon={faEye} /> VIEW
-                    </a>
-                    <a href={item.link} download className={`flex items-center gap-2 text-xs font-bold ${isPrimary ? "text-white" : "text-green-600"}`}>
-                      <FontAwesomeIcon icon={faDownload} /> SAVE
-                    </a>
-                  </div>
-                </div>
-              );
-            })
-          )}
+        {/* Mobile View Card */}
+        <div className="sm:hidden flex flex-col gap-6 mt-8">
+          <AnimatePresence mode="popLayout">
+            {paginatedData.length > 0 ? (
+              paginatedData.map((item, index) => {
+                const isPrimary = index % 2 === 0;
+                return (
+                  <motion.div key={`${activeTab}-${currentPage}-${item.id}`} custom={index} variants={rowVariants} initial="initial" animate="animate" exit="exit" className={`p-6 rounded-[2rem] shadow-xl ${isPrimary ? "bg-[#4f54e0] text-white" : "bg-gray-50 text-black border border-gray-200"}`}>
+                    <div className="flex justify-between items-center mb-5">
+                      <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase ${isPrimary ? "bg-white text-[#2e3192]" : "bg-blue-100 text-[#2e3192]"}`}>{item.type}</span>
+                      <span className={`text-[12px] font-medium opacity-80 ${isPrimary ? "text-white" : "text-gray-600"}`}>{item.dateIssued}</span>
+                    </div>
+                    <h3 className="font-semibold mb-6 text-sm leading-snug line-clamp-2">
+                      <a href={item.link} target="_blank" rel="noreferrer" className="hover:underline">
+                        {item.fileName}
+                      </a>
+                    </h3>
+                    <div className={`flex justify-end gap-6 border-t pt-5 ${isPrimary ? "border-white/20" : "border-gray-200"}`}>
+                      <a href={item.link} target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-xs font-black transition ${isPrimary ? "text-white" : "text-[#2e3192]"}`}><FontAwesomeIcon icon={faEye} /> VIEW</a>
+                      <a href={item.link} download className={`flex items-center gap-2 text-xs font-black transition ${isPrimary ? "text-white" : "text-green-600"}`}><FontAwesomeIcon icon={faDownload} /> SAVE</a>
+                    </div>
+                  </motion.div>
+                );
+              })
+            ) : (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="py-20 text-center text-gray-400">
+                <FontAwesomeIcon icon={faInbox} className="text-5xl mb-4 opacity-20" />
+                <p className="text-lg font-medium italic">No results found.</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
+        {/* Pagination Controls */}
         {filteredData.length > rowsPerPage && (
           <div className="w-full flex justify-end items-center mt-10 gap-4 sm:gap-6">
-            <button disabled={currentPage === 1} onClick={() => setCurrentPage(prev => prev - 1)} className="text-sm font-bold text-[#2e3192] disabled:text-gray-300 hover:underline uppercase">Prev</button>
+            <button disabled={currentPage === 1} onClick={() => setCurrentPage(prev => prev - 1)} className="text-sm font-bold text-[#2e3192] disabled:text-gray-300 hover:underline uppercase transition">Prev</button>
             <div className="flex items-center gap-2">
-              <span className="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-full bg-[#2e3192] text-white font-bold text-xs sm:text-sm">{currentPage}</span>
-              <span className="text-gray-400 font-bold uppercase text-[10px] sm:text-xs">of {totalPages}</span>
+              <span className="w-10 h-10 flex items-center justify-center rounded-full bg-[#2e3192] text-white font-bold text-sm shadow-md">{currentPage}</span>
+              <span className="text-gray-400 font-bold uppercase text-xs">of {totalPages}</span>
             </div>
-            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(prev => prev + 1)} className="text-sm font-bold text-[#2e3192] disabled:text-gray-300 hover:underline uppercase">Next</button>
+            <button disabled={currentPage === totalPages} onClick={() => setCurrentPage(prev => prev + 1)} className="text-sm font-bold text-[#2e3192] disabled:text-gray-300 hover:underline uppercase transition">Next</button>
           </div>
         )}
       </section>
-      
-      <style dangerouslySetInnerHTML={{ __html: `
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}} />
+
+      <style dangerouslySetInnerHTML={{ __html: `.no-scrollbar::-webkit-scrollbar { display: none; }` }} />
     </div>
   );
 };

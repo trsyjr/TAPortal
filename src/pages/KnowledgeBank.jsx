@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import TABG from "../assets/TABG.png";
 import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
@@ -102,21 +102,30 @@ const KnowledgeBankCardsSection = () => {
     <section className="w-full flex flex-col items-center mt-20 px-4 sm:px-6 lg:px-36 mb-20">
       {/* Tabs + Button */}
       <div className="w-full flex flex-col sm:flex-row gap-4 mb-8">
-        <div className="flex gap-0 overflow-x-auto sm:overflow-visible flex-1">
+        <div className="flex gap-0 overflow-x-auto sm:overflow-visible flex-1 relative">
           {tableTabs.map((tab) => (
             <button
               key={tab}
-              className={`flex-shrink-0 sm:flex-1 h-14 font-semibold px-6
+              className={`flex-shrink-0 sm:flex-1 h-14 font-semibold px-6 relative transition-colors duration-300
                 ${
                   activeTab === tab
-                    ? "text-[#2e3192] border-b-2 border-[#2e3192]"
-                    : "text-gray-700 hover:text-[#2e3192] hover:border-b-2 hover:border-[#2e3192]"
+                    ? "text-[#2e3192]"
+                    : "text-gray-700 hover:text-[#2e3192]"
                 }`}
               onClick={() => setActiveTab(tab)}
             >
-              {tab}
+              <span className="relative z-10">{tab}</span>
+              {activeTab === tab && (
+                <motion.div
+                  layoutId="tabUnderline"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#2e3192]"
+                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                />
+              )}
             </button>
           ))}
+          {/* Default bottom border for the tab container */}
+          <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gray-200 -z-10" />
         </div>
 
         {/* BIG BUTTON */}
@@ -136,69 +145,80 @@ const KnowledgeBankCardsSection = () => {
       </div>
 
       {/* CARDS FLEX 2x2 */}
-      <div className="w-full flex flex-wrap -mx-3">
-        {filteredData.length > 0 ? (
-          filteredData.map((item, idx) => {
-            const isExpanded = expanded[idx];
-            const extraText = isExpanded
-              ? item.extra
-              : truncateText(item.extra);
+      <div className="w-full">
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={activeTab}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="w-full flex flex-wrap -mx-3"
+          >
+            {filteredData.length > 0 ? (
+              filteredData.map((item, idx) => {
+                const isExpanded = expanded[idx];
+                const extraText = isExpanded
+                  ? item.extra
+                  : truncateText(item.extra);
 
-            return (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: idx * 0.2 }}
-                className="sm:w-1/2 w-full px-3 mb-6"
-              >
-                <div className="p-6 rounded-2xl shadow bg-white text-[#2e3192] flex flex-col">
-                  <div className="flex justify-between mb-3 text-sm font-medium">
-                    <span className="text-[#ee1c25] font-bold">
-                      <span className="text-gray-500">By</span> {item.name}
-                    </span>
-                    <span className="text-gray-500 font-bold">{item.date}</span>
-                  </div>
-
-                  <div className="mb-3 font-bold text-lg leading-relaxed text-gray-800">
-                    {item.body}
-                  </div>
-
-                  {extraText && (
-                    <div className="mb-4 text-sm text-gray-500 leading-relaxed">
-                      {extraText}
-                      {item.extra?.split(" ").length > 25 && (
-                        <span
-                          className="ml-1 text-[#2e3192] font-bold cursor-pointer"
-                          onClick={() => toggleExpand(idx)}
-                        >
-                          {isExpanded ? " See less" : " See more"}
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: idx * 0.1 }}
+                    className="sm:w-1/2 w-full px-3 mb-6"
+                  >
+                    <div className="p-6 rounded-2xl shadow bg-white text-[#2e3192] flex flex-col">
+                      <div className="flex justify-between mb-3 text-sm font-medium">
+                        <span className="text-[#ee1c25] font-bold">
+                          <span className="text-gray-500">By</span> {item.name}
                         </span>
+                        <span className="text-gray-500 font-bold">{item.date}</span>
+                      </div>
+
+                      <div className="mb-3 font-bold text-lg leading-relaxed text-gray-800">
+                        {item.body}
+                      </div>
+
+                      {extraText && (
+                        <div className="mb-4 text-sm text-gray-500 leading-relaxed">
+                          {extraText}
+                          {item.extra?.split(" ").length > 25 && (
+                            <span
+                              className="ml-1 text-[#2e3192] font-bold cursor-pointer"
+                              onClick={() => toggleExpand(idx)}
+                            >
+                              {isExpanded ? " See less" : " See more"}
+                            </span>
+                          )}
+                        </div>
+                      )}
+
+                      {item.tags && (
+                        <div className="flex flex-wrap gap-2 text-sm font-semibold mt-2">
+                          {item.tags.split(",").map((tag, i) => (
+                            <span
+                              key={i}
+                              className="px-3 py-1 bg-gray-200 rounded-full text-gray-600"
+                            >
+                              {tag.trim()}
+                            </span>
+                          ))}
+                        </div>
                       )}
                     </div>
-                  )}
-
-                  {item.tags && (
-                    <div className="flex flex-wrap gap-2 text-sm font-semibold mt-2">
-                      {item.tags.split(",").map((tag, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 bg-gray-200 rounded-full text-gray-600"
-                        >
-                          {tag.trim()}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            );
-          })
-        ) : (
-          <div className="w-full text-center py-16 text-gray-500 font-semibold">
-            No results found.
-          </div>
-        )}
+                  </motion.div>
+                );
+              })
+            ) : (
+              <div className="w-full text-center py-16 text-gray-500 font-semibold">
+                No results found.
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
       </div>
     </section>
   );
