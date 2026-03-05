@@ -84,7 +84,7 @@ const HomePage = () => {
         </motion.h2>
 
         <motion.div variants={fadeInUp} className="mx-auto max-w-4xl p-4 rounded-lg">
-          <p className="text-gray-700 text-base md:text-lg leading-relaxed font-semibold mb-3 opacity-90">
+          <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-3 opacity-90">
             This portal is designed to support Offices, Bureaus, Services, and Units (OBSUs), Field Offices (FOs), and partner-stakeholders 
             by providing clear guidance on available technical assistance services, standard processes, resources, and frequently asked 
             questions along capability building.

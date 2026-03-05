@@ -2,24 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
-html,
-body {
-    @apply font-sans;
-  font-family: 'Montserrat', sans-serif;
+/* 1. Global Defaults */
+html, body, #root {
   background-color: #E9E9E9;
-}
-
-html,
-body,
-#root {
   overflow-y: auto;
   scrollbar-width: none;    
   -ms-overflow-style: none; 
 }
 
+/* 2. Heading Fonts (Montserrat) */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* 3. Paragraph & General Text Fonts (Arial) */
+body, p, span, li, input, textarea {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Hide Scrollbars */
 html::-webkit-scrollbar,
 body::-webkit-scrollbar,
 #root::-webkit-scrollbar {
