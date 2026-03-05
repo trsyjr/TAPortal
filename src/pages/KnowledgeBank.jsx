@@ -134,8 +134,8 @@ const KnowledgeBankCardsSection = () => {
             href="https://drive.google.com/drive/folders/1tkq8sxM354BrvQShJORFQo2wAcxKMQqe"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full h-[56px] inline-flex items-center justify-center gap-3
-                      rounded-3xl bg-[#2e3192] text-white text-lg font-semibold italic
+            className="w-full h-[56px] inline-flex items-center justify-center gap-2
+                      rounded-xl bg-[#2e3192] text-white text-lg font-semibold italic
                       transform transition duration-300 hover:scale-105 hover:bg-[#1f2470]"
           >
             Knowledge Bank Storage

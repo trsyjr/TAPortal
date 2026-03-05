@@ -46,7 +46,7 @@ const OtherOptions = () => {
           
           <button
             onClick={() => setJoinModalOpen(true)}
-            className="bg-[#FFE066] px-12 py-4 border border-gray-700 text-gray-700 rounded-full transition-all duration-300 hover:bg-[#2e3192] hover:text-white hover:border-[#2e3192] font-semibold text-lg md:text-xl active:scale-95 shadow-md"
+            className="bg-[#FFE066] px-12 py-4 border border-gray-700 text-gray-700 rounded-xl transition-all duration-300 hover:bg-[#2e3192] hover:text-white hover:border-[#2e3192] font-semibold text-lg md:text-xl active:scale-95 shadow-md"
           >
             Join Here
           </button>
@@ -79,7 +79,7 @@ const OtherOptions = () => {
           
           <button
             onClick={() => setModalOpen(true)}
-            className="bg-[#FFE066] px-12 py-4 border border-gray-700 text-gray-700 rounded-full transition-all duration-300 hover:bg-[#2e3192] hover:text-white hover:border-[#2e3192] font-semibold text-lg md:text-xl active:scale-95 shadow-md"
+            className="bg-[#FFE066] px-12 py-4 border border-gray-700 text-gray-700 rounded-xl transition-all duration-300 hover:bg-[#2e3192] hover:text-white hover:border-[#2e3192] font-semibold text-lg md:text-xl active:scale-95 shadow-md"
           >
             Request Here
           </button>

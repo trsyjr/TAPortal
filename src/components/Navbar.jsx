@@ -128,22 +128,32 @@ const Navbar = () => {
 
               <div className="flex flex-col">
                 {menuItems.map((item) => (
-                  <NavLink
-                    key={item.name}
-                    to={item.isExternal ? { pathname: item.path } : item.path}
-                    onClick={() => !item.isExternal && setOpen(false)}
-                    target={item.isExternal ? "_blank" : "_self"}
-                    className={({ isActive }) => 
-                      `flex items-center gap-2 py-4 px-2 text-lg font-bold transition-all border-b border-gray-50 ${
-                        isActive && !item.isExternal ? "text-[#ee1c25]" : "text-gray-800"
-                      }`
-                    }
-                  >
-                    <span>{item.name}</span>
-                    {item.isExternal && (
+                  item.isExternal ? (
+                    <a
+                      key={item.name}
+                      href={item.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setOpen(false)}
+                      className="flex items-center gap-2 py-4 px-2 text-lg font-bold transition-all border-b border-gray-50 text-gray-800"
+                    >
+                      <span>{item.name}</span>
                       <FiExternalLink size={18} strokeWidth={3} />
-                    )}
-                  </NavLink>
+                    </a>
+                  ) : (
+                    <NavLink
+                      key={item.name}
+                      to={item.path}
+                      onClick={() => setOpen(false)}
+                      className={({ isActive }) => 
+                        `flex items-center gap-2 py-4 px-2 text-lg font-bold transition-all border-b border-gray-50 ${
+                          isActive ? "text-[#ee1c25]" : "text-gray-800"
+                        }`
+                      }
+                    >
+                      <span>{item.name}</span>
+                    </NavLink>
+                  )
                 ))}
               </div>
             </motion.div>

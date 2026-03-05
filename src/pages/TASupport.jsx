@@ -104,7 +104,7 @@ const faqPages = [
               href="/pdfs/OBSU-Academy Focal Persons Directory.pdf"
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 bg-[#2e3192] text-white px-6 py-3 rounded-3xl font-bold hover:scale-105 transition-transform shadow-md italic"
+              className="inline-flex items-center gap-2 mt-4 bg-[#2e3192] text-white px-6 py-3 rounded-xl font-bold hover:scale-105 transition-transform shadow-md italic"
             >
               OBSU-Academy Focal Directory 
               <FaArrowUpRightFromSquare className="text-md" />
@@ -288,7 +288,7 @@ const TASupport = () => {
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
                  <button
-                  className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
+                  className="bg-[#FFE066] px-4 py-2 rounded-xl font-semibold hover:scale-105 transition text-sm md:text-base"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent card trigger
                     card.buttonAction();

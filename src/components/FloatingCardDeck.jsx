@@ -68,7 +68,7 @@ const FloatingCardDeck = ({
         return (
           <motion.div
             key={card.title}
-            className="absolute bg-white rounded-2xl shadow-xl w-48 p-4 md:p-6 cursor-pointer"
+            className="absolute bg-white rounded-xl shadow-xl w-48 p-4 md:p-6 cursor-pointer"
             style={{ zIndex: isTop ? 20 : 10 }}
             animate={{
               x: isTop ? -10 : 10,

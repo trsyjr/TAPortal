@@ -147,7 +147,7 @@ const JoinModal = ({ isOpen, onClose }) => {
                   }
                   target={canJoin ? "_blank" : "_self"}
                   rel="noopener noreferrer"
-                  className={`px-12 py-4 rounded-full font-semibold text-lg shadow-lg transition transform hover:scale-105 ${
+                  className={`px-12 py-4 rounded-xl font-semibold text-lg shadow-lg transition transform hover:scale-105 ${
                     canJoin
                       ? "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
                       : "bg-gray-400 text-gray-200 cursor-not-allowed"
