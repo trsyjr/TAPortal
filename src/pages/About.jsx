@@ -145,7 +145,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
+            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white mb-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
           >
             Welcome to the DSWD Academy CBD-PLDS
           </motion.h1>
@@ -153,7 +153,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
+            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
           >
             Technical Assistance Portal!
           </motion.p>

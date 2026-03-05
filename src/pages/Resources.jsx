@@ -299,7 +299,7 @@ const KnowledgeBank = () => {
           animate="visible"
           variants={textContainerVariants}
         >
-          <motion.h1 variants={textItemVariants} className="text-3xl lg:text-6xl font-extrabold mb-8 text-[#2e3192] leading-tight">
+          <motion.h1 variants={textItemVariants} className="text-3xl lg:text-6xl font-extrabold mb-8 text-[#2e3192] tracking-tight leading-tight">
             Resources for DSWD Learning and Development Standards
           </motion.h1>
           <motion.p variants={textItemVariants} className="text-black mb-4 leading-relaxed text-lg lg:text-2xl opacity-90">

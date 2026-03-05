@@ -15,7 +15,7 @@ const KnowledgeBank = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-3xl lg:text-5xl font-bold mb-6 text-[#2e3192]"
+          className="text-3xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-24 text-[#2e3192]"
         >
           Knowledge Bank <br />for DSWD Learning and Development Standards
         </motion.h1>

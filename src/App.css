@@ -1,4 +1,6 @@
 body {
-  @apply font-sans;
-  background-color: #694c4c;
+    @apply font-sans;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #E9E9E9;
 }
+

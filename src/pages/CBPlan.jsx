@@ -56,7 +56,7 @@ const CBPlan = () => {
             initial={{ opacity: 0, y: 10 }} 
             animate={{ opacity: 1, y: 0 }} 
             transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-4"
+            className="text-4xl md:text-6xl font-extrabold  tracking-tight leading-tight mb-4"
           >
             Capability Building Planning
           </motion.h1>
