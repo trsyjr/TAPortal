@@ -99,14 +99,14 @@ const KnowledgeBankCardsSection = () => {
   };
 
   return (
-    <section className="w-full flex flex-col items-center mt-20 px-4 sm:px-6 lg:px-36 mb-20">
+    <section className="w-full flex flex-col items-center mt-10 px-4 sm:px-6 lg:px-36 mb-20">
       {/* Tabs + Button */}
       <div className="w-full flex flex-col sm:flex-row gap-4 mb-8">
-        <div className="flex gap-0 overflow-x-auto sm:overflow-visible flex-1 relative">
+        <div className="flex overflow-x-auto sm:overflow-visible flex-1 relative">
           {tableTabs.map((tab) => (
             <button
               key={tab}
-              className={`flex-shrink-0 sm:flex-1 h-14 font-semibold px-6 relative transition-colors duration-300
+              className={`flex-shrink-0 sm:flex-1 h-14 font-semibold px-6 relative transition-colors duration-300 text-lg
                 ${
                   activeTab === tab
                     ? "text-[#2e3192]"
@@ -170,7 +170,7 @@ const KnowledgeBankCardsSection = () => {
                     transition={{ duration: 0.5, delay: idx * 0.1 }}
                     className="sm:w-1/2 w-full px-3 mb-6"
                   >
-                    <div className="p-6 rounded-2xl shadow bg-white text-[#2e3192] flex flex-col">
+                    <div className="p-6 rounded-xl shadow bg-white text-[#2e3192] flex flex-col">
                       <div className="flex justify-between mb-3 text-sm font-medium">
                         <span className="text-[#ee1c25] font-bold">
                           <span className="text-gray-500">By</span> {item.name}

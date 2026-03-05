@@ -12,6 +12,7 @@ import {
   faInbox,
 } from "@fortawesome/free-solid-svg-icons";
 import { CgArrowsExchangeAltV } from "react-icons/cg";
+import { HiSearch } from "react-icons/hi";
 import TABG from "../assets/TABG.png";
 
 const icons = [
@@ -409,13 +410,19 @@ const Resources = () => {
             ))}
           </div>
           <div className="pb-2 w-full lg:w-80">
-            <input
-              type="text"
-              placeholder="Search resources..."
-              className="w-full border border-gray-300 rounded-full px-6 py-3 text-sm shadow-sm focus:ring-2 focus:ring-[#2e3192] outline-none"
-              value={searchQuery}
-              onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
-            />
+            <div className="relative">            
+              <HiSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-lg" />            
+              <input
+                type="text"
+                placeholder="Search resources..."
+                className="w-full border border-gray-300 rounded-xl pl-11 pr-6 py-3 text-sm shadow-sm focus:ring-2 focus:ring-[#2e3192] outline-none"
+                value={searchQuery}
+                onChange={(e) => { 
+                  setSearchQuery(e.target.value); 
+                  setCurrentPage(1); 
+                }}
+              />
+            </div>
           </div>
         </div>
 
@@ -424,12 +431,12 @@ const Resources = () => {
           <table className="w-full border-separate border-spacing-0 min-w-[1000px] table-fixed">
             <thead>
               <tr className="bg-[#2e3192] text-white">
-                <th className="w-[270px] px-8 py-6 text-left font-bold uppercase text-xs tracking-wider rounded-bl-3xl">Type</th>
+                <th className="w-[270px] px-8 py-6 text-left font-bold uppercase text-xs tracking-wider rounded-bl-xl">Type</th>
                 <th className="px-8 py-6 text-left font-bold uppercase text-xs tracking-wider">File Name</th>
                 <th className="w-[180px] px-8 py-6 text-left font-bold uppercase text-xs tracking-wider cursor-pointer hover:bg-[#1e2060] transition" onClick={toggleDateSort}>
                   <div className="flex items-center gap-2">Date Issued <CgArrowsExchangeAltV className="text-xl" /></div>
                 </th>
-                <th className="w-[180px] px-8 py-6 text-center font-bold uppercase text-xs tracking-wider rounded-br-3xl">Actions</th>
+                <th className="w-[180px] px-8 py-6 text-center font-bold uppercase text-xs tracking-wider rounded-br-xl rounded-tr-xl">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -441,7 +448,7 @@ const Resources = () => {
                       <React.Fragment key={`${activeTab}-${currentPage}-${item.id}`}>
                         <tr className="h-4 bg-transparent"><td colSpan={4}></td></tr>
                         <motion.tr custom={index} variants={rowVariants} initial="initial" animate="animate" exit="exit" className="group">
-                          <td className={`px-8 py-6 border-t border-b border-l rounded-l-3xl text-xs ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                          <td className={`px-8 py-6 border-t border-b border-l rounded-l-xl text-xs ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
                             <span className={`inline-block px-5 py-2 rounded-full text-md font-black uppercase whitespace-nowrap ${isAlt ? "bg-white text-[#2e3192]" : "bg-blue-100 text-[#2e3192]"}`}>{item.type}</span>
                           </td>
                           <td className={`px-8 py-6 border-t border-b font-bold text-sm overflow-hidden ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
@@ -450,7 +457,7 @@ const Resources = () => {
                             </a>
                           </td>
                           <td className={`px-8 py-6 border-t border-b text-sm font-semibold ${isAlt ? "bg-[#4f54e0] text-gray-100 border-transparent" : "bg-gray-50 text-gray-500 border-gray-200"}`}>{item.dateIssued}</td>
-                          <td className={`px-8 py-6 border-t border-b border-r rounded-r-3xl text-sm ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
+                          <td className={`px-8 py-6 border-t border-b border-r rounded-r-xl text-sm ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
                             <div className="flex justify-center gap-4">
                               <a href={item.link} target="_blank" rel="noreferrer" className="p-3 bg-white text-blue-600 rounded-2xl shadow-md border border-gray-200 hover:bg-blue-50 transition"><FontAwesomeIcon icon={faEye} /></a>
                               <a href={item.link} download className="p-3 bg-white text-green-600 rounded-2xl shadow-md border border-gray-200 hover:bg-green-50 transition"><FontAwesomeIcon icon={faDownload} /></a>

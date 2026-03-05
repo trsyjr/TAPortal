@@ -45,12 +45,11 @@ const Navbar = () => {
                     href={item.path}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="relative py-2 flex items-center gap-2 hover:text-[#ee1c25] transition-colors duration-300"
+                    className="relative py-2 flex items-center gap-2.5 hover:text-[#ee1c25] transition-colors duration-300"
                   >
                     <span>{item.name}</span>
-                    <FiExternalLink size={14} className="opacity-40" />
+                    <FiExternalLink size={16} strokeWidth={3} />
                     
-                    {/* Fixed Center-Grow Motion Underline */}
                     <motion.span 
                       variants={{
                         initial: { scaleX: 0 },
@@ -73,7 +72,6 @@ const Navbar = () => {
                     {({ isActive }) => (
                       <>
                         {item.name}
-                        {/* No underline if active, smooth motion underline if inactive */}
                         {!isActive && (
                           <motion.span 
                             variants={{
@@ -128,7 +126,7 @@ const Navbar = () => {
                 </button>
               </div>
 
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col">
                 {menuItems.map((item) => (
                   <NavLink
                     key={item.name}
@@ -136,13 +134,15 @@ const Navbar = () => {
                     onClick={() => !item.isExternal && setOpen(false)}
                     target={item.isExternal ? "_blank" : "_self"}
                     className={({ isActive }) => 
-                      `flex items-center justify-between py-4 px-2 text-lg font-bold transition-all border-b border-gray-50 ${
+                      `flex items-center gap-2 py-4 px-2 text-lg font-bold transition-all border-b border-gray-50 ${
                         isActive && !item.isExternal ? "text-[#ee1c25]" : "text-gray-800"
                       }`
                     }
                   >
-                    {item.name}
-                    {item.isExternal && <FiExternalLink size={16} className="opacity-40" />}
+                    <span>{item.name}</span>
+                    {item.isExternal && (
+                      <FiExternalLink size={18} strokeWidth={3} />
+                    )}
                   </NavLink>
                 ))}
               </div>

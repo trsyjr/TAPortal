@@ -89,11 +89,11 @@ const CBPlan = () => {
                 placeholder="Search resources..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:bg-white outline-none transition-all"
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:bg-white outline-none transition-all"
               />
             </div>
             
-            <div className="flex bg-gray-100 p-1 rounded-lg border border-gray-200">
+            <div className="flex bg-gray-100 p-1 rounded-xl border border-gray-200">
               <button onClick={() => setLayout("grid")} className={`p-2 rounded-md transition-all ${layout === "grid" ? "bg-white shadow-sm text-[#2e3192]" : "text-gray-500"}`}><HiOutlineViewGrid size={20} /></button>
               <button onClick={() => setLayout("list")} className={`p-2 rounded-md transition-all ${layout === "list" ? "bg-white shadow-sm text-[#2e3192]" : "text-gray-500"}`}><HiOutlineViewList size={20} /></button>
             </div>
