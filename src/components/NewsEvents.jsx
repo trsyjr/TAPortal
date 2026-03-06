@@ -146,7 +146,7 @@ const NewsEvents = () => {
 
                 <div className="pt-4">
                   <a href={newsItems[currentSlide].link} target="_blank" rel="noopener noreferrer">
-                    <button className="bg-[#FFE066] text-black px-10 py-4 rounded-xl font-semibold text-base md:text-lg border-2 border-black transition transform hover:scale-105 active:scale-95 shadow-lg">
+                    <button className="bg-[#FFE066] text-black px-10 py-4 rounded-full font-semibold text-base md:text-lg border-2 border-black transition transform hover:scale-105 active:scale-95 shadow-lg">
                       Learn More
                     </button>
                   </a>

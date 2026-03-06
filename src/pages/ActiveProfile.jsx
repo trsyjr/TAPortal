@@ -292,7 +292,7 @@ const ActivityProfile = () => {
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
                 <button
                   onClick={card.buttonAction} // ✅ fixed
-                  className="bg-[#FFE066] px-4 py-2 rounded-xl font-semibold hover:scale-105 transition text-sm md:text-base"
+                  className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
                 >
                   {card.buttonText}
                 </button>

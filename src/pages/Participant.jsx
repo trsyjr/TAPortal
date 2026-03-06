@@ -257,7 +257,7 @@ const Participant = () => {
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
                  <button
-                  className="bg-[#FFE066] px-4 py-2 rounded-xl font-semibold hover:scale-105 transition text-sm md:text-base"
+                  className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
                   onClick={card.buttonAction} // ✅ button works
                 >
                   {card.buttonText}

@@ -93,7 +93,7 @@ const HomePage = () => {
 
         <motion.div variants={fadeInUp}>
           <Link to="/about">
-            <button className="mt-6 px-12 py-4 border-2 border-gray-800 text-gray-800 rounded-xl text-lg font-bold hover:bg-[#FFE066] hover:text-[#2e3192] hover:border-[#2e3192] transition-all duration-300 active:scale-95 shadow-lg shadow-black/5">
+            <button className="mt-6 px-12 py-4 border-2 border-gray-800 text-gray-800 rounded-full text-lg font-bold hover:bg-[#FFE066] hover:text-[#2e3192] hover:border-[#2e3192] transition-all duration-300 active:scale-95 shadow-lg shadow-black/5">
               Learn More
             </button>
           </Link>

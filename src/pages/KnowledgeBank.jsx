@@ -135,11 +135,11 @@ const KnowledgeBankCardsSection = () => {
             target="_blank"
             rel="noopener noreferrer"
             className="w-full h-[56px] inline-flex items-center justify-center gap-2
-                      rounded-xl bg-[#2e3192] text-white text-lg font-semibold italic
+                      rounded-full bg-[#2e3192] text-white text-lg font-semibold italic
                       transform transition duration-300 hover:scale-105 hover:bg-[#1f2470]"
           >
             Knowledge Bank Storage
-            <FaArrowUpRightFromSquare className="text-lg" />
+            <FaArrowUpRightFromSquare className="text-lg" />  
           </a>
         </div>
       </div>
