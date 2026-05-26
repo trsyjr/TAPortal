@@ -34,7 +34,7 @@ import Nancy from "../assets/Nancy-min.avif";
 import Noreen from "../assets/Noreen-min.avif";
 import Perrine from "../assets/Perrine-min.avif";
 import Thea from "../assets/Thea-min.avif";
-import DC from "../assets/DC-min.avif";
+import DC from "/images/DC-min.avif";
 import Jes from "../assets/Jes-min.avif";
 import Orchid from "../assets/Orchid.avif";
 import Pao from "../assets/Pao-min.avif";
