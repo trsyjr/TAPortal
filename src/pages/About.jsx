@@ -29,7 +29,7 @@ import Angel from "../assets/Angel-min.avif";
 import Jena from "../assets/Jena-min.avif";
 import Lyka from "../assets/Lyka-min.avif";
 import Merl from "../assets/Merl-min.avif";
-import Mina from "../assets/Mina-min.avif";
+import Mina from "../assets/Mina.jpg";
 import Nancy from "../assets/Nancy-min.avif";
 import Noreen from "../assets/Noreen-min.avif";
 import Perrine from "../assets/Perrine-min.avif";
