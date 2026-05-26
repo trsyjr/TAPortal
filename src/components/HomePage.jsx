@@ -1,150 +1,228 @@
 // src/components/HomePage.jsx
-import React from "react";
+import React, { useRef, useState, useEffect, useMemo, useCallback } from "react";
+import HTMLFlipBook from "react-pageflip";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  FaFileCircleCheck,
-  FaFileLines,
-  FaHandshake,
-  FaNetworkWired,
-  FaUserCheck,
-  FaComments,
-} from "react-icons/fa6";
-import TABG from "../assets/TABG.png";
+import { useNavigate } from "react-router-dom";
+import { FaAward, FaShareNodes, FaBullhorn } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu"; 
+import { RiArrowDownWideLine } from "react-icons/ri"; 
+
+import Image1 from "../assets/Kliyentel.png";
+import Image2 from "../assets/One.gif";
+
+const slides = [Image1, Image2];
 
 const faqCards = [
-  { title: "L&D STANDARDS", icon: <FaFileCircleCheck />, path: "/ld-standards" },
-  { title: "ACTIVITY PROPOSAL", icon: <FaFileLines />, path: "/active-profile" },
-  { title: "LDI-DIP", icon: <FaNetworkWired />, path: "/ldi-dip" },
-  { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
-  { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
-  { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
+  { title: "Assessment, Certification, and Accreditation", icon: <FaAward />, path: "/cpd" },
+  { title: <>Capability <br /> Building</>, icon: <LuBlocks />, path: "/ld-standards" },
+  { title: <>Knowledge <br /> Management</>, icon: <FaShareNodes />, path: "/knowledge-product" },
+  { title: "TAAORSS", icon: <FaBullhorn />, path: "/tara-program" },
 ];
-
-// Motion Settings
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-};
-
-const stagger = {
-  animate: { transition: { staggerChildren: 0.1 } }
-};
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const bookRef = useRef(null);
+  const isFlipping = useRef(false);
+  const [isUserTouching, setIsUserTouching] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
-  const handleCardClick = (path) => {
-    if (path) navigate(path);
+  const [dimensions, setDimensions] = useState({
+    width: window.innerWidth < 768 ? window.innerWidth : window.innerWidth / 2,
+    height: window.innerWidth < 768 ? (window.innerWidth * 0.6) : (window.innerHeight - 80), 
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      setDimensions({ 
+        width: mobile ? window.innerWidth : window.innerWidth / 2, 
+        height: mobile ? (window.innerWidth * 0.6) : (window.innerHeight - 80) 
+      });
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Create a large buffer for the infinite loop
+  const infiniteSlides = useMemo(() => {
+    let buffer = [];
+    // 10 sets of slides provides a massive runway
+    for(let i = 0; i < 10; i++) buffer = [...buffer, ...slides];
+    return buffer;
+  }, []);
+
+  // Truly Infinite Logic: If user nears the start or end, jump to middle
+  const onFlip = useCallback((e) => {
+    const totalPages = isMobile ? infiniteSlides.length : infiniteSlides.length * 2;
+    const currentPage = e.data;
+
+    // If we get within 2 pages of the end, jump back to the middle set
+    if (currentPage >= totalPages - 2) {
+      setTimeout(() => {
+        bookRef.current?.pageFlip().turnToPage(Math.floor(totalPages / 2));
+      }, 1300);
+    }
+    // If we get within 2 pages of the start, jump to middle set
+    if (currentPage <= 1) {
+      setTimeout(() => {
+        bookRef.current?.pageFlip().turnToPage(Math.floor(totalPages / 2));
+      }, 1300);
+    }
+  }, [infiniteSlides.length, isMobile]);
+
+  const handleNext = () => {
+    if (!bookRef.current || isFlipping.current) return;
+    bookRef.current.pageFlip().flipNext("bottom");
   };
 
+  const handlePrev = () => {
+    if (!bookRef.current || isFlipping.current) return;
+    bookRef.current.pageFlip().flipPrev("top");
+  };
+
+  const onFlipStateChange = (e) => {
+    if (e.data === "flipping") {
+      isFlipping.current = true;
+    } else {
+      setTimeout(() => { isFlipping.current = false; }, 100);
+    }
+  };
+
+  useEffect(() => {
+    if (isUserTouching) return;
+    const interval = setInterval(handleNext, 5000);
+    return () => clearInterval(interval);
+  }, [isUserTouching, isMobile]);
+
+  const renderedSlides = useMemo(() => {
+    const pages = [];
+    infiniteSlides.forEach((image, index) => {
+      if (isMobile) {
+        pages.push(
+          <div key={`mob-${index}`} className="bg-white h-full w-full">
+            <div style={{
+              width: '100%', height: '100%',
+              backgroundImage: `url(${image})`,
+              backgroundSize: 'contain',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }} />
+          </div>
+        );
+      } else {
+        pages.push(
+          <div key={`left-${index}`} className="bg-white h-full w-full">
+            <div style={{
+              width: '100%', height: '100%',
+              backgroundImage: `url(${image})`,
+              backgroundSize: '200% auto',
+              backgroundPosition: 'left center',
+              backgroundRepeat: 'no-repeat'
+            }} />
+          </div>
+        );
+        pages.push(
+          <div key={`right-${index}`} className="bg-white h-full w-full">
+            <div style={{
+              width: '100%', height: '100%',
+              backgroundImage: `url(${image})`,
+              backgroundSize: '200% auto',
+              backgroundPosition: 'right center',
+              backgroundRepeat: 'no-repeat'
+            }} />
+          </div>
+        );
+      }
+    });
+    return pages;
+  }, [infiniteSlides, isMobile]);
+
   return (
-    <div className="pt-20 font-sans relative overflow-x-hidden">
-      {/* Background for MOBILE only */}
-      <div
-        className="absolute top-0 left-0 right-0 z-0 md:hidden"
-        style={{
-          height: "840px",
-          backgroundImage: `url(${TABG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          borderBottomLeftRadius: "3rem",
-          borderBottomRightRadius: "3rem",
-        }}
-      />
-
-      {/* Background for DESKTOP only */}
-      <div
-        className="absolute top-0 left-0 right-0 z-0 hidden md:block"
-        style={{
-          height: "740px",
-          backgroundImage: `url(${TABG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          borderBottomLeftRadius: "5rem",
-          borderBottomRightRadius: "5rem",
-        }}
-      />
-
-      {/* Hero Section */}
-      <motion.section 
-        initial="initial"
-        animate="animate"
-        variants={stagger}
-        className="relative z-10 text-center px-6 md:px-20 lg:px-40 py-12"
+    <div className="font-sans relative min-h-screen bg-white overflow-hidden pt-[80px]">
+      <section
+        className="relative w-full flex flex-col items-center justify-center bg-white overflow-hidden z-0"
+        style={{ minHeight: isMobile ? 'auto' : 'calc(100vh - 80px)' }}
+        onMouseEnter={() => setIsUserTouching(true)}
+        onMouseLeave={() => setIsUserTouching(false)}
       >
-        <motion.h1 variants={fadeInUp} className="text-sm md:text-base mb-3 text-gray-800 font-bold tracking-[0.15em] uppercase">
-          DSWD ACADEMY CBD-PLDS
-        </motion.h1>
+        {!isMobile && (
+          <>
+            {/* Reduced width from w-48 to w-20 to narrow down the target space */}
+            <button onClick={handlePrev} className="absolute left-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-r from-[#2e3192]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer" />
+            <button onClick={handleNext} className="absolute right-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-l from-[#2e3192]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer" />
+          </>
+        )}
 
-        <motion.h2 variants={fadeInUp} className="max-w-7xl mx-auto text-center text-4xl md:text-5xl lg:text-6xl font-black mb-6 text-[#ee1c25] tracking-tight leading-tight">
-          Technical Assistance Portal
-        </motion.h2>
-
-        <motion.div variants={fadeInUp} className="mx-auto max-w-4xl p-4 rounded-lg">
-          <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-3 opacity-90">
-            This portal is designed to support Offices, Bureaus, Services, and Units (OBSUs), Field Offices (FOs), and partner-stakeholders 
-            by providing clear guidance on available technical assistance services, standard processes, resources, and frequently asked 
-            questions along capability building.
-          </p>
-        </motion.div>
-
-        <motion.div variants={fadeInUp}>
-          <Link to="/about">
-            <button className="mt-6 px-12 py-4 border-2 border-gray-800 text-gray-800 rounded-full text-lg font-bold hover:bg-[#FFE066] hover:text-[#2e3192] hover:border-[#2e3192] transition-all duration-300 active:scale-95 shadow-lg shadow-black/5">
-              Learn More
-            </button>
-          </Link>
-        </motion.div>
-      </motion.section>
-
-      {/* FAQ Section */}
-      <section className="relative z-10 mb-20 px-4 md:px-8">
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="bg-[#2e3192] rounded-[3rem] w-full max-w-[95rem] mx-auto p-8 md:p-12 shadow-2xl shadow-indigo-900/40"
-        >
-          <h2 className="text-[#FFE066] text-2xl md:text-4xl font-bold mb-10 text-center tracking-tight">
-            Frequently Asked Questions
-          </h2>
-
-          <motion.div 
-            variants={stagger}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            className="flex gap-4 overflow-x-auto pb-6 md:grid md:grid-cols-2 lg:grid-cols-6 md:gap-6 md:overflow-visible no-scrollbar"
+        <div className="flex items-center justify-center w-full">
+          <HTMLFlipBook
+            key={isMobile ? "mobile" : "desktop"} 
+            width={dimensions.width}
+            height={dimensions.height}
+            size="stretch"
+            minWidth={dimensions.width}
+            maxWidth={2000}
+            minHeight={dimensions.height}
+            maxHeight={2500}
+            showCover={false}
+            useMouseEvents={false} 
+            className="magazine-book"
+            ref={bookRef}
+            onFlip={onFlip} // Detects when to loop
+            onUpdateState={onFlipStateChange}
+            drawShadow={true}
+            flippingTime={600}
+            usePortrait={isMobile} 
+            startPage={isMobile ? 10 : 20} // Start in the middle of the buffer
+            disableFlipByClick={true}
           >
-            {faqCards.map((card) => (
-              <motion.div
-                key={card.title}
-                variants={fadeInUp}
-                whileHover={{ 
-                  scale: 1.03, 
-                  y: -10,
-                  transition: { type: "spring", stiffness: 400, damping: 20 }
-                }}
-                onClick={() => handleCardClick(card.path)}
-                className="min-w-[170px] sm:min-w-[200px] md:min-w-0 bg-white rounded-[2.5rem] p-6 md:p-10 flex flex-col items-center justify-center cursor-pointer shadow-md hover:shadow-2xl transition-shadow duration-300 border border-transparent hover:border-indigo-50"
-              >
-                <div className="text-[#2e3192] mb-4 pointer-events-none transition-transform group-hover:scale-110">
-                  {React.cloneElement(card.icon, { size: 45, className: "md:hidden" })}
-                  {React.cloneElement(card.icon, { size: 75, className: "hidden md:block" })}
-                </div>
+            {renderedSlides}
+          </HTMLFlipBook>
+        </div>
 
-                <h3 className="font-bold text-gray-800 text-xs md:text-base text-center leading-tight uppercase tracking-wide">
-                  {card.title}
-                </h3>
-              </motion.div>
-            ))}
-          </motion.div>
+        <motion.div 
+          className="hidden md:flex absolute bottom-6 w-full justify-center z-20 pointer-events-none"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <div className="text-[#2e3192] text-[7rem] drop-shadow-md">
+            <RiArrowDownWideLine />
+          </div>
         </motion.div>
       </section>
+
+      {/* FAQ SECTION */}
+      <section className="max-w-[1400px] mx-auto px-6 py-12 md:py-24 pb-0 md:pb-0 bg-white overflow-hidden">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-4xl font-bold text-[#2e3192] mb-4">Frequently Asked Questions</h2>
+          <p className="text-gray-700 text-sm md:text-base font-medium">Everything you need to know about our Services.</p>
+        </div>
+
+        <div className="flex flex-row md:grid md:grid-cols-4 gap-6 overflow-x-auto md:overflow-x-visible pb-8 md:pb-8 snap-x snap-mandatory no-scrollbar">
+          {faqCards.map((card, idx) => (
+            <motion.div
+              key={idx}
+              whileHover={{ scale: 1.05 }}
+              onClick={() => navigate(card.path)}
+              className="relative min-w-[85%] sm:min-w-[45%] md:min-w-0 h-44 md:h-48 bg-[#2e3192] hover:bg-[#ee1c25] rounded-[1.5rem] md:rounded-[2rem] flex flex-col-reverse justify-start p-6 md:p-8 cursor-pointer shadow-xl overflow-hidden group snap-center"
+            >
+              <h3 className="text-white font-black text-xl md:text-2xl z-10 text-left leading-tight transition-colors duration-300">
+                {card.title}
+              </h3>
+              <div className="text-white/10 group-hover:text-white/30 text-9xl md:text-[10rem] absolute -right-4 top-1/2 -translate-y-1/2 transform transition-transform group-hover:scale-110 pointer-events-none">
+                {card.icon}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      <style>{`
+        body { overflow-x: hidden; margin: 0; }
+        .magazine-book { background: white; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      `}</style>
     </div>
   );
 };

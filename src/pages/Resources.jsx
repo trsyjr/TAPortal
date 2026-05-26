@@ -32,17 +32,17 @@ const positionsDesktop = [
 ];
 
 const tableTabs = [
-  "CENTRALIZATION",
-  "CAPABILITY BUILDING PLAN",
-  "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
-  "TEMPLATES",
+  "Assessment, Certification, and Accreditation Division",
+  "Capability Building Division",
+  "Knowledge Management Division",
+  "TAAORSS",
   "OTHERS",
 ];
 
 const tableData = [
   {
     id: 1,
-    category: "CENTRALIZATION",
+    category: "Capability Building Division",
     type: "Memorandum",
     fileName: "Centralization of all Capability Building Activities (CBAs) of the Central Office (CO) to the SWIDB-DSWD Academy",
     dateIssued: "1 Feb, 2024",
@@ -50,7 +50,7 @@ const tableData = [
   },
   {
     id: 2,
-    category: "CENTRALIZATION",
+    category: "Capability Building Division",
     type: "Memorandum",
     fileName: "Operationalization of the Centralization of the Capability Building (CB) in the SWIDB-DSWD Academy",
     dateIssued: "20 Jun, 2024",
@@ -58,7 +58,7 @@ const tableData = [
   },
   {
     id: 3,
-    category: "CENTRALIZATION",
+    category: "Capability Building Division",
     type: "Memorandum",
     fileName: "Details and Arrangements for the Field Office to Operationalize the Centralization of the Capability Building (CB) in the SWIDB-DSWD Academy",
     dateIssued: "20 Jun, 2024",
@@ -66,7 +66,7 @@ const tableData = [
   },
   {
     id: 4,
-    category: "CENTRALIZATION",
+    category: "Capability Building Division",
     type: "Memorandum",
     fileName: "Endorsement of Lead and Alternate Designated Focal Persons for LDIs and Capability Building Programs for CY 2025-2027",
     dateIssued: "19 Dec, 2024",
@@ -74,7 +74,7 @@ const tableData = [
   },
   {
     id: 5,
-    category: "CAPABILITY BUILDING PLAN",
+    category: "Capability Building Division",
     type: "MC No. 11, s. 2010",
     fileName: "Guidelines in the Preperation and Submission of IDCB Plans and Accomplishment Reports",
     dateIssued: "22 Jun, 2010",
@@ -82,7 +82,7 @@ const tableData = [
   },
   {
     id: 6,
-    category: "CAPABILITY BUILDING PLAN",
+    category: "Capability Building Division",
     type: "Memorandum",
     fileName: "Call for Submission and Invitation for the Technical Assistance in Accomplishing the 2026 Capability Building Plan",
     dateIssued: "6 Oct 2025",
@@ -90,7 +90,7 @@ const tableData = [
   },
   {
     id: 7,
-    category: "CAPABILITY BUILDING PLAN",
+    category: "Capability Building Division",
     type: "Attachments",
     fileName: "Guidance Note for the Accomplishment of the Capability Building Plan Fiscal Year 2026",
     dateIssued: "6 Oct 2025",
@@ -98,7 +98,7 @@ const tableData = [
   },
   {
     id: 8,
-    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
+    category: "Capability Building Division",
     type: "MC No. 23, s. 2003",
     fileName: "Adoption of the DSWD Organizational Competencies",
     dateIssued: "27 Jun, 2003",
@@ -106,7 +106,7 @@ const tableData = [
   },
   {
     id: 9,
-    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
+    category: "Capability Building Division",
     type: "AO No. 20, s. 2004",
     fileName: "Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts",
     dateIssued: "3 Jun, 2004",
@@ -114,7 +114,7 @@ const tableData = [
   },
   {
     id: 10,
-    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
+    category: "Capability Building Division",
     type: "BC No. 2007-1, s. 2007",
     fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators and Facilitators",
     dateIssued: "23 Apr, 2007",
@@ -122,7 +122,7 @@ const tableData = [
   },
   {
     id: 11,
-    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
+    category: "Capability Building Division",
     type: "MC No. 04, s. 2010",
     fileName: "'Institutional Development' Framework Amending for the purpose Memorandum Circular No. 32, Series of 2004",
     dateIssued: "15 Apr, 2010",
@@ -130,7 +130,7 @@ const tableData = [
   },
   {
     id: 12,
-    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
+    category: "Capability Building Division",
     type: "MC No. 07, s. 2010",
     fileName: "Terms of Reference on the Use of Standard Forms on Training Design, Syllabus and Documentation",
     dateIssued: "13 May, 2010",
@@ -138,7 +138,7 @@ const tableData = [
   },
   {
     id: 13,
-    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
+    category: "Capability Building Division",
     type: "AO No. 16, s. 2010",
     fileName: "Framework and Guidelines for Capability Building of DSWD Social Protection Intermediaries and Stakeholders",
     dateIssued: "16 Dec, 2010",
@@ -146,7 +146,7 @@ const tableData = [
   },
   {
     id: 14,
-    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
+    category: "Capability Building Division",
     type: "AO No. 10, s. 2019",
     fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators, Facilitators in Seminars, Training Programs, and other Similar Activities",
     dateIssued: "15 May, 2019",
@@ -154,7 +154,7 @@ const tableData = [
   },
   {
     id: 15,
-    category: "MANAGEMENT OF CAPABILITY BUILDING EFFORTS",
+    category: "Capability Building Division",
     type: "Memorandum",
     fileName: "Guidance on the Provision of Learning Activities for Contract of Service (COS) and Job Order (JO) Workers",
     dateIssued: "7 Feb, 2024",
@@ -162,7 +162,7 @@ const tableData = [
   },
   {
     id: 16,
-    category: "OTHERS",
+    category: ["Capability Building Division", "Knowledge Management Division"],
     type: "AO No. 17, s. 2011",
     fileName: "Knowledge Management (KM) Framework of the Department of Social Welfare and Development (DSWD)",
     dateIssued: "31 Aug, 2011",
@@ -170,7 +170,7 @@ const tableData = [
   },
   {
     id: 17,
-    category: "OTHERS",
+    category: "Capability Building Division",
     type: "AO No. 11, s. 2015",
     fileName: "DSWD Strategic Performance Management System (DSPMS)",
     dateIssued: "30 Jun, 2015",
@@ -178,7 +178,7 @@ const tableData = [
   },
   {
     id: 18,
-    category: "OTHERS",
+    category: ["Capability Building Division", "TAAORSS"],
     type: "MC No. 10, s. 2018",
     fileName: "Guidelines on the Provision of Technical Assistance and Resource Augmentation to Local Government Units through Local Social Welfare and Development Offices",
     dateIssued: "10 May, 2018",
@@ -186,15 +186,15 @@ const tableData = [
   },
   {
     id: 19,
-    category: "OTHERS",
+    category: ["Capability Building Division", "Knowledge Management Division"],
     type: "AO No. 04, s. 2021",
     fileName: "Guidelines in Conducting the Department of Social Welfare and Development's Knowledge Sharing Sessions)",
-    dateIssued: "23 Mar, 2021",
+    dateIssued: "23 May, 2021",
     link: "/pdfs/AO_2021-004 Guidelines on the Conduct of Knowledge Sharing Sessions.pdf",
   },
   {
     id: 20,
-    category: "OTHERS",
+    category: ["Capability Building Division", "Knowledge Management Division"],
     type: "AO No. 09, s. 2022",
     fileName: "Implementing Guidelines of the DSWD Knowledge Management Framework",
     dateIssued: "18 Mar 2022",
@@ -202,7 +202,7 @@ const tableData = [
   },
   {
     id: 21,
-    category: "OTHERS",
+    category: "Capability Building Division",
     type: "Memorandum",
     fileName: "Fiscal Year (FY) 2025 Work and Financial Planning Guidelines",
     dateIssued: "31 May 2024",
@@ -234,7 +234,7 @@ const tableData = [
   },
   {
     id: 25,
-    category: "TEMPLATES",
+    category: "OTHERS",
     type: "Prescribed Template",
     fileName: "LDI-DIP",
     dateIssued: "2021",
@@ -242,7 +242,7 @@ const tableData = [
   },
   {
     id: 26,
-    category: "TEMPLATES",
+    category: "OTHERS",
     type: "Prescribed Template",
     fileName: "LDI Proposal",
     dateIssued: "2021",
@@ -250,11 +250,115 @@ const tableData = [
   },
   {
     id: 27,
-    category: "OTHERS",
-    type: "Memorandum",
-    fileName: "Guidelines on the Establishment and Operationalization of the DSWD Academy",
+    category: "Assessment, Certification, and Accreditation Division",
+    type: "MC No. 05 s. 2026",
+    fileName: "Guidelines on the Establishment and Operationalizationof the DSWD Academy",
     dateIssued: "12 Feb, 2026",
     link: "/pdfs/Memorandum Circular_05_2026_Guidelines on the Establishment and Operationalization of the DSWD Academy.pdf",
+  },
+  {
+    id: 28,
+    category: "Assessment, Certification, and Accreditation Division",
+    type: "Forms",
+    fileName: "Supervisiory Reference Evaluation Form",
+    dateIssued: "2026",
+    link: "https://drive.google.com/drive/folders/1V6DE9tYvkSyoCHmIU6gw8_637L7Lpo7o",
+  },
+  {
+    id: 29,
+    category: "Assessment, Certification, and Accreditation Division",
+    type: "Forms",
+    fileName: "2020 PRC Website Requirements Forms",
+    dateIssued: "2020",
+    link: "https://drive.google.com/drive/folders/1_uFJv-YA4Qi5m1_HzsrbdIYAZ9Ajm-Dv?usp=drive_link",
+  },
+  {
+    id: 30,
+    category: "Knowledge Management Division",
+    type: "SO No. 652, s. 2025",
+    fileName: "Terms of Reference (TOR) and Designation of Knowledge Management (KM)-Technical Working Group (TWG) and KM Teams of DSWD and its Offices",
+    dateIssued: "7 Feb, 2025",
+    link: "/pdfs/Special Order No. 652, Series of 2025 - Terms of Reference (TOR) and Designation of Knowledge Management (KM)-Technical Working Group (TWG) and KM Teams of DSWD and its Offices.pdf",
+  },
+  {
+    id: 31,
+    category: "Knowledge Management Division",
+    type: "SO No. 1023, s. 2023",
+    fileName: "Designation of Knowledge Management Focal Persons and Alternates of DSWD Central Office and Field Offices",
+    dateIssued: "15 March, 2023",
+    link: "/pdfs/SO 1023 s.2023 DESIGNATION OF KM FOCAL PERSONS, KM ALTERNATES, AND KM MEMBERS OF DSWD CO AND FOS.pdf",
+  },
+  {
+    id: 32,
+    category: "Knowledge Management Division",
+    type: "AO No. 05, s. 2024",
+    fileName: "Department of Social Welfare and Development (DSWD) Intellectual Property (IP) Policy",
+    dateIssued: "18 March, 2024",
+    link: "/pdfs/AO_2024-005  Intellectual Property Policy.pdf",
+  },
+  {
+    id: 33,
+    category: "Knowledge Management Division",
+    type: "SO No. 1747, s. 2021",
+    fileName: "Designation of Knowldege Management Focal Persons and Alternates of DSWD Central Office and Field Offices",
+    dateIssued: "16 June, 2021",
+    link: "/pdfs/Copy of 85691 Special Order 1747 s2021Designation of Knowledge Management (KM) Focal Persons.pdf",
+  },
+  {
+    id: 34,
+    category: "Knowledge Management Division",
+    type: "MC No. 21, s. 2020",
+    fileName: "Guidelines on the Establishment and Management of the Social Welfare and Development Learning Network (SWD L-Net) at the Central and Field Offices",
+    dateIssued: "29 Sep, 2020",
+    link: "/pdfs/MC_2020-021.pdf",
+  },
+  {
+    id: 35,
+    category: "Knowledge Management Division",
+    type: "AO No. 05, s. 2016",
+    fileName: "Good Practice Documentation Guideline",
+    dateIssued: "11 Apr, 2016",
+    link: "/pdfs/AO_2016-005.pdf",
+  },
+  {
+    id: 36,
+    category: "Knowledge Management Division",
+    type: "AO No. 15, s. 2015",
+    fileName: "Operationalization of the DSWD Core Group of Specialist",
+    dateIssued: "29 Sep, 2015",
+    link: "/pdfs/Copy of [SWIDB Guideline]_DSWD Core Group of Specialists.pdf",
+  },
+  {
+    id: 37,
+    category: "Knowledge Management Division",
+    type: "MC No. 11, s. 2008",
+    fileName: "Guidelines on the Conduct of Social Welfare and Development Forum",
+    dateIssued: "1 Aug, 2008",
+    link: "/pdfs/Social Welfare and Development Forum.pdf",
+  },
+  {
+    id: 38,
+    category: "Knowledge Management Division",
+    type: "AO No. 20, s. 2005",
+    fileName: "Establishment of Social Welfare and Development Learning Network",
+    dateIssued: "28 Dec, 2005",
+    link: "/pdfs/Social Welfare and Development Learning Network.pdf",
+  },
+  {
+    id: 39,
+    category: "Knowledge Management Division",
+    type: "",
+    fileName: "",
+    dateIssued: "2026",
+    link: "",
+  },
+  {
+    id: 40,
+    category: "Knowledge Management Division",
+    type: "",
+    fileName: "",
+    dateIssued: "2026",
+    link: "",
   },
 ];
 
@@ -365,7 +469,14 @@ const Resources = () => {
   };
 
   const filteredData = tableData
-    .filter((item) => item.category === activeTab)
+    .filter((item) => {
+      // Check if category is an array, if so use .includes()
+      if (Array.isArray(item.category)) {
+        return item.category.includes(activeTab);
+      }
+      // Fallback to strict match if it's a plain string
+      return item.category === activeTab;
+    })
     .filter((item) =>
       item.fileName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.type.toLowerCase().includes(searchQuery.toLowerCase())

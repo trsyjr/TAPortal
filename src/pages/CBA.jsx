@@ -234,18 +234,17 @@ const CBA = () => {
                     ref={(el) => (cardRefs.current[index] = el)}
                     onClick={() => handleCardClick(card.path)}
                     className={`flex flex-col items-center justify-center cursor-pointer
-                      ${isActive ? "bg-[#FFE066]" : "bg-white"}
+                      ${isActive ? "bg-[#ee1c25]" : "bg-white"}
                       rounded-3xl p-4 sm:p-5 md:p-8 min-w-[140px] sm:min-w-[160px] md:min-w-0`}
                     whileHover={{ scale: 1.05, rotate: -4 }}
                     animate={{ rotate: isActive ? -4 : 0 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <div className="mb-3">
-                      {React.cloneElement(card.icon, {
-                        size: isActive ? 60 : 45,
-                      })}
+                     {React.cloneElement(card.icon, { size: isActive ? 50 : 35, className: isActive ? "text-white md:hidden" : "text-[#2e3192] md:hidden" })}
+                     {React.cloneElement(card.icon, { size: isActive ? 70 : 60, className: isActive ? "text-white hidden md:block" : "text-[#2e3192] hidden md:block" })}
                     </div>
-                    <h3 className={`font-semibold text-center text-sm md:text-lg ${isActive ? "text-[#2e3192]" : "text-gray-800"}`}>
+                    <h3 className={`font-semibold text-center text-sm md:text-lg ${isActive ? "text-white" : "text-gray-800"}`}>
                       {card.title}
                     </h3>
                   </motion.div>
@@ -336,7 +335,7 @@ const CBA = () => {
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mt-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mt-2">{card.description}</p>
                 <button
-                  className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
+                  className="bg-[#ee1c25] text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
                   onClick={card.buttonAction}
                 >
                   {card.buttonText}

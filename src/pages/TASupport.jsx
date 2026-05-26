@@ -99,12 +99,11 @@ const faqPages = [
             <br />
             To identify your assigned Academy focal person, please refer to the official OBSU–Academy Focal Person directory here.
             <br />
-            {/* Added Button Below */}
             <a 
               href="/pdfs/OBSU-Academy Focal Persons Directory.pdf"
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 bg-[#2e3192] text-white px-6 py-3 rounded-full font-bold hover:scale-105 transition-transform shadow-md italic"
+              className="inline-flex items-center gap-2 mt-4 bg-[#ee1c25] text-white px-6 py-3 rounded-full font-bold hover:scale-105 transition-transform shadow-md italic"
             >
               OBSU-Academy Focal Directory 
               <FaArrowUpRightFromSquare className="text-md" />
@@ -199,7 +198,7 @@ const TASupport = () => {
                     onClick={() => handleCardClick(card.path)}
                     className={`
                       flex flex-col items-center justify-center cursor-pointer
-                      ${isActive ? "bg-[#FFE066]" : "bg-white"}
+                      ${isActive ? "bg-[#ee1c25]" : "bg-white"}
                       rounded-3xl
                       p-4 sm:p-5 md:p-8
                       min-w-[140px] sm:min-w-[160px] md:min-w-0
@@ -210,18 +209,12 @@ const TASupport = () => {
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <div className="mb-2 sm:mb-3 md:mb-4 text-center">
-                      {React.cloneElement(card.icon, {
-                        size: isActive ? 50 : 35,
-                        className: "md:hidden",
-                      })}
-                      {React.cloneElement(card.icon, {
-                        size: isActive ? 70 : 60,
-                        className: "hidden md:block",
-                      })}
+                      {React.cloneElement(card.icon, { size: isActive ? 50 : 35, className: isActive ? "text-white md:hidden" : "text-[#2e3192] md:hidden" })}
+                      {React.cloneElement(card.icon, { size: isActive ? 70 : 60, className: isActive ? "text-white hidden md:block" : "text-[#2e3192] hidden md:block" })}
                     </div>
                     <h3
                       className={`font-semibold text-center text-xs sm:text-sm md:text-lg ${
-                        isActive ? "text-[#2e3192]" : "text-gray-800"
+                        isActive ? "text-white" : "text-gray-800"
                       }`}
                     >
                       {card.title}
@@ -288,7 +281,7 @@ const TASupport = () => {
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
                  <button
-                  className="bg-[#FFE066] px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
+                  className="bg-[#ee1c25] text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
                   onClick={(e) => {
                     e.stopPropagation(); // Prevent card trigger
                     card.buttonAction();

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   try {
     // Apps Script URL
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwsZg3doNPMN7jWR-q6dpM15x829H6OD9zAwOUdrJCPO9W8jwqQlNjW2QP0Jh80qjBgTg/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLwMN-lxK6LJD3xZYCMjmiYQl0WNagKQIW9rHp8I40NqEBpTI2ucjrK8PjAWKeaTzNxA/exec";
 
     // Use global fetch
     const response = await fetch(APPS_SCRIPT_URL, {

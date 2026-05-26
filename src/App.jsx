@@ -1,12 +1,17 @@
 // src/App.jsx
-import React, { Suspense, lazy, useState, useEffect } from "react"; // Added Suspense and lazy
+import React, { Suspense, lazy, useState, useEffect } from "react"; 
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
+// --- FIX: Use Static Imports for Legal Pages to bypass Brave/AdBlock filters ---
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsAndConditions from "./pages/TermsAndCondition";
+
 // Pages/Components converted to Lazy Imports
 const HomePage = lazy(() => import("./components/HomePage"));
 const OtherOptions = lazy(() => import("./components/OtherOptions"));
+const Services = lazy(() => import("./components/Services"));
 const NewsEvents = lazy(() => import("./components/NewsEvents"));
 const About = lazy(() => import("./pages/About"));
 const KnowledgeBank = lazy(() => import("./pages/KnowledgeBank"));
@@ -19,8 +24,27 @@ const LD = lazy(() => import("./pages/LD"));
 const CBA = lazy(() => import("./pages/CBA"));
 const CBPlan = lazy(() => import("./pages/CBPlan"));
 const TrainingCalendar = lazy(() => import("./components/TrainingCalendar"));
-const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicy"));
-const TermsAndConditions = lazy(() => import("./pages/TermsAndCondition"));
+
+// Added CbServices Lazy Import
+const CbServices = lazy(() => import("./pages/CbServices")); 
+
+// ACA
+const CPD = lazy(() => import("./pages/CPD")); 
+const Certification = lazy(() => import("./pages/Certification")); 
+const Accreditation = lazy(() => import("./pages/Accreditation")); 
+const AscendETEEAP = lazy(() => import("./pages/AscendETEEAP")); 
+
+//KM
+const KnowledgeProduct = lazy(() => import("./pages/KnowledgeProduct")); 
+const CGS = lazy(() => import("./pages/CGS")); 
+const KSS = lazy(() => import("./pages/KSS")); 
+const RoleFunctions = lazy(() => import("./pages/RoleFunctions")); 
+
+//TAAORSS
+const TaraProgram = lazy(() => import("./pages/TaraProgram"));
+const TAMP = lazy(() => import("./pages/TAMP")); 
+const PAR = lazy(() => import("./pages/PAR")); 
+const ORF = lazy(() => import("./pages/ORF")); 
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,6 +53,11 @@ import Preloader from "./components/Preloader";
 function AppContent() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
+
+  // --- FIX: Scroll to top whenever the path changes ---
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -65,6 +94,7 @@ function AppContent() {
                   <>
                     <HomePage />
                     <OtherOptions />
+                    <Services />
                     <NewsEvents />
                   </>
                 }
@@ -80,6 +110,28 @@ function AppContent() {
               <Route path="/cbas" element={<CBA />} />
               <Route path="/cbplan" element={<CBPlan />} />
               <Route path="/training-calendar" element={<TrainingCalendar />} />
+              
+              {/* Added CbServices Route */}
+              <Route path="/cb-services" element={<CbServices />} />
+
+              {/* ACA */}
+              <Route path="/cpd" element={<CPD />} />
+              <Route path="/certification" element={<Certification />} />
+              <Route path="/accreditation" element={<Accreditation />} />
+              <Route path="/ascend-eteeap" element={<AscendETEEAP />} />
+
+              {/* KM */}
+              <Route path="/knowledge-product" element={<KnowledgeProduct />} />
+              <Route path="/cgs" element={<CGS />} />
+              <Route path="/kss" element={<KSS />} />
+              <Route path="/role-functions" element={<RoleFunctions />} />
+
+              {/* TAAORS */}
+              <Route path="/tara-program" element={<TaraProgram />} />
+              <Route path="/tamp" element={<TAMP />} />
+              <Route path="/par" element={<PAR />} />
+              <Route path="/ORF" element={<ORF />} />
+
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
             </Routes>
