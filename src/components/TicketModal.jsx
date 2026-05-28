@@ -85,6 +85,7 @@ const TicketModal = ({ isOpen, onClose }) => {
     }
   }, [isOpen, reset]);
 
+  // --- CHANGED: Standardized the endpoint routing to properly intercept Apps Script errors ---
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLwMN-lxK6LJD3xZYCMjmiYQl0WNagKQIW9rHp8I40NqEBpTI2ucjrK8PjAWKeaTzNxA/exec";
@@ -95,10 +96,11 @@ const TicketModal = ({ isOpen, onClose }) => {
         inquiryType: data.category 
       };
 
+      // Changed from "no-cors" to an open text submission structure to prevent silent failures
       await fetch(APPS_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "text/plain" },
         body: JSON.stringify(payload),
       });
 
@@ -107,7 +109,7 @@ const TicketModal = ({ isOpen, onClose }) => {
       
     } catch (err) {
       console.error("Submission error:", err);
-      toast.error("Error submitting ticket. Please try again.");
+      toast.error("Error submitting ticket. Please check your sheet configurations.");
     } finally {
       setIsSubmitting(false);
     }

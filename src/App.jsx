@@ -33,18 +33,21 @@ const CPD = lazy(() => import("./pages/CPD"));
 const Certification = lazy(() => import("./pages/Certification")); 
 const Accreditation = lazy(() => import("./pages/Accreditation")); 
 const AscendETEEAP = lazy(() => import("./pages/AscendETEEAP")); 
+const ServicesACA = lazy(() => import("./pages/ServicesACA")); 
 
 //KM
 const KnowledgeProduct = lazy(() => import("./pages/KnowledgeProduct")); 
 const CGS = lazy(() => import("./pages/CGS")); 
 const KSS = lazy(() => import("./pages/KSS")); 
 const RoleFunctions = lazy(() => import("./pages/RoleFunctions")); 
+const ServicesKM = lazy(() => import("./pages/ServicesKM")); 
 
 //TAAORSS
 const TaraProgram = lazy(() => import("./pages/TaraProgram"));
 const TAMP = lazy(() => import("./pages/TAMP")); 
 const PAR = lazy(() => import("./pages/PAR")); 
 const ORF = lazy(() => import("./pages/ORF")); 
+const ServicesTAAORSS = lazy(() => import("./pages/ServicesTAAORSS")); 
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -119,18 +122,21 @@ function AppContent() {
               <Route path="/certification" element={<Certification />} />
               <Route path="/accreditation" element={<Accreditation />} />
               <Route path="/ascend-eteeap" element={<AscendETEEAP />} />
+               <Route path="/services-aca" element={<ServicesACA />} />
 
               {/* KM */}
               <Route path="/knowledge-product" element={<KnowledgeProduct />} />
               <Route path="/cgs" element={<CGS />} />
               <Route path="/kss" element={<KSS />} />
               <Route path="/role-functions" element={<RoleFunctions />} />
+              <Route path="/services-km" element={<ServicesKM />} />
 
               {/* TAAORS */}
               <Route path="/tara-program" element={<TaraProgram />} />
               <Route path="/tamp" element={<TAMP />} />
               <Route path="/par" element={<PAR />} />
               <Route path="/ORF" element={<ORF />} />
+               <Route path="/services-taaorss" element={<ServicesTAAORSS />} />
 
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />

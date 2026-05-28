@@ -1,34 +1,33 @@
 // src/components/CbServices.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TicketModal from "../components/TicketModal"; // Ensure path is correct
-import KliyentellQR from "../assets/Kliyentell.png"; // Importing your QR code asset
+import SatisfactoryModal from "../components/SatisfactoryModal"; // Integrated shared rating view
 
 const CbServices = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   
-  // Initialize state directly from navigation state history
-  const [activeTabId, setActiveTabId] = useState(() => {
-    if (location.state && location.state.defaultTabId) {
-      return location.state.defaultTabId;
-    }
-    return 1;
-  });
-
-  // Listen to router updates if the user clicks a navbar item while already on this page
-  useEffect(() => {
-    if (location.state && location.state.defaultTabId) {
-      setActiveTabId(location.state.defaultTabId);
-      setOpenAccordionId(null); 
-      setSelectedService("");
-    }
-  }, [location.state]);
-  
+  // This page is explicitly dedicated to Tab ID 2 (Capability Building)
+  const [activeTabId, setActiveTabId] = useState(2);
   const [openAccordionId, setOpenAccordionId] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false); // State for the QR pop-up
+  const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false); // Controls standard satisfactory view
   const [selectedService, setSelectedService] = useState("");
+
+  // Synchronize state if routing flags pass specific instructions
+  useEffect(() => {
+    if (location.state && location.state.defaultTabId) {
+      if (location.state.defaultTabId !== 2) {
+        handleRouting(location.state.defaultTabId);
+      } else {
+        setActiveTabId(2);
+        setOpenAccordionId(null); 
+        setSelectedService("");
+      }
+    }
+  }, [location.state]);
 
   // List of titles that should trigger the modal instead of an external link
   const internalModalServices = [
@@ -38,135 +37,68 @@ const CbServices = () => {
     "Request for Training Management"
   ];
 
-  // List of titles that require two separate external buttons side-by-side
-  const dualExternalServices = [
-    "Continuing Professional Development (CPD)",
-    "Knowledge Sharing Sessions (KSS)"
-  ];
-
   const servicesTabs = [
-    { id: 1, title: "Assessment, Certification and Accreditation" },
-    { id: 2, title: "Capability Building" },
-    { id: 3, title: "Knowledge Management" },
-    { id: 4, title: "TAAORSS" },
+    { id: 1, title: "Assessment, Certification and Accreditation", path: "/services-aca" },
+    { id: 2, title: "Capability Building", path: "/cb-services" },
+    { id: 3, title: "Knowledge Management", path: "/services-km" },
+    { id: 4, title: "TAAORSS", path: "/services-taaorss" },
   ];
 
+  // Exclusively holding Capability Building (Category 2)
   const servicesContent = {
-    1: {
-      categoryTitle: "Assessment, Certification and Accreditation",
-      items: [
-        { 
-          id: 1, 
-          title: "Continuing Professional Development (CPD)", 
-          content: "Requests for orientation sessions, responding to queries on the accomplishment of CPD application and completion requirements, and providing guidance on the overall CPD application and submission process.", 
-          leftButtonText: "CPD Guidelines",
-          leftExternalLink: "https://your-left-link-here.com",
-          rightButtonText: "Apply / Submit",
-          rightExternalLink: "https://your-right-link-here.com"
-        },
-        { id: 2, title: "Competency Needs Assessment (CNA)", content: "The development and implementation of CNA anchored on Heartwork: DSWD Academy Competency Framework, as well as guidance in the proper completion and interpretation of CNA tools.", externalLink: "https://your-external-link-here.com" },
-        { id: 3, title: "Certification & Accreditation", content: "The application process and other info regarding certification and accreditation program. This will also include expression of interest to be included in the certification process.", externalLink: "https://your-external-link-here.com" },
-        { id: 4, title: "Project ASCEND & ETEEAP", content: "Clarifications on ETEEAP (BS Social Work), as well as conducting orientations on Project ASCEND and ETEEAP processes. There will be a listing of resources with links where they can see the list of ETEEAP deputized schools, list of requirements and other legal basis for ETEEAP implementation.This will include expression of interest to enroll in ETEEAP.", externalLink: "https://your-external-link-here.com" },
-      ]
-    },
     2: {
       categoryTitle: "Capability Building",
       items: [
-        { id: 1, title: "Review of Activity Proposal and Design", content: "The review of training proposal and design, ensuring the adherence to the training management standards set by the DSWD Academy in support of its mandate to centralize and professionalize learning and development efforts." },
-        { id: 2, title: "Request for Review of Capability Building Plan", content: "Ensure the adherence to the Learning and Development standards set by the Department of Social Welfare and Development Academy in support of its mandate to centralize and professionalize learning and development efforts." },
-        { id: 3, title: "Request for Training Inclusion", content: "To develop and implement a streamlined, standardized, and transparent process for handling training inclusion requests to the DSWD Academy." },
-        { id: 4, title: "Request for Training Management", content: "Ensures a streamlined, standardized, and transparent process for request of training management to the DSWD Academy." },
-        { id: 5, title: "CapBuild Knowledge Bank", content: "selected and high-value TA cases provided by the Capability Building Division – Professional Learning and Development Section (CBD-PLDS) along Learning and Development (L&D) for institutional learning and continuous improvement.", externalLink: "https://your-external-link-here.com" },
-      ]
-    },
-    3: {
-      categoryTitle: "Knowledge Management",
-      items: [
         { 
           id: 1, 
-          title: "Knowledge Sharing Sessions (KSS)", 
-          content: [
-            "Informal activities where knowledge is exchanged or transferred among peers, colleagues, partners, and stakeholders.",
-            "KSS Reporting Form",
-            "Register KSS Activity"
-          ],
-          leftButtonText: "KSS Reporting Form",
-          leftExternalLink: "https://your-left-link-here.com",
-          rightButtonText: "Register KSS Activity",
-          rightExternalLink: "https://your-right-link-here.com"
+          title: "Review of Activity Proposal and Design", 
+          content: "The review of training proposal and design, ensuring the adherence to the training management standards set by the DSWD Academy in support of its mandate to centralize and professionalize learning and development efforts.",
+          buttonText: "Request Ticket" 
         },
-        { id: 2, title: "Knowledge Products", content: "Knowledge outputs derived from expertise, research, lessons learned, and best practices that respond to organizational needs.", externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfKoZQbHwsrQsGTeUlcoi9FXWnbKeMfpXKkeL35OkBCSdsNOg/viewform" },
-        { id: 3, title: "Core Group of Specialists (CGS)", content: "Technical assistance mechanisms that mobilize subject matter experts across major sectors covered by DSWD.", externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfE65u_2ARp2s5TRcedirmtLqSc3Xdc99hkWgpHwncEmeFdhQ/viewform?usp=dialog" },
-        { id: 4, title: "Regional Learning Resource Center (RLRC)", content: "Facilities providing accurate, relevant, and timely information services to DSWD staff, intermediaries, and partners.", externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfE65u_2ARp2s5TRcedirmtLqSc3Xdc99hkWgpHwncEmeFdhQ/viewform" },
-        { id: 5, title: "Other KM Initiatives", content: "Submission and publication of current news, highlights, and featured KM-related activities conducted by COs, OBSUs, and FOs.", externalLink: "https://sites.google.com/view/swidbtaportal/online-reporting/km/km-portal-news-feature" },
-        { id: 6, title: "KM Portal News / Features", content: "Other knowledge management mechanisms or innovative practices implemented by Field Offices.", externalLink: "https://sites.google.com/view/swidbtaportal/online-reporting/km/other-km-initiatives" },
-      ]
-    },
-    4: {
-      categoryTitle: "TAAORSS",
-      items: [
         { 
-          id: 1, 
-          title: "Targeting, Assessment, Monitoring, and Planning", 
-          content: [
-            "Provision of technical guidance and support to enhance evidence-based planning and performance management of LGUs.",
-          ],
-          externalLink: "https://your-external-link-here.com"
+          id: 2, 
+          title: "Request for Review of Capability Building Plan", 
+          content: "Ensure the adherence to the Learning and Development standards set by the Department of Social Welfare and Development Academy in support of its mandate to centralize and professionalize learning and development efforts.",
+          buttonText: "Request Ticket" 
         },
-        { id: 2, 
-          title: "Plan and Budget Development", 
-          content: [
-          "Support in strengthening FO planning and financial management processes:", 
-          "Assistance in the preparation of the Work and Financial Plan",
-          "Guidance on requests for fund modification and/or reallocation and non-withdrawal"
-          ],
-          externalLink: "https://your-external-link-here.com"
+        { 
+          id: 3, 
+          title: "Request for Training Inclusion", 
+          content: "To develop and implement a streamlined, standardized, and transparent process for handling training inclusion requests to the DSWD Academy.",
+          buttonText: "Request Ticket" 
         },
-        { id: 3, 
-          title: "Resource Person and Activity Support", 
-          content: [
-            "Facilitation of technical and administrative requirements for capacity-building activities:",
-            "Guidance on PMC Accreditation",
-            "Assistance in the request and coordination of resource persons",
-            "Support for meeting requests and related activities"
-          ],
-          externalLink: "https://your-external-link-here.com"  
+        { 
+          id: 4, 
+          title: "Request for Training Management", 
+          content: "Ensures a streamlined, standardized, and transparent process for request of training management to the DSWD Academy.",
+          buttonText: "Request Ticket" 
         },
-        { id: 4, 
-          title: "SDCA–Information System (SDCA-IS) Support", 
-          content: [
-          "Technical assistance in the use and management of the SDCA Information System:",
-          "Processing of requests for account activation",
-          "Provision of orientation and capacity-building sessions on SDCA-IS utilization"
-          ],
-          externalLink: "https://your-external-link-here.com"
+        { 
+          id: 5, 
+          title: "CapBuild Knowledge Bank", 
+          content: "selected and high-value TA cases provided by the Capability Building Division – Professional Learning and Development Section (CBD-PLDS) along Learning and Development (L&D) for institutional learning and continuous improvement.", 
+          externalLink: "https://drive.google.com/drive/folders/1tkq8sxM354BrvQShJORFQo2wAcxKMQqe?usp=sharing",
+          buttonText: "Knowledge Bank" 
         },
-        { id: 5, 
-          title: "Partnership Development", 
-          content: [
-          "Guidance in establishing and strengthening collaborations:",
-          "Assistance in the preparation and review of Memorandum of Agreement and Memorandum of Understanding",
-          "Assistance in the conduct of regional and hosted national consultation dialogue and workshop"
-          ],
-          externalLink: "https://your-external-link-here.com"
-        },
-        { id: 6, 
-          title: "Rewards and Incentives (Panata Ko sa Bayan Program)", 
-          content: [
-          "Support in promoting excellence and recognizing LGU performance:", 
-          "Guidance on the Panata Ko sa Bayan Program (pursuant to MC No. 18, s. 2023)" 
-          ],
-          externalLink: "https://your-external-link-here.com"
-        },
-        { id: 7, title: "Other Technical Assistance Services  ", content: "Provision of additional TA services not covered under the above categories, based on emerging needs and specific requests of LGUs/LSWDOs.", externalLink: "https://your-external-link-here.com" },
       ]
     }
   };
 
+  const handleRouting = (tabId) => {
+    const targetTab = servicesTabs.find(t => t.id === tabId);
+    if (targetTab && targetTab.id !== 2) {
+      navigate(targetTab.path, { state: { defaultTabId: tabId } });
+    }
+  };
+
   const handleTabClick = (tab) => {
-    setActiveTabId(tab.id);
-    setOpenAccordionId(null); 
-    setSelectedService("");
+    if (tab.id === 2) {
+      setActiveTabId(2);
+      setOpenAccordionId(null); 
+      setSelectedService("");
+    } else {
+      handleRouting(tab.id);
+    }
   };
 
   const toggleAccordion = (id, title) => {
@@ -222,7 +154,7 @@ const CbServices = () => {
             <div className="tapered-underline w-56 mx-auto mt-2"></div>
           </div>
           <p className="text-gray-500 text-[15px] font-medium max-w-[750px] mx-auto leading-relaxed mt-2">
-            DSWD Academy services in one portal. Simplifying processes, reducing paperwork, and making technical assistance more accessible and convenient.
+            DSWD Academy services in one portal. Simplifying processes, and making technical assistance more accessible and convenient.
           </p>
         </div>
 
@@ -284,7 +216,6 @@ const CbServices = () => {
                   {currentCategory.items.map((subItem) => {
                     const isExpanded = openAccordionId === subItem.id;
                     const isModalButton = internalModalServices.includes(subItem.title);
-                    const isDualExternalButton = dualExternalServices.includes(subItem.title);
                     
                     return (
                       <div 
@@ -332,61 +263,21 @@ const CbServices = () => {
                               className="text-white"
                             >
                               <div className="px-8 pt-2 pb-7 flex flex-col items-center text-center">
-                                {Array.isArray(subItem.content) ? (
-                                  <div className="max-w-3xl mx-auto mb-5 text-white/85 text-[14.5px] font-medium leading-relaxed flex flex-col items-center">
-                                    <p className="mb-4">{subItem.content[0]}</p>
-                                    {subItem.content.slice(1).map((textRow, idx) => (
-                                      <p key={idx} className="mt-1">{textRow}</p>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <p className="text-white/85 text-[14.5px] font-medium leading-relaxed max-w-3xl mb-5">
-                                    {subItem.content}
-                                  </p>
-                                )}
+                                <p className="text-white/85 text-[14.5px] font-medium leading-relaxed max-w-3xl mb-5">
+                                  {subItem.content}
+                                </p>
                                 
-                                {isModalButton && (
+                                {isModalButton ? (
                                   <button
                                     onClick={() => openModalWithService(subItem.title)}
                                     className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 decoration-none"
                                   >
-                                    <span>Request Technical Assistance</span>
+                                    <span>{subItem.buttonText || "Request Technical Assistance"}</span>
                                     <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                     </svg>
                                   </button>
-                                )}
-
-                                {isDualExternalButton && (
-                                  <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
-                                    <a
-                                      href={subItem.leftExternalLink || "#"}
-                                      onClick={handleExternalLinkClick}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 decoration-none"
-                                    >
-                                      <span>{subItem.leftButtonText}</span>
-                                      <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                      </svg>
-                                    </a>
-                                    <a
-                                      href={subItem.rightExternalLink || "#"}
-                                      onClick={handleExternalLinkClick}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 decoration-none"
-                                    >
-                                      <span>{subItem.rightButtonText}</span>
-                                      <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                      </svg>
-                                    </a>
-                                  </div>
-                                )}
-
-                                {!isModalButton && !isDualExternalButton && (
+                                ) : (
                                   <a
                                     href={subItem.externalLink || "#"}
                                     onClick={handleExternalLinkClick}
@@ -394,7 +285,7 @@ const CbServices = () => {
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 decoration-none"
                                   >
-                                    <span>Visit External Portal</span>
+                                    <span>{subItem.buttonText || "Visit External Portal"}</span>
                                     <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                     </svg>
@@ -435,44 +326,12 @@ const CbServices = () => {
         )}
       </AnimatePresence>
 
-      {/* FEEDBACK POPUP SYSTEM */}
-      <AnimatePresence>
-        {isFeedbackModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-            <motion.div 
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ ease: "easeInOut", duration: 0.2 }}
-              className="relative w-full max-w-sm bg-white p-6 rounded-3xl text-center shadow-xl border border-gray-100"
-            >
-              <button 
-                onClick={() => setIsFeedbackModalOpen(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-
-              <h3 className="text-[#2e3192] font-extrabold text-xl mb-1 mt-2">
-                Got what you need?
-              </h3>
-              <p className="text-gray-500 font-medium text-xs max-w-[240px] mx-auto mb-5 leading-relaxed">
-                Please let us know your thoughts! Scan the code below to share your feedback.
-              </p>
-
-              <div className="w-44 h-44 mx-auto p-2 bg-gray-50 rounded-2xl border border-gray-100 flex items-center justify-center mb-2">
-                <img 
-                  src={KliyentellQR} 
-                  alt="Feedback QR Code" 
-                  className="w-full h-full object-contain rounded-xl"
-                />
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+      {/* DYNAMIC SATISFACTORY MODAL INTEGRATION */}
+      <SatisfactoryModal 
+        isOpen={isFeedbackModalOpen} 
+        onClose={() => setIsFeedbackModalOpen(false)} 
+        spreadsheetId="14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8"
+      />
     </div>
   );
 };

@@ -344,22 +344,6 @@ const tableData = [
     dateIssued: "28 Dec, 2005",
     link: "/pdfs/Social Welfare and Development Learning Network.pdf",
   },
-  {
-    id: 39,
-    category: "Knowledge Management Division",
-    type: "",
-    fileName: "",
-    dateIssued: "2026",
-    link: "",
-  },
-  {
-    id: 40,
-    category: "Knowledge Management Division",
-    type: "",
-    fileName: "",
-    dateIssued: "2026",
-    link: "",
-  },
 ];
 
 const KnowledgeBank = () => {

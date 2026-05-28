@@ -3,14 +3,20 @@ import React, { useRef, useState, useEffect, useMemo, useCallback } from "react"
 import HTMLFlipBook from "react-pageflip";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FaAward, FaShareNodes, FaBullhorn } from "react-icons/fa6";
+import { FaAward, FaShareNodes, FaBullhorn, FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { LuBlocks } from "react-icons/lu"; 
 import { RiArrowDownWideLine } from "react-icons/ri"; 
 
 import Image1 from "../assets/Kliyentel.png";
 import Image2 from "../assets/One.gif";
 
-const slides = [Image1, Image2];
+const slides = [Image2, Image1];
+
+// Maps original index positions to their respective target new tab links
+const slideLinks = {
+  0: "https://taportal-six.vercel.app/", 
+  1: "https://clientfeedback.dswd.gov.ph/"
+};
 
 const faqCards = [
   { title: "Assessment, Certification, and Accreditation", icon: <FaAward />, path: "/cpd" },
@@ -98,9 +104,17 @@ const HomePage = () => {
   const renderedSlides = useMemo(() => {
     const pages = [];
     infiniteSlides.forEach((image, index) => {
+      // Find matching index of the original slides array configuration
+      const originalSlideIndex = index % slides.length;
+      const targetPath = slideLinks[originalSlideIndex] || "/";
+
       if (isMobile) {
         pages.push(
-          <div key={`mob-${index}`} className="bg-white h-full w-full">
+          <div 
+            key={`mob-${index}`} 
+            className="bg-white h-full w-full cursor-pointer"
+            onClick={() => window.open(targetPath, "_blank", "noopener,noreferrer")}
+          >
             <div style={{
               width: '100%', height: '100%',
               backgroundImage: `url(${image})`,
@@ -112,7 +126,11 @@ const HomePage = () => {
         );
       } else {
         pages.push(
-          <div key={`left-${index}`} className="bg-white h-full w-full">
+          <div 
+            key={`left-${index}`} 
+            className="bg-white h-full w-full cursor-pointer"
+            onClick={() => window.open(targetPath, "_blank", "noopener,noreferrer")}
+          >
             <div style={{
               width: '100%', height: '100%',
               backgroundImage: `url(${image})`,
@@ -123,7 +141,11 @@ const HomePage = () => {
           </div>
         );
         pages.push(
-          <div key={`right-${index}`} className="bg-white h-full w-full">
+          <div 
+            key={`right-${index}`} 
+            className="bg-white h-full w-full cursor-pointer"
+            onClick={() => window.open(targetPath, "_blank", "noopener,noreferrer")}
+          >
             <div style={{
               width: '100%', height: '100%',
               backgroundImage: `url(${image})`,
@@ -148,9 +170,18 @@ const HomePage = () => {
       >
         {!isMobile && (
           <>
-            {/* Reduced width from w-48 to w-20 to narrow down the target space */}
-            <button onClick={handlePrev} className="absolute left-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-r from-[#2e3192]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer" />
-            <button onClick={handleNext} className="absolute right-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-l from-[#2e3192]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer" />
+            <button 
+              onClick={handlePrev} 
+              className="group absolute left-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-r from-[#2e3192]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer flex items-center justify-center text-[#2e3192] text-2xl"
+            >
+              <FaChevronLeft className="drop-shadow-sm" />
+            </button>
+            <button 
+              onClick={handleNext} 
+              className="group absolute right-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-l from-[#2e3192]/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 cursor-pointer flex items-center justify-center text-[#2e3192] text-2xl"
+            >
+              <FaChevronRight className="drop-shadow-sm" />
+            </button>
           </>
         )}
 
@@ -195,7 +226,7 @@ const HomePage = () => {
       <section className="max-w-[1400px] mx-auto px-6 py-12 md:py-24 pb-0 md:pb-0 bg-white overflow-hidden">
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-4xl font-bold text-[#2e3192] mb-4">Frequently Asked Questions</h2>
-          <p className="text-gray-700 text-sm md:text-base font-medium">Everything you need to know about our Services.</p>
+          <p className="text-gray-700 text-sm md:text-base font-medium">Everything you need to know about our services.</p>
         </div>
 
         <div className="flex flex-row md:grid md:grid-cols-4 gap-6 overflow-x-auto md:overflow-x-visible pb-8 md:pb-8 snap-x snap-mandatory no-scrollbar">
