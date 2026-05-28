@@ -15,19 +15,20 @@ const SatisfactoryModal = ({ isOpen, onClose, spreadsheetId }) => {
     { id: "very_satisfied", label: "Very Satisfied", targetRow: 15, targetColumn: "K", icon: Laugh, color: "text-blue-500", bgColor: "hover:bg-blue-50 bg-blue-50/10", activeBg: "bg-blue-500 text-white" },
   ];
 
-  const handleSubmit = async () => {
-    if (!selectedRating || !spreadsheetId) return;
+  const handleEmojiClick = async (option) => {
+    if (isSubmitting || !spreadsheetId) return;
+    
+    setSelectedRating(option);
     setIsSubmitting(true);
     
     const payload = {
-      spreadsheetId: spreadsheetId,            // Injected dynamic ID
+      spreadsheetId: spreadsheetId,
       sheetName: "TA Dashboard",
-      targetColumn: selectedRating.targetColumn, // "K"
-      targetRow: selectedRating.targetRow,       // 12, 13, 14, or 15
+      targetColumn: option.targetColumn,
+      targetRow: option.targetRow,
     };
 
     try {
-      // Replace with your Web App Deployment URL
       await fetch("https://script.google.com/macros/s/AKfycbwLwMN-lxK6LJD3xZYCMjmiYQl0WNagKQIW9rHp8I40NqEBpTI2ucjrK8PjAWKeaTzNxA/exec", {
         method: "POST",
         mode: "no-cors", 
@@ -55,55 +56,55 @@ const SatisfactoryModal = ({ isOpen, onClose, spreadsheetId }) => {
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm select-none font-['Montserrat',sans-serif]">
-          <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="relative w-full max-w-md bg-white p-8 rounded-[32px] text-center shadow-2xl border border-gray-100">
-            <button onClick={handleModalClose} className="absolute top-5 right-5 text-gray-400 hover:text-gray-600 transition-colors">
-              <X className="w-5 h-5 stroke-[2.5]" />
+          <motion.div initial={{ scale: 0.95, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.95, opacity: 0 }} className="relative w-full max-w-xl bg-white p-10 rounded-[36px] text-center shadow-2xl border border-gray-100">
+            <button onClick={handleModalClose} disabled={isSubmitting} className="absolute top-6 right-6 text-gray-400 hover:text-gray-600 transition-colors disabled:opacity-30 disabled:cursor-not-allowed">
+              <X className="w-6 h-6 stroke-[2.5]" />
             </button>
 
             {!isSuccess ? (
               <>
-                <h3 className="text-[#2e3192] font-extrabold text-2xl mb-2 mt-2">Rate Our Service</h3>
-                <p className="text-gray-500 font-medium text-[13px] max-w-[280px] mx-auto mb-8 leading-relaxed">
-                  Your feedback keeps us growing. Please select a rating matching your overall experience today.
+                <h3 className="text-[#2e3192] font-extrabold text-3xl mb-3 mt-2">Rate Our Service</h3>
+                <p className="text-gray-500 font-medium text-[14px] max-w-[360px] mx-auto mb-10 leading-relaxed">
+                  Your feedback keeps us growing. Please tap an emoji option below to submit your rating instantly.
                 </p>
 
-                <div className="grid grid-cols-4 gap-2 mb-8">
+                <div className="grid grid-cols-4 gap-3.5 mb-2">
                   {ratingOptions.map((option) => {
                     const IconComponent = option.icon;
                     const isSelected = selectedRating?.id === option.id;
+                    
                     return (
                       <button
                         key={option.id}
                         type="button"
-                        onClick={() => setSelectedRating(option)}
-                        className={`flex flex-col items-center justify-center py-4 px-2 rounded-2xl transition-all duration-300 border ${isSelected ? `${option.activeBg} border-transparent shadow-lg scale-105` : `bg-white border-gray-100 ${option.bgColor} hover:scale-102`}`}
+                        disabled={isSubmitting}
+                        onClick={() => handleEmojiClick(option)}
+                        className={`flex flex-col items-center justify-center py-6 px-3 rounded-2xl transition-all duration-300 border ${
+                          isSelected 
+                            ? `${option.activeBg} border-transparent shadow-xl scale-105` 
+                            : isSubmitting
+                              ? "bg-gray-50/50 border-gray-100 opacity-40 cursor-not-allowed"
+                              : `bg-white border-gray-100 ${option.bgColor} hover:scale-[1.04] cursor-pointer`
+                        }`}
                       >
-                        <IconComponent className={`w-8 h-8 stroke-[2] mb-2 transition-colors ${isSelected ? "text-white" : option.color}`} />
-                        <span className={`text-[11px] font-bold tracking-tight leading-tight ${isSelected ? "text-white" : "text-gray-600"}`}>{option.label}</span>
+                        {isSelected && isSubmitting ? (
+                          <Loader2 className="w-14 h-14 stroke-[1.5] mb-3 animate-spin text-white" />
+                        ) : (
+                          <IconComponent className={`w-14 h-14 stroke-[1.5] mb-3 transition-colors ${isSelected ? "text-white" : option.color}`} />
+                        )}
+                        <span className={`text-[12.5px] font-extrabold tracking-tight leading-tight ${isSelected ? "text-white" : "text-gray-600"}`}>
+                          {isSelected && isSubmitting ? "Sending..." : option.label}
+                        </span>
                       </button>
                     );
                   })}
                 </div>
-
-                <button
-                  type="button"
-                  disabled={!selectedRating || isSubmitting}
-                  onClick={handleSubmit}
-                  className={`w-full py-3.5 rounded-full font-bold text-[14px] shadow-md transition-all duration-200 flex items-center justify-center gap-2 ${!selectedRating ? "bg-gray-200 text-gray-400 cursor-not-allowed shadow-none" : "bg-[#ee1c25] text-white hover:scale-[1.02] active:scale-[0.99]"}`}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin text-white" />
-                      <span>Recording Feedback...</span>
-                    </>
-                  ) : <span>Submit Feedback</span>}
-                </button>
               </>
             ) : (
-              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="py-6 flex flex-col items-center">
-                <CheckCircle2 className="w-16 h-16 text-emerald-500 stroke-[2] mb-4 animate-bounce" />
-                <h4 className="text-[#2e3192] font-extrabold text-xl mb-1">Thank You So Much!</h4>
-                <p className="text-gray-400 font-medium text-xs max-w-[240px]">Your response has been logged securely under Dashboard Column K!</p>
+              <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="py-10 flex flex-col items-center">
+                <CheckCircle2 className="w-20 h-20 text-emerald-500 stroke-[1.5] mb-5 animate-bounce" />
+                <h4 className="text-[#2e3192] font-extrabold text-2xl mb-2">Thank You So Much!</h4>
+                <p className="text-gray-400 font-medium text-sm max-w-[280px]">Your response has been logged securely under Dashboard Column K!</p>
               </motion.div>
             )}
           </motion.div>
