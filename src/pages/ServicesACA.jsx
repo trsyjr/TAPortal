@@ -34,7 +34,7 @@ const ServicesACA = () => {
         { 
             id: 2, 
             title: "Competency Needs Assessment (CNA)", 
-            content: "The development and implementation of CNA anchored on Heartwork...", 
+            content: "The development and implementation of CNA anchored on Heartwork: DSWD Academy Competency Framework, as well as guidance in the proper completion and interpretation of CNA tools.", 
             externalLink: "https://your-external-link-here.com", 
             buttonText: "Access CNA Tools",
             isDisabled: true
@@ -42,14 +42,14 @@ const ServicesACA = () => {
         { 
             id: 3, 
             title: "Certification & Accreditation", 
-            content: "The application process and other info regarding certification and accreditation program...", 
+            content: "The development and implementation of CNA anchored on Heartwork: DSWD Academy Competency Framework, as well as guidance in the proper completion and interpretation of CNA tools.", 
             externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfZ4lPSEH1rtPA-cT8jSK0Gf6UdmZxtD59Dv6aigGVRMp9rJQ/viewform", 
             buttonText: "Certification Application Form" 
         },
         { 
             id: 4, 
             title: "Project ASCEND & ETEEAP", 
-            content: "Clarifications on ETEEAP (BS Social Work), as well as conducting orientations on Project ASCEND and ETEEAP processes...", 
+            content: "Clarifications on ETEEAP (BS Social Work), as well as conducting orientations on Project ASCEND and ETEEAP processes. There will be a listing of resources with links where they can see the list of ETEEAP deputized schools, list of requirements and other legal basis for ETEEAP implementation.This will include expression of interest to enroll in ETEEAP.", 
             externalLink: "https://your-external-link-here.com", 
             buttonText: "View Deputized Schools",
             isDisabled: true
