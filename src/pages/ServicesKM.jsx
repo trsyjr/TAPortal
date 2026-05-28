@@ -37,7 +37,7 @@ const ServicesKM = () => {
         { id: 3, title: "Core Group of Specialists (CGS)", content: "Technical assistance mechanisms that mobilize subject matter experts across major sectors covered by DSWD.", externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfE65u_2ARp2s5TRcedirmtLqSc3Xdc99hkWgpHwncEmeFdhQ/viewform?usp=dialog", buttonText: "Click Here To Submit Your Entry" },
         { id: 4, title: "Regional Learning Resource Center (RLRC)", content: "Facilities providing accurate, relevant, and timely information services to DSWD staff, intermediaries, and partners.", externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfE65u_2ARp2s5TRcedirmtLqSc3Xdc99hkWgpHwncEmeFdhQ/viewform", buttonText: "Click Here To Submit Your Entry" },
         { id: 5, title: "Other KM Initiatives", content: "Submission and publication of current news, highlights, and featured KM-related activities conducted by COs, OBSUs, and FOs.", externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfE3NQ0p75y8cYqCholtpAW82msShYpwX8llfjC6WSepP3wg/viewform", buttonText: "Click Here To Submit Your Entry" },
-        { id: 6, title: "KM Portal News / Features", content: "Other knowledge management mechanisms or innovative practices implemented by Field Offices.", externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSea4smDB1FlPM8sLfJ-HTHzCq6hkKpTuuYCl_IanNs5rriSgA/viewform", buttonText: "Submit an Entry" },
+        { id: 6, title: "KM Portal News / Features", content: "Other knowledge management mechanisms or innovative practices implemented by Field Offices.", externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSea4smDB1FlPM8sLfJ-HTHzCq6hkKpTuuYCl_IanNs5rriSgA/viewform", buttonText: "Click Here To Submit Your Entry" },
       ]
     }
   };

@@ -27,9 +27,9 @@ const ServicesACA = () => {
             content: "Requests for orientation sessions, responding to queries on the accomplishment of CPD application and completion requirements, and providing guidance on the overall CPD application and submission process.", 
             isDualButton: true,
             leftButtonText: "CPD Application Process",
-            leftExternalLink: "https://sites.google.com/dswd.gov.ph/swidb-cpd-portal/cpd-application-requirements",
+            leftExternalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfCH_-TGlVemY2FDjao1-t8vzwUomhDbE-lVmgfdwBBiCD_3g/viewform",
             rightButtonText: "CPD Completion Process",
-            rightExternalLink: "https://sites.google.com/dswd.gov.ph/swidb-cpd-portal/cpd-completion-requirements"
+            rightExternalLink: "https://docs.google.com/forms/d/e/1FAIpQLSebrmPSSyZnF5AVVOV8NUqTwGM-8NI9ZVfFacdFI3UDLbWmtg/viewform"
         },
         { 
             id: 2, 
