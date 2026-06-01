@@ -10,9 +10,14 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
+import GlobalFaqDial from "../components/GlobalFaqDial";
 
 // Top FAQ cards
 const faqCards = [
@@ -20,6 +25,14 @@ const faqCards = [
   { title: "TARGETING ASSESSMENT MONITORING PLANNING", icon: <FaFileCircleCheck />, path: "/tamp" },
   { title: "PERFORMANCE AND RECOGNITION", icon: <FaFileLines />, path: "/par" },
   { title: "OTHER REQUEST AND REFFERAL", icon: <FaNetworkWired />, path: "/orf" },
+];
+
+/* ---------------- MASTER GLOBAL ROUTES ---------------- */
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // Clean FAQ object
@@ -57,16 +70,10 @@ const faqPages = [
         q: "What documents do we need to attach?",
         a: (
           <>
-          <ul>
-            <li>
-                1. Endorsement Memo from the Field Office Director
-            </li>
-            <li>
-                2. Approved Activity Design
-            </li>
-            <li>
-                3. Program Matrix/Schedule
-            </li>
+          <ul className="list-none p-0 m-0">
+            <li>1. Endorsement Memo from the Field Office Director</li>
+            <li>2. Approved Activity Design</li>
+            <li>3. Program Matrix/Schedule</li>
           </ul>
           </>
         ),
@@ -164,7 +171,7 @@ const ORF = () => {
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true), // ✅ now works
+      buttonAction: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -198,6 +205,9 @@ const ORF = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+      {/* Global FAQ Radial Speed Dial */}
+      <GlobalFaqDial routes={masterFaqRoutes} onNavigate={handleCardClick} />
+
       {/* FAQ Section */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
@@ -238,11 +248,9 @@ const ORF = () => {
         <h3 className="text-2xl md:text-3xl font-bold mb-20">
           <span className="text-black">FAQS / </span>
           <span className="text-black">TAAORSS / </span>
-          <span className="text-[#2e3192]">"Other Request and Refferal"</span>
+          <span className="text-[#2e3192]">Other Request and Referral</span>
         </h3>
-        {/* <h3 className="text-sm md:text-md font-bold mb-8 text-gray-500">
-          As of 14 January, 2026
-        </h3> */}
+
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
           {faqPages[0].items.map((faq, index) => (
             <React.Fragment key={index}>
@@ -281,7 +289,13 @@ const ORF = () => {
                 <div className="mb-2">{React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}</div>
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
-                <button className="bg-[#ee1c25] text-white w-full mx-auto px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base block text-center">
+                <button 
+                  className="bg-[#ee1c25] text-white w-full mx-auto px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base block text-center"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    card.buttonAction();
+                  }}
+                >
                   {card.buttonText}
                 </button>
               </div>

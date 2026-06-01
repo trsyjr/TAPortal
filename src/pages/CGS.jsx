@@ -1,4 +1,3 @@
-// src/pages/Ldi.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -11,9 +10,14 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
+import GlobalFaqDial from "../components/GlobalFaqDial";
 
 // Top FAQ cards
 const faqCards = [
@@ -21,6 +25,14 @@ const faqCards = [
   { title: "CORE GROUP OF SPECIALISTS", icon: <FaFileCircleCheck />, path: "/cgs" },
   { title: "KNOWLEDGE SHARING SESSIONS", icon: <FaFileLines />, path: "/kss" },
   { title: "ROLE AND FUNCTIONS", icon: <FaNetworkWired />, path: "/role-functions" },
+];
+
+/* ---------------- MASTER GLOBAL ROUTES ---------------- */
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // Clean FAQ object
@@ -60,49 +72,23 @@ const faqPages = [
           <br />
           <ul>
             The specialization tracks focus on the various vulnerable sectors such as:
-            <li>
-              1. Children and Youth
-            </li>
-            <li>
-              2. Women
-            </li>
-            <li>
-              3. Older Persons
-            </li>
-            <li>
-              4. Person with Disabilities
-            </li>
-            <li>
-              5. Internally Displaced Persons
-            </li>
-            <li>
-              6. Family and Community
-            </li>
-            <li>
-              7. Indigenous Peoples
-            </li>
-            <li>
-              8. Migrant Workers.
-            </li>
+            <li>1. Children and Youth</li>
+            <li>2. Women</li>
+            <li>3. Older Persons</li>
+            <li>4. Person with Disabilities</li>
+            <li>5. Internally Displaced Persons</li>
+            <li>6. Family and Community</li>
+            <li>7. Indigenous Peoples</li>
+            <li>8. Migrant Workers.</li>
           </ul>
           <br />
           <ul>
             Competencies under each sector are:
-            <li>
-              1. Policy and Plan Development
-            </li>
-            <li>
-              2. Standards Development
-            </li>
-            <li>
-              3. Direct Service Delivery and Transfer of Technology
-            </li>
-            <li>
-              4. Advocacy on Behalf of the Vulnerable Sector
-            </li>
-            <li>
-              5. Networking and Partnerships.
-            </li>
+            <li>1. Policy and Plan Development</li>
+            <li>2. Standards Development</li>
+            <li>3. Direct Service Delivery and Transfer of Technology</li>
+            <li>4. Advocacy on Behalf of the Vulnerable Sector</li>
+            <li>5. Networking and Partnerships.</li>
           </ul>
           </>
         ),
@@ -174,7 +160,7 @@ const CGS = () => {
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true), // ✅ now works
+      buttonAction: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -208,6 +194,9 @@ const CGS = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+      {/* Global FAQ Radial Speed Dial */}
+      <GlobalFaqDial routes={masterFaqRoutes} onNavigate={handleCardClick} />
+
       {/* FAQ Section */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
@@ -250,9 +239,7 @@ const CGS = () => {
           <span className="text-black">Knowledge Management / </span>
           <span className="text-[#2e3192]">Core Group of Specialists</span>
         </h3>
-        {/* <h3 className="text-sm md:text-md font-bold mb-8 text-gray-500">
-          As of 14 January, 2026
-        </h3> */}
+        
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
           {faqPages[0].items.map((faq, index) => (
             <React.Fragment key={index}>
@@ -291,7 +278,13 @@ const CGS = () => {
                 <div className="mb-2">{React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}</div>
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
-                <button className="bg-[#ee1c25] text-white w-full mx-auto px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base block text-center">
+                <button 
+                  className="bg-[#ee1c25] text-white w-full mx-auto px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base block text-center"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    card.buttonAction();
+                  }}
+                >
                   {card.buttonText}
                 </button>
               </div>

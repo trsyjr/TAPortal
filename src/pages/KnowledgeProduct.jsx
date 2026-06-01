@@ -1,4 +1,3 @@
-// src/pages/Ldi.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -12,9 +11,14 @@ import {
   FaLaptopMedical,
   FaTicket,
   FaArrowUpRightFromSquare,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
+import GlobalFaqDial from "../components/GlobalFaqDial";
 
 // Top FAQ cards
 const faqCards = [
@@ -22,6 +26,14 @@ const faqCards = [
   { title: "CORE GROUP OF SPECIALISTS", icon: <FaFileCircleCheck />, path: "/cgs" },
   { title: "KNOWLEDGE SHARING SESSIONS", icon: <FaFileLines />, path: "/kss" },
   { title: "ROLE AND FUNCTIONS", icon: <FaNetworkWired />, path: "/role-functions" },
+];
+
+/* ---------------- MASTER GLOBAL ROUTES ---------------- */
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // Clean FAQ object
@@ -33,26 +45,25 @@ const faqPages = [
         q: "What are Knowledge Products (KPs)?",
         a: (
           <>
-          Knowledge Products are documents and publications derived from expertise, research, and lessons learned that respond to different demands of users and may cover a wide range of purposes. It contain knowledge that is ready to be used and benefited from.
-          <br />
-          <br />
-          This definition is expanded to include other audio and/or visual materials in the Knowledge Product Development Process Guide. Below are examples of KPs for internal and public use: 
-          <br />
-          <br />
-          <strong>Advocacy Materials</strong> -- Educates, persuades, and mobilizes the Department’s partners and stakeholders to support the Department’s policies, programs, projects, and activities that promote the welfare and development of our clients.
-          <br />
-          <br />
-          <strong>Learning Materials</strong> -- Supports existing materials for LDI’s; used for the conduct of the latter with accompanying Facilitator’s Notes (e.g. modules, case studies, graphic stories, etc.).
-          <br />
-          <br />
-          <strong>Good Practice and Success Story Documentations</strong> -- Documents the positive results and impact of particular approaches or methods in real practice.
-          <br />
-          <br />
-          <strong>Research and Development Materials</strong> -- Illustrates the impact or potential improvement of the Department’s activities/projects/programs/services (e.g. Theses, M&E results, Lessons Learned papers, concept papers, etc.).
-
-          <br />
-          <br />
-          <strong>How-to Guides</strong> -- Provides guidance and methodological support on the conduct of activities/programs/projects/services related to the Department and/or its staff (Operations Manuals, User’s Manuals, Training Manuals, Guidelines, Operating Procedures, etc.).
+            Knowledge Products are documents and publications derived from expertise, research, and lessons learned that respond to different demands of users and may cover a wide range of purposes. It contain knowledge that is ready to be used and benefited from.
+            <br />
+            <br />
+            This definition is expanded to include other audio and/or visual materials in the Knowledge Product Development Process Guide. Below are examples of KPs for internal and public use: 
+            <br />
+            <br />
+            <strong>Advocacy Materials</strong> -- Educates, persuades, and mobilizes the Department’s partners and stakeholders to support the Department’s policies, programs, projects, and activities that promote the welfare and development of our clients.
+            <br />
+            <br />
+            <strong>Learning Materials</strong> -- Supports existing materials for LDI’s; used for the conduct of the latter with accompanying Facilitator’s Notes (e.g. modules, case studies, graphic stories, etc.).
+            <br />
+            <br />
+            <strong>Good Practice and Success Story Documentations</strong> -- Documents the positive results and impact of particular approaches or methods in real practice.
+            <br />
+            <br />
+            <strong>Research and Development Materials</strong> -- Illustrates the impact or potential improvement of the Department’s activities/projects/programs/services (e.g. Theses, M&E results, Lessons Learned papers, concept papers, etc.).
+            <br />
+            <br />
+            <strong>How-to Guides</strong> -- Provides guidance and methodological support on the conduct of activities/programs/projects/services related to the Department and/or its staff (Operations Manuals, User’s Manuals, Training Manuals, Guidelines, Operating Procedures, etc.).
           </>
         ),
       },
@@ -60,7 +71,7 @@ const faqPages = [
         q: "Are Good Practice Documentations (GPDs) considered as KPs?",
         a: (
           <>
-          Yes. In fact, all GPDs are KPs while not all KPs are GPDs.  
+            Yes. In fact, all GPDs are KPs while not all KPs are GPDs.  
           </>
         ),
       },
@@ -68,7 +79,7 @@ const faqPages = [
         q: "Are IEC materials KPs?",
         a: (
           <>
-          Yes and No. It all depends on the adherence of a material to the definition of a KP. KPs are determined this way and not by label. For instance manuals may be labeled as such, but not considered as a KP by the Department’s standards when it does not contain knowledge that is ready to be used and benefited from. KPs focus on answering how things could or should be done and not what any particular topic is or is not.  
+            Yes and No. It all depends on the adherence of a material to the definition of a KP. KPs are determined this way and not by label. For instance manuals may be labeled as such, but not considered as a KP by the Department’s standards when it does not contain knowledge that is ready to be used and benefited from. KPs focus on answering how things could or should be done and not what any particular topic is or is not.  
           </>
         ),
       },
@@ -76,9 +87,9 @@ const faqPages = [
         q: "How to download KPs from the KM Portal?",
         a: (
           <>
-          Browse through the KPs available, then click the specific KP that you wish to access.Click the ‘Login to Download’ button and a prompt will appear so you can either login or register for an account. Provide the complete and accurate information needed in the form. Once logged in, you can directly click the ‘Download’ button for the KP.
-          <br />
-          <br />
+            Browse through the KPs available, then click the specific KP that you wish to access.Click the ‘Login to Download’ button and a prompt will appear so you can either login or register for an account. Provide the complete and accurate information needed in the form. Once logged in, you can directly click the ‘Download’ button for the KP.
+            <br />
+            <br />
             <a 
                 href="https://kmportal.dswd.gov.ph/"
                 target="_blank" 
@@ -95,7 +106,7 @@ const faqPages = [
         q: "Who can download KPs from the KM Portal?",
         a: (
           <>
-          The users of the KM Portal can browse the available KPs even without a registered account. However, downloading of KPs is only available to users with registered accounts in the KM Portal.   
+            The users of the KM Portal can browse the available KPs even without a registered account. However, downloading of KPs is only available to users with registered accounts in the KM Portal.   
           </>
         ),
       },
@@ -103,7 +114,7 @@ const faqPages = [
         q: "Is there a fee for downloading KPs? How many KPs can be downloaded by each user?",
         a: (
           <>
-          None, it’s free. As long as you have an account in the KM Portal, you may download your desired KP available in the KM Portal as many as they want. However, it should be noted that proper citation must always be observed when using the reference materials accessed through the KM Portal.
+            None, it’s free. As long as you have an account in the KM Portal, you may download your desired KP available in the KM Portal as many as they want. However, it should be noted that proper citation must always be observed when using the reference materials accessed through the KM Portal.
           </>
         ),
       },
@@ -111,13 +122,13 @@ const faqPages = [
         q: "Are there social work books accessible in the KM Portal?",
         a: (
           <>
-          No. Social work books are physically present at the KEC where DSWD employees can borrow extra copies and external users can read . Only corporate knowledge materials of the Department are digitized and made available in the KM Portal.   
+            No. Social work books are physically present at the KEC where DSWD employees can borrow extra copies and external users can read . Only corporate knowledge materials of the Department are digitized and made available in the KM Portal.   
           </>
         ),
       },
       {
-      q: "\u00A0", // non-breaking space
-      a: (
+        q: "\u00A0", // non-breaking space
+        a: (
           <>
             <strong>Reference:</strong>
             <ul className="list-disc list-inside space-y-1 mt-2">
@@ -144,7 +155,7 @@ const faqPages = [
             </ul>
           </>
         ),
-        },
+      },
     ],
   },
 ];
@@ -177,7 +188,7 @@ const KnowledgeProduct = () => {
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true), // ✅ now works
+      buttonAction: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -211,6 +222,9 @@ const KnowledgeProduct = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+      {/* Global FAQ Radial Speed Dial */}
+      <GlobalFaqDial routes={masterFaqRoutes} onNavigate={handleCardClick} />
+
       {/* FAQ Section */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
@@ -253,9 +267,7 @@ const KnowledgeProduct = () => {
           <span className="text-black">Knowledge Management / </span>
           <span className="text-[#2e3192]">Knowledge Product</span>
         </h3>
-        {/* <h3 className="text-sm md:text-md font-bold mb-8 text-gray-500">
-          As of 14 January, 2026
-        </h3> */}
+
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
           {faqPages[0].items.map((faq, index) => (
             <React.Fragment key={index}>
@@ -294,7 +306,13 @@ const KnowledgeProduct = () => {
                 <div className="mb-2">{React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}</div>
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
-                <button className="bg-[#ee1c25] text-white w-full mx-auto px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base block text-center">
+                <button 
+                  className="bg-[#ee1c25] text-white w-full mx-auto px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base block text-center"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    card.buttonAction();
+                  }}
+                >
                   {card.buttonText}
                 </button>
               </div>
