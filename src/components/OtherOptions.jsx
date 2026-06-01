@@ -45,7 +45,7 @@ const OtherOptions = () => {
           </h3>
 
           <p className="text-gray-600 text-center mb-6 md:mb-8 text-sm md:text-xl leading-relaxed">
-            Virtual Clinic for Technical Assistance opens every Wednesday.
+            Virtual Clinic for Technical Assistance.
           </p>
 
           <button

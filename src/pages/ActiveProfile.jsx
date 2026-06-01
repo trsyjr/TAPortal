@@ -11,7 +11,11 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal";
 import JoinModal from "../components/JoinModal";
 
@@ -23,6 +27,14 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
+];
+
+/* ---------------- MASTER GLOBAL ROUTES ---------------- */
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // FAQ content as object
@@ -87,11 +99,15 @@ const faqPages = [
             <br />
             <strong>Submission</strong> – The proponent submits a formal request to the DSWD Academy, along with a draft proposal and the Design and Implementation Plan (DIP).
             <br />
+            <br />
             <strong>Review</strong> – The Capability Building Division (CBD) reviews the proposal’s content, methodology, and resources. If aligned with standards, a memorandum reply is issued; if revisions are needed, technical inputs and recommendations are provided.
+            <br />
             <br />
             <strong>Revision</strong> – The proponent revises the proposal based on the comments and recommendations. Once updated, the revised proposal is routed back to the DSWD Academy.
             <br />
+            <br />
             <strong>Endorsement</strong> – If the revised proposal is found in order, the DSWD Academy issues a memorandum endorsement to the Financial Service (FS).
+            <br />
             <br />
             <strong>Final Submission</strong> – The proponent attaches the DSWD Academy’s endorsement when submitting the proposal for final approval of cluster head or head of OBSU, or Financial Service for funding approval if applicable.
           </>
@@ -163,6 +179,10 @@ const ActivityProfile = () => {
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
 
+  // Configuration for target indices (ACA / KM)
+  const prevRoute = masterFaqRoutes[0]; // ACA (/cpd)
+  const nextRoute = masterFaqRoutes[2]; // KM (/knowledge-product)
+
   // ✅ floating cards inside component to access state
   const floatingCards = [
     {
@@ -215,6 +235,7 @@ const ActivityProfile = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+
       {/* FAQ Cards */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
@@ -291,7 +312,7 @@ const ActivityProfile = () => {
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
                 <button
-                  onClick={card.buttonAction} // ✅ fixed
+                  onClick={card.buttonAction}
                   className="bg-[#ee1c25] text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
                 >
                   {card.buttonText}

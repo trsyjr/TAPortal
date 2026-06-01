@@ -11,9 +11,14 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
+import NextBtn from "../components/NextBtn";
 
 // Top FAQ cards
 const faqCards = [
@@ -21,6 +26,14 @@ const faqCards = [
   { title: "CERTIFICATION PROGRAM", icon: <FaFileCircleCheck />, path: "/certification" },
   { title: "ACCREDITATION PROGRAM", icon: <FaFileLines />, path: "/accreditation" },
   { title: "PROJECT ASCEND & ETEEAP", icon: <FaNetworkWired />, path: "/ascend-eteeap" },
+];
+
+// Master global mapping array for button tracking configuration
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // Clean FAQ object
@@ -54,6 +67,17 @@ const Certification = () => {
     if (path) navigate(path);
   };
 
+  // Safe tracking logic calculation across current routes
+  const currentRouteIndex = masterFaqRoutes.findIndex((item) => item.path === location.pathname);
+  // Fallback default index set to route index 0 if exact route string isn't mapped
+  const safeIndex = currentRouteIndex === -1 ? 0 : currentRouteIndex;
+  
+  const prevIndex = (safeIndex - 1 + masterFaqRoutes.length) % masterFaqRoutes.length;
+  const nextIndex = (safeIndex + 1) % masterFaqRoutes.length;
+
+  const prevRoute = masterFaqRoutes[prevIndex];
+  const nextRoute = masterFaqRoutes[nextIndex];
+
   // Floating cards
   const floatingCards = [
     {
@@ -68,7 +92,7 @@ const Certification = () => {
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true), // ✅ now works
+      buttonAction: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -102,6 +126,9 @@ const Certification = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+      <NextBtn route={prevRoute} direction="prev" onClick={() => handleCardClick(prevRoute.path)} />
+      <NextBtn route={nextRoute} direction="next" onClick={() => handleCardClick(nextRoute.path)} />
+      
       {/* FAQ Section */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">

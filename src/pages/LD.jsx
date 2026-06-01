@@ -11,7 +11,11 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal";
 import JoinModal from "../components/JoinModal";
 
@@ -23,6 +27,14 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
+];
+
+/* ---------------- MASTER GLOBAL ROUTES ---------------- */
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 /* ---------------- FAQ PAGES ---------------- */
@@ -82,22 +94,26 @@ const LD = () => {
     if (path) navigate(path);
   };
 
+  // Setup explicitly targeted navigation routes
+  const prevRoute = masterFaqRoutes[0]; // ACA (/cpd)
+  const nextRoute = masterFaqRoutes[2]; // KM (/knowledge-product)
+
   const floatingCards = [
-        {
-          title: "TA WEDNESDAY",
-          icon: <FaLaptopMedical />,
-          description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
-          buttonText: "Join Here",
-          buttonAction: () => setIsJoinModalOpen(true),
-        },
-        {
-          title: "REQUEST TICKET",
-          icon: <FaTicket />,
-          description: "Submit a request ticket and we will reach out shortly.",
-          buttonText: "Request Here",
-          buttonAction: () => setIsTicketModalOpen(true), // ✅ opens modal
-        },
-      ];
+    {
+      title: "TA WEDNESDAY",
+      icon: <FaLaptopMedical />,
+      description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
+      buttonText: "Join Here",
+      buttonAction: () => setIsJoinModalOpen(true),
+    },
+    {
+      title: "REQUEST TICKET",
+      icon: <FaTicket />,
+      description: "Submit a request ticket and we will reach out shortly.",
+      buttonText: "Request Here",
+      buttonAction: () => setIsTicketModalOpen(true),
+    },
+  ];
 
   /* ---------------- Scroll active FAQ card ---------------- */
   useEffect(() => {
@@ -136,6 +152,7 @@ const LD = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+
       {/* ---------------- FAQ CARDS ---------------- */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
@@ -230,7 +247,7 @@ const LD = () => {
                 <p className="text-gray-600 text-3xs md:text-xs mt-2">{card.description}</p>
                 <button
                   className="bg-[#ee1c25] text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
-                  onClick={card.buttonAction} // ✅ button works
+                  onClick={card.buttonAction}
                 >
                   {card.buttonText}
                 </button>
@@ -240,7 +257,7 @@ const LD = () => {
         })}
       </div>
       <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
-        <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)}/>
+      <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)}/>
     </div>
   );
 };

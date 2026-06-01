@@ -11,7 +11,11 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
 
@@ -21,6 +25,14 @@ const faqCards = [
   { title: "CERTIFICATION PROGRAM", icon: <FaFileCircleCheck />, path: "/certification" },
   { title: "ACCREDITATION PROGRAM", icon: <FaFileLines />, path: "/accreditation" },
   { title: "PROJECT ASCEND & ETEEAP", icon: <FaNetworkWired />, path: "/ascend-eteeap" },
+];
+
+// Master global mapping array for button tracking configuration
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // Clean FAQ object
@@ -59,16 +71,16 @@ const faqPages = [
           Per Republic Act No. 12124 and relevant CHED guidelines, basic applicant eligibility includes:
           <br />
           <br />
-          <strong>Citizenship</strong> -- Must be a Filipino citizen (residing in the Philippines or abroad).
+          <strong>Citizenship</strong> — Must be a Filipino citizen (residing in the Philippines or abroad).
           <br />
           <br />
-          <strong>Age</strong> -- Must be at least <strong>twenty-three (23) years old</strong> at the time of application.
+          <strong>Age</strong> — Must be at least <strong>twenty-three (23) years old</strong> at the time of application.
           <br />
           <br />
-          <strong>Educational Background</strong> -- Must have completed secondary education (High school diploma, Senior High School, or PEPT/ALS A&E certification qualifying for college).
+          <strong>Educational Background</strong> — Must have completed secondary education (High school diploma, Senior High School, or PEPT/ALS A&E certification qualifying for college).
           <br />
           <br />
-          <strong>Work Experience</strong> -- Must possess a minimum of <strong>five (5) years of aggregate work experience</strong> directly related to social work or the social welfare discipline
+          <strong>Work Experience</strong> — Must possess a minimum of <strong>five (5) years of aggregate work experience</strong> directly related to social work or the social welfare discipline
           </>
         ),
       },
@@ -109,6 +121,16 @@ const AscendETEEAP = () => {
     if (path) navigate(path);
   };
 
+  // Dynamic Index tracking calculations
+  const currentRouteIndex = masterFaqRoutes.findIndex((item) => item.path === location.pathname);
+  const safeIndex = currentRouteIndex === -1 ? 0 : currentRouteIndex;
+
+  const prevIndex = (safeIndex - 1 + masterFaqRoutes.length) % masterFaqRoutes.length;
+  const nextIndex = (safeIndex + 1) % masterFaqRoutes.length;
+
+  const prevRoute = masterFaqRoutes[prevIndex];
+  const nextRoute = masterFaqRoutes[nextIndex];
+
   // Floating cards
   const floatingCards = [
     {
@@ -123,7 +145,7 @@ const AscendETEEAP = () => {
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true), // ✅ now works
+      buttonAction: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -157,6 +179,7 @@ const AscendETEEAP = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+
       {/* FAQ Section */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">

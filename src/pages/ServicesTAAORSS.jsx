@@ -120,7 +120,7 @@ const ServicesTAAORSS = () => {
             <div className="tapered-underline w-56 mx-auto mt-2"></div>
           </div>
           <p className="text-gray-500 text-[15px] font-medium max-w-[750px] mx-auto leading-relaxed mt-2">
-            DSWD Academy services in one portal. Simplifying processes, and making technical assistance more accessible and convenient.
+            Empowering social welfare professionals through data-driven assessment, capacity enhancement, and strategic technical support.
           </p>
         </div>
 

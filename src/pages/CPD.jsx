@@ -1,4 +1,3 @@
-// src/pages/Ldi.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -11,9 +10,14 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
+import GlobalFaqDial from "../components/GlobalFaqDial";
 
 // Top FAQ cards
 const faqCards = [
@@ -21,6 +25,14 @@ const faqCards = [
   { title: "CERTIFICATION PROGRAM", icon: <FaFileCircleCheck />, path: "/certification" },
   { title: "ACCREDITATION PROGRAM", icon: <FaFileLines />, path: "/accreditation" },
   { title: "PROJECT ASCEND & ETEEAP", icon: <FaNetworkWired />, path: "/ascend-eteeap" },
+];
+
+// The master global mapping array passed to the Speed Dial menu
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // Clean FAQ object
@@ -51,13 +63,13 @@ const faqPages = [
         q: "What are the mandatory timelines for submitting a CPD Application and its corresponding Completion Report?",
         a: (
           <>
-            <strong>CPD Application for Program Accreditation</strong> -- Must be submitted at least <strong>45 working days</strong> (approximately 2 months) prior to the scheduled date of the program offering
+            <strong>CPD Application for Program Accreditation</strong> — Must be submitted at least <strong>45 working days</strong> (approximately 2 months) prior to the scheduled date of the program offering
             <br />
             <br />
-            <strong>CPD Completion Report (Attendance Sheets)</strong> -- Must be uploaded within <strong>7 calendar days</strong> immediately after the conduct of the activity.
+            <strong>CPD Completion Report (Attendance Sheets)</strong> — Must be uploaded within <strong>7 calendar days</strong> immediately after the conduct of the activity.
             <br />
             <br />
-            <strong>CPD Completion Report (Other Supporting Attachments)</strong> -- Must be submitted within <strong>20 calendar days</strong> after the conduct of the activity.
+            <strong>CPD Completion Report (Other Supporting Attachments)</strong> — Must be submitted within <strong>20 calendar days</strong> after the conduct of the activity.
           </>
         ),
       },
@@ -104,10 +116,10 @@ const faqPages = [
         q: "What should we do if our prospective Resource Person (RP) is unlicensed or has an expired PRC license?",
         a: (
           <>
-            <strong>Unlicensed Experts</strong> -- Professionals without a PRC license can still serve as RPs, provided they accomplish and submit the standard PRC Resume for Resource Person along with a valid company or institutional ID.
+            <strong>Unlicensed Experts</strong> — Professionals without a PRC license can still serve as RPs, provided they accomplish and submit the standard PRC Resume for Resource Person along with a valid company or institutional ID.
             <br />
             <br />
-            <strong>Expired PRC License</strong> -- Licensed professionals whose PRC IDs are currently expired must submit a copy of their renewal application together with official proof of payment.
+            <strong>Expired PRC License</strong> — Licensed professionals whose PRC IDs are currently expired must submit a copy of their renewal application together with official proof of payment.
           </>
         ),
       },
@@ -205,7 +217,7 @@ const CPD = () => {
     if (path) navigate(path);
   };
 
-  // Floating cards
+  // Floating cards configuration
   const floatingCards = [
     {
       title: "TA WEDNESDAY",
@@ -219,7 +231,7 @@ const CPD = () => {
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true), // ✅ now works
+      buttonAction: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -253,6 +265,9 @@ const CPD = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+      {/* Dynamic Floating Action Stack Dial */}
+      <GlobalFaqDial routes={masterFaqRoutes} onNavigate={handleCardClick} />
+
       {/* FAQ Section */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
@@ -295,9 +310,6 @@ const CPD = () => {
           <span className="text-black">Assessment, Certification, and Accreditation / </span>
           <span className="text-[#2e3192]">CPD Application and Completion Process</span>
         </h3>
-        {/* <h3 className="text-sm md:text-md font-bold mb-8 text-gray-500">
-          As of 14 January, 2026
-        </h3> */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
           {faqPages[0].items.map((faq, index) => (
             <React.Fragment key={index}>

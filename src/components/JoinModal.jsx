@@ -95,9 +95,9 @@ const JoinModal = ({ isOpen, onClose }) => {
 
             {/* Heading */}
             <h2 className="text-2xl md:text-3xl font-bold text-[#2e3192] mt-10 text-center">
-              DSWD ACADEMY CBD-PLDS TA:
+              TA WEDNESDAY:
               <br />
-              <span className="text-gray-700 text-lg">A VIRTUAL CLINIC</span>
+              <span className="text-gray-700 text-lg">A Virtual Clinic for your Capability Building Concerns</span>
             </h2>
 
             {/* Grid layout */}
