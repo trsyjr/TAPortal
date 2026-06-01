@@ -55,7 +55,9 @@ const GlobalFaqDial = ({ routes, onNavigate }) => {
   return (
     <div 
       ref={containerRef} 
-      className="fixed bottom-8 left-8 z-[100] flex items-center justify-center w-16 h-16"
+      className="fixed left-8 z-[100] flex items-center justify-center w-16 h-16"
+      // Dropped slightly to 45px for a precise fit
+      style={{ bottom: "45px" }} 
     >
       {/* Radial Fan-out Menu Items */}
       <AnimatePresence>
@@ -92,15 +94,17 @@ const GlobalFaqDial = ({ routes, onNavigate }) => {
 
                 {/* Circular Rounded Icon Container */}
                 <div className="relative w-14 h-14 flex items-center justify-center">
+                  {/* Changed background from yellow bg-[#FFE066] to blue bg-[#2e3192] */}
                   <motion.div 
-                    className="absolute inset-0 bg-[#FFE066] border border-white/40 shadow-xl rounded-2xl"
+                    className="absolute inset-0 bg-[#2e3192] border border-white/40 shadow-xl rounded-2xl"
                     variants={{
                       hoverState: { scale: 1.15, rotate: -12 }
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
                   />
+                  {/* Changed text/icon color from blue text-[#2e3192] to white text-white */}
                   <motion.div 
-                    className="relative z-10 text-[#2e3192] w-6 h-6 flex items-center justify-center pointer-events-none"
+                    className="relative z-10 text-white w-6 h-6 flex items-center justify-center pointer-events-none"
                     variants={{
                       hoverState: { rotate: -12 }
                     }}
