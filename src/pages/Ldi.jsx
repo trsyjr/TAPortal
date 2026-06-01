@@ -1,4 +1,3 @@
-// src/pages/Ldi.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -11,9 +10,14 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
+import GlobalFaqDial from "../components/GlobalFaqDial";
 
 // Top FAQ cards
 const faqCards = [
@@ -23,6 +27,14 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
+];
+
+/* ---------------- MASTER GLOBAL ROUTES ---------------- */
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // Clean FAQ object
@@ -84,7 +96,9 @@ const faqPages = [
           <>
             The <strong>appropriate number of participants</strong> in a capability building activity <strong>depends on the learning objectives and the nature of the activity</strong>. For activities with active skills practice and participatory learning, the DSWD Academy encourages a facilitator-to-participant <strong>ratio of 1:35</strong> to help ensure that learning objectives are met and participants have sufficient opportunities to engage and demonstrate learning. <strong>This ratio supports meaningful interaction and facilitation</strong>.
             <br />
+            <br />
             <strong>International practice</strong> shows that <strong>ideal group sizes</strong> for participatory adult learning tend to range between about <strong>15 to 30 participants</strong>, with smaller groups (e.g., 8–20) often recommended for deeper engagement and interaction, and larger groups managed through additional facilitators or breakout structures when learning goals are primarily informational or seminar-oriented.
+            <br />
             <br />
             Activities such as <strong>seminars or large conferences may accommodate more participants</strong> if the design and delivery approach support larger audiences, provided that <strong>additional facilitators or support mechanisms are in place</strong>. The major consideration in identifying participant numbers for any CBA remains the learning objectives and the methods required to achieve them.
           </>
@@ -152,14 +166,18 @@ const Ldi = () => {
   const [bottomOffset, setBottomOffset] = useState(32);
 
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
-    const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
 
   const handleCardClick = (path) => {
     if (path) navigate(path);
   };
 
+  // Setup explicitly targeted navigation routes
+  const prevRoute = masterFaqRoutes[0]; // ACA (/cpd)
+  const nextRoute = masterFaqRoutes[2]; // KM (/knowledge-product)
+
   // Floating cards
-const floatingCards = [
+  const floatingCards = [
     {
       title: "TA WEDNESDAY",
       icon: <FaLaptopMedical />,
@@ -172,7 +190,7 @@ const floatingCards = [
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true), // ✅ now works
+      buttonAction: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -206,6 +224,9 @@ const floatingCards = [
 
   return (
     <div className="pt-20 font-sans relative">
+      {/* Global FAQ Radial Speed Dial */}
+      <GlobalFaqDial routes={masterFaqRoutes} onNavigate={handleCardClick} />
+
       {/* FAQ Section */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">

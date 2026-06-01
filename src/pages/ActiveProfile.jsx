@@ -1,4 +1,3 @@
-// src/pages/ActivityProfile.jsx
 import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -18,6 +17,7 @@ import {
 import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal";
 import JoinModal from "../components/JoinModal";
+import GlobalFaqDial from "../components/GlobalFaqDial";
 
 // Top FAQ cards
 const faqCards = [
@@ -137,8 +137,8 @@ const faqPages = [
                   rel="noopener noreferrer"
                   className="underline hover:opacity-80"
                   >
-                    Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of CBAs.
-                  </a>
+                  Administrative Order No. 20, s. 2024. Omnibus Policies and Guidelines on the Management of CBAs.
+                </a>
               </li>
               <li>
                 <a 
@@ -235,6 +235,8 @@ const ActivityProfile = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+      {/* Global FAQ Radial Speed Dial */}
+      <GlobalFaqDial routes={masterFaqRoutes} onNavigate={handleCardClick} />
 
       {/* FAQ Cards */}
       <section className="relative z-10 mb-12 w-full">

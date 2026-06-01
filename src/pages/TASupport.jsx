@@ -11,13 +11,15 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
-  FaArrowUpRightFromSquare, // Added for the button icon
+  FaArrowUpRightFromSquare,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal";
 import JoinModal from "../components/JoinModal";
-
-// Add your directory link here
-const directoryUrl = "https://your-link-here.com";
+import GlobalFaqDial from "../components/GlobalFaqDial";
 
 // FAQ Cards for top navigation
 const faqCards = [
@@ -27,6 +29,14 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
+];
+
+/* ---------------- MASTER GLOBAL ROUTES ---------------- */
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 // Clean object-based FAQ data
@@ -106,7 +116,6 @@ const faqPages = [
               className="inline-flex items-center gap-2 mt-4 bg-[#ee1c25] text-white px-6 py-3 rounded-full font-bold hover:scale-105 transition-transform shadow-md italic"
             >
               OBSU-Academy Focal Directory 
-              <FaArrowUpRightFromSquare className="text-md" />
             </a>
           </>
         ),
@@ -130,21 +139,21 @@ const TASupport = () => {
   };
 
   const floatingCards = [
-      {
-        title: "TA WEDNESDAY",
-        icon: <FaLaptopMedical />,
-        description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
-        buttonText: "Join Here",
-        buttonAction: () => setIsJoinModalOpen(true),
-      },
-      {
-        title: "REQUEST TICKET",
-        icon: <FaTicket />,
-        description: "Submit a request ticket and we will reach out shortly.",
-        buttonText: "Request Here",
-        buttonAction: () => setIsTicketModalOpen(true),
-      },
-    ];
+    {
+      title: "TA WEDNESDAY",
+      icon: <FaLaptopMedical />,
+      description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
+      buttonText: "Join Here",
+      buttonAction: () => setIsJoinModalOpen(true),
+    },
+    {
+      title: "REQUEST TICKET",
+      icon: <FaTicket />,
+      description: "Submit a request ticket and we will reach out shortly.",
+      buttonText: "Request Here",
+      buttonAction: () => setIsTicketModalOpen(true),
+    },
+  ];
 
   useEffect(() => {
     const activeIndex = faqCards.findIndex((c) => c.path === location.pathname);
@@ -181,6 +190,9 @@ const TASupport = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+      {/* Global FAQ Radial Speed Dial */}
+      <GlobalFaqDial routes={masterFaqRoutes} onNavigate={handleCardClick} />
+
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
           <div className="max-w-[100rem] mx-auto px-4 md:px-20 lg:px-40">
@@ -280,10 +292,10 @@ const TASupport = () => {
                 </div>
                 <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
                 <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
-                 <button
+                <button
                   className="bg-[#ee1c25] text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
                   onClick={(e) => {
-                    e.stopPropagation(); // Prevent card trigger
+                    e.stopPropagation();
                     card.buttonAction();
                   }}
                 >

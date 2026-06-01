@@ -10,9 +10,14 @@ import {
   FaComments,
   FaLaptopMedical,
   FaTicket,
+  FaAward,
+  FaShareNodes,
+  FaBullhorn
 } from "react-icons/fa6";
+import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal";
 import JoinModal from "../components/JoinModal";
+import GlobalFaqDial from "../components/GlobalFaqDial";
 
 /* ---------------- FAQ CARDS (TOP) ---------------- */
 const faqCards = [
@@ -22,6 +27,14 @@ const faqCards = [
   { title: "PARTICIPANT ELIGIBILITY", icon: <FaUserCheck />, path: "/participant-eligibility" },
   { title: "Capability Building Plan", icon: <FaComments />, path: "/cbas" },
   { title: "TA and SUPPORT", icon: <FaHandshake />, path: "/ta-support" },
+];
+
+/* ---------------- MASTER GLOBAL ROUTES ---------------- */
+const masterFaqRoutes = [
+  { title: "Assessment, Certification, and Accreditation", path: "/cpd", adIcon: <FaAward /> },
+  { title: "Capability Building", path: "/ld-standards", adIcon: <LuBlocks /> },
+  { title: "Knowledge Management", path: "/knowledge-product", adIcon: <FaShareNodes /> },
+  { title: "TAAORSS", path: "/tara-program", adIcon: <FaBullhorn /> },
 ];
 
 /* ---------------- FAQ PAGES ---------------- */
@@ -61,7 +74,7 @@ const faqPages = [
         a: (
           <>
             The <strong>Capability Building Division</strong>, through the <strong>Professional Learning and Development Section (CBD-PLDS)</strong>, 
-            serves as the official focal point for capability building coordination.
+            choose as the official focal point for capability building coordination.
           </>
         ),
       },
@@ -122,7 +135,6 @@ const faqPages = [
           </>
         ),
       },
-
       {
         q: "",
         a: (
@@ -217,6 +229,9 @@ const CBA = () => {
 
   return (
     <div className="pt-20 font-sans relative">
+      {/* Global FAQ Radial Speed Dial */}
+      <GlobalFaqDial routes={masterFaqRoutes} onNavigate={handleCardClick} />
+
       {/* ---------------- FAQ CARDS ---------------- */}
       <section className="relative z-10 mb-12 w-full">
         <div className="bg-[#2e3192] w-full py-12">
@@ -272,7 +287,9 @@ const CBA = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
           {faqPages[faqPage].items.map((item, idx) => (
             <React.Fragment key={idx}>
-              <div className="md:col-span-4 font-bold text-gray-800">{item.q}</div>
+              {item.q && (
+                <div className="md:col-span-4 font-bold text-gray-800">{item.q}</div>
+              )}
               <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed whitespace-pre-line">
                 {item.a || <span className="italic text-gray-400">&lt;Blank&gt;</span>}
               </div>
@@ -336,7 +353,10 @@ const CBA = () => {
                 <p className="text-gray-600 text-3xs md:text-xs mt-2">{card.description}</p>
                 <button
                   className="bg-[#ee1c25] text-white px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base"
-                  onClick={card.buttonAction}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    card.buttonAction();
+                  }}
                 >
                   {card.buttonText}
                 </button>
