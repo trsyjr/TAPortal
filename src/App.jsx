@@ -3,6 +3,7 @@ import React, { Suspense, lazy, useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Advisory from "./components/Advisory"; 
 
 // --- FIX: Use Static Imports for Legal Pages to bypass Brave/AdBlock filters ---
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -24,9 +25,9 @@ const LD = lazy(() => import("./pages/LD"));
 const CBA = lazy(() => import("./pages/CBA"));
 const CBPlan = lazy(() => import("./pages/CBPlan"));
 const TrainingCalendar = lazy(() => import("./components/TrainingCalendar"));
-
-// Added CbServices Lazy Import
 const CbServices = lazy(() => import("./pages/CbServices")); 
+
+const AllServices = lazy(() => import("./pages/AllServices")); 
 
 // ACA
 const CPD = lazy(() => import("./pages/CPD")); 
@@ -35,14 +36,14 @@ const Accreditation = lazy(() => import("./pages/Accreditation"));
 const AscendETEEAP = lazy(() => import("./pages/AscendETEEAP")); 
 const ServicesACA = lazy(() => import("./pages/ServicesACA")); 
 
-//KM
+// KM
 const KnowledgeProduct = lazy(() => import("./pages/KnowledgeProduct")); 
 const CGS = lazy(() => import("./pages/CGS")); 
 const KSS = lazy(() => import("./pages/KSS")); 
 const RoleFunctions = lazy(() => import("./pages/RoleFunctions")); 
 const ServicesKM = lazy(() => import("./pages/ServicesKM")); 
 
-//TAAORSS
+// TAAORSS
 const TaraProgram = lazy(() => import("./pages/TaraProgram"));
 const TAMP = lazy(() => import("./pages/TAMP")); 
 const PAR = lazy(() => import("./pages/PAR")); 
@@ -57,11 +58,23 @@ function AppContent() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
 
-  // --- FIX: Scroll to top whenever the path changes ---
+  // Layout level state tracking if the user dismissed it during this active session view
+  const [hasDismissed, setHasDismissed] = useState(() => {
+    // If they checked "Don't show again" historically, hide it immediately
+    const suppressedForever = localStorage.getItem("dswd_internal_advisory_suppressed");
+    if (suppressedForever) return true;
+
+    // Otherwise, check if they already dismissed it since the last hard reload/refresh
+    const suppressedSession = sessionStorage.getItem("dswd_advisory_route_safe");
+    return !!suppressedSession;
+  });
+
+  // --- Scroll to top whenever the path changes ---
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  // Preloader and Image asset engine
   useEffect(() => {
     setIsLoading(true);
     const preloadImages = ["/assets/TALogo.png"];
@@ -82,6 +95,23 @@ function AppContent() {
     return () => clearTimeout(minTimeout);
   }, [location.pathname]);
 
+  // CLEAR session state when user explicitly reloads, closes/revisits the site, or hard-refreshes
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      // Clearing this ensures that a page refresh or fresh tab revisit forces the modal to show again
+      sessionStorage.removeItem("dswd_advisory_route_safe");
+    };
+    
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => window.removeEventListener("beforeunload", handleBeforeUnload);
+  }, []);
+
+  const handleCloseAdvisory = () => {
+    // Safely block it from reappearing across page-to-page transitions inside this view cycle
+    sessionStorage.setItem("dswd_advisory_route_safe", "true");
+    setHasDismissed(true);
+  };
+
   return (
     <>
       <Suspense fallback={<Preloader />}>
@@ -90,6 +120,10 @@ function AppContent() {
         ) : (
           <>
             <Navbar />
+            
+            {/* Renders properly without resetting across routing actions */}
+            {!hasDismissed && <Advisory onClose={handleCloseAdvisory} />}
+            
             <Routes>
               <Route
                 path="/"
@@ -113,16 +147,16 @@ function AppContent() {
               <Route path="/cbas" element={<CBA />} />
               <Route path="/cbplan" element={<CBPlan />} />
               <Route path="/training-calendar" element={<TrainingCalendar />} />
-              
-              {/* Added CbServices Route */}
               <Route path="/cb-services" element={<CbServices />} />
+
+               <Route path="/all-services" element={<AllServices />} />
 
               {/* ACA */}
               <Route path="/cpd" element={<CPD />} />
               <Route path="/certification" element={<Certification />} />
               <Route path="/accreditation" element={<Accreditation />} />
               <Route path="/ascend-eteeap" element={<AscendETEEAP />} />
-               <Route path="/services-aca" element={<ServicesACA />} />
+              <Route path="/services-aca" element={<ServicesACA />} />
 
               {/* KM */}
               <Route path="/knowledge-product" element={<KnowledgeProduct />} />
@@ -136,7 +170,7 @@ function AppContent() {
               <Route path="/tamp" element={<TAMP />} />
               <Route path="/par" element={<PAR />} />
               <Route path="/ORF" element={<ORF />} />
-               <Route path="/services-taaorss" element={<ServicesTAAORSS />} />
+              <Route path="/services-taaorss" element={<ServicesTAAORSS />} />
 
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-and-conditions" element={<TermsAndConditions />} />

@@ -1,16 +1,31 @@
+// src/components/OtherOptions.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import TicketModal from "./TicketModal";
 import JoinModal from "./JoinModal";
+import SatisfactoryModal from "./SatisfactoryModal"; // ✅ Imported SatisfactoryModal
 import { FaTicketAlt, FaLaptopMedical } from "react-icons/fa";
 
 const OtherOptions = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [joinModalOpen, setJoinModalOpen] = useState(false);
+  const [satisfactoryModalOpen, setSatisfactoryModalOpen] = useState(false); // ✅ Added state for SatisfactoryModal
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 25 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  };
+
+  // ✅ Opens the SatisfactoryModal when the Ticket Modal is closed
+  const handleCloseTicketModal = () => {
+    setModalOpen(false);
+    setSatisfactoryModalOpen(true);
+  };
+
+  // ✅ Opens the SatisfactoryModal when the Join Modal is closed
+  const handleCloseJoinModal = () => {
+    setJoinModalOpen(false);
+    setSatisfactoryModalOpen(true);
   };
 
   return (
@@ -18,83 +33,92 @@ const OtherOptions = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="-mt-[13rem] md:mt-0 pt-0 md:pt-16 pb-24 px-6 md:px-20 lg:px-40 text-center font-sans bg-white relative z-20"
+      className="pt-4 pb-12 md:pb-20 lg:pb-24 px-4 sm:px-8 md:px-16 lg:px-24 text-center font-sans bg-white relative z-20 w-full"
     >
       <motion.h2
         variants={fadeInUp}
-        className="-mt-[3.3rem] text-sm md:text-lg font-semibold mb-8 md:mb-12 text-gray-800"
+        className="text-base sm:text-lg md:text-xl font-semibold mb-10 md:mb-16 text-gray-800 max-w-3xl mx-auto px-2"
       >
         Couldn’t see what you need? See other options to discuss your inquiry.
       </motion.h2>
 
-      <div className="flex flex-col md:flex-row items-center justify-center max-w-7xl mx-auto gap-6 md:gap-12">
+      <div className="flex flex-col lg:flex-row items-stretch justify-center max-w-7xl mx-auto gap-8 lg:gap-8">
         
         {/* Virtual Support Card */}
         <motion.div 
           variants={fadeInUp}
-          whileHover={{ y: -10, scale: 1.02 }}
-          /* p-8 for mobile, p-16 for desktop */
-          className="bg-white rounded-3xl p-8 md:p-16 flex-1 flex flex-col items-center shadow-[0_15px_50px_-10px_rgba(0,0,0,0.1)] border border-gray-100 w-full"
+          whileHover={{ y: -6, scale: 1.01 }}
+          className="bg-white rounded-3xl p-6 sm:p-10 lg:p-14 flex-1 flex flex-col items-center justify-between shadow-[0_15px_50px_-10px_rgba(0,0,0,0.08)] border border-gray-100 w-full"
         >
-          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-slate-50 flex items-center justify-center text-[#2e3192] mb-6 md:mb-8 shadow-inner">
-            <FaLaptopMedical className="text-3xl md:text-5xl" />
+          <div className="flex flex-col items-center w-full">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-slate-50 flex items-center justify-center text-[#2e3192] mb-6 shadow-inner">
+              <FaLaptopMedical className="text-3xl md:text-4xl" />
+            </div>
+
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2e3192] mb-3 uppercase tracking-tight">
+              Virtual Support
+            </h3>
+
+            <p className="text-gray-600 text-center mb-8 text-sm sm:text-base md:text-lg leading-relaxed max-w-md">
+              Virtual Clinic for Technical Assistance.
+            </p>
           </div>
-
-          <h3 className="text-xl md:text-3xl font-bold text-[#2e3192] mb-3 md:mb-4 uppercase tracking-tight">
-            Virtual Support
-          </h3>
-
-          <p className="text-gray-600 text-center mb-6 md:mb-8 text-sm md:text-xl leading-relaxed">
-            Virtual Clinic for Technical Assistance.
-          </p>
 
           <button
             onClick={() => setJoinModalOpen(true)}
-            className="bg-[#2e3192] px-8 py-3 md:px-12 md:py-4 rounded-full transition-all duration-300 hover:bg-[#ee1c25] text-white hover:border-[#2e3192] font-semibold text-base md:text-xl active:scale-95 shadow-md"
+            className="bg-[#2e3192] px-8 py-3 md:px-10 md:py-3.5 rounded-full transition-all duration-300 hover:bg-[#ee1c25] text-white font-semibold text-base md:text-lg active:scale-95 shadow-md mt-auto w-full sm:w-auto min-w-[180px]"
           >
             Join Here
           </button>
         </motion.div>
 
-        {/* OR Divider */}
-        <div className="flex flex-row md:flex-col items-center justify-center py-4 md:py-0">
-          <div className="h-[1px] w-10 md:w-[2px] md:h-28 bg-gradient-to-b from-transparent via-gray-300 to-transparent" />
-          <span className="mx-4 md:my-5 font-bold text-xl md:text-4xl text-gray-700 italic select-none">
+        {/* Divider Setup */}
+        <div className="flex flex-row lg:flex-col items-center justify-center my-4 lg:my-0 lg:px-4 shrink-0">
+          <div className="h-[1px] flex-1 lg:flex-none w-full lg:w-[2px] lg:h-24 bg-gradient-to-r lg:bg-gradient-to-b from-transparent via-gray-300 to-transparent" />
+          <span className="mx-4 lg:mx-0 lg:my-4 font-bold text-lg lg:text-2xl text-gray-400 italic select-none tracking-wider">
             OR
           </span>
-          <div className="h-[1px] w-10 md:w-[2px] md:h-28 bg-gradient-to-b from-transparent via-gray-300 to-transparent" />
+          <div className="h-[1px] flex-1 lg:flex-none w-full lg:w-[2px] lg:h-24 bg-gradient-to-r lg:bg-gradient-to-b from-transparent via-gray-300 to-transparent" />
         </div>
 
         {/* Ticket Request Card */}
         <motion.div 
           variants={fadeInUp}
-          whileHover={{ y: -10, scale: 1.02 }}
-          /* p-8 for mobile, p-16 for desktop */
-          className="bg-white rounded-3xl p-8 md:p-16 flex-1 flex flex-col items-center shadow-[0_15px_50px_-10px_rgba(0,0,0,0.1)] border border-gray-100 w-full"
+          whileHover={{ y: -6, scale: 1.01 }}
+          className="bg-white rounded-3xl p-6 sm:p-10 lg:p-14 flex-1 flex flex-col items-center justify-between shadow-[0_15px_50px_-10px_rgba(0,0,0,0.08)] border border-gray-100 w-full"
         >
-          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-slate-50 flex items-center justify-center text-[#2e3192] mb-6 md:mb-8 shadow-inner">
-            <FaTicketAlt className="text-3xl md:text-5xl" />
+          <div className="flex flex-col items-center w-full">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-slate-50 flex items-center justify-center text-[#2e3192] mb-6 shadow-inner">
+              <FaTicketAlt className="text-3xl md:text-4xl" />
+            </div>
+
+            <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2e3192] mb-3 uppercase tracking-tight">
+              REQUEST TICKET
+            </h3>
+
+            <p className="text-gray-600 text-center mb-8 text-sm sm:text-base md:text-lg leading-relaxed max-w-md">
+              Please submit a request ticket, and we will reach out to you shortly.
+            </p>
           </div>
-
-          <h3 className="text-xl md:text-3xl font-bold text-[#2e3192] mb-3 md:mb-4 uppercase tracking-tight">
-            REQUEST TICKET
-          </h3>
-
-          <p className="text-gray-600 text-center mb-6 md:mb-8 text-sm md:text-xl leading-relaxed">
-            Please submit a request ticket, and we will reach out to you shortly.
-          </p>
 
           <button
             onClick={() => setModalOpen(true)}
-            className="bg-[#2e3192] px-8 py-3 md:px-12 md:py-4 rounded-full transition-all duration-300 hover:bg-[#ee1c25] text-white hover:border-[#2e3192] font-semibold text-base md:text-xl active:scale-95 shadow-md"
+            className="bg-[#2e3192] px-8 py-3 md:px-10 md:py-3.5 rounded-full transition-all duration-300 hover:bg-[#ee1c25] text-white font-semibold text-base md:text-lg active:scale-95 shadow-md mt-auto w-full sm:w-auto min-w-[180px]"
           >
             Request Here
           </button>
         </motion.div>
       </div>
 
-      <TicketModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
-      <JoinModal isOpen={joinModalOpen} onClose={() => setJoinModalOpen(false)} />
+      {/* Modals rendering setup */}
+      <TicketModal isOpen={modalOpen} onClose={handleCloseTicketModal} />
+      <JoinModal isOpen={joinModalOpen} onClose={handleCloseJoinModal} />
+      
+      {/* ✅ SatisfactoryModal Component Mounting */}
+      <SatisfactoryModal 
+        isOpen={satisfactoryModalOpen} 
+        onClose={() => setSatisfactoryModalOpen(false)} 
+      />
     </motion.section>
   );
 };

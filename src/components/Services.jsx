@@ -1,196 +1,197 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FaAward, FaShareNodes, FaBullhorn } from "react-icons/fa6";
+import { FaAward, FaShareNodes, FaBullhorn, FaGlobe } from "react-icons/fa6";
 import { LuBlocks } from "react-icons/lu";
 
 const serviceCards = [
   {
     title: "Assessment, Certification and Accreditation",
     icon: <FaAward />,
-    path: "/cb-services", 
+    path: "/services-aca", 
     tabId: 1,
-    accent: "#4f46e5",
-    polyConfig: { baseScale: 2.2 },
-    decor: (color) => (
-      <g stroke={color} fill="none" strokeWidth="1.5">
-        <path d="M40,40 L40,160 L160,160" strokeWidth="1" opacity="0.3" />
-        <rect x="55" y="120" width="20" height="40" opacity="0.4" />
-        <rect x="85" y="100" width="20" height="60" opacity="0.6" />
-        <rect x="115" y="70" width="20" height="90" opacity="0.8" />
-        <motion.path
-          d="M40,140 L75,125 L105,105 L135,75"
-          strokeWidth="2"
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 3, repeat: Infinity }}
-        />
-        <motion.circle
-          cx="135" cy="75" r="6"
-          fill={color}
-          animate={{ scale: [1, 1.5, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
-      </g>
-    )
+    textColor: "#ffff",
+    accent: "#38bdf8", 
+    sizeClass: "text-[9rem] md:text-[11rem]", 
+    layoutClass: "md:col-start-3 md:row-start-1 p-6 flex flex-col justify-between h-[165px]"
+  },
+  {
+    title: "Technical/Advisory Assistance and Other Support Services",
+    icon: <FaBullhorn />,
+    path: "/services-taaorss", 
+    tabId: 4,
+    textColor: "#ffff",
+    accent: "#f87171", 
+    sizeClass: "text-[13rem] md:text-[15rem]", 
+    layoutClass: "md:col-start-3 md:row-start-2 md:row-span-2 p-6 flex flex-col justify-between h-[295px]"
+  },
+  {
+    title: "Knowledge Management",
+    icon: <FaShareNodes />,
+    path: "/services-km", 
+    tabId: 3,
+    textColor: "#ffff",
+    accent: "#DAB1DA",
+    sizeClass: "text-[9rem] md:text-[11rem]",
+    layoutClass: "md:col-span-1 md:row-start-3 p-6 flex flex-col justify-between h-[115px]"
   },
   {
     title: "Capability Building",
     icon: <LuBlocks />,
     path: "/cb-services", 
     tabId: 2,
-    accent: "#06b6d4",
-    polyConfig: { baseScale: 1.5 },
-    decor: (color) => (
-      <g stroke={color} fill="none" strokeWidth="1.5">
-        {[0, 1, 2].map((i) => (
-          <motion.rect
-            key={i}
-            x={40 + i * 45}
-            y={120 - i * 30}
-            width="35"
-            height={60 + i * 30}
-            animate={{ opacity: [0.2, 0.6, 0.2] }}
-            transition={{ duration: 4, repeat: Infinity, delay: i * 0.5 }}
-          />
-        ))}
-      </g>
-    )
-  },
-  {
-    title: "Knowledge Management",
-    icon: <FaShareNodes />,
-    path: "/cb-services", 
-    tabId: 3,
-    accent: "#e11d48",
-    polyConfig: { baseScale: 1.5 },
-    decor: (color) => (
-      <g stroke={color} fill="none" strokeWidth="1.2">
-        <circle cx="100" cy="100" r="80" />
-        <ellipse cx="100" cy="100" rx="80" ry="30" />
-        <ellipse cx="100" cy="100" rx="30" ry="80" />
-        <motion.circle
-          cx="100" cy="100" r="10"
-          animate={{ scale: [1, 1.3, 1] }}
-          transition={{ duration: 5, repeat: Infinity }}
-        />
-      </g>
-    )
-  },
-  {
-    title: "Technical/Advisory Assistance and Other Support Services",
-    icon: <FaBullhorn />,
-    path: "/cb-services", 
-    tabId: 4,
-    accent: "#FFE066",
-    polyConfig: { baseScale: 1.5 },
-    decor: (color) => (
-      <g stroke={color} fill="none" strokeWidth="1.5">
-        <circle cx="100" cy="100" r="25" />
-        {[50, 75, 100].map((r, i) => (
-          <motion.circle
-            key={i}
-            cx="100"
-            cy="100"
-            r={r}
-            animate={{ opacity: [0.1, 0.4, 0.1] }}
-            transition={{ duration: 3, repeat: Infinity, delay: i * 0.6 }}
-          />
-        ))}
-        <path d="M40,40 L60,60 M160,160 L140,140 M40,160 L60,140 M160,40 L140,60" opacity="0.5" />
-      </g>
-    )
+    textColor: "#ffff",
+    accent: "#fb923c", 
+    sizeClass: "text-[9rem] md:text-[11rem]", 
+    layoutClass: "md:col-span-1 md:col-start-2 md:row-start-3 p-6 flex flex-col justify-between h-[115px]"
   },
 ];
 
-const BrandedDecor = ({ service, isHovered }) => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-[0.2]">
-    <motion.svg
-      viewBox="0 0 200 200"
-      className="absolute w-full h-full -right-10 -top-10"
-      style={{ originX: "80%", originY: "20%" }}
-      variants={{
-        hover: { 
-          scale: service.polyConfig.baseScale * 1.2,
-        },
-        initial: { 
-          scale: service.polyConfig.baseScale,
-        }
-      }}
-      animate={isHovered ? "hover" : "initial"}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      xmlns="http://www.w3.org/2000/svg"
+const CardBackgroundIcon = ({ icon, color, sizeClass, isHovered }) => (
+  <div className={`absolute -right-6 -bottom-8 pointer-events-none opacity-[0.25] select-none z-0 ${sizeClass}`}>
+    <motion.div
+      style={{ color: color }}
+      className="w-full h-full flex items-center justify-center"
+      animate={isHovered ? { scale: 1.12, rotate: -6 } : { scale: 1, rotate: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      {service.decor(service.accent)}
-    </motion.svg>
+      {icon}
+    </motion.div>
   </div>
 );
+
+// ✅ Updated Indicator: Completely static circle and arrow indicators
+const CircleArrowIndicator = ({ theme = "dark" }) => {
+  const circleBg = theme === "yellow-card" ? "bg-[#2e3192]" : "bg-white";
+  const arrowColor = theme === "yellow-card" ? "stroke-white" : "stroke-[#2e3192]";
+
+  return (
+    <div className="absolute top-5 right-5 z-20 pointer-events-none">
+      <div 
+        className={`w-8 h-8 md:w-9 md:h-9 rounded-full ${circleBg} flex items-center justify-center shadow-md`}
+      >
+        <svg 
+          width="18" 
+          height="18" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          className={arrowColor}
+          strokeWidth="2.5" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        >
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </div>
+    </div>
+  );
+};
 
 const Services = () => {
   const navigate = useNavigate();
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [isAllHovered, setIsAllHovered] = useState(false);
 
   return (
-    <section className="relative w-full flex items-center justify-center px-6 py-20 lg:px-24 overflow-hidden bg-[#2e3192] font-['Montserrat']">
-      <div className="relative z-10 max-w-[1440px] w-full grid grid-cols-1 lg:grid-cols-[40%_60%] gap-16 items-center">
+    <section className="relative w-full flex items-center justify-center px-4 py-12 md:px-8 lg:px-12 bg-[#2e3192] font-['Montserrat'] overflow-hidden">
+      
+      <div className="relative z-10 max-w-[1440px] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         
-        {/* Left Content */}
+        {/* Left Typography Column */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-white space-y-6"
+          className="text-white space-y-4 lg:col-span-5 flex flex-col justify-center text-left"
         >
           <div className="space-y-1">
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tighter leading-tight">
+            <h1 className="text-4xl md:text-[3.6rem] font-black tracking-tight leading-none text-white">
               DSWD Academy
             </h1>
-            <h2 className="text-5xl md:text-6xl font-bold text-[#FFE066] italic leading-tight">
+            <h2 className="text-4xl md:text-[3.6rem] font-black text-[#FFE066] italic leading-none pt-1">
               Services
             </h2>
           </div>
-          <p className="text-base md:text-lg font-medium opacity-80 max-w-lg leading-relaxed tracking-wide">
-            Empowering social welfare professionals through data-driven assessment, 
-            capacity enhancement, and strategic technical support.
+          <p className="text-sm md:text-[16px] font-medium leading-relaxed text-white/80 tracking-wide max-w-xl">
+            DSWD Academy services in one portal. Simplifying processes, and making technical assistance more accessible and convenient.
           </p>
         </motion.div>
 
-        {/* Right Content Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-          {serviceCards.map((service, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => navigate(service.path, { state: { defaultTabId: service.tabId } })}
-              className="relative rounded-[1.5rem] p-8 h-56 flex flex-col justify-start gap-6 cursor-pointer shadow-2xl group overflow-hidden border border-white/20 bg-white"
-              whileHover={{ y: -10 }}
-            >
-              <BrandedDecor 
-                service={service} 
-                isHovered={hoveredIndex === i} 
-              />
+        {/* Right Layout Grid Matrix Area */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:col-span-7 w-full">
+          
+          {/* MAIN HERO CARD */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            onMouseEnter={() => setIsAllHovered(true)}
+            onMouseLeave={() => setIsAllHovered(false)}
+            onClick={() => navigate("/all-services", { state: { defaultTabId: 0 } })}
+            className="relative md:col-span-2 md:row-span-2 rounded-[2rem] p-8 h-[350px] flex flex-col justify-between cursor-pointer shadow-2xl group overflow-hidden bg-[#FFE066] text-[#1f2286] border border-black/5"
+            whileHover={{ y: -4 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+          >
+            <CardBackgroundIcon 
+              icon={<FaGlobe />} 
+              color="#ffffff" 
+              sizeClass="text-[14rem] md:text-[16rem]" 
+              isHovered={isAllHovered} 
+            />
 
-              {/* Icon Container */}
+            <CircleArrowIndicator theme="yellow-card" />
+
+            <div className="z-10 mt-auto pointer-events-none">
+              <h3 className="font-extrabold text-xl md:text-4xl text-left text-[#2e3192] transition-colors duration-300">
+                All Services
+              </h3>
+              <p className="text-md text-[#1f2286]/80 text-left mt-2 leading-relaxed font-medium max-w-md">
+                Browse all service categories and access the programs and interventions offered by the DSWD Academy.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* SERVICE MATRIX BLOCKS */}
+          {serviceCards.map((service, index) => {
+            const isHovered = hoveredIndex === index;
+            
+            return (
               <motion.div
-                animate={hoveredIndex === i ? { rotate: 15, scale: 1.1 } : { rotate: 0, scale: 1 }}
-                className="w-14 h-14 rounded-2xl flex items-center justify-center text-white text-3xl z-10 shadow-lg"
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
+                onClick={() => navigate(service.path, { state: { defaultTabId: service.tabId } })}
                 style={{ backgroundColor: service.accent }}
+                className={`relative rounded-[1.75rem] cursor-pointer shadow-xl group overflow-hidden border border-black/5 transition-all ${service.layoutClass}`}
+                whileHover={{ y: -4 }}
               >
-                {service.icon}
-              </motion.div>
+                <CardBackgroundIcon 
+                  icon={service.icon} 
+                  color="#ffffff" 
+                  sizeClass={service.sizeClass} 
+                  isHovered={isHovered} 
+                />
 
-              {/* Service Title */}
-              <div className="z-10 mt-auto">
-                <h3 className="text-[#2e3192] font-extrabold text-sm md:text-[20px] leading-snug text-left group-hover:text-black transition-colors duration-300">
-                  {service.title}
-                </h3>
-              </div>
-            </motion.div>
-          ))}
+                <CircleArrowIndicator theme="matrix-card" />
+                
+                <div className="flex flex-col justify-between h-full w-full z-10 relative pointer-events-none">
+                  <div className="w-full pr-10"> 
+                    <h3 
+                      style={{ color: service.textColor }} 
+                      className="font-black text-[14px] md:text-[15px] leading-snug text-left tracking-tight"
+                    >
+                      {service.title}
+                    </h3>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+
         </div>
       </div>
     </section>

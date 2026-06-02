@@ -1,16 +1,23 @@
 // src/components/GlobalFaqDial.jsx
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router-dom"; 
 import { motion, AnimatePresence } from "framer-motion";
 import { FaLayerGroup as FaLayerGroupIcon, FaXmark as FaXmarkIcon } from "react-icons/fa6";
+
+// Explicit sub-card path groups matching your application states
+const acaPaths = ["/cpd", "/certification", "/accreditation", "/ascend-eteeap"];
+const cbPaths = ["/ld-standards", "/active-profile", "/ldi-dip", "/participant-eligibility", "/cbas", "/ta-support"];
+const kmPaths = ["/knowledge-product", "/cgs", "/kss", "/role-functions"];
+const taaorssPaths = ["/tara-program", "/tamp", "/par", "/orf"];
 
 const GlobalFaqDial = ({ routes, onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef(null);
+  const location = useLocation(); 
 
   const handleToggle = () => setIsOpen(!isOpen);
 
-  // Close when clicking outside of the active dial component
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (containerRef.current && !containerRef.current.contains(event.target)) {
@@ -28,7 +35,6 @@ const GlobalFaqDial = ({ routes, onNavigate }) => {
 
   const radius = 135;
 
-  // Projectile physics timeline: leaves the ground, jumps high, spins fluidly
   const ballBounceSequence = {
     y: [0, -45, 0, -22, 0, -8, 0, 0],
     rotate: [0, 140, 220, 290, 330, 350, 360, 360],
@@ -45,24 +51,57 @@ const GlobalFaqDial = ({ routes, onNavigate }) => {
     },
   };
 
-  // Determine the active state based on menu open and user pointer position
   const getButtonAnimationState = () => {
     if (isOpen) return "openState";
-    if (isHovered) return "hoverState"; // Freezes the active bounce timeline sequence
+    if (isHovered) return "hoverState"; 
     return ballBounceSequence;
+  };
+
+  // Check active state based on index position or title matching if paths vary
+  const checkIfRouteIsActive = (route, index) => {
+    const currentUrl = location.pathname.toLowerCase();
+    const routePath = route.path?.toLowerCase() || "";
+    const routeTitle = route.title?.toLowerCase() || "";
+
+    // 1. Check direct URL match first
+    if (currentUrl === routePath || (routePath !== "/" && currentUrl.includes(routePath))) {
+      return true;
+    }
+
+    // 2. Fallback: Determine section matching via your active menu items index or title
+    // Section 1: ACA (Typically your 1st item, index 0)
+    if (index === 0 || routeTitle.includes("aca") || routePath.includes("aca")) {
+      return acaPaths.some(path => currentUrl.includes(path));
+    }
+
+    // Section 2: CB (Typically your 2nd item, index 1)
+    if (index === 1 || routeTitle.includes("cb") || routeTitle.includes("building") || routePath.includes("cb")) {
+      return cbPaths.some(path => currentUrl.includes(path));
+    }
+
+    // Section 3: KM (Typically your 3rd item, index 2)
+    if (index === 2 || routeTitle.includes("km") || routeTitle.includes("knowledge") || routePath.includes("km")) {
+      return kmPaths.some(path => currentUrl.includes(path));
+    }
+
+    // Section 4: TAAORSS (Typically your 4th item, index 3)
+    if (index === 3 || routeTitle.includes("taaor") || routeTitle.includes("tara") || routePath.includes("taaor")) {
+      return taaorssPaths.some(path => currentUrl.includes(path));
+    }
+
+    return false;
   };
 
   return (
     <div 
       ref={containerRef} 
       className="fixed left-8 z-[100] flex items-center justify-center w-16 h-16"
-      // Dropped slightly to 45px for a precise fit
       style={{ bottom: "45px" }} 
     >
       {/* Radial Fan-out Menu Items */}
       <AnimatePresence>
         {isOpen &&
-          routes.map((route, index) => {
+          routes?.map((route, index) => {
             const totalItems = routes.length;
             const startAngle = 90 * (Math.PI / 180);
             const endAngle = 0 * (Math.PI / 180);
@@ -72,9 +111,12 @@ const GlobalFaqDial = ({ routes, onNavigate }) => {
             const customX = Math.cos(angle) * radius;
             const customY = -Math.sin(angle) * radius;
 
+            // Pass both route data and list index position for absolute tracking accuracy
+            const isActive = checkIfRouteIsActive(route, index);
+
             return (
               <motion.div
-                key={route.path}
+                key={route.path || index}
                 className="absolute flex items-center justify-center group cursor-pointer"
                 style={{ zIndex: 200 - index }}
                 initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
@@ -94,15 +136,19 @@ const GlobalFaqDial = ({ routes, onNavigate }) => {
 
                 {/* Circular Rounded Icon Container */}
                 <div className="relative w-14 h-14 flex items-center justify-center">
-                  {/* Changed background from yellow bg-[#FFE066] to blue bg-[#2e3192] */}
                   <motion.div 
-                    className="absolute inset-0 bg-[#2e3192] border border-white/40 shadow-xl rounded-2xl"
+                    className={`absolute inset-0 border border-white/40 shadow-xl rounded-2xl ${
+                      isActive ? "bg-[#ee1c25]" : "bg-[#2e3192]"
+                    }`}
                     variants={{
-                      hoverState: { scale: 1.15, rotate: -12 }
+                      hoverState: { 
+                        scale: 1.15, 
+                        rotate: -12,
+                        backgroundColor: isActive ? "#ee1c25" : "#2e3192" 
+                      }
                     }}
                     transition={{ type: "spring", stiffness: 400, damping: 15 }}
                   />
-                  {/* Changed text/icon color from blue text-[#2e3192] to white text-white */}
                   <motion.div 
                     className="relative z-10 text-white w-6 h-6 flex items-center justify-center pointer-events-none"
                     variants={{

@@ -18,13 +18,14 @@ import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
 import GlobalFaqDial from "../components/GlobalFaqDial";
+import FloatingCardDeck from "../components/FloatingCardDeck";
 
 // Top FAQ cards
 const faqCards = [
   { title: "TARA Program", icon: <FaFileCircleCheck />, path: "/tara-program" },
   { title: "TARGETING ASSESSMENT MONITORING PLANNING", icon: <FaFileCircleCheck />, path: "/tamp" },
   { title: "PERFORMANCE AND RECOGNITION", icon: <FaFileLines />, path: "/par" },
-  { title: "OTHER REQUEST AND REFFERAL", icon: <FaNetworkWired />, path: "/orf" },
+  { title: "OTHER REQUEST AND REFERRAL", icon: <FaNetworkWired />, path: "/orf" },
 ];
 
 /* ---------------- MASTER GLOBAL ROUTES ---------------- */
@@ -126,8 +127,6 @@ const TaraProgram = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const cardRefs = useRef([]);
-  const [currentCard, setCurrentCard] = useState(0);
-  const [bottomOffset, setBottomOffset] = useState(32);
 
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
@@ -136,21 +135,21 @@ const TaraProgram = () => {
     if (path) navigate(path);
   };
 
-  // Floating cards
-  const floatingCards = [
+  // Structured action cards config for the custom layout container
+  const customDeckCards = [
     {
       title: "TA WEDNESDAY",
       icon: <FaLaptopMedical />,
       description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
       buttonText: "Join Here",
-      buttonAction: () => setIsJoinModalOpen(true),
+      onClick: () => setIsJoinModalOpen(true),
     },
     {
       title: "REQUEST TICKET",
       icon: <FaTicket />,
       description: "Submit a request ticket and we will reach out shortly.",
       buttonText: "Request Here",
-      buttonAction: () => setIsTicketModalOpen(true),
+      onClick: () => setIsTicketModalOpen(true),
     },
   ];
 
@@ -160,27 +159,6 @@ const TaraProgram = () => {
       cardRefs.current[activeIndex].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     }
   }, [location.pathname]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentCard((prev) => (prev + 1) % floatingCards.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const footer = document.getElementById("footer");
-      if (footer) {
-        const footerRect = footer.getBoundingClientRect();
-        const spaceFromBottom = window.innerHeight - footerRect.top + 20;
-        setBottomOffset(Math.max(32, spaceFromBottom));
-      }
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
 
   return (
     <div className="pt-20 font-sans relative">
@@ -246,42 +224,9 @@ const TaraProgram = () => {
         </div>
       </section>
 
-      {/* Floating Split Deck */}
-      <div className="fixed right-6 z-50 w-56 h-60" style={{ bottom: `${bottomOffset}px` }}>
-        {floatingCards.map((card, index) => {
-          const isTop = index === currentCard;
-          const offsetX = isTop ? -10 : 10;
-          const rotation = isTop ? -5 : 5;
-          const zIndex = isTop ? 20 : 10;
+      {/* Shared presentation interface layout for the unified card stack deck */}
+      <FloatingCardDeck cards={customDeckCards} rotateInterval={4000} footerId="footer" />
 
-          return (
-            <motion.div
-              key={card.title}
-              className="absolute bg-white rounded-2xl shadow-xl w-48 cursor-pointer flex flex-col items-center p-4 md:p-6"
-              style={{ zIndex }}
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ x: offsetX, y: 0, rotate: rotation, scale: isTop ? 1 : 0.95, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              onClick={card.buttonAction}
-            >
-              <div className="flex flex-col items-center text-center w-full">
-                <div className="mb-2">{React.cloneElement(card.icon, { size: 35, className: "text-[#2e3192]" })}</div>
-                <h3 className="text-sm md:text-md font-bold text-[#2e3192] mb-2">{card.title}</h3>
-                <p className="text-gray-600 text-3xs md:text-xs mb-2">{card.description}</p>
-                <button 
-                  className="bg-[#ee1c25] text-white w-full mx-auto px-4 py-2 rounded-full font-semibold hover:scale-105 transition text-sm md:text-base block text-center"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    card.buttonAction();
-                  }}
-                >
-                  {card.buttonText}
-                </button>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
       <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
       <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)}/>
     </div>

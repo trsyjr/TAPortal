@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
         </h1>
 
         <p className="text-gray-700 mb-4">
-          This Privacy Policy explains how the Capability Building Technical Assistance Portal (the “Portal”) collects, uses, and protects information obtained from users.
+          This Privacy Policy explains how the DSWD Academy Technical Assistance Portal (the “Portal”) collects, uses, and protects information obtained from users.
         </p>
 
         <h2 className="text-xl font-semibold text-[#2e3192] mt-6 mb-2">Information Collected</h2>

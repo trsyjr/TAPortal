@@ -11,13 +11,24 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-y-10 md:gap-x-8 items-start">
           
           {/* Column 1: Brand Info */}
-          <div className="md:col-span-4 space-y-6">
-            <h3 className="text-3xl md:text-[40px] font-bold leading-[1.1] tracking-tight">
+          <div className="md:col-span-4 flex flex-col">
+            <h3 className="text-3xl md:text-[40px] font-bold leading-[1.1] tracking-tight mb-6">
               DSWD Academy <br /> TA Portal
             </h3>
+            
             <p className="text-[14px] leading-relaxed text-gray-200 max-w-[280px]">
               The DSWD Academy's digital portal for streamlined technical assistance requests, coordination, and support.
             </p>
+
+            {/* Contact Us Link with space directly under the description text */}
+            <Link 
+              to="/about#get-in-touch" 
+              className="mt-5 text-[14px] text-gray-200 underline hover:text-white transition-colors self-start"
+            >
+              Contact Us
+            </Link>
+
+            {/* Address Info separated at the bottom */}
             <p className="text-[14px] pt-4 text-gray-200">
               111 Block 3, Taguig, 1630 Metro Manila
             </p>
@@ -115,7 +126,7 @@ const Footer = () => {
                 <img 
                   src={Kliyentell} 
                   alt="QR Code" 
-                  className="w-36 h-36 md:w-44 md:h-44 object-contain md:-translate-x-3 md:-translate-y-2 cursor-pointer" 
+                  className="w-36 h-36 md:w-56 md:h-56 object-contain md:-translate-x-3 md:-translate-y-2 cursor-pointer" 
                 />
               </a>
             </div>

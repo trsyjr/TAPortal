@@ -32,9 +32,9 @@ const positionsDesktop = [
 ];
 
 const tableTabs = [
-  "Assessment, Certification, and Accreditation Division",
-  "Capability Building Division",
-  "Knowledge Management Division",
+  "Assessment, Certification, and Accreditation",
+  "Capability Building",
+  "Knowledge Management",
   "TAAORSS",
   "OTHERS",
 ];
@@ -42,7 +42,7 @@ const tableTabs = [
 const tableData = [
   {
     id: 1,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "Memorandum",
     fileName: "Centralization of all Capability Building Activities (CBAs) of the Central Office (CO) to the SWIDB-DSWD Academy",
     dateIssued: "1 Feb, 2024",
@@ -50,7 +50,7 @@ const tableData = [
   },
   {
     id: 2,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "Memorandum",
     fileName: "Operationalization of the Centralization of the Capability Building (CB) in the SWIDB-DSWD Academy",
     dateIssued: "20 Jun, 2024",
@@ -58,7 +58,7 @@ const tableData = [
   },
   {
     id: 3,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "Memorandum",
     fileName: "Details and Arrangements for the Field Office to Operationalize the Centralization of the Capability Building (CB) in the SWIDB-DSWD Academy",
     dateIssued: "20 Jun, 2024",
@@ -66,7 +66,7 @@ const tableData = [
   },
   {
     id: 4,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "Memorandum",
     fileName: "Endorsement of Lead and Alternate Designated Focal Persons for LDIs and Capability Building Programs for CY 2025-2027",
     dateIssued: "19 Dec, 2024",
@@ -74,7 +74,7 @@ const tableData = [
   },
   {
     id: 5,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "MC No. 11, s. 2010",
     fileName: "Guidelines in the Preperation and Submission of IDCB Plans and Accomplishment Reports",
     dateIssued: "22 Jun, 2010",
@@ -82,7 +82,7 @@ const tableData = [
   },
   {
     id: 6,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "Memorandum",
     fileName: "Call for Submission and Invitation for the Technical Assistance in Accomplishing the 2026 Capability Building Plan",
     dateIssued: "6 Oct 2025",
@@ -90,7 +90,7 @@ const tableData = [
   },
   {
     id: 7,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "Attachments",
     fileName: "Guidance Note for the Accomplishment of the Capability Building Plan Fiscal Year 2026",
     dateIssued: "6 Oct 2025",
@@ -98,7 +98,7 @@ const tableData = [
   },
   {
     id: 8,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "MC No. 23, s. 2003",
     fileName: "Adoption of the DSWD Organizational Competencies",
     dateIssued: "27 Jun, 2003",
@@ -106,7 +106,7 @@ const tableData = [
   },
   {
     id: 9,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "AO No. 20, s. 2004",
     fileName: "Omnibus Policies and Guidelines on the Management of DSWD Capability Building Efforts",
     dateIssued: "3 Jun, 2004",
@@ -114,7 +114,7 @@ const tableData = [
   },
   {
     id: 10,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "BC No. 2007-1, s. 2007",
     fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators and Facilitators",
     dateIssued: "23 Apr, 2007",
@@ -122,7 +122,7 @@ const tableData = [
   },
   {
     id: 11,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "MC No. 04, s. 2010",
     fileName: "'Institutional Development' Framework Amending for the purpose Memorandum Circular No. 32, Series of 2004",
     dateIssued: "15 Apr, 2010",
@@ -130,7 +130,7 @@ const tableData = [
   },
   {
     id: 12,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "MC No. 07, s. 2010",
     fileName: "Terms of Reference on the Use of Standard Forms on Training Design, Syllabus and Documentation",
     dateIssued: "13 May, 2010",
@@ -138,7 +138,7 @@ const tableData = [
   },
   {
     id: 13,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "AO No. 16, s. 2010",
     fileName: "Framework and Guidelines for Capability Building of DSWD Social Protection Intermediaries and Stakeholders",
     dateIssued: "16 Dec, 2010",
@@ -146,7 +146,7 @@ const tableData = [
   },
   {
     id: 14,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "AO No. 10, s. 2019",
     fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators, Facilitators in Seminars, Training Programs, and other Similar Activities",
     dateIssued: "15 May, 2019",
@@ -154,7 +154,7 @@ const tableData = [
   },
   {
     id: 15,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "Memorandum",
     fileName: "Guidance on the Provision of Learning Activities for Contract of Service (COS) and Job Order (JO) Workers",
     dateIssued: "7 Feb, 2024",
@@ -162,7 +162,7 @@ const tableData = [
   },
   {
     id: 16,
-    category: ["Capability Building Division", "Knowledge Management Division"],
+    category: ["Capability Building Division", "Knowledge Management"],
     type: "AO No. 17, s. 2011",
     fileName: "Knowledge Management (KM) Framework of the Department of Social Welfare and Development (DSWD)",
     dateIssued: "31 Aug, 2011",
@@ -170,7 +170,7 @@ const tableData = [
   },
   {
     id: 17,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "AO No. 11, s. 2015",
     fileName: "DSWD Strategic Performance Management System (DSPMS)",
     dateIssued: "30 Jun, 2015",
@@ -178,7 +178,7 @@ const tableData = [
   },
   {
     id: 18,
-    category: ["Capability Building Division", "TAAORSS"],
+    category: ["Capability Building", "TAAORSS"],
     type: "MC No. 10, s. 2018",
     fileName: "Guidelines on the Provision of Technical Assistance and Resource Augmentation to Local Government Units through Local Social Welfare and Development Offices",
     dateIssued: "10 May, 2018",
@@ -186,7 +186,7 @@ const tableData = [
   },
   {
     id: 19,
-    category: ["Capability Building Division", "Knowledge Management Division"],
+    category: ["Capability Building", "Knowledge Management"],
     type: "AO No. 04, s. 2021",
     fileName: "Guidelines in Conducting the Department of Social Welfare and Development's Knowledge Sharing Sessions)",
     dateIssued: "23 May, 2021",
@@ -194,7 +194,7 @@ const tableData = [
   },
   {
     id: 20,
-    category: ["Capability Building Division", "Knowledge Management Division"],
+    category: ["Capability Building", "Knowledge Management"],
     type: "AO No. 09, s. 2022",
     fileName: "Implementing Guidelines of the DSWD Knowledge Management Framework",
     dateIssued: "18 Mar 2022",
@@ -202,7 +202,7 @@ const tableData = [
   },
   {
     id: 21,
-    category: "Capability Building Division",
+    category: "Capability Building",
     type: "Memorandum",
     fileName: "Fiscal Year (FY) 2025 Work and Financial Planning Guidelines",
     dateIssued: "31 May 2024",
@@ -250,23 +250,23 @@ const tableData = [
   },
   {
     id: 27,
-    category: "Assessment, Certification, and Accreditation Division",
+    category: "Assessment, Certification, and Accreditation",
     type: "MC No. 05 s. 2026",
-    fileName: "Guidelines on the Establishment and Operationalizationof the DSWD Academy",
+    fileName: "Guidelines on the Establishment and Operationalization of the DSWD Academy",
     dateIssued: "12 Feb, 2026",
     link: "/pdfs/Memorandum Circular_05_2026_Guidelines on the Establishment and Operationalization of the DSWD Academy.pdf",
   },
   {
     id: 28,
-    category: "Assessment, Certification, and Accreditation Division",
+    category: "Assessment, Certification, and Accreditation",
     type: "Forms",
-    fileName: "Supervisiory Reference Evaluation Form",
+    fileName: "Supervisory Reference Evaluation Form",
     dateIssued: "2026",
     link: "https://drive.google.com/drive/folders/1V6DE9tYvkSyoCHmIU6gw8_637L7Lpo7o",
   },
   {
     id: 29,
-    category: "Assessment, Certification, and Accreditation Division",
+    category: "Assessment, Certification, and Accreditation",
     type: "Forms",
     fileName: "2020 PRC Website Requirements Forms",
     dateIssued: "2020",
@@ -274,7 +274,7 @@ const tableData = [
   },
   {
     id: 30,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "SO No. 652, s. 2025",
     fileName: "Terms of Reference (TOR) and Designation of Knowledge Management (KM)-Technical Working Group (TWG) and KM Teams of DSWD and its Offices",
     dateIssued: "7 Feb, 2025",
@@ -282,7 +282,7 @@ const tableData = [
   },
   {
     id: 31,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "SO No. 1023, s. 2023",
     fileName: "Designation of Knowledge Management Focal Persons and Alternates of DSWD Central Office and Field Offices",
     dateIssued: "15 March, 2023",
@@ -290,7 +290,7 @@ const tableData = [
   },
   {
     id: 32,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "AO No. 05, s. 2024",
     fileName: "Department of Social Welfare and Development (DSWD) Intellectual Property (IP) Policy",
     dateIssued: "18 March, 2024",
@@ -298,7 +298,7 @@ const tableData = [
   },
   {
     id: 33,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "SO No. 1747, s. 2021",
     fileName: "Designation of Knowldege Management Focal Persons and Alternates of DSWD Central Office and Field Offices",
     dateIssued: "16 June, 2021",
@@ -306,7 +306,7 @@ const tableData = [
   },
   {
     id: 34,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "MC No. 21, s. 2020",
     fileName: "Guidelines on the Establishment and Management of the Social Welfare and Development Learning Network (SWD L-Net) at the Central and Field Offices",
     dateIssued: "29 Sep, 2020",
@@ -314,7 +314,7 @@ const tableData = [
   },
   {
     id: 35,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "AO No. 05, s. 2016",
     fileName: "Good Practice Documentation Guideline",
     dateIssued: "11 Apr, 2016",
@@ -322,7 +322,7 @@ const tableData = [
   },
   {
     id: 36,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "AO No. 15, s. 2015",
     fileName: "Operationalization of the DSWD Core Group of Specialist",
     dateIssued: "29 Sep, 2015",
@@ -330,7 +330,7 @@ const tableData = [
   },
   {
     id: 37,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "MC No. 11, s. 2008",
     fileName: "Guidelines on the Conduct of Social Welfare and Development Forum",
     dateIssued: "1 Aug, 2008",
@@ -338,18 +338,37 @@ const tableData = [
   },
   {
     id: 38,
-    category: "Knowledge Management Division",
+    category: "Knowledge Management",
     type: "AO No. 20, s. 2005",
     fileName: "Establishment of Social Welfare and Development Learning Network",
     dateIssued: "28 Dec, 2005",
     link: "/pdfs/Social Welfare and Development Learning Network.pdf",
   },
+  {
+    id: 39,
+    category: "Assessment, Certification, and Accreditation",
+    type: "Forms",
+    fileName: "Certification Application Packet",
+    dateIssued: "2026",
+    link: "https://drive.google.com/drive/folders/1y0Oue5ojJE0D1D3LeePMxiUhtbfHdhH1",
+  },
 ];
 
-const KnowledgeBank = () => {
+// ==========================================
+// CORE COMPONENT
+// ==========================================
+const Resources = () => {
   const [order, setOrder] = useState([0, 1, 2, 3, 4]);
   const [isMobile, setIsMobile] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false); 
+  const [activeTab, setActiveTab] = useState(tableTabs[0]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 5;
+  const [dateSort, setDateSort] = useState(null);
+  const scrollContainerRef = useRef(null);
 
+  // Screen layout size check listener
   useEffect(() => {
     const checkScreen = () => setIsMobile(window.innerWidth < 1024);
     checkScreen();
@@ -357,6 +376,7 @@ const KnowledgeBank = () => {
     return () => window.removeEventListener("resize", checkScreen);
   }, []);
 
+  // Icon carousel floating rotation interval loop
   useEffect(() => {
     if (isMobile) return;
     const interval = setInterval(() => {
@@ -364,74 +384,6 @@ const KnowledgeBank = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, [isMobile]);
-
-  const textContainerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.3, delayChildren: 0.2 },
-    },
-  };
-
-  const textItemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
-  };
-
-  return (
-    <div className={`min-h-[85vh] px-6 lg:px-24 flex items-center justify-center bg-cover bg-center ${isMobile ? "pt-32 pb-16" : "pt-40 pb-20"}`} style={{ backgroundImage: `url(${TABG})` }}>
-      <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-[110rem] gap-20">
-        <motion.div 
-          className="flex-1 text-center lg:text-left z-10"
-          initial="hidden"
-          animate="visible"
-          variants={textContainerVariants}
-        >
-          <motion.h1 variants={textItemVariants} className="text-3xl lg:text-6xl font-extrabold mb-8 text-[#2e3192] tracking-tight leading-tight">
-            Resources for DSWD Learning and Development Standards
-          </motion.h1>
-          <motion.p variants={textItemVariants} className="text-black mb-4 leading-relaxed text-lg lg:text-2xl opacity-90">
-            This page provides access to curated resources that support the planning, implementation, and monitoring of capability building initiatives.
-          </motion.p>
-          <motion.p variants={textItemVariants} className="text-black mb-6 leading-relaxed text-lg lg:text-2xl opacity-90">
-            The materials available here are intended to guide clients in understanding technical assistance processes and enhancing the quality of their learning interventions.
-          </motion.p>
-        </motion.div>
-        {!isMobile ? (
-          <div className="flex-1 flex justify-center items-center relative h-[600px]">
-            <div className="relative w-full h-full flex items-center justify-center">
-              {order.map((posIndex, i) => {
-                const { x, y } = positionsDesktop[posIndex];
-                const { icon, size, color } = icons[i];
-                return (
-                  <motion.div key={i} className="absolute" animate={{ x, y }} transition={{ duration: 1.5, ease: "easeInOut" }}>
-                    <FontAwesomeIcon icon={icon} className={`${color} ${size} filter drop-shadow-xl`} />
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          <div className="w-full overflow-hidden py-10">
-            <motion.div className="flex gap-16 items-center w-max" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, duration: 20, ease: "linear" }}>
-              {icons.concat(icons).map((item, i) => (
-                <div key={i} className={`flex-shrink-0 ${item.color} text-7xl`}><FontAwesomeIcon icon={item.icon} /></div>
-              ))}
-            </motion.div>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-};
-
-const Resources = () => {
-  const [activeTab, setActiveTab] = useState(tableTabs[0]);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
-  const [dateSort, setDateSort] = useState(null);
-  const scrollContainerRef = useRef(null);
 
   // Auto-centering active tab logic
   useEffect(() => {
@@ -454,11 +406,9 @@ const Resources = () => {
 
   const filteredData = tableData
     .filter((item) => {
-      // Check if category is an array, if so use .includes()
       if (Array.isArray(item.category)) {
         return item.category.includes(activeTab);
       }
-      // Fallback to strict match if it's a plain string
       return item.category === activeTab;
     })
     .filter((item) =>
@@ -468,11 +418,26 @@ const Resources = () => {
     .sort((a, b) => {
       if (!dateSort) return 0;
       const parseDate = (d) => (d ? new Date(d.replace(",", "")) : new Date(0));
-      return dateSort === "asc" ? parseDate(b.dateIssued) - parseDate(a.dateIssued) : parseDate(a.dateIssued) - parseDate(b.dateIssued);
+      return dateSort === "asc"
+        ? parseDate(b.dateIssued) - parseDate(a.dateIssued)
+        : parseDate(a.dateIssued) - parseDate(b.dateIssued);
     });
 
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
   const paginatedData = filteredData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+
+  const textContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3, delayChildren: 0.2 },
+    },
+  };
+
+  const textItemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
 
   const rowVariants = {
     initial: { opacity: 0, y: 20 },
@@ -482,8 +447,106 @@ const Resources = () => {
 
   return (
     <div className="bg-white min-h-screen pb-20 overflow-x-hidden">
-      <KnowledgeBank />
+      
+      {/* Hero Header Section */}
+      <div 
+        className={`min-h-[85vh] px-6 lg:px-24 flex items-center justify-center bg-cover bg-center ${isMobile ? "pt-32 pb-16" : "pt-40 pb-20"}`} 
+        style={{ backgroundImage: `url(${TABG})` }}
+      >
+        <div className="flex flex-col lg:flex-row items-center justify-between w-full max-w-[110rem] gap-20">
+          <motion.div 
+            className="flex-1 text-center lg:text-left z-10"
+            initial="hidden"
+            animate="visible"
+            variants={textContainerVariants}
+          >
+            <motion.h1 variants={textItemVariants} className="text-3xl lg:text-6xl font-extrabold mb-8 text-[#2e3192] tracking-tight leading-tight">
+              Resources
+            </motion.h1>
 
+            {/* Paragraph 1 */}
+            <motion.p variants={textItemVariants} className="text-black mb-4 leading-relaxed text-lg lg:text-2xl opacity-90">
+              This page provides access to curated resources that support the various technical assistance services of the DSWD 
+              Academy, including capability building, knowledge management, assessment, certification, accreditation, and technical 
+              assistance/advisory and other related support services. The materials available here are intended to assist clients 
+              in understanding service processes, complying with applicable policies and standards, and effectively accessing Academy 
+              services.
+              
+              {/* See More: Only renders when collapsed */}
+              {!isExpanded && (
+                <button
+                  onClick={() => setIsExpanded(true)}
+                  className="ml-2 text-[#2e3192] font-black hover:text-[#ee1c25] transition-colors duration-200 focus:outline-none cursor-pointer inline-flex items-center"
+                >
+                  See More
+                </button>
+              )}
+            </motion.p>
+
+            {/* Collapsible Content */}
+            <AnimatePresence initial={false}>
+              {isExpanded && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="pt-2">
+                    {/* Paragraph 2 */}
+                    <p className="text-black mb-6 leading-relaxed text-lg lg:text-2xl opacity-90">
+                      Resources may include legal bases, policies, guidelines, manuals, forms, templates, tools, reference materials, knowledge 
+                      products, and other relevant documents developed, adopted, or endorsed by the DSWD Academy. These resources are maintained to 
+                      support informed decision-making, improve service delivery, and promote consistency in the implementation of Academy-related 
+                      interventions.
+                    </p>
+                    
+                    {/* Paragraph 3: Anchors the "See Less" trigger directly inside the end of text flow */}
+                    <p className="text-black mb-6 leading-relaxed text-lg lg:text-2xl opacity-90">
+                      Clients are encouraged to review the available resources before submitting a technical assistance request, as the information 
+                      and materials provided may already address common concerns, clarify requirements, and facilitate faster resolution of inquiries.
+                      
+                      <button
+                        onClick={() => setIsExpanded(false)}
+                        className="ml-2 text-[#2e3192] font-black hover:text-[#ee1c25] transition-colors duration-200 focus:outline-none cursor-pointer inline-flex items-center"
+                      >
+                        See Less
+                      </button>
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+
+          {!isMobile ? (
+            <div className="flex-1 flex justify-center items-center relative h-[600px]">
+              <div className="relative w-full h-full flex items-center justify-center">
+                {order.map((posIndex, i) => {
+                  const { x, y } = positionsDesktop[posIndex];
+                  const { icon, size, color } = icons[i];
+                  return (
+                    <motion.div key={i} className="absolute" animate={{ x, y }} transition={{ duration: 1.5, ease: "easeInOut" }}>
+                      <FontAwesomeIcon icon={icon} className={`${color} ${size} filter drop-shadow-xl`} />
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full overflow-hidden py-10">
+              <motion.div className="flex gap-16 items-center w-max" animate={{ x: ["0%", "-50%"] }} transition={{ repeat: Infinity, duration: 20, ease: "linear" }}>
+                {icons.concat(icons).map((item, i) => (
+                  <div key={i} className={`flex-shrink-0 ${item.color} text-7xl`}><FontAwesomeIcon icon={item.icon} /></div>
+                ))}
+              </motion.div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Main Core Document Directory Tables List */}
       <section className="w-full max-w-[110rem] mx-auto flex flex-col mt-10 px-4 sm:px-6 lg:px-14">
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
           <div 
