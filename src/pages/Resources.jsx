@@ -354,9 +354,6 @@ const tableData = [
   },
 ];
 
-// ==========================================
-// CORE COMPONENT
-// ==========================================
 const Resources = () => {
   const [order, setOrder] = useState([0, 1, 2, 3, 4]);
   const [isMobile, setIsMobile] = useState(false);
@@ -367,6 +364,26 @@ const Resources = () => {
   const rowsPerPage = 5;
   const [dateSort, setDateSort] = useState(null);
   const scrollContainerRef = useRef(null);
+
+  // Analytics API Dispatcher
+  const trackDocumentAction = async (actionType, item) => {
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLwMN-lxK6LJD3xZYCMjmiYQl0WNagKQIW9rHp8I40NqEBpTI2ucjrK8PjAWKeaTzNxA/exec";
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          analyticsAction: actionType, // "View" or "Download"
+          category: activeTab,         // String name of current active tab
+          fileName: item.fileName,
+          docType: item.type,
+        }),
+      });
+    } catch (error) {
+      console.error("Analytics tracing failed:", error);
+    }
+  };
 
   // Screen layout size check listener
   useEffect(() => {
@@ -585,7 +602,7 @@ const Resources = () => {
         </div>
 
         {/* Desktop View */}
-        <div className="w-full overflow-hidden no-scrollbar relative z-10 hidden sm:block">
+        <div className="w-full overflow-x-auto no-scrollbar relative z-10 hidden sm:block">
           <table className="w-full border-separate border-spacing-0 min-w-[1000px] table-fixed">
             <thead>
               <tr className="bg-[#2e3192] text-white">
@@ -610,15 +627,15 @@ const Resources = () => {
                             <span className={`inline-block px-5 py-2 rounded-full text-md font-black uppercase whitespace-nowrap ${isAlt ? "bg-white text-[#2e3192]" : "bg-blue-100 text-[#2e3192]"}`}>{item.type}</span>
                           </td>
                           <td className={`px-8 py-6 border-t border-b font-bold text-sm overflow-hidden ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
-                            <a href={item.link} target="_blank" rel="noreferrer" className="block truncate hover:underline" title={item.fileName}>
+                            <a href={item.link} target="_blank" rel="noreferrer" onClick={() => trackDocumentAction("View", item)} className="block truncate hover:underline" title={item.fileName}>
                               {item.fileName}
                             </a>
                           </td>
                           <td className={`px-8 py-6 border-t border-b text-sm font-semibold ${isAlt ? "bg-[#4f54e0] text-gray-100 border-transparent" : "bg-gray-50 text-gray-500 border-gray-200"}`}>{item.dateIssued}</td>
                           <td className={`px-8 py-6 border-t border-b border-r rounded-r-xl text-sm ${isAlt ? "bg-[#4f54e0] text-white border-transparent" : "bg-gray-50 text-gray-700 border-gray-200"}`}>
                             <div className="flex justify-center gap-4">
-                              <a href={item.link} target="_blank" rel="noreferrer" className="p-3 bg-white text-blue-600 rounded-2xl shadow-md border border-gray-200 hover:bg-blue-50 transition"><FontAwesomeIcon icon={faEye} /></a>
-                              <a href={item.link} download className="p-3 bg-white text-green-600 rounded-2xl shadow-md border border-gray-200 hover:bg-green-50 transition"><FontAwesomeIcon icon={faDownload} /></a>
+                              <a href={item.link} target="_blank" rel="noreferrer" onClick={() => trackDocumentAction("View", item)} className="p-3 bg-white text-blue-600 rounded-2xl shadow-md border border-gray-200 hover:bg-blue-50 transition"><FontAwesomeIcon icon={faEye} /></a>
+                              <a href={item.link} download onClick={() => trackDocumentAction("Download", item)} className="p-3 bg-white text-green-600 rounded-2xl shadow-md border border-gray-200 hover:bg-green-50 transition"><FontAwesomeIcon icon={faDownload} /></a>
                             </div>
                           </td>
                         </motion.tr>
@@ -651,13 +668,13 @@ const Resources = () => {
                       <span className={`text-[12px] font-medium opacity-80 ${isPrimary ? "text-white" : "text-gray-600"}`}>{item.dateIssued}</span>
                     </div>
                     <h3 className="font-semibold mb-6 text-sm leading-snug line-clamp-2">
-                      <a href={item.link} target="_blank" rel="noreferrer" className="hover:underline">
+                      <a href={item.link} target="_blank" rel="noreferrer" onClick={() => trackDocumentAction("View", item)} className="hover:underline">
                         {item.fileName}
                       </a>
                     </h3>
                     <div className={`flex justify-end gap-6 border-t pt-5 ${isPrimary ? "border-white/20" : "border-gray-200"}`}>
-                      <a href={item.link} target="_blank" rel="noreferrer" className={`flex items-center gap-2 text-xs font-black transition ${isPrimary ? "text-white" : "text-[#2e3192]"}`}><FontAwesomeIcon icon={faEye} /> VIEW</a>
-                      <a href={item.link} download className={`flex items-center gap-2 text-xs font-black transition ${isPrimary ? "text-white" : "text-green-600"}`}><FontAwesomeIcon icon={faDownload} /> SAVE</a>
+                      <a href={item.link} target="_blank" rel="noreferrer" onClick={() => trackDocumentAction("View", item)} className={`flex items-center gap-2 text-xs font-black transition ${isPrimary ? "text-white" : "text-[#2e3192]"}`}><FontAwesomeIcon icon={faEye} /> VIEW</a>
+                      <a href={item.link} download onClick={() => trackDocumentAction("Download", item)} className={`flex items-center gap-2 text-xs font-black transition ${isPrimary ? "text-white" : "text-green-600"}`}><FontAwesomeIcon icon={faDownload} /> SAVE</a>
                     </div>
                   </motion.div>
                 );

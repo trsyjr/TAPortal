@@ -9,6 +9,10 @@ import Advisory from "./components/Advisory";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndCondition";
 
+// Import your modals globally so they can be contextually targeted from any path
+import TicketModal from "./components/TicketModal";
+import SatisfactoryModal from "./components/SatisfactoryModal";
+
 // Pages/Components converted to Lazy Imports
 const HomePage = lazy(() => import("./components/HomePage"));
 const OtherOptions = lazy(() => import("./components/OtherOptions"));
@@ -68,6 +72,27 @@ function AppContent() {
     const suppressedSession = sessionStorage.getItem("dswd_advisory_route_safe");
     return !!suppressedSession;
   });
+
+  // =========================================================================
+  // GLOBAL APPLICATION-LEVEL MODAL MANAGEMENT ENGINE
+  // =========================================================================
+  const [globalTicketOpen, setGlobalTicketOpen] = useState(false);
+  const [globalFeedbackOpen, setGlobalFeedbackOpen] = useState(false);
+  const [globalServiceType, setGlobalServiceType] = useState("");
+  const [globalInquiryType, setGlobalInquiryType] = useState("");
+
+  // Listen to custom DOM events emitted by any deep page down the tree
+  useEffect(() => {
+    const handleOpenGlobalTicket = (e) => {
+      const { inquiryType, serviceType } = e.detail || {};
+      setGlobalInquiryType(inquiryType || "");
+      setGlobalServiceType(serviceType || "");
+      setGlobalTicketOpen(true);
+    };
+
+    window.addEventListener("OPEN_PORTAL_TICKET", handleOpenGlobalTicket);
+    return () => window.removeEventListener("OPEN_PORTAL_TICKET", handleOpenGlobalTicket);
+  }, []);
 
   // --- Scroll to top whenever the path changes ---
   useEffect(() => {
@@ -149,7 +174,7 @@ function AppContent() {
               <Route path="/training-calendar" element={<TrainingCalendar />} />
               <Route path="/cb-services" element={<CbServices />} />
 
-               <Route path="/all-services" element={<AllServices />} />
+              <Route path="/all-services" element={<AllServices />} />
 
               {/* ACA */}
               <Route path="/cpd" element={<CPD />} />
@@ -180,6 +205,36 @@ function AppContent() {
         )}
       </Suspense>
       <ToastContainer position="top-right" autoClose={3000} />
+
+      {/* =========================================================================
+          GLOBAL MODAL IMPLEMENTATIONS (Bridges data mapping automatically)
+          ========================================================================= */}
+      <TicketModal
+        isOpen={globalTicketOpen}
+        serviceType={globalServiceType}
+        defaultInquiryType={globalInquiryType}
+        onClose={(inquiry, service) => {
+          setGlobalTicketOpen(false);
+          // If inquiry contains a string value, the form submission succeeded
+          if (inquiry) {
+            setGlobalInquiryType(inquiry);
+            setGlobalServiceType(service);
+            setGlobalFeedbackOpen(true);
+          }
+        }}
+      />
+
+      <SatisfactoryModal
+        isOpen={globalFeedbackOpen}
+        inquiryType={globalInquiryType}
+        serviceType={globalServiceType}
+        spreadsheetId="14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8" // Default fallback ID if route mapping misses
+        onClose={() => {
+          setGlobalFeedbackOpen(false);
+          setGlobalInquiryType("");
+          setGlobalServiceType("");
+        }}
+      />
     </>
   );
 }

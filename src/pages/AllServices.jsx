@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom"; 
-import TicketModal from "../components/TicketModal"; // Imported TicketModal component
+import TicketModal from "../components/TicketModal"; 
 import SatisfactoryModal from "../components/SatisfactoryModal";
 
 // Centralized dynamic data matrix mapping out all accordion sections natively
@@ -138,7 +138,8 @@ const servicesContentData = {
       { 
         id: 1, 
         title: "Targeting, Assessment, Monitoring, and Planning", 
-        content: ["Provision of technical guidance and support to enhance evidence-based planning and performance management of LGUs."] 
+        content: ["Provision of technical guidance and support to enhance evidence-based planning and performance management of LGUs."],
+        buttonText: "Request Ticket"
       },
       { 
         id: 2, 
@@ -147,7 +148,8 @@ const servicesContentData = {
           "Support in strengthening FO planning and financial management processes:", 
           "• Assistance in the preparation of the Work and Financial Plan",
           "• Guidance on requests for fund modification and/or reallocation and non-withdrawal"
-        ]
+        ],
+        buttonText: "Request Ticket"
       },
       { 
         id: 3, 
@@ -157,7 +159,8 @@ const servicesContentData = {
           "• Guidance on PMC Accreditation",
           "• Assistance in the request and coordination of resource persons",
           "• Support for meeting requests and related activities"
-        ]
+        ],
+        buttonText: "Request Ticket"
       },
       { 
         id: 4, 
@@ -166,7 +169,8 @@ const servicesContentData = {
           "Technical assistance in the use and management of the SDCA Information System:",
           "• Processing of requests for account activation",
           "• Provision of orientation and capacity-building sessions on SDCA-IS utilization"
-        ]
+        ],
+        buttonText: "Request Ticket"
       },
       { 
         id: 5, 
@@ -175,7 +179,8 @@ const servicesContentData = {
           "Guidance in establishing and strengthening collaborations:",
           "• Assistance in the preparation and review of Memorandum of Agreement and Memorandum of Understanding",
           "• Assistance in the conduct of regional and hosted national consultation dialogue and workshop"
-        ]
+        ],
+        buttonText: "Request Ticket"
       },
       { 
         id: 6, 
@@ -183,15 +188,33 @@ const servicesContentData = {
         content: [
           "Support in promoting excellence and recognizing LGU performance:", 
           "• Guidance on the Panata Ko sa Bayan Program (pursuant to MC No. 18, s. 2023)" 
-        ]
+        ],
+        buttonText: "Request Ticket"
       },
       { 
         id: 7, 
         title: "Other Technical Assistance Services", 
-        content: "Provision of additional TA services not covered under the above categories, based on emerging needs and specific requests of LGUs/LSWDOs." 
+        content: "Provision of additional TA services not covered under the above categories, based on emerging needs and specific requests of LGUs/LSWDOs.",
+        buttonText: "Request Ticket" 
       },
     ]
   }
+};
+
+// Maps dynamic Category IDs natively to their respective targets
+const SATISFACTORY_SHEETS = {
+  1: "1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU", // Assessment/Accreditation
+  2: "14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8", // Capability Building
+  3: "1KkYaquUwif5M0ybxpXg5MDX62Nrres61w-1xPE-fMUg", // Knowledge Management
+  4: "1aPY6QDdyRlI9D_Zd7wI27yzBBvVZ_wEJEcXJQX-MHSs", // TAAORSS
+};
+
+// Maps category IDs to string labels expected by TicketModal selection matrix
+const INQUIRY_TYPES = {
+  1: "Assessment/Accreditation",
+  2: "Capability Building",
+  3: "Knowledge Management",
+  4: "TAAORSS",
 };
 
 const AllServices = () => {
@@ -203,8 +226,12 @@ const AllServices = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(""); 
+  const [selectedInquiryType, setSelectedInquiryType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  
+  // Tracks active payload delivery destination spreadsheet configuration
+  const [activeSpreadsheetId, setActiveSpreadsheetId] = useState("1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU");
 
   const servicesTabs = [
     { id: 0, title: "All", path: "/all-services" },
@@ -214,7 +241,6 @@ const AllServices = () => {
     { id: 4, title: "TAAORSS", path: "/services-taaorss" },
   ];
 
-  // Handles active tab styling/routing changes
   useEffect(() => {
     const matchingTab = servicesTabs.find((tab) => tab.path === location.pathname);
     
@@ -231,7 +257,6 @@ const AllServices = () => {
     }
   }, [location.pathname]);
 
-  // Expand accordion automatically if query conditions unique match exactly 1 result
   useEffect(() => {
     if (!searchQuery.trim()) {
       setOpenAccordionId(null);
@@ -269,8 +294,10 @@ const AllServices = () => {
     setOpenAccordionId(openAccordionId === uniqueId ? null : uniqueId);
   };
 
-  const openTicketModal = (title) => {
+  const openTicketModal = (title, categoryId) => {
     setSelectedService(title);
+    setSelectedInquiryType(INQUIRY_TYPES[categoryId] || "");
+    setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
     setIsModalOpen(true);
   };
 
@@ -375,11 +402,29 @@ const AllServices = () => {
                           </button>
                         ) : subItem.isDualButton ? (
                           <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
-                            <a href={subItem.leftExternalLink} onClick={() => setIsFeedbackModalOpen(true)} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
+                            <a 
+                              href={subItem.leftExternalLink} 
+                              onClick={() => {
+                                setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                setIsFeedbackModalOpen(true);
+                              }} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
+                            >
                               <span>{subItem.leftButtonText}</span>
                               <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                             </a>
-                            <a href={subItem.rightExternalLink} onClick={() => setIsFeedbackModalOpen(true)} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
+                            <a 
+                              href={subItem.rightExternalLink} 
+                              onClick={() => {
+                                setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                setIsFeedbackModalOpen(true);
+                              }} 
+                              target="_blank" 
+                              rel="noopener noreferrer" 
+                              className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
+                            >
                               <span>{subItem.rightButtonText}</span>
                               <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                             </a>
@@ -388,13 +433,22 @@ const AllServices = () => {
                           (subItem.buttonText || subItem.externalLink) && (
                             isRequestTicket ? (
                               <button 
-                                onClick={() => openTicketModal(subItem.title)} 
+                                onClick={() => openTicketModal(subItem.title, categoryId)} 
                                 className="flex items-center gap-2 px-6 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
                               >
                                 <span>Request Ticket</span>
                               </button>
                             ) : (
-                              <a href={subItem.externalLink || "#"} onClick={() => setIsFeedbackModalOpen(true)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
+                              <a 
+                                href={subItem.externalLink || "#"} 
+                                onClick={() => {
+                                  setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                  setIsFeedbackModalOpen(true);
+                                }} 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
+                              >
                                 <span>{subItem.buttonText || "Visit External Portal"}</span>
                                 <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                               </a>
@@ -505,22 +559,16 @@ const AllServices = () => {
           </p>
         </div>
 
-        {/* Premium Redesigned Taller Search Bar Container Layout */}
+        {/* Search Bar */}
         <div className="max-w-[680px] mx-auto mb-14 px-4">
           <div className="relative group">
-            {/* Background Glow Accent on Focus/Hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#2e3192]/12 to-[#ee1c25]/12 rounded-full blur-2xl opacity-0 group-focus-within:opacity-100 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none" />
-
             <div className="relative flex items-center bg-white border border-gray-200 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.03)] group-focus-within:border-[#2e3192] group-focus-within:shadow-[0_15px_45px_rgba(46,49,146,0.1)] transition-all duration-300 overflow-hidden">
-              
-              {/* Search Icon Indicator - Larger sizing & alignment */}
               <div className="pl-7 pr-3.5 text-gray-400 group-focus-within:text-[#2e3192] transition-colors duration-300 shrink-0">
                 <svg className="w-5.5 h-5.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
-
-              {/* Styled Input Field - Taller vertical height with py-5 */}
               <input 
                 type="text"
                 value={searchQuery}
@@ -528,8 +576,6 @@ const AllServices = () => {
                 placeholder="What services are you looking for?"
                 className="w-full py-5 pr-14 bg-transparent text-[15.5px] font-semibold tracking-wide text-gray-800 placeholder-gray-400/90 focus:outline-none"
               />
-
-              {/* Reset Clear Icon Button */}
               <AnimatePresence>
                 {searchQuery && (
                   <motion.button 
@@ -551,7 +597,7 @@ const AllServices = () => {
           </div>
         </div>
 
-        {/* Universal Ribbon Switch Navigation Tabs Bar */}
+        {/* Navigation Tabs Bar */}
         <div className="max-w-[1200px] mx-auto mb-16">
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             {servicesTabs.map((tab) => {
@@ -611,14 +657,16 @@ const AllServices = () => {
             isOpen={isModalOpen} 
             onClose={handleCloseTicketModal} 
             serviceType={selectedService} 
+            defaultInquiryType={selectedInquiryType}
           />
         )}
       </AnimatePresence>
 
+      {/* DYNAMIC FEEDBACK OVERLAY PORTAL SYSTEM */}
       <SatisfactoryModal 
         isOpen={isFeedbackModalOpen} 
         onClose={() => setIsFeedbackModalOpen(false)} 
-        spreadsheetId="1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU"
+        spreadsheetId={activeSpreadsheetId}
       />
     </div>
   );

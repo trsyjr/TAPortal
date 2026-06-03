@@ -9,7 +9,7 @@ const CbServices = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // This specific component is dedicated to category index '3' in the global layout layout architecture
+  // This specific component is dedicated to category index '3' in the global layout architecture
   const currentCategoryKey = 3; 
   const [openAccordionId, setOpenAccordionId] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,7 +22,8 @@ const CbServices = () => {
     "Review of Activity Proposal and Design",
     "Request for Review of Capability Building Plan",
     "Request for Training Inclusion",
-    "Request for Training Management"
+    "Request for Training Management",
+    "CapBuild Knowledge Bank"
   ];
 
   // Synced precisely with your global application routing blueprint
@@ -49,7 +50,11 @@ const CbServices = () => {
           id: 2, 
           title: "Request for Review of Capability Building Plan", 
           content: "Ensure the adherence to the Learning and Development standards set by the Department of Social Welfare and Development Academy in support of its mandate to centralize and professionalize learning and development efforts.",
-          buttonText: "Request Ticket" 
+          isDualButton: true,
+          leftButtonText: "Request Ticket",
+          leftIsModal: true,
+          rightButtonText: "CB Plan",
+          rightExternalLink: "/cbplan" // Update with your real link if applicable
         },
         { 
           id: 3, 
@@ -67,8 +72,11 @@ const CbServices = () => {
           id: 5, 
           title: "CapBuild Knowledge Bank", 
           content: "Selected and high-value TA cases provided by the Capability Building Division – Professional Learning and Development Section (CBD-PLDS) along Learning and Development (L&D) for institutional learning and continuous improvement.", 
-          externalLink: "https://drive.google.com/drive/folders/1tkq8sxM354BrvQShJORFQo2wAcxKMQqe?usp=sharing",
-          buttonText: "Knowledge Bank" 
+          isDualButton: true,
+          leftButtonText: "Request Ticket",
+          leftIsModal: true,
+          rightButtonText: "Knowledge Bank",
+          rightExternalLink: "/knowledgebank"
         },
       ]
     }
@@ -101,7 +109,6 @@ const CbServices = () => {
   }, [searchQuery]);
 
   const handleTabClick = (tab) => {
-    // Route directly via standard application routing path strings
     navigate(tab.path);
   };
 
@@ -115,18 +122,23 @@ const CbServices = () => {
     setIsModalOpen(true);
   };
 
-  const handleCloseTicketModal = () => {
+  // Upgraded closure tracking to preserve cross-modal configuration parameters
+  const handleCloseTicketModal = (inquiry, service) => {
     setIsModalOpen(false);
+    // If ticket successfully submitted, verify variables match state
+    if (inquiry) {
+      setSelectedService(service);
+    }
     setIsFeedbackModalOpen(true);
   };
 
-  const handleExternalLinkClick = () => {
+  const handleExternalLinkClick = (title) => {
+    setSelectedService(title);
     setIsFeedbackModalOpen(true);
   };
 
   const currentCategory = servicesContent[currentCategoryKey];
 
-  // Filter content items safely based on search query input text rules
   const filteredItems = currentCategory
     ? currentCategory.items.filter((item) => {
         if (!searchQuery.trim()) return true;
@@ -176,22 +188,18 @@ const CbServices = () => {
           </p>
         </div>
 
-        {/* Premium Redesigned Taller Search Bar Container Layout */}
+        {/* Search Bar Container */}
         <div className="max-w-[680px] mx-auto mb-14 px-4">
           <div className="relative group">
-            {/* Background Glow Accent on Focus/Hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#2e3192]/12 to-[#ee1c25]/12 rounded-full blur-2xl opacity-0 group-focus-within:opacity-100 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none" />
 
             <div className="relative flex items-center bg-white border border-gray-200 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.03)] group-focus-within:border-[#2e3192] group-focus-within:shadow-[0_15px_45px_rgba(46,49,146,0.1)] transition-all duration-300 overflow-hidden">
-              
-              {/* Search Icon Indicator */}
               <div className="pl-7 pr-3.5 text-gray-400 group-focus-within:text-[#2e3192] transition-colors duration-300 shrink-0">
                 <svg className="w-5.5 h-5.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
 
-              {/* Styled Input Field - Taller vertical height with py-5 */}
               <input 
                 type="text"
                 value={searchQuery}
@@ -200,7 +208,6 @@ const CbServices = () => {
                 className="w-full py-5 pr-14 bg-transparent text-[15.5px] font-semibold tracking-wide text-gray-800 placeholder-gray-400/90 focus:outline-none"
               />
 
-              {/* Reset Clear Icon Button */}
               <AnimatePresence>
                 {searchQuery && (
                   <motion.button 
@@ -222,11 +229,10 @@ const CbServices = () => {
           </div>
         </div>
 
-        {/* PREMIUM BUTTON TABS */}
+        {/* BUTTON TABS */}
         <div className="max-w-[1100px] mx-auto mb-16">
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             {servicesTabs.map((tab) => {
-              // On this page (/cb-services), tab 3 is the active visual marker indicator
               const isActive = tab.id === 3;
               return (
                 <button
@@ -240,7 +246,6 @@ const CbServices = () => {
                     animate={{ clipPath: isActive ? "circle(100% at 50% 50%)" : "circle(0% at 50% 50%)" }}
                     transition={{ duration: 0.4, ease: "easeInOut" }}
                   />
-                  
                   <span className="relative z-10 block text-white">
                     {tab.title}
                   </span>
@@ -250,7 +255,7 @@ const CbServices = () => {
           </div>
         </div>
 
-        {/* COHESIVE BOX ACCORDION AREA */}
+        {/* ACCORDION AREA */}
         <div className="max-w-[1000px] mx-auto">
           <AnimatePresence mode="wait">
             {currentCategory && filteredItems.length > 0 ? (
@@ -323,7 +328,28 @@ const CbServices = () => {
                                   {subItem.content}
                                 </p>
                                 
-                                {isModalButton ? (
+                                {subItem.isDualButton ? (
+                                  <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
+                                    {/* Left Button - Dedicated Modal Request Flow */}
+                                    <button 
+                                      onClick={() => openModalWithService(subItem.title)}
+                                      className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 cursor-pointer"
+                                    >
+                                      <span>{subItem.leftButtonText}</span>
+                                    </button>
+
+                                    {/* Right Button - Dedicated Document/Drive Redirection Flow */}
+                                    <a 
+                                      href={subItem.rightExternalLink || "#"} 
+                                      onClick={() => handleExternalLinkClick(subItem.title)}
+                                      target="_blank" 
+                                      rel="noopener noreferrer" 
+                                      className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105"
+                                    >
+                                      <span>{subItem.rightButtonText}</span>
+                                    </a>
+                                  </div>
+                                ) : isModalButton ? (
                                   <button
                                     onClick={() => openModalWithService(subItem.title)}
                                     className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 cursor-pointer"
@@ -333,15 +359,12 @@ const CbServices = () => {
                                 ) : (
                                   <a
                                     href={subItem.externalLink || "#"}
-                                    onClick={handleExternalLinkClick}
+                                    onClick={() => handleExternalLinkClick(subItem.title)}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105"
                                   >
                                     <span>{subItem.buttonText || "Visit External Portal"}</span>
-                                    <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                    </svg>
                                   </a>
                                 )}
                               </div>
@@ -354,7 +377,6 @@ const CbServices = () => {
                 </div>
               </motion.div>
             ) : (
-              /* No matching search query layout fallback */
               <motion.div 
                 key="empty"
                 initial={{ opacity: 0 }}
@@ -379,16 +401,19 @@ const CbServices = () => {
         {isModalOpen && (
           <TicketModal 
             isOpen={isModalOpen} 
-            onClose={handleCloseTicketModal} 
-            serviceType={selectedService} 
+            onClose={(inquiry, service) => handleCloseTicketModal(inquiry, service)} 
+            serviceType={selectedService}
+            defaultInquiryType="Capability Building"
           />
         )}
       </AnimatePresence>
 
-      {/* DYNAMIC SATISFACTORY MODAL INTEGRATION */}
+      {/* SATISFACTORY MODAL INTEGRATION */}
       <SatisfactoryModal 
         isOpen={isFeedbackModalOpen} 
         onClose={() => setIsFeedbackModalOpen(false)} 
+        inquiryType="Capability Building" // 🚀 Connects directly to Route A mapping logic
+        serviceType={selectedService}     // 🚀 Maps specific sub-service title to Column D
         spreadsheetId="14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8"
       />
     </div>

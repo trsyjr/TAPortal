@@ -108,7 +108,6 @@ const ServicesTAAORSS = () => {
   }, [searchQuery]);
 
   const handleTabClick = (tab) => {
-    // Route directly via standard application routing path strings
     navigate(tab.path);
   };
 
@@ -219,7 +218,6 @@ const ServicesTAAORSS = () => {
         <div className="max-w-[1100px] mx-auto mb-16">
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             {servicesTabs.map((tab) => {
-              // On this page (/services-taaorss), tab 5 is the active visual marker indicator
               const isActive = tab.id === 5;
               return (
                 <button
@@ -331,6 +329,7 @@ const ServicesTAAORSS = () => {
             isOpen={isModalOpen} 
             onClose={handleCloseTicketModal} 
             serviceType={selectedService} 
+            defaultInquiryType="TAAORSS"
           />
         )}
       </AnimatePresence>
@@ -339,7 +338,9 @@ const ServicesTAAORSS = () => {
       <SatisfactoryModal 
         isOpen={isFeedbackModalOpen} 
         onClose={() => setIsFeedbackModalOpen(false)} 
-        spreadsheetId="1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU"
+        inquiryType="TAAORSS"
+        serviceType={selectedService}
+        spreadsheetId="1aPY6QDdyRlI9D_Zd7wI27yzBBvVZ_wEJEcXJQX-MHSs"
       />
     </div>
   );

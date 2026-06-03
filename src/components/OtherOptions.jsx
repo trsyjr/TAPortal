@@ -3,28 +3,50 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import TicketModal from "./TicketModal";
 import JoinModal from "./JoinModal";
-import SatisfactoryModal from "./SatisfactoryModal"; // ✅ Imported SatisfactoryModal
+import SatisfactoryModal from "./SatisfactoryModal"; 
 import { FaTicketAlt, FaLaptopMedical } from "react-icons/fa";
 
-const OtherOptions = () => {
+const OtherOptions = ({ spreadsheetId }) => { 
   const [modalOpen, setModalOpen] = useState(false);
   const [joinModalOpen, setJoinModalOpen] = useState(false);
-  const [satisfactoryModalOpen, setSatisfactoryModalOpen] = useState(false); // ✅ Added state for SatisfactoryModal
+  const [satisfactoryModalOpen, setSatisfactoryModalOpen] = useState(false); 
+  
+  // Dynamic state to capture which spreadsheet ID the feedback should go to
+  const [activeSpreadsheetId, setActiveSpreadsheetId] = useState(spreadsheetId);
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 25 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
   };
 
-  // ✅ Opens the SatisfactoryModal when the Ticket Modal is closed
-  const handleCloseTicketModal = () => {
+  // ✅ Route the Satisfactory rating to the specific Google Sheet based on inquiry type
+  const handleCloseTicketModal = (selectedCategory) => {
     setModalOpen(false);
+
+    // Hardcoded Sheet ID mapping matching your Google Apps Script configuration
+    const SHEET_MAP = {
+      "Capability Building": "14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8",
+      "TAAORSS": "1aPY6QDdyRlI9D_Zd7wI27yzBBvVZ_wEJEcXJQX-MHSs",
+      "Technical Assistance": "1aPY6QDdyRlI9D_Zd7wI27yzBBvVZ_wEJEcXJQX-MHSs", 
+      "Assessment/Accreditation": "1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU", 
+      "Knowledge Management": "1KkYaquUwif5M0ybxpXg5MDX62Nrres61w-1xPE-fMUg"
+    };
+
+    // If a valid category is found, use its specific sheet ID; otherwise, fallback to prop spreadsheetId
+    if (selectedCategory && SHEET_MAP[selectedCategory]) {
+      setActiveSpreadsheetId(SHEET_MAP[selectedCategory]);
+    } else {
+      setActiveSpreadsheetId(spreadsheetId);
+    }
+
     setSatisfactoryModalOpen(true);
   };
 
-  // ✅ Opens the SatisfactoryModal when the Join Modal is closed
+  // ✅ Fallback for Virtual Support Join modal closure
   const handleCloseJoinModal = () => {
     setJoinModalOpen(false);
+    // Uses default fallback ID for virtual clinic support ratings (e.g. Capability Building sheet)
+    setActiveSpreadsheetId("14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8");
     setSatisfactoryModalOpen(true);
   };
 
@@ -114,10 +136,11 @@ const OtherOptions = () => {
       <TicketModal isOpen={modalOpen} onClose={handleCloseTicketModal} />
       <JoinModal isOpen={joinModalOpen} onClose={handleCloseJoinModal} />
       
-      {/* ✅ SatisfactoryModal Component Mounting */}
+      {/* SatisfactoryModal receives the correctly routed spreadsheet ID */}
       <SatisfactoryModal 
         isOpen={satisfactoryModalOpen} 
         onClose={() => setSatisfactoryModalOpen(false)} 
+        spreadsheetId={activeSpreadsheetId}
       />
     </motion.section>
   );

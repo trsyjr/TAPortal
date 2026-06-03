@@ -11,6 +11,7 @@ const ServicesACA = () => {
   const currentCategoryKey = 1; 
   const [openAccordionId, setOpenAccordionId] = useState(null); 
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
   // Synced precisely with your global application routing blueprint
@@ -83,20 +84,23 @@ const ServicesACA = () => {
 
       if (matchedItems.length === 1) {
         setOpenAccordionId(matchedItems[0].id);
+        setSelectedService(matchedItems[0].title);
       }
     }
   }, [searchQuery]);
 
   const handleTabClick = (tab) => {
-    // Route directly via standard application routing path strings
     navigate(tab.path);
   };
 
-  const toggleAccordion = (id) => {
+  const toggleAccordion = (id, title) => {
     setOpenAccordionId(openAccordionId === id ? null : id);
+    setSelectedService(title);
   };
 
-  const handleExternalLinkClick = () => {
+  // Enhanced tracking helper to identify the exact path context selected
+  const handleExternalLinkClick = (serviceLabel) => {
+    setSelectedService(serviceLabel);
     setIsFeedbackModalOpen(true);
   };
 
@@ -144,7 +148,6 @@ const ServicesACA = () => {
         {/* Premium Redesigned Taller Search Bar Container Layout */}
         <div className="max-w-[680px] mx-auto mb-14 px-4">
           <div className="relative group">
-            {/* Background Glow Accent on Focus/Hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#2e3192]/12 to-[#ee1c25]/12 rounded-full blur-2xl opacity-0 group-focus-within:opacity-100 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none" />
 
             <div className="relative flex items-center bg-white border border-gray-200 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.03)] group-focus-within:border-[#2e3192] group-focus-within:shadow-[0_15px_45px_rgba(46,49,146,0.1)] transition-all duration-300 overflow-hidden">
@@ -191,7 +194,6 @@ const ServicesACA = () => {
         <div className="max-w-[1100px] mx-auto mb-16">
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             {servicesTabs.map((tab) => {
-              // On this page (/services-aca), tab 2 is the active visual marker indicator
               const isActive = tab.id === 2;
               return (
                 <button
@@ -228,7 +230,7 @@ const ServicesACA = () => {
                     
                     return (
                       <div key={subItem.id} className={`w-full overflow-hidden transition-all duration-300 border ${isExpanded ? "bg-[#2e3192] border-[#2e3192] premium-shadow-active rounded-3xl" : "bg-white border-gray-200/70 hover:border-gray-300 premium-shadow rounded-3xl"}`}>
-                        <button onClick={() => toggleAccordion(subItem.id)} className="w-full px-8 py-5 flex items-center justify-between mx-auto text-center focus:outline-none relative">
+                        <button onClick={() => toggleAccordion(subItem.id, subItem.title)} className="w-full px-8 py-5 flex items-center justify-between mx-auto text-center focus:outline-none relative">
                           <div className="w-5 shrink-0 hidden sm:block"></div>
                           <div className="flex flex-col items-center justify-center mx-auto">
                             <span className={`font-bold text-[15.5px] tracking-tight ${isExpanded ? "text-[#FFE066]" : "text-gray-800"}`}>{subItem.title}</span>
@@ -255,13 +257,13 @@ const ServicesACA = () => {
                                   </button>
                                 ) : subItem.isDualButton ? (
                                   <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
-                                    <a href={subItem.leftExternalLink} onClick={handleExternalLinkClick} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
+                                    <a href={subItem.leftExternalLink} onClick={() => handleExternalLinkClick(`${subItem.title} - ${subItem.leftButtonText}`)} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
                                       <span>{subItem.leftButtonText}</span>
                                       <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                       </svg>
                                     </a>
-                                    <a href={subItem.rightExternalLink} onClick={handleExternalLinkClick} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
+                                    <a href={subItem.rightExternalLink} onClick={() => handleExternalLinkClick(`${subItem.title} - ${subItem.rightButtonText}`)} target="_blank" rel="noopener noreferrer" className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
                                       <span>{subItem.rightButtonText}</span>
                                       <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -269,7 +271,7 @@ const ServicesACA = () => {
                                     </a>
                                   </div>
                                 ) : (
-                                  <a href={subItem.externalLink || "#"} onClick={handleExternalLinkClick} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
+                                  <a href={subItem.externalLink || "#"} onClick={() => handleExternalLinkClick(subItem.title)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105">
                                     <span>{subItem.buttonText || "Visit External Portal"}</span>
                                     <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                       <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -304,6 +306,8 @@ const ServicesACA = () => {
       <SatisfactoryModal 
         isOpen={isFeedbackModalOpen} 
         onClose={() => setIsFeedbackModalOpen(false)} 
+        inquiryType="Assessment/Accreditation" // 🚀 Explicit string key for backend map routing
+        serviceType={selectedService}          // 🚀 Captured label value goes to column D
         spreadsheetId="1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU"
       />
     </div>

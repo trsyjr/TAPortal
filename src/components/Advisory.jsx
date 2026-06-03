@@ -1,7 +1,7 @@
 // src/components/Advisory.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaShieldHalved, FaBuildingShield, FaEnvelope, FaCheck } from "react-icons/fa6";
+import { FaBuildingShield, FaEnvelope } from "react-icons/fa6";
 
 const Advisory = ({ onClose, forceShow }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,15 +49,41 @@ const Advisory = ({ onClose, forceShow }) => {
             <div className="h-2 bg-gradient-to-r from-[#2e3192] via-[#ee1c25] to-[#2e3192]" />
 
             <div className="p-6 sm:p-8 flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-2xl bg-amber-50 flex items-center justify-center text-amber-500 mb-5 shadow-inner">
-                <FaShieldHalved className="text-3xl" />
+              {/* ℹ️ Custom Perfect Geometric SVG Info Icon with Infinite Swaying Loop Motion */}
+              <div className="w-20 h-20 flex items-center justify-center text-[#2e3192] mb-4 overflow-visible">
+                <motion.div
+                  animate={{ rotate: [-6, 6, -6] }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 2.5,
+                    ease: "easeInOut"
+                  }}
+                  className="flex items-center justify-center origin-center"
+                >
+                  <svg 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    className="w-20 h-20"
+                    stroke="currentColor" 
+                    strokeWidth="1.2" 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round"
+                  >
+                    {/* Perfect outer circle */}
+                    <circle cx="12" cy="12" r="10" />
+                    {/* Centered straight line for the body of the 'i' */}
+                    <line x1="12" y1="11" x2="12" y2="17" strokeWidth="1.5" />
+                    {/* Centered dot for the top of the 'i' */}
+                    <circle cx="12" cy="7.5" r="0.75" fill="currentColor" stroke="none" />
+                  </svg>
+                </motion.div>
               </div>
 
-              <span className="text-xs font-bold tracking-widest text-[#ee1c25] uppercase mb-1 bg-red-50 px-3 py-1 rounded-full">
+              {/* <span className="text-xs font-bold tracking-widest text-[#ee1c25] uppercase mb-1 bg-red-50 px-3 py-1 rounded-full">
                 Restricted Access Notice
-              </span>
+              </span> */}
               <h2 className="text-2xl sm:text-3xl font-black text-[#2e3192] tracking-tight mb-3">
-                INTERNAL USE ONLY
+                Important Notice
               </h2>
 
               <p className="text-gray-600 text-sm sm:text-base leading-relaxed mb-6">
@@ -80,18 +106,25 @@ const Advisory = ({ onClose, forceShow }) => {
               <div className="w-full bg-blue-50/50 border border-blue-100/70 rounded-2xl p-4 mb-5 text-left flex items-start gap-3">
                 <FaEnvelope className="text-[#2e3192] mt-0.5 text-base shrink-0" />
                 <p className="text-xs sm:text-sm text-slate-700 leading-relaxed">
-                  <span className="font-bold text-[#2e3192]">External user?</span> If you are an external partner or stakeholder, you may send your inquiries directly via email to{" "}
+                  <span className="font-bold text-[#2e3192]">External user?</span> For external partner or stakeholder, you may send your inquiries or technical assistance request via email at{" "}
                   <a 
-                    href="mailto:dswdacademy@dswd.gov.ph" 
+                    href="mailto:academy@dswd.gov.ph" 
                     className="font-semibold text-[#2e3192] underline hover:text-[#ee1c25] transition-colors"
                   >
-                    dswdacademy@dswd.gov.ph
+                    academy@dswd.gov.ph
                   </a>.
                 </p>
               </div>
 
+               <button
+                onClick={handleProceed}
+                className="w-full bg-[#2e3192] hover:bg-[#ee1c25] text-white font-bold text-base py-3.5 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 group"
+              >
+                I Understand and Proceed
+              </button>
+
               {!forceShow && (
-                <div className="w-full flex items-center justify-start gap-3 mb-5 px-1 select-none group/check">
+                <div className="w-full flex items-center justify-center gap-3 mb-5 px-1 pt-5 none group/check">
                   <label className="relative flex items-center cursor-pointer">
                     <input
                       type="checkbox"
@@ -119,14 +152,6 @@ const Advisory = ({ onClose, forceShow }) => {
                   </span>
                 </div>
               )}
-
-              <button
-                onClick={handleProceed}
-                className="w-full bg-[#2e3192] hover:bg-[#ee1c25] text-white font-bold text-base py-3.5 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 group"
-              >
-                <FaCheck className="text-sm opacity-80 group-hover:scale-110 transition-transform" />
-                I Understand and Proceed
-              </button>
 
               <p className="text-[10px] text-gray-400 mt-4 text-center max-w-xs leading-normal">
                 Unauthorized access attempts or activities violating data privacy standards are strictly audited.
