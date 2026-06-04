@@ -1,4 +1,3 @@
-// src/pages/About.jsx
 import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import { useNavigate } from "react-router-dom";
@@ -52,15 +51,16 @@ import Maan from "/images/Maan.avif";
 import Gelves from "/images/Gelves.avif";
 import Sky from "/images/Sky.avif";
 import Kath from "/images/Kath.avif";
+import Roger from "/images/Roger.avif";
 
 const About = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState("ALL");
   const [copiedEmail, setCopiedEmail] = useState("");
   const [bubblePos, setBubblePos] = useState({ x: 0, y: 0 });
-  const [searchQuery, setSearchQuery] = useState("");
-  
   const [viewMode, setViewMode] = useState("CAROUSEL");
+  const [searchQuery, setSearchQuery] = useState("");
+  const carouselContainerRef = useRef(null);
   const slides = [
     About1, About2, About3, About4,
     About5, About6, About7,
@@ -87,8 +87,8 @@ const About = () => {
 
     // ==================== CBD DIVISION ====================
     { title: "DIVISION CHIEF", name: "Efleda Joyce Sabater-Consulta", email: "ejsconsulta@dswd.gov.ph", image: DC, category: "CBD" },
-    { title: "SECTION CHIEF", name: "Althea Muriel L. Pineda", email: "amlpineda@dswd.gov.ph", image: Thea, category: "CBD" },
-    { title: "TECHNICAL ASSISTANCE FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
+    { title: "SECTION CHIEF, PLDS", name: "Althea Muriel L. Pineda", email: "amlpineda@dswd.gov.ph", image: Thea, category: "CBD" },
+    { title: "TECHNICAL ASSISTANCE FOCAL ON L&D", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
     { title: "WALANG GUTOM PROGRAM FOCAL", name: "Aljohn C. Purca", email: "acpurca@dswd.gov.ph", image: Aljohn, category: "CBD" },
     { title: "GENDER AND DEVELOPMENT FOCAL", name: "Althea Muriel L. Pineda", email: "amlpineda@dswd.gov.ph", image: Thea, category: "CBD" },
     { title: "PRE-MARRIAGE COUNSELING FOCAL", name: "Merielle O. Palacio", email: "mopalacio@dswd.gov.ph", image: Merl, category: "CBD" },
@@ -96,14 +96,15 @@ const About = () => {
     { title: "CRCF TRAININGS FOCAL", name: "Jena Mae C. Aguilar", email: "jmcaguilar@dswd.gov.ph", image: Jena, category: "CBD" },
     { title: "PMC ONLINE COURSE DEVELOPMENT FOCAL", name: "Mark Angel Malapira", email: "mamalapira@dswd.gov.ph", image: Angel, category: "CBD" },
     { title: "PSYCHOLOGICAL FIRST AID FOCAL", name: "Jesica S. Mencias", email: "jsmencias@dswd.gov.ph", image: Jes, category: "CBD" },
-    { title: "CAMP COORDINATION AND CAMP MANAGEMENT FOCAL", name: "Perrine D. Padilla", email: "pdpadilla@dswd.gov.ph", image: Perrine, category: "CBD" },
+    { title: "CAMP COORDINATION AND CAMP MANAGEMENT FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
     { title: "PARENT EFFECTIVENESS SERVICE FOCAL", name: "Noreen N. Data", email: "nndata@dswd.gov.ph", image: Noreen, category: "CBD" },
-    { title: "SPECIAL DRUG EDUCATION CENTER FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
-    { title: "YAKAP BAYAN PROGRAM FOCAL", name: "Nikkita Lyka Gracia L. Ermino", email: "nlglermino@dswd.gov.ph", image: Lyka, category: "CBD" },
+    { title: "SPECIAL DRUG EDUCATION CENTER", name: "Rogelio Tomas L Gutierrez", email: "rtlgutierrez@dswd.gov.ph", image: Roger, category: "CBD" },
     { title: "COMMUNICATIONS MANAGEMENT FOCAL", name: "Orchid B. Ocampo", email: "obocampo@dswd.gov.ph", image: Orchid, category: "CBD" },
+    { title: "YAKAP BAYAN PROGRAM FOCAL", name: "Rogelio Tomas L Gutierrez", email: "rtlgutierrez@dswd.gov.ph", image: Roger, category: "CBD" },
     { title: "BASIC SOCIAL WORK CONCEPTS FOCAL", name: "Aljohn C. Purca", email: "acpurca@dswd.gov.ph", image: Aljohn, category: "CBD" },
     { title: "JUVENILE JUSTICE FOCAL", name: "Nancy E. Fortes", email: "nefortes@dswd.gov.ph", image: Nancy, category: "CBD" },
-    { title: "CHILD AND WOMEN FRIENDLY SPACES FOCAL", name: "Nikkita Lyka Gracia L. Ermino", email: "nlglermino@dswd.gov.ph", image: Lyka, category: "CBD" },
+    { title: "CHILD FRIENDLY SPACES FOCAL", name: "Jan Paolo M. Leyva", email: "jpmleyva@dswd.gov.ph", image: Pao, category: "CBD" },
+    { title: "WOMEN FRIENDLY SPACES FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
     { title: "WOMEN, PEACE, AND SECURITY FOCAL", name: "Jocelyn M. Edillo", email: "jmedillo@dswd.gov.ph", image: Jo, category: "CBD" },
     { title: "GENDER-RESPONSIVE CASE MANAGEMENT FOCAL", name: "Klenarchi Mae E. Flores", email: "kmeflores@dswd.gov.ph", image: Kleng, category: "CBD" },
     { title: "CCTG FOCAL", name: "Eddniel Patrick I. Papa", email: "epipapa@dswd.gov.ph", image: Edd, category: "CBD" },
@@ -116,6 +117,7 @@ const About = () => {
     { title: "PPG FOCAL", name: "Jan Paolo M. Leyva", email: "jpmleyva@dswd.gov.ph", image: Pao, category: "CBD" },
     { title: "PEACE AND DEVELOPMENT GROUP FOCAL", name: "Mark Angel Malapira", email: "mamalapira@dswd.gov.ph", image: Angel, category: "CBD" },
     { title: "RSDIG FOCAL", name: "Perrine D. Padilla", email: "pdpadilla@dswd.gov.ph", image: Perrine, category: "CBD" },
+
     { title: "FO NCR FOCAL", name: "Nancy E. Fortes", email: "nefortes@dswd.gov.ph", image: Nancy, category: "CBD" },
     { title: "FO CAR FOCAL", name: "Eddniel Patrick I. Papa", email: "epipapa@dswd.gov.ph", image: Edd, category: "CBD" },
     { title: "FO I & FO CARAGA FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
@@ -143,7 +145,7 @@ const About = () => {
     { title: "REGIONAL LEARNING RESOURCE CENTERS FOCAL", name: "Jonathan P. Futalan", email: "jpfutalan@dswd.gov.ph", image: Nate, category: "KM" },
 
     // ==================== TAAORSS DIVISION ====================
-    { title: "SECTION CHIEF", name: "Gloria G. Alvarado", email: "ggalvarado@dswd.gov.ph", image: Glo, category: "TAAORSS" },
+    { title: "SECTION CHIEF, TAAORSS", name: "Gloria G. Alvarado", email: "ggalvarado@dswd.gov.ph", image: Glo, category: "TAAORSS" },
     { title: "VISAYAS CLUSTER FOCAL", name: "Christian B. Baylosis", opacity: 1, email: "cbbaylosis@dswd.gov.ph", image: Sky, category: "TAAORSS" },
     { title: "LUZON B CLUSTER FOCAL", name: "Maria Annele B. Tio", email: "mabtio@dswd.gov.ph", image: "", category: "TAAORSS" },
     { title: "MINDANAO CLUSTER FOCAL", name: "Mary Ann S. Evangelista", email: "masevangelista@dswd.gov.ph", image: Maan, category: "TAAORSS" },
@@ -152,17 +154,19 @@ const About = () => {
     { title: "", name: "Glenda Fulong", email: "gfulong@dswd.gov.ph", image: Glenda, category: "TAAORSS" }
   ];
 
-  const filteredPeople = focalPeople.filter(person => {
-    const matchesFilter = activeFilter === "ALL" || person.category === activeFilter;
+  const filteredPeople = focalPeople.filter((person) => {
+    const matchesCategory = activeFilter === "ALL" || person.category === activeFilter;
+    // ✅ FIXED SEARCH LOGIC BELOW: Now checks both title and name
     const matchesSearch = 
-      person.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      person.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      person.email.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesFilter && matchesSearch;
+      person.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      person.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
   });
 
   // Triple layout items array instantiation to facilitate frictionless left/right edge transitions
-  const conveyorItems = [...filteredPeople, ...filteredPeople, ...filteredPeople];
+  const conveyorItems = (searchQuery.trim() !== "" && filteredPeople.length < 3) ?
+    filteredPeople : [...filteredPeople, ...filteredPeople, ...filteredPeople];
+
   const cardWidthWithGap = 296; // 280px width + 16px gap (gap-4)
   const totalBaseWidth = filteredPeople.length * cardWidthWithGap;
   const xPosition = useMotionValue(-totalBaseWidth);
@@ -190,14 +194,14 @@ const About = () => {
   // Reset viewport tracking values cleanly to the middle segment if active parameters update
   useEffect(() => {
     if (viewMode === "CAROUSEL") {
-      xPosition.set(-totalBaseWidth);
+      xPosition.set((searchQuery.trim() !== "" && filteredPeople.length < 3) ? 0 : -totalBaseWidth);
     }
-  }, [activeFilter, searchQuery, totalBaseWidth, viewMode]);
+  }, [activeFilter, totalBaseWidth, viewMode, searchQuery, filteredPeople.length]);
 
   // Framer Motion continuous loop rendering configuration engine
   useAnimationFrame((time, deltaTime) => {
-    // Stop continuous animation ticks if in list view mode to preserve performance
-    if (viewMode === "LIST" || isHoveredRef.current || isDraggingRef.current || totalBaseWidth === 0) return;
+    // Stop continuous animation ticks if in list view mode to preserve performance, or if searching with less than 3 items
+    if (viewMode === "LIST" || isHoveredRef.current || isDraggingRef.current || totalBaseWidth === 0 || (searchQuery.trim() !== "" && filteredPeople.length < 3)) return;
 
     // Adjusted rate calculation dynamically to handle high image densities smoothly
     const movementStep = (45 * deltaTime) / 1000;
@@ -208,9 +212,33 @@ const About = () => {
     xPosition.set(wrappedX);
   });
 
+  // Native non-passive event configuration binding trackpad inputs specifically to prevent page shifting
+  useEffect(() => {
+    const targetElement = carouselContainerRef.current;
+    if (!targetElement) return;
+
+    const handleWheelNative = (event) => {
+      if (viewMode === "LIST" || (searchQuery.trim() !== "" && filteredPeople.length < 3) || totalBaseWidth === 0) return;
+      
+      // Prevent browser default actions (such as horizontal history pagination or window shifting)
+      event.preventDefault();
+      
+      const trackGestureInput = event.deltaX !== 0 ? event.deltaX : event.deltaY;
+      const nextCalculatedX = xPosition.get() - trackGestureInput;
+      
+      const wrappedX = wrap(-totalBaseWidth * 2, -totalBaseWidth, nextCalculatedX);
+      xPosition.set(wrappedX);
+    };
+
+    targetElement.addEventListener("wheel", handleWheelNative, { passive: false });
+    return () => {
+      targetElement.removeEventListener("wheel", handleWheelNative);
+    };
+  }, [viewMode, searchQuery, totalBaseWidth, filteredPeople.length]);
+
   // Custom pointer drag handlers bypassing Framer native constraints completely
   const handlePointerDown = (event) => {
-    if (viewMode === "LIST" || filteredPeople.length === 0) return;
+    if (viewMode === "LIST" || (searchQuery.trim() !== "" && filteredPeople.length < 3)) return;
     isDraggingRef.current = true;
     pointerStartXRef.current = event.clientX;
     conveyorStartXRef.current = xPosition.get();
@@ -363,34 +391,41 @@ const About = () => {
           <div className="flex flex-col lg:grid lg:grid-cols-12 gap-8 items-stretch w-full">
             
             {/* Top Area on Mobile Panels / Left Navigation Block on Large Displays */}
-            <div className="col-span-12 lg:col-span-4 flex flex-col justify-between space-y-6 z-20 py-2 pr-2">
+            <div className="col-span-12 lg:col-span-4 flex flex-col justify-between space-y-8 z-20 py-2 pr-2">
               <div>
-                <div className="flex items-center gap-2 mb-2">
+                <div className="flex items-center gap-2 mb-3">
                   <div className="w-1.5 h-5 rounded-sm" style={{ backgroundColor: "#FFE066" }}></div>
                   <span className="text-sm uppercase tracking-[0.2em] text-white/80 font-bold">Contact Us</span>
                 </div>
-                <h3 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] select-none mb-4 mt-6">
+                <h3 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] select-none mb-6 mt-10">
                   Get In Touch <br />With <span className="italic text-[#FFE066]">US</span>
                 </h3>
 
-                {/* 🔍 Interactive Search Bar (Repositioned below the primary heading) */}
-                <div className="mb-6 relative max-w-[280px]">
+                {/* Search Bar Block with max-w-[360px] */}
+                <div className="mb-4 max-w-[360px] relative">
                   <input
                     type="text"
+                    placeholder="Search by title..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search focal person..."
-                    className="w-full bg-[#14175c] text-white placeholder-white/40 text-xs font-semibold px-4 py-3 pr-10 rounded-xl border border-white/5 focus:outline-none focus:border-[#FFE066]/50 transition-all duration-200 shadow-inner"
+                    className="w-full px-4 py-2.5 pl-9 rounded-xl bg-[#14175c] text-white text-xs font-semibold placeholder-white/40 border border-white/10 focus:outline-none focus:border-[#FFE066]/50 transition-colors"
                   />
-                  <div className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 pointer-events-none">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
+                  <svg className="w-3.5 h-3.5 text-white/40 absolute left-3 top-1/2 -translate-y-1/2 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                  {searchQuery && (
+                    <button 
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white font-bold text-xs"
+                    >
+                      ✕
+                    </button>
+                  )}
                 </div>
 
-                {/* ✅ View Mode Switcher Buttons */}
-                <div className="flex bg-[#14175c] p-1.5 rounded-2xl gap-2 max-w-[280px]">
+                {/* ✅ View Mode Switcher Buttons with max-w-[360px] */}
+                <div className="flex bg-[#14175c] p-1.5 rounded-xl gap-2 max-w-[360px]">
                   <button
                     type="button"
                     onClick={() => setViewMode("CAROUSEL")}
@@ -417,13 +452,13 @@ const About = () => {
               </div>
 
               {/* 🎨 NAVIGATION BUTTON TRACK WITH SPRING TAP EFFECTS */}
-              <div className="flex flex-col items-start gap-3 w-full relative">
+              <div className="flex flex-col items-start gap-3.5 z-30 w-full relative">
                 
                 {/* Row 1: ACAD Button */}
                 <motion.button 
                   whileTap={{ scale: 0.92 }}
                   onClick={() => toggleFilter("ACAD")}
-                  className={`px-5 py-3 rounded-full text-[0.82rem] font-bold tracking-wide shadow-lg transition-colors duration-200 text-left w-full sm:w-auto ${
+                  className={`px-5 py-3 rounded-xl text-[0.82rem] font-bold tracking-wide shadow-lg transition-colors duration-200 text-left w-full sm:w-auto ${
                     activeFilter === "ACAD" 
                       ? "bg-[#ee1c25] text-white" 
                       : "bg-white text-[#1e2283] hover:bg-[#ee1c25] hover:text-white"
@@ -437,7 +472,7 @@ const About = () => {
                   <motion.button 
                     whileTap={{ scale: 0.92 }}
                     onClick={() => toggleFilter("CBD")}
-                    className={`px-5 py-3 rounded-full text-[0.82rem] font-bold tracking-wide shadow-lg transition-colors duration-200 text-center flex-grow sm:flex-grow-0 ${
+                    className={`px-5 py-3 rounded-xl text-[0.82rem] font-bold tracking-wide shadow-lg transition-colors duration-200 text-center flex-grow sm:flex-grow-0 ${
                       activeFilter === "CBD" 
                         ? "bg-[#ee1c25] text-white" 
                         : "bg-white text-[#1e2283] hover:bg-[#ee1c25] hover:text-white"
@@ -448,7 +483,7 @@ const About = () => {
                   <motion.button 
                     whileTap={{ scale: 0.92 }}
                     onClick={() => toggleFilter("TAAORSS")}
-                    className={`px-5 py-3 rounded-full text-[0.82rem] font-bold tracking-wide shadow-lg transition-colors duration-200 text-center flex-grow sm:flex-grow-0 ${
+                    className={`px-5 py-3 rounded-xl text-[0.82rem] font-bold tracking-wide shadow-lg transition-colors duration-200 text-center flex-grow sm:flex-grow-0 ${
                       activeFilter === "TAAORSS" 
                         ? "bg-[#ee1c25] text-white" 
                         : "bg-white text-[#1e2283] hover:bg-[#ee1c25] hover:text-white"
@@ -462,7 +497,7 @@ const About = () => {
                 <motion.button 
                   whileTap={{ scale: 0.92 }}
                   onClick={() => toggleFilter("KM")}
-                  className={`px-5 py-3 rounded-full text-[0.82rem] font-bold tracking-wide shadow-lg transition-colors duration-200 text-left w-full sm:w-auto ${
+                  className={`px-5 py-3 rounded-xl text-[0.82rem] font-bold tracking-wide shadow-lg transition-colors duration-200 text-left w-full sm:w-auto ${
                     activeFilter === "KM" 
                       ? "bg-[#ee1c25] text-white" 
                       : "bg-white text-[#1e2283] hover:bg-[#ee1c25] hover:text-white"
@@ -507,34 +542,24 @@ const About = () => {
               
               {/* ✅ OPTION A: CAROUSEL MODE (Image Cards View) */}
               {viewMode === "CAROUSEL" && (
-                <div 
-                  onMouseEnter={() => { isHoveredRef.current = true; }}
-                  onMouseLeave={() => { isHoveredRef.current = false; }}
-                  onPointerDown={handlePointerDown}
-                  className="w-full overflow-hidden flex items-stretch cursor-grab active:cursor-grabbing select-none touched-none"
-                  style={{ touchAction: "none" }}
-                >
-                  <motion.div 
-                    style={{ x: xPosition, willChange: "transform" }}
-                    className="flex gap-4 h-auto py-2 w-full"
+                filteredPeople.length === 0 ? (
+                  <div className="text-white/50 text-center py-12 text-sm font-medium z-20 w-full">
+                    No focal people found matching this criteria.
+                  </div>
+                ) : (
+                  <div 
+                    ref={carouselContainerRef}
+                    onMouseEnter={() => { isHoveredRef.current = true; }}
+                    onMouseLeave={() => { isHoveredRef.current = false; }}
+                    onPointerDown={handlePointerDown}
+                    className={`w-full overflow-hidden flex items-stretch select-none touched-none ${(searchQuery.trim() !== "" && filteredPeople.length < 3) ? "cursor-default justify-start pl-4" : "cursor-grab active:cursor-grabbing"}`}
+                    style={{ touchAction: "none" }}
                   >
-                    {conveyorItems.length === 0 ? (
-                      /* ✅ Updated No Focal Found Layout - Carousel View matched to List Mode Style */
-                      <motion.div 
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="w-full border-2 border-dashed border-white/10 bg-[#14175c]/30 rounded-2xl p-10 text-center flex flex-col items-center justify-center self-center"
-                      >
-                        <svg className="w-8 h-8 text-white/30 mb-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                        <p className="text-white/80 font-bold text-sm tracking-wide">No focal matching results</p>
-                        <p className="text-white/40 text-xs font-medium mt-1 max-w-sm">
-                          Your criteria returned 0 search logs. Try refining keywords or clearing filters.
-                        </p>
-                      </motion.div>
-                    ) : (
-                      conveyorItems.map((person, idx) => {
+                    <motion.div 
+                      style={{ x: (searchQuery.trim() !== "" && filteredPeople.length < 3) ? 0 : xPosition, willChange: "transform" }}
+                      className={`flex gap-4 h-auto py-2 ${(searchQuery.trim() !== "" && filteredPeople.length < 3) ? "flex-wrap overflow-y-hidden" : ""}`}
+                    >
+                      {conveyorItems.map((person, idx) => {
                         const isLocalImport = person.image && !person.image.startsWith("/assets/");
 
                         return (
@@ -604,10 +629,10 @@ const About = () => {
 
                           </div>
                         );
-                      })
-                    )}
-                  </motion.div>
-                </div>
+                      })}
+                    </motion.div>
+                  </div>
+                )
               )}
 
               {/* ✅ OPTION B: LIST MODE (Text-Only View with Custom Red Styled Scrollbar) */}
@@ -623,20 +648,9 @@ const About = () => {
                   [scrollbar-color:#ee1c25_rgba(255,255,255,0.05)]"
                 >
                   {filteredPeople.length === 0 ? (
-                    /* ✅ Redesigned No Focal Found Layout - List View Track Container */
-                    <motion.div 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="w-full border-2 border-dashed border-white/10 bg-[#14175c]/30 rounded-2xl p-10 text-center flex flex-col items-center justify-center"
-                    >
-                      <svg className="w-8 h-8 text-white/30 mb-3" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                      </svg>
-                      <p className="text-white/80 font-bold text-sm tracking-wide">No focal matching results</p>
-                      <p className="text-white/40 text-xs font-medium mt-1 max-w-sm">
-                        Your criteria returned 0 search logs. Try refining keywords or clearing filters.
-                      </p>
-                    </motion.div>
+                    <div className="text-white/50 text-center py-12 text-sm font-medium w-full">
+                      No focal people found matching this criteria.
+                    </div>
                   ) : (
                     filteredPeople.map((person, idx) => (
                       <div 
@@ -689,7 +703,7 @@ const About = () => {
               )}
 
               {/* 🎨 SYMMETRICAL EDGE VIGNETTE PLUMES */}
-              {viewMode === "CAROUSEL" && conveyorItems.length > 0 && (
+              {viewMode === "CAROUSEL" && searchQuery.trim() === "" && (
                 <>
                 <div className="absolute top-0 left-0 bottom-0 w-16 bg-gradient-to-r from-[#1e2283] via-[#1e2283]/40 to-transparent z-30 pointer-events-none hidden lg:block" />
                 <div className="absolute left-0 top-0 bottom-0 w-12 z-40 pointer-events-none bg-gradient-to-r from-[#1e2283]/40 via-[#1e2283]/15 to-transparent" />
@@ -724,6 +738,7 @@ const About = () => {
       ),
     },
   ];
+
   return (
     <div className="w-full bg-white font-['Montserrat',sans-serif]">
       {/* Slider Header Showcase */}
