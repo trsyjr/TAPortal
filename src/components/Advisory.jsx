@@ -120,7 +120,7 @@ const Advisory = ({ onClose, forceShow }) => {
                 onClick={handleProceed}
                 className="w-full bg-[#2e3192] hover:bg-[#ee1c25] text-white font-bold text-base py-3.5 px-6 rounded-xl shadow-md transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2 group"
               >
-                I Understand and Proceed
+                I Understand
               </button>
 
               {!forceShow && (

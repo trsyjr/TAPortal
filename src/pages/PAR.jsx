@@ -24,8 +24,8 @@ import FloatingCardDeck from "../components/FloatingCardDeck";
 const faqCards = [
   { title: "TARA Program", icon: <FaFileCircleCheck />, path: "/tara-program" },
   { title: "TARGETING ASSESSMENT MONITORING PLANNING", icon: <FaFileCircleCheck />, path: "/tamp" },
+  { title: "SDCA-IS", icon: <FaNetworkWired />, path: "/sdca" },
   { title: "PERFORMANCE AND RECOGNITION", icon: <FaFileLines />, path: "/par" },
-  { title: "OTHER REQUEST AND REFERRAL", icon: <FaNetworkWired />, path: "/orf" },
 ];
 
 /* ---------------- MASTER GLOBAL ROUTES ---------------- */
@@ -42,71 +42,121 @@ const faqPages = [
     label: "PAR",
     items: [
       {
-        q: "Why is there no option for PSWDO / Province (PLGU) in the dropdown menu while registering an LGU account?",
+        q: "What activities are covered?",
         a: (
           <>
-          The dropdown menu for the LGU is dependent on the selected region. Please ensure that you select the correct Region first before searching 
-          for your specific Province. If you are registering as a PLGU (Provincial LGU), the system filters the succeeding choices based on this 
-          geographical hierarchy.
+          <strong>Any T/AAORSS activities</strong> (orientations, briefings, workshops), regional capacity-building, 
+          or large-group events requiring official technical representation.
           </>
         ),
       },
       {
-        q: "The uploaded MOVs disappeared or were not saved after moving to another section or clicking the 'Home' tab. What is the cause of this?",
+        q: "Can we request a Resource Person for a localized activity that is jointly organized with a Local Government Unit (LGU) or external partner?",
         a: (
           <>
-          This issue occurs when the same user account is logged into multiple devices simultaneously, which causes synchronization conflicts and multiple 
-          conflicting entries in the database. To ensure your data is saved, use one device per account and log out properly before switching devices.
+          Yes. Provided that the activity includes official invitations, caters to a large group 
+          of participants, and directly aligns with our mandate and T/AAORSS frameworks.
           </>
         ),
       },
       {
-        q: "What should we do with indicators that are not applicable to our LGU (e.g., no recorded cases of OSAEC, CSAEM, Child Marriage, or Armed Conflict)?",
+        q: "What is the deadline to submit a request?",
         a: (
           <>
-          There is no need to upload any documents if the specific case or scenario does not exist in your locality. You may simply use the "SKIP" button 
-          located in the lower-left corner of the system interface. Clicking this will allow you to proceed without a penalty on your progress.
+          At least <strong>15 working days (3 weeks)</strong> before the event.
           </>
         ),
       },
       {
-        q: "Why does an error occur when uploading multiple documents or links in a single indicator section?",
+        q: "What documents do we need to attach?",
         a: (
           <>
-          The system is currently designed and configured to accept only one (1) file per designated upload field. If you have multiple supporting 
-          documents or MOVs for a single indicator, you must merge them into a single PDF file before uploading.
+          1. Endorsement Memo from the Field Office Director
+          <br />
+          2. Approved Activity Design
+          <br />
+          3. Program Matrix/Schedule
           </>
         ),
       },
       {
-        q: "Where can we get a guide or Technical Notes for specific MOVs requested per Section and Level to ensure they match what we are preparing?",
+        q: "Who pays for travel, meals, and hotel?",
         a: (
           <>
-          The User's Guide to be released by the OCIO in the 3rd week of May 2026 is intended strictly for system (IS) navigation and utilization. For the 
-          official, detailed, and complete list of required documentary evidence, please refer to the attached guidelines link.
+            <ul className="list-disc list-inside space-y-1">
+              <li><strong>Local FO event:</strong> Funded by the Field Office.</li>
+              <li><strong>National rollout:</strong> Charged to downloaded Central Office (CO) funds.</li>
+            </ul>
           </>
         ),
       },
       {
-        q: "Is there an automatic session timeout if the system is left open and idle? Does it have an 'Autosave' feature?",
+        q: "Is the Field Office responsible for local transport?",
         a: (
           <>
-          Currently, there is no automatic session timeout on the platform if it is left unattended. However, please note that the system does not have an 
-          automatic autosave feature for file attachments; you must manually save your progress before navigating away.
+          Yes. The FO must arrange airport pick-ups, drop-offs, and transit to the venue.
           </>
         ),
       },
       {
-        q: "If an LGU mistakenly uploads an incorrect file or enters flawed text data and hits 'Submit', can the Regional Focal revert the status back to 'Draft' for LGU corrections?",
+        q: "Can we hold the session virtually?",
         a: (
           <>
-          Yes. The Regional Focal account holds overriding administrative writes to modify database stage states from "Submitted / Under Review" back to 
-          "Returned to Draft / For Modification."SOP: Locate the specific LGU profile within the evaluation queue, click the "Return for Revision" button, and append a mandatory system log note stating the exact indicator and correcting action required by the LGU.
+          Yes. Virtual speakers are highly encouraged to save on travel costs. The FO must ensure stable venue internet.
+          </>
+        ),
+      },
+      {
+        q: "What do we need to do after the event?",
+        a: (
+          <>
+          Within 5 working days, send the Resource Person the completed feedback forms, final attendance sheet, and documentation photos.
+          </>
+        ),
+      },
+      {
+        q: "What if our event is rescheduled or cancelled?",
+        a: (
+          <>
+          Notify the assigned Resource Person and the clearing office immediately (at least 3 working days before). 
+          Rescheduling is subject to the speaker's availability.
+          </>
+        ),
+      },
+      {
+        q: "Who provides the presentation handouts for the participants?",
+        a: (
+          <>
+          The Resource Person will provide the master copy of the presentation. The Field Office is responsible for 
+          printing or digitally distributing the handouts to the participants.
+          </>
+        ),
+      },
+      {
+        q: "Can we post the Resource Person’s recorded session online?",
+        a: (
+          <>
+          Only with prior permission. The presentation content remains the intellectual property of the agency/speaker. 
+          Please clear any public streaming or recording with the speaker beforehand.
           </>
         ),
       },
     ],
   },
+  {
+    label: "Referral Concern",
+    items: [
+      {
+        q: "What types of concerns will be given to the Field Offices for referral?",
+        a: (
+          <>
+          Concerns that require action, clarification, assistance, or resolution beyond the scope of assistance provided by 
+          T/AAORSS may be referred to the assigned staff, other OBSUs or designated focal person for proper channeling.
+          </>
+        ),
+      },
+    ]
+  }
 ];
 
 const PAR = () => {
@@ -188,26 +238,38 @@ const PAR = () => {
 
       {/* Section Header / Clean FAQ Mapping */}
       <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
-        <h3 className="text-2xl md:text-3xl font-bold mb-20">
+        <h3 className="text-2xl md:text-3xl font-bold mb-2">
           <span className="text-black">FAQS / </span>
           <span className="text-black">TAAORSS / </span>
           <span className="text-[#2e3192]">Performance and Recognition</span>
         </h3>
+        <h3 className="text-sm md:text-md font-bold mb-20 text-gray-500">
+          As of 21 May 2026
+        </h3>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
-          {faqPages[0].items.map((faq, index) => (
-            <React.Fragment key={index}>
-              {faq.q ? (
-                <>
-                  <div className="md:col-span-4 font-bold text-gray-800">{faq.q}</div>
-                  <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">{faq.a}</div>
-                </>
-              ) : (
-                <div className="col-span-12 w-full">{faq.a}</div>
-              )}
-            </React.Fragment>
-          ))}
-        </div>
+        {faqPages.map((page, pageIdx) => (
+          <div key={pageIdx} className="mb-12">
+            {/* Renders each category section label dynamically */}
+            <p className="text-[#2e3192] font-semibold text-lg mb-6 border-b pb-2">
+              {page.label}
+            </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
+              {page.items.map((faq, index) => (
+                <React.Fragment key={index}>
+                  {faq.q ? (
+                    <>
+                      <div className="md:col-span-4 font-bold text-gray-800">{faq.q}</div>
+                      <div className="md:col-span-8 text-gray-700 text-sm md:text-base leading-relaxed">{faq.a}</div>
+                    </>
+                  ) : (
+                    <div className="col-span-12 w-full">{faq.a}</div>
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        ))}
       </section>
 
       {/* Shared presentation interface layout for the unified card stack deck */}

@@ -147,10 +147,13 @@ const Accreditation = () => {
 
       {/* Section Header / Clean FAQ Mapping */}
       <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
-        <h3 className="text-2xl md:text-3xl font-bold mb-20">
+        <h3 className="text-2xl md:text-3xl font-bold mb-2">
           <span className="text-black">FAQS / </span>
           <span className="text-black">Assessment, Certification, and Accreditation / </span>
           <span className="text-[#2e3192]">Accreditation Program</span>
+        </h3>
+        <h3 className="text-sm md:text-md font-bold mb-20 text-gray-500">
+          As of 2026
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
           {faqPages[0].items.map((faq, index) => (

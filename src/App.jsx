@@ -51,7 +51,7 @@ const ServicesKM = lazy(() => import("./pages/ServicesKM"));
 const TaraProgram = lazy(() => import("./pages/TaraProgram"));
 const TAMP = lazy(() => import("./pages/TAMP")); 
 const PAR = lazy(() => import("./pages/PAR")); 
-const ORF = lazy(() => import("./pages/ORF")); 
+const SDCA = lazy(() => import("./pages/SDCA")); 
 const ServicesTAAORSS = lazy(() => import("./pages/ServicesTAAORSS")); 
 
 import { ToastContainer } from "react-toastify";
@@ -194,7 +194,7 @@ function AppContent() {
               <Route path="/tara-program" element={<TaraProgram />} />
               <Route path="/tamp" element={<TAMP />} />
               <Route path="/par" element={<PAR />} />
-              <Route path="/ORF" element={<ORF />} />
+              <Route path="/sdca" element={<SDCA />} />
               <Route path="/services-taaorss" element={<ServicesTAAORSS />} />
 
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />

@@ -83,53 +83,150 @@ const servicesContentData = {
   3: {
     categoryTitle: "Knowledge Management",
     items: [
-      { 
-        id: 1, 
-        title: "Knowledge Sharing Sessions (KSS)", 
-        content: [
-          "Informal activities where knowledge is exchanged or transferred among peers, colleagues, partners, and stakeholders."
-        ],
-        isDualButton: true,
-        leftButtonText: "KSS Reporting Form",
-        leftExternalLink: "https://docs.google.com/forms/d/e/1FAIpQLScKMrmls1BO7Ytfdmjx56EuPuI7uGxHOkhMVSEYYxYcZPr8Tw/viewform",
-        rightButtonText: "Register KSS Activity",
-        rightExternalLink: "https://docs.google.com/forms/d/e/1FAIpQLSdTiVPcxQM9N-pX8sdTOb3Ctdk_v9_uuXklDecpFYuZD8UG6Q/viewform"
+      {
+        id: 1,
+        title: "Online Reporting System",
+        content: "Field Offices and Central Office units shall be able to submit accomplishments, plans, and updates on the following KM initiatives.",
+        isNestedGroup: true,
+        subItems: [
+          { 
+            id: 1, 
+            title: "Knowledge Sharing Sessions (KSS)", 
+            content: "Informal activities where knowledge is exchanged or transferred among peers, colleagues, partners, and stakeholders.",
+            isDualButton: true,
+            leftButtonText: "KSS Reporting Form",
+            leftExternalLink: "https://docs.google.com/forms/d/e/1FAIpQLScKMrmls1BO7Ytfdmjx56EuPuI7uGxHOkhMVSEYYxYcZPr8Tw/viewform",
+            rightButtonText: "Register KSS Activity",
+            rightExternalLink: "https://docs.google.com/forms/d/e/1FAIpQLSdTiVPcxQM9N-pX8sdTOb3Ctdk_v9_uuXklDecpFYuZD8UG6Q/viewform"
+          },
+          { 
+            id: 2, 
+            title: "Knowledge Products", 
+            content: "Knowledge outputs derived from expertise, research, lessons learned, and best practices that respond to organizational needs.", 
+            externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfKoZQbHwsrQsGTeUlcoi9FXWnbKeMfpXKkeL35OkBCSdsNOg/viewform", 
+            buttonText: "Click Here To Submit Your Entry" 
+          },
+          { 
+            id: 3, 
+            title: "Core Group of Specialists (CGS)", 
+            content: "Technical assistance mechanisms that mobilize subject matter experts across major sectors covered by DSWD.", 
+            externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfE65u_2ARp2s5TRcedirmtLqSc3Xdc99hkWgpHwncEmeFdhQ/viewform?usp=dialog", 
+            buttonText: "Click Here To Submit Your Entry" 
+          },
+          { 
+            id: 4, 
+            title: "Regional Learning Resource Center (RLRC)", 
+            content: "Facilities providing accurate, relevant, and timely information services to DSWD staff, intermediaries, and partners.", 
+            externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfE65u_2ARp2s5TRcedirmtLqSc3Xdc99hkWgpHwncEmeFdhQ/viewform", 
+            buttonText: "Click Here To Submit Your Entry" 
+          },
+          { 
+            id: 6, 
+            title: "Other KM Initiatives", 
+            content: "Submission and publication of current news, highlights, and featured KM-related activities conducted by COs, OBSUs, and FOs.", 
+            externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfE3NQ0p75y8cYqCholtpAW82msShYpwX8llfjC6WSepP3wg/viewform", 
+            buttonText: "Click Here To Submit Your Entry" 
+          },
+          { 
+            id: 7, 
+            title: "KM Portal News / Features", 
+            content: "Other knowledge management mechanisms or innovative practices implemented by Field Offices.", 
+            externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSea4smDB1FlPM8sLfJ-HTHzCq6hkKpTuuYCl_IanNs5rriSgA/viewform", 
+            buttonText: "Click Here To Submit Your Entry" 
+          }
+        ]
       },
-      { 
+      {
         id: 2, 
-        title: "Knowledge Products", 
-        content: "Knowledge outputs derived from expertise, research, lessons learned, and best practices that respond to organizational needs.", 
-        externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfKoZQbHwsrQsGTeUlcoi9FXWnbKeMfpXKkeL35OkBCSdsNOg/viewform", 
-        buttonText: "Click Here To Submit Your Entry" 
-      },
-      { 
-        id: 3, 
-        title: "Core Group of Specialists (CGS)", 
-        content: "Technical assistance mechanisms that mobilize subject matter experts across major sectors covered by DSWD.", 
-        externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfE65u_2ARp2s5TRcedirmtLqSc3Xdc99hkWgpHwncEmeFdhQ/viewform?usp=dialog", 
-        buttonText: "Click Here To Submit Your Entry" 
-      },
-      { 
-        id: 4, 
-        title: "Regional Learning Resource Center (RLRC)", 
-        content: "Facilities providing accurate, relevant, and timely information services to DSWD staff, intermediaries, and partners.", 
-        externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfE65u_2ARp2s5TRcedirmtLqSc3Xdc99hkWgpHwncEmeFdhQ/viewform", 
-        buttonText: "Click Here To Submit Your Entry" 
+        title: "Request for Resource Person for DSWD Academy-Offered Training Courses", 
+        isCustomRequestLayout: true,
+        content: "Requests may be linked to the Directory of Experts (DOE) for easier identification of subject matter specialists.",
+        buttonText: "Request Ticket" 
       },
       { 
         id: 5, 
-        title: "Other KM Initiatives", 
-        content: "Submission and publication of current news, highlights, and featured KM-related activities conducted by COs, OBSUs, and FOs.", 
-        externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSdfE3NQ0p75y8cYqCholtpAW82msShYpwX8llfjC6WSepP3wg/viewform", 
-        buttonText: "Click Here To Submit Your Entry" 
+        title: "Capability Building or Knowledge Sharing Session Requests on Knowledge Management Topics and Mechanisms", 
+        isCustomRequestLayout: true,
+        content: "Submission of inquiries or requests related to KM systems, templates, tools, and processes.",
+        listItems: [
+          "1. Introduction to Knowledge Management",
+          "2. Knowledge Product Development",
+          "     - Good Practice Documentation",
+          "     - Module Development",
+          "3. Knowledge Sharing Session",
+          "4. Knowledge Exchange Center",
+          "5. Knowledge Management Team",
+          "6. Core Group of Specialists",
+          "7. Social Welfare and Development Learning Network",
+          "8. Knowledge Management Portal",
+          "9. Electronic Learning Management System",
+          "10. Intellectual Property",
+          "11. DSWD Academy Training Facility",
+          "12. Knowledge Management Monitoring and Evaluation",
+          "13. Knowledge Management Assessment",
+          "14. Knowledge Audit",
+          "15. Knowledge Management Productivity, Recognition, Innovation, and Development for Effectiveness (KM PRIDE)",
+          "16. Knowledge Management Team Quarterly Report",
+          "17. Bayanihang Bayan Program"
+        ],
+        buttonText: "Request Ticket" 
+      },
+      {
+        id: 4, 
+        title: "Knowledge Product Development", 
+        isCustomRequestLayout: true,
+        content: "Technical assistance related to the review, enhancement, and development of materials based on the existing standards of a good knowledge product. Note that only the modules are open for the request to be enhanced or developed by the DSWD Academy, subject to the official communications shared to all internal offices of the department.",
+        listItems: [
+          "1. Good Practice Documentation Review",
+          "2. Module and Instructional Design Review",
+          "3. Module and Instructional Design Enhancement",
+          "4. Module and Instructional Design Development",
+          "5. Other Types of Knowledge Product Review",
+          "6. Knowledge Product Review by Core Group of Specialists"
+        ],
+        buttonText: "Request Ticket" 
+      },
+      { 
+        id: 3, 
+        title: "Big Group Knowledge Sharing Session Material Review", 
+        content: "Technical assistance related to the review of materials particular to the implementation of the knowledge sharing sessions.",
+        isCustomRequestLayout: true,
+        listItems: [
+          "1. Activity Design and Activity Proposal for Big Group Knowledge Sharing Session",
+          "2. Documentation of Conducted Big Group Knowledge Sharing Session"
+        ],
+        buttonText: "Request Ticket" 
       },
       { 
         id: 6, 
-        title: "KM Portal News / Features", 
-        content: "Other knowledge management mechanisms or innovative practices implemented by Field Offices.", 
-        externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSea4smDB1FlPM8sLfJ-HTHzCq6hkKpTuuYCl_IanNs5rriSgA/viewform", 
-        buttonText: "Click Here To Submit Your Entry" 
+        title: "Knowledge Exchange Center Material (Borrowing)", 
+        content: "Technical assistance related to the borrowing of materials being offered by the Knowledge Exchange Center.",
+        buttonText: "Request Ticket" 
       },
+      { 
+        id: 7, 
+        title: "Intellectual Property Registration", 
+        content: "Technical assistance related to the registration of qualified intellectual property for protection.",
+        buttonText: "Request Ticket" 
+      },
+      { 
+        id: 8, 
+        title: "DSWD Academy Training Facility Reservation", 
+        content: "Provide technical assistance to inquiries or concerns related to the reservation and booking processes at the DSWD Academy Facility. This support extends to various stakeholders, including OBS, FOs, and other partners.",
+        buttonText: "Request Ticket" 
+      },
+      { 
+        id: 9, 
+        title: "Marketing Support", 
+        content: "Provide technical assistance to the DSWD Academy divisions to effectively promote and execute their activities and events. This includes offering guidance on marketing strategies, communication materials, events management and promotional campaigns.",
+        buttonText: "Request Ticket" 
+      },
+      { 
+        id: 10, 
+        title: "Hosting of Courses under the DSWD Academy’s ELMS", 
+        content: "This Technical Assistance (TA) service supports DSWD offices and units in the onboarding and hosting of their e-learning courses within the DSWD Academy’s e-Learning Management System (ELMS). It includes guidance on the requirements, standards, and processes for lodging developed digital learning materials into the platform.",
+        buttonText: "Request Ticket" 
+      }
     ]
   },
   4: {
@@ -201,15 +298,13 @@ const servicesContentData = {
   }
 };
 
-// Maps dynamic Category IDs natively to their respective targets
 const SATISFACTORY_SHEETS = {
-  1: "1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU", // Assessment/Accreditation
-  2: "14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8", // Capability Building
-  3: "1KkYaquUwif5M0ybxpXg5MDX62Nrres61w-1xPE-fMUg", // Knowledge Management
-  4: "1aPY6QDdyRlI9D_Zd7wI27yzBBvVZ_wEJEcXJQX-MHSs", // TAAORSS
+  1: "1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU", 
+  2: "14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8", 
+  3: "1KkYaquUwif5M0ybxpXg5MDX62Nrres61w-1xPE-fMUg", 
+  4: "1aPY6QDdyRlI9D_Zd7wI27yzBBvVZ_wEJEcXJQX-MHSs", 
 };
 
-// Maps category IDs to string labels expected by TicketModal selection matrix
 const INQUIRY_TYPES = {
   1: "Assessment/Accreditation",
   2: "Capability Building",
@@ -223,14 +318,12 @@ const AllServices = () => {
   
   const [activeTabId, setActiveTabId] = useState(0); 
   const [openAccordionId, setOpenAccordionId] = useState(null); 
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(""); 
   const [selectedInquiryType, setSelectedInquiryType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  
-  // Tracks active payload delivery destination spreadsheet configuration
   const [activeSpreadsheetId, setActiveSpreadsheetId] = useState("1FyPV2W83SQ30HdAMYsQ2Fqv9HJvuOM_v4tcWk3BaHqU");
 
   const servicesTabs = [
@@ -243,16 +336,13 @@ const AllServices = () => {
 
   useEffect(() => {
     const matchingTab = servicesTabs.find((tab) => tab.path === location.pathname);
-    
     if (matchingTab && matchingTab.id !== activeTabId) {
       setIsLoading(true);
       setOpenAccordionId(null);
-      
       const timer = setTimeout(() => {
         setActiveTabId(matchingTab.id);
         setIsLoading(false);
       }, 500);
-
       return () => clearTimeout(timer);
     }
   }, [location.pathname]);
@@ -271,7 +361,15 @@ const AllServices = () => {
       const category = servicesContentData[catId];
       if (category) {
         category.items.forEach((item) => {
-          const contentStr = Array.isArray(item.content) ? item.content.join(" ") : item.content;
+          let contentStr = Array.isArray(item.content) ? item.content.join(" ") : (item.content || "");
+          
+          if (item.listItems) {
+            contentStr += " " + item.listItems.join(" ");
+          }
+          if (item.subItems) {
+            item.subItems.forEach(sub => contentStr += " " + sub.title + " " + sub.content);
+          }
+          
           if (item.title.toLowerCase().includes(lowerQuery) || contentStr.toLowerCase().includes(lowerQuery)) {
             matchedItems.push(`${catId}-${item.id}`);
           }
@@ -307,6 +405,7 @@ const AllServices = () => {
   };
 
   const renderContentText = (content) => {
+    if (!content) return null;
     if (!Array.isArray(content)) {
       return <p className="text-white/85 text-[14.5px] font-medium leading-relaxed max-w-3xl">{content}</p>;
     }
@@ -328,14 +427,18 @@ const AllServices = () => {
   const renderAccordionSection = (categoryId) => {
     const category = servicesContentData[categoryId];
     if (!category) return null;
-
     const filteredItems = category.items.filter((subItem) => {
       if (!searchQuery.trim()) return true;
       const lowerQuery = searchQuery.toLowerCase();
-      const contentStr = Array.isArray(subItem.content) ? subItem.content.join(" ") : subItem.content;
+      let contentStr = Array.isArray(subItem.content) ? subItem.content.join(" ") : (subItem.content || "");
+      if (subItem.listItems) {
+        contentStr += " " + subItem.listItems.join(" ");
+      }
+      if (subItem.subItems) {
+        subItem.subItems.forEach(sub => contentStr += " " + sub.title + " " + sub.content);
+      }
       return subItem.title.toLowerCase().includes(lowerQuery) || contentStr.toLowerCase().includes(lowerQuery);
     });
-
     if (filteredItems.length === 0) return null;
 
     return (
@@ -351,7 +454,6 @@ const AllServices = () => {
           {filteredItems.map((subItem) => {
             const uniqueAccordionKey = `${categoryId}-${subItem.id}`;
             const isExpanded = openAccordionId === uniqueAccordionKey;
-            const isRequestTicket = subItem.buttonText === "Request Ticket";
             
             return (
               <div 
@@ -371,8 +473,8 @@ const AllServices = () => {
                     <span className={`font-bold text-[15.5px] tracking-tight ${isExpanded ? "text-[#FFE066]" : "text-gray-800"}`}>
                       {subItem.title}
                     </span>
-                    {isExpanded && <div className="accordion-underline w-36 mt-2"></div>}
                   </div>
+             
                   <motion.div 
                     animate={{ rotate: isExpanded ? 180 : 0 }} 
                     className={`shrink-0 w-5 h-5 ${isExpanded ? "text-[#FFE066]" : "text-gray-500"}`}
@@ -395,66 +497,146 @@ const AllServices = () => {
                         <div className="mb-5 w-full flex justify-center">
                           {renderContentText(subItem.content)}
                         </div>
-                        
-                        {subItem.isDisabled ? (
-                          <button disabled className="flex items-center gap-2 px-6 py-2.5 bg-gray-400 text-gray-200 rounded-full font-bold text-[13px] tracking-wide shadow-none cursor-not-allowed select-none opacity-80">
-                            <span>Launching Soon</span> 
-                          </button>
-                        ) : subItem.isDualButton ? (
-                          <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
-                            <a 
-                              href={subItem.leftExternalLink} 
-                              onClick={() => {
-                                setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
-                                setIsFeedbackModalOpen(true);
-                              }} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
-                            >
-                              <span>{subItem.leftButtonText}</span>
-                              <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            </a>
-                            <a 
-                              href={subItem.rightExternalLink} 
-                              onClick={() => {
-                                setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
-                                setIsFeedbackModalOpen(true);
-                              }} 
-                              target="_blank" 
-                              rel="noopener noreferrer" 
-                              className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
-                            >
-                              <span>{subItem.rightButtonText}</span>
-                              <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                            </a>
+
+                        {/* List Items Module */}
+                        {subItem.listItems && (
+                          <div className="w-full border-t border-white/10 pt-4 mt-2 mb-6 flex justify-center">
+                            <div className="w-fit text-left text-[14px] text-white/90 space-y-1.5 font-normal tracking-wide px-4 whitespace-pre-wrap">
+                              {subItem.listItems.map((item, index) => (
+                                <p key={index}>{item}</p>
+                              ))}
+                            </div>
                           </div>
-                        ) : (
-                          (subItem.buttonText || subItem.externalLink) && (
-                            isRequestTicket ? (
-                              <button 
-                                onClick={() => openTicketModal(subItem.title, categoryId)} 
-                                className="flex items-center gap-2 px-6 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
-                              >
-                                <span>Request Ticket</span>
-                              </button>
-                            ) : (
-                              <a 
-                                href={subItem.externalLink || "#"} 
-                                onClick={() => {
-                                  setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
-                                  setIsFeedbackModalOpen(true);
-                                }} 
-                                target="_blank" 
-                                rel="noopener noreferrer" 
-                                className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
-                              >
-                                <span>{subItem.buttonText || "Visit External Portal"}</span>
-                                <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                              </a>
-                            )
-                          )
                         )}
+
+                        {/* Standard Base Actions Wrapper */}
+                        {!subItem.isNestedGroup && (
+                          <div className="w-full flex items-center justify-center mt-1">
+                            {subItem.isDisabled ? (
+                              <button disabled className="flex items-center gap-2 px-6 py-2.5 bg-gray-400 text-gray-200 rounded-full font-bold text-[13px] tracking-wide shadow-none cursor-not-allowed opacity-80">
+                                <span>Launching Soon</span> 
+                              </button>
+                            ) : subItem.isDualButton ? (
+                              <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
+                                <a 
+                                  href={subItem.leftExternalLink} 
+                                  onClick={() => {
+                                    setSelectedService(`${subItem.title} - ${subItem.leftButtonText}`);
+                                    setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                    setIsFeedbackModalOpen(true);
+                                  }} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
+                                >
+                                  <span>{subItem.leftButtonText}</span>
+                                  <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                </a>
+                                
+                                <a 
+                                  href={subItem.rightExternalLink} 
+                                  onClick={() => {
+                                    setSelectedService(`${subItem.title} - ${subItem.rightButtonText}`);
+                                    setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                    setIsFeedbackModalOpen(true);
+                                  }} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
+                                >
+                                  <span>{subItem.rightButtonText}</span>
+                                  <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                </a>
+                              </div>
+                            ) : (
+                              (subItem.buttonText || subItem.externalLink) && (
+                                subItem.buttonText === "Request Ticket" ? (
+                                  <button 
+                                    onClick={() => openTicketModal(subItem.title, categoryId)} 
+                                    className="flex items-center gap-2 px-6 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 cursor-pointer"
+                                  >
+                                    <span>Request Ticket</span>
+                                  </button>
+                                ) : (
+                                  <a 
+                                    href={subItem.externalLink || "#"} 
+                                    onClick={() => {
+                                      setSelectedService(subItem.title);
+                                      setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                      setIsFeedbackModalOpen(true);
+                                    }} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105"
+                                  >
+                                    <span>{subItem.buttonText || "Visit External Portal"}</span>
+                                    <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                  </a>
+                                )
+                              )
+                            )}
+                          </div>
+                        )}
+
+                        {/* SubItems Grid Parser */}
+                        {subItem.isNestedGroup && subItem.subItems && (
+                          <div className="w-full mt-2 space-y-8 border-t border-white/10 pt-6 max-w-2xl mx-auto flex flex-col items-center">
+                            {subItem.subItems.map((child) => (
+                              <div key={child.id} className="w-full flex flex-col items-center justify-center gap-2">
+                                <h4 className="text-[#FFE066] font-bold text-[15px]">{child.title}</h4>
+                                <p className="text-white/80 text-[14px] leading-relaxed max-w-xl mb-1">{child.content}</p>
+                                <div className="w-full flex items-center justify-center">
+                                  {child.isDualButton ? (
+                                    <div className="flex flex-wrap items-center justify-center gap-3">
+                                      <a 
+                                        href={child.leftExternalLink} 
+                                        onClick={() => {
+                                          setSelectedService(`${child.title} - ${child.leftButtonText}`);
+                                          setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                          setIsFeedbackModalOpen(true);
+                                        }}
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        className="px-5 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105"
+                                      >
+                                        {child.leftButtonText}
+                                      </a>
+                                      <a 
+                                        href={child.rightExternalLink} 
+                                        onClick={() => {
+                                          setSelectedService(`${child.title} - ${child.rightButtonText}`);
+                                          setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                          setIsFeedbackModalOpen(true);
+                                        }}
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        className="px-5 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105"
+                                      >
+                                        {child.rightButtonText}
+                                      </a>
+                                    </div>
+                                  ) : (
+                                    <a
+                                      href={child.externalLink || "#"}
+                                      onClick={() => {
+                                        setSelectedService(child.title);
+                                        setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                        setIsFeedbackModalOpen(true);
+                                      }}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="px-6 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105 inline-flex items-center gap-1.5"
+                                    >
+                                      <span>{child.buttonText || "Submit Entry"}</span>
+                                      <svg className="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                                    </a>
+                                  )}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+
                       </div>
                     </motion.div>
                   )}
@@ -474,7 +656,13 @@ const AllServices = () => {
       const matchCount = items.filter(item => {
         if (!searchQuery.trim()) return true;
         const lowerStr = searchQuery.toLowerCase();
-        const contentStr = Array.isArray(item.content) ? item.content.join(" ") : item.content;
+        let contentStr = Array.isArray(item.content) ? item.content.join(" ") : (item.content || "");
+        if (item.listItems) {
+          contentStr += " " + item.listItems.join(" ");
+        }
+        if (item.subItems) {
+          item.subItems.forEach(sub => contentStr += " " + sub.title + " " + sub.content);
+        }
         return item.title.toLowerCase().includes(lowerStr) || contentStr.toLowerCase().includes(lowerStr);
       }).length;
       return acc + matchCount;
@@ -540,12 +728,11 @@ const AllServices = () => {
           .premium-shadow { box-shadow: 0 4px 20px -2px rgba(46, 49, 146, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03); }
           .premium-shadow-active { box-shadow: 0 12px 30px -8px rgba(46, 49, 146, 0.25); }
           .tapered-underline { height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(46, 49, 146, 0.6) 50%, transparent 100%); }
-          .accordion-underline { height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(252, 225, 102, 0.6) 50%, transparent 100%); }
         `}
       </style>
 
       <main className="max-w-[1440px] mx-auto px-16 pt-28 pb-24">
-        {/* Master Titles */}
+        {/* Header Title Section */}
         <div className="text-center mb-10">
           <div className="inline-block mb-4">
             <h1 className="text-[44px] tracking-tight leading-none mb-2">
@@ -559,7 +746,7 @@ const AllServices = () => {
           </p>
         </div>
 
-        {/* Search Bar */}
+        {/* Search Input Layout */}
         <div className="max-w-[680px] mx-auto mb-14 px-4">
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-[#2e3192]/12 to-[#ee1c25]/12 rounded-full blur-2xl opacity-0 group-focus-within:opacity-100 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none" />
@@ -573,7 +760,7 @@ const AllServices = () => {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="What services are you looking for?"
+                placeholder="What service or topic are you looking for?"
                 className="w-full py-5 pr-14 bg-transparent text-[15.5px] font-semibold tracking-wide text-gray-800 placeholder-gray-400/90 focus:outline-none"
               />
               <AnimatePresence>
@@ -582,10 +769,8 @@ const AllServices = () => {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
-                    transition={{ duration: 0.15 }}
                     onClick={() => setSearchQuery("")}
                     className="absolute right-5 p-1.5 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all cursor-pointer"
-                    title="Clear text"
                   >
                     <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -597,16 +782,16 @@ const AllServices = () => {
           </div>
         </div>
 
-        {/* Navigation Tabs Bar */}
-        <div className="max-w-[1200px] mx-auto mb-16">
+        {/* Categories Tab Navigation Switch */}
+        <div className="max-w-[1100px] mx-auto mb-16">
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             {servicesTabs.map((tab) => {
-              const isActive = activeTabId === tab.id;
+              const isActive = tab.id === activeTabId;
               return (
                 <button
                   key={tab.id}
                   onClick={() => handleTabChange(tab)}
-                  className="relative px-7 py-3.5 rounded-full font-bold text-[13.5px] tracking-wide transform active:scale-[0.98] whitespace-nowrap overflow-hidden group bg-[#2e3192] text-white transition-colors duration-300 cursor-pointer"
+                  className="relative px-7 py-3.5 rounded-full font-bold text-[13.5px] tracking-wide transform active:scale-[0.98] whitespace-nowrap overflow-hidden bg-[#2e3192] text-white transition-colors duration-300 cursor-pointer"
                 >
                   <motion.div
                     className="absolute inset-0 bg-[#ee1c25]"
@@ -621,51 +806,37 @@ const AllServices = () => {
           </div>
         </div>
 
-        {/* View Layout Viewport Frame */}
-        <div className="max-w-[1200px] mx-auto min-h-[300px] relative">
-          <AnimatePresence mode="wait">
-            {isLoading ? (
-              <motion.div
-                key="loader"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0 flex flex-col items-center justify-center py-20"
-              >
-                <div className="w-12 h-12 border-4 border-[#2e3192] border-t-[#ee1c25] rounded-full animate-spin"></div>
-                <p className="text-gray-400 font-medium text-sm mt-4 tracking-wide">Loading Content...</p>
-              </motion.div>
-            ) : (
-              <motion.div
-                key={activeTabId}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.3 }}
-              >
-                {renderTabContent()}
-              </motion.div>
-            )}
-          </AnimatePresence>
+        {/* Dynamic Accordion Area Canvas */}
+        <div className="mt-4">
+          {isLoading ? (
+            <div className="flex flex-col items-center justify-center py-20 gap-4">
+              <div className="w-10 h-10 border-4 border-[#2e3192] border-t-transparent rounded-full animate-spin"></div>
+              <p className="text-gray-400 text-sm font-semibold tracking-wider">Syncing Portal Resources...</p>
+            </div>
+          ) : (
+            renderTabContent()
+          )}
         </div>
       </main>
 
-      {/* TICKET MODAL OVERLAY PORTAL SYSTEM */}
+      {/* TICKET POPUP LAYOUT MODAL */}
       <AnimatePresence>
         {isModalOpen && (
           <TicketModal 
             isOpen={isModalOpen} 
             onClose={handleCloseTicketModal} 
-            serviceType={selectedService} 
+            serviceType={selectedService}
             defaultInquiryType={selectedInquiryType}
           />
         )}
       </AnimatePresence>
 
-      {/* DYNAMIC FEEDBACK OVERLAY PORTAL SYSTEM */}
+      {/* FEEDBACK ASSESSMENT MODAL */}
       <SatisfactoryModal 
         isOpen={isFeedbackModalOpen} 
         onClose={() => setIsFeedbackModalOpen(false)} 
+        inquiryType={selectedInquiryType || "Knowledge Management"} 
+        serviceType={selectedService}       
         spreadsheetId={activeSpreadsheetId}
       />
     </div>

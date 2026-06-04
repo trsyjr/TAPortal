@@ -39,114 +39,178 @@ const masterFaqRoutes = [
 // Clean FAQ object
 const faqPages = [
   {
-    label: "Harmonized Performance Monitoring and Evaluation System (HPMES)",
+    label: "LGU Account Registration & Onboarding",
     items: [
       {
-        q: "What is the monthly deadline for HPMES data submission?",
+        q: "Why is there no option for PSWDO / Province (PLGU) in the dropdown menu while registering an LGU account?",
         a: (
           <>
-          The official deadline for submitting your HPMES reports is every <strong>5th day</strong> of the month.
+          The dropdown menu for the LGU is dependent on the selected region. 
+          Please ensure that you select the correct Region first before searching 
+          for your specific Province. If you are registering as a PLGU (Provincial LGU), 
+          the system filters the succeeding choices based on this geographical hierarchy.
           </>
         ),
       },
-      {
-        q: "What data should be included in the submission by the 5th?",
-        a: (
-          <>
-          Submissions due on the 5th should cover all Technical Assistance provided from the entire previous calendar month.
-          </>
-        ),
-      },
-      {
-        q: "Why is my HPMES submission flagging an error regarding 'unmatched data'?",
-        a: (
-          <>
-          The HPMES system requires strict consistency across all reporting sections. This error occurs because the figures entered 
-          in your primary data entry forms (e.g., monthly summary sheets) do not align with the figures entered in your detailed 
-          breakdown forms (e.g., indicator-specific or project-level tracking forms).
-          </>
-        ),
-      },
-    ]
+    ],
   },
-  { label: "Compliance Monitoring Assessment (CMA)",
+  {
+    label: "Data Loss & Concurrent Login Issues",
     items: [
       {
-        q: "Where can I find the list of acceptable MOVs?",
+        q: "The uploaded MOVs disappeared or were not saved after moving to another section or clicking the 'Home' tab. What is the cause of this?",
         a: (
           <>
-          The complete list of approved MOVs can be found in the <strong>User’s Guide</strong>.
+          This issue occurs when the same user account is logged into multiple devices simultaneously, 
+          which causes synchronization conflicts and multiple conflicting entries in the database. 
+          To ensure your data is saved, use one device per account and log out properly before switching devices.
           </>
         ),
       },
-    ]
+    ],
   },
-  { label: "General Appropriations Act (GAA)-specific indicators",
+  {
+    label: "Handling Non-Applicable Indicators",
     items: [
       {
-        q: "Who is ultimately responsible for identifying and finalizing GAA targets?",
+        q: "What should we do with indicators that are not applicable to our LGU (e.g., no recorded cases of OSAEC, CSAEM, Child Marriage, or Armed Conflict)?",
         a: (
           <>
-          While the Central Office provides macro-level ceilings and strategic directions, the Field Offices (FOs) hold the primary discretion to identify, 
-          distribute, and finalize specific GAA targets within their respective jurisdictions.
+          There is no need to upload any documents if the specific case or scenario does not exist in your 
+          locality. You may simply use the "SKIP" button located in the lower-left corner of the system 
+          interface. Clicking this will allow you to proceed without a penalty on your progress.
           </>
         ),
       },
-    ]
+    ],
   },
-  { label: "Centrally Managed Funds",
+  {
+    label: "File Upload Restrictions and Errors",
     items: [
       {
-        q: "What types of funding supports are typically downloaded under the TAAORSS Centrally Managed Funds?",
+        q: "Why does an error occur when uploading multiple documents or links in a single indicator section?",
         a: (
           <>
-          <strong>Technical Assistance (TA) Funds:</strong> Non-monetary capacity-building support. This includes funding for Field Offices (FOs) to conduct regional consultation 
-          workshops, the regional-level Panata ko sa Bayan Awards, and national activities initiated by the Central Office (CO) but implemented in the regions. 
-          <br />
-          <br />
-          <strong>One (1) Contract of Service (COS) Salary:</strong> Monetary, covering the salary for one (1) Level II COS staff member on the FO-T/AAORSS Team
+          The system is currently designed and configured to accept only one (1) file per designated upload field. 
+          If you have multiple supporting documents or MOVs for a single indicator, you must merge them into a 
+          single PDF file before uploading.
           </>
         ),
       },
-    ]
+    ],
   },
-  { label: "",
+  {
+    label: "Technical Guidelines and Reference Materials",
     items: [
       {
-        q: "Is there a nationally initiated planning workshop conducted for field offices regarding the CMF allocation?",
+        q: "Where can we get a guide or Technical Notes for specific MOVs requested per Section and Level to ensure they match what we are preparing?",
         a: (
           <>
-          <strong>Yes</strong>, this typically occurs in <strong>November of the fiscal year</strong>, following the Integrated/ Program Review and Evaluation Workshop season. The event is usually attended by the 
-          designated TAAORSS teams, budget officers, and planning officers from the field offices (FOs). This activity prepares FOs for budget allocation, ensuring that every FO proposal 
-          aligns with the Central Office's national agenda and specific CMF utilization guidelines.
+          The User's Guide to be released by the OCIO in the 3rd week of May 2026 is intended strictly for 
+          system (IS) navigation and utilization. For the official, detailed, and complete list of 
+          required documentary evidence, please refer to the attached guidelines link.
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    label: "System Security and Autosave Features",
+    items: [
+      {
+        q: "Is there an automatic session timeout if the system is left open and idle? Does it have an 'Autosave' feature?",
+        a: (
+          <>
+          Currently, there is no automatic session timeout on the platform if it is left unattended. However, 
+          please note that the system does not have an automatic autosave feature for file attachments; you 
+          must manually save your progress before navigating away.
+          </>
+        ),
+      },
+    ],
+  },
+  {
+    label: "Data Validation and Quality Assurance",
+    items: [
+      {
+        q: "If an LGU mistakenly uploads an incorrect file or enters flawed text data and hits 'Submit,' can the Regional Focal revert the status back to 'Draft' for LGU corrections?",
+        a: (
+          <>
+          Yes. The Regional Focal account holds overriding administrative writes to modify database stage 
+          states from "Submitted / Under Review" back to "Returned to Draft / For Modification."SOP: Locate 
+          the specific LGU profile within the evaluation queue, click the "Return for Revision" button, and 
+          append a mandatory system log note stating the exact indicator and correcting action required by 
+          the LGU.
           </>
         ),
       },
       {
-        q: "Can a Field Office realign or modify downloaded funds to other fund line item/ purpose if they are unutilized?",
+        q: "\u00A0", // non-breaking space
         a: (
           <>
-          <strong>No, not without explicit prior approval from the Central Office</strong>. CMF are downloaded for specific purposes specified in the Sub-Allotment Advice (SAA). Any modification, realignment or reallocation of funds 
-          requires a formal request with attached monthly budget utilization from the Regional Director and subsequent approval from the Undersecretary for Regulatory Services, Institutional Development Group (CF: DSWD Academy)
-          </>
-        ),
-      },
-      {
-        q: "What are the strict liquidation/ reporting requirements for Field Offices handling these funds?",
-        a: (
-          <>
-          <strong>FOs must fully liquidate</strong> and <strong>report</strong> the status of CMF utilization, or submit the monthly disbursement/utilization report, to the Central Office-DSWD Academy 
-          prior to subsequent endorsement for the reference of the CO-Financial Service.
-          </>
-        ),
-      },
-      {
-        q: "What is the validity period for CMF usage?",
-        a: (
-          <>
-          CMF generally follow the one-year validity of appropriations rule. <strong>Funds downloaded within a fiscal year must be obligated 
-          and disbursed within that same year</strong>. Any unobligated balances at the end of the fiscal year are typically classified as 
-          savings or unutilized funds, unless specific continuing appropriations guidelines state otherwise.
+            <strong>Reference:</strong>
+            <ul className="list-disc list-inside space-y-1 mt-2">
+              <li>
+                <a 
+                  href="https://sdca-toolkit.enterprise-apac.flutterflow.app/home"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  SDCA System Registration Guide v1. (n.d.).
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://docs.google.com/document/d/1y_V7VSxEDSNZpIVC4Ysjiz-NBa1REz6lt4WWHXDDZ2w/edit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  Technical Support Bulletin 2026-03. (2026). Google Docs. 
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://docs.google.com/document/d/1y_V7VSxEDSNZpIVC4Ysjiz-NBa1REz6lt4WWHXDDZ2w/edit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  SDCA Assessment Scoring Matrix. (n.d.). Google Docs. 
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://docs.google.com/document/d/1y_V7VSxEDSNZpIVC4Ysjiz-NBa1REz6lt4WWHXDDZ2w/edit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  Document Upload Protocol 2026. (2026). Google Docs. 
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://docs.google.com/document/d/1y_V7VSxEDSNZpIVC4Ysjiz-NBa1REz6lt4WWHXDDZ2w/edit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  TAAORS Official MOV Guidelines. (n.d.). Google Docs. 
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://docs.google.com/document/d/1y_V7VSxEDSNZpIVC4Ysjiz-NBa1REz6lt4WWHXDDZ2w/edit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  IS Operations Security Manual. (n.d.). Google Docs.
+                </a>
+              </li>
+            </ul>
           </>
         ),
       },
@@ -154,7 +218,7 @@ const faqPages = [
   },
 ];
 
-const TAMP = () => {
+const SDCA = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const cardRefs = useRef([]);
@@ -233,14 +297,14 @@ const TAMP = () => {
 
       {/* Section Header / Clean FAQ Mapping */}
       <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
-        <h3 className="text-2xl md:text-3xl font-bold mb-2">
+        <h3 className="text-2xl md:text-3xl font-bold mb-20">
           <span className="text-black">FAQS / </span>
           <span className="text-black">TAAORSS / </span>
-          <span className="text-[#2e3192]">Targeting Assessment Monitoring Planning</span>
+          <span className="text-[#2e3192]">SDCA-IS</span>
         </h3>
-        <h3 className="text-sm md:text-md font-bold mb-20 text-gray-500">
+        {/* <h3 className="text-sm md:text-md font-bold mb-20 text-gray-500">
           As of 21 May 2026
-        </h3>
+        </h3> */}
 
         {faqPages.map((page, pageIdx) => (
           <div key={pageIdx} className="mb-12">
@@ -276,4 +340,4 @@ const TAMP = () => {
   );
 };
 
-export default TAMP;
+export default SDCA;

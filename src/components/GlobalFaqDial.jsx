@@ -8,7 +8,7 @@ import { FaLayerGroup as FaLayerGroupIcon, FaXmark as FaXmarkIcon } from "react-
 const acaPaths = ["/cpd", "/certification", "/accreditation", "/ascend-eteeap"];
 const cbPaths = ["/ld-standards", "/active-profile", "/ldi-dip", "/participant-eligibility", "/cbas", "/ta-support"];
 const kmPaths = ["/knowledge-product", "/cgs", "/kss", "/role-functions"];
-const taaorssPaths = ["/tara-program", "/tamp", "/par", "/orf"];
+const taaorssPaths = ["/tara-program", "/tamp", "/par", "/sdca"];
 
 const GlobalFaqDial = ({ routes, onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);

@@ -52,7 +52,16 @@ const faqPages = [
         q: "Where can I apply for CPD program accreditation?",
         a: (
           <>
-            To apply for CPD program accreditation, submit the requirements via CPD Portal.
+            To apply for CPD program accreditation, submit the requirements via{" "}
+            <a 
+              href="https://sites.google.com/dswd.gov.ph/swidb-cpd-portal/home" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-[#2e3192] hover:text-[#ee1c25] underline font-bold transition-colors duration-200"
+            >
+              CPD Portal
+            </a>
+            .
           </>
         ),
       },
@@ -113,7 +122,16 @@ const faqPages = [
         q: "What should we do if our prospective Resource Person (RP) is unlicensed or has an expired PRC license?",
         a: (
           <>
-            <strong>Unlicensed Experts</strong> — Professionals without a PRC license can still serve as RPs, provided they accomplish and submit the standard PRC Resume for Resource Person along with a valid company or institutional ID.
+            <strong>Unlicensed Experts</strong> — Professionals without a PRC license can still serve as RPs, provided they accomplish and submit the standard{" "}
+            <a 
+              href="https://docs.google.com/document/d/15iun9SXgD8rfgdGB4IcbFyUH9lYa_gDQ7jiTzo52SlI/edit?usp=sharing" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-[#2e3192] hover:text-[#ee1c25] underline font-bold transition-colors duration-200"
+            >
+              PRC Resume for Resource Person
+            </a>{" "}
+            along with a valid company or institutional ID.
             <br />
             <br />
             <strong>Expired PRC License</strong> — Licensed professionals whose PRC IDs are currently expired must submit a copy of their renewal application together with official proof of payment.
@@ -196,6 +214,26 @@ const faqPages = [
           </>
         ),
       },
+      {
+      q: "\u00A0", // non-breaking space
+      a: (
+          <>
+            <strong>Reference:</strong>
+            <ul className="list-disc list-inside space-y-1 mt-2">
+              <li>
+                <a 
+                  href="https://sites.google.com/dswd.gov.ph/swidb-cpd-portal/cpd-application-requirements."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:opacity-80"
+                >
+                  Department of Social Welfare and Development. (n.d.). CPD application requirements. DSWD Academy CPD Portal.
+                </a>
+              </li>
+            </ul>
+          </>
+        ),
+    },
     ],
   },
 ];
@@ -279,10 +317,13 @@ const CPD = () => {
 
       {/* Section Header / Clean FAQ Mapping */}
       <section className="max-w-[100rem] mx-auto px-4 md:px-0 lg:px-0 mb-12">
-        <h3 className="text-2xl md:text-3xl font-bold mb-20">
+        <h3 className="text-2xl md:text-3xl font-bold mb-2">
           <span className="text-black">FAQS / </span>
           <span className="text-black">Assessment, Certification, and Accreditation / </span>
           <span className="text-[#2e3192]">CPD Application and Completion Process</span>
+        </h3>
+        <h3 className="text-sm md:text-md font-bold mb-20 text-gray-500">
+          As of 2026
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-12 gap-x-12 gap-y-12 items-start">
           {faqPages[0].items.map((faq, index) => (

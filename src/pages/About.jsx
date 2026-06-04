@@ -27,13 +27,13 @@ import Jena from "/images/Jena-min.avif";
 import Lyka from "/images/Lyka-min.avif";
 import Merl from "/images/Merl-min.avif";
 import Mina from "/images/Mina-min.avif";
-import Nancy from "/images/Nancy-min.avif";
+import Nancy from "/images/Nancy.avif";
 import Noreen from "/images/Noreen-min.avif";
 import Perrine from "/images/Perrine-min.avif";
 import Thea from "/images/Thea-min.avif";
 import DC from "/images/DC-min.avif";
 import Jes from "/images/Jes-min.avif";
-import Orchid from "/images/Orchid.avif";
+import Orchid from "/images/O.avif";
 import Pao from "/images/Pao-min.avif";
 import Meann from "/images/Meann-min.avif";
 import Edd from "/images/Edd-min.avif";
@@ -80,15 +80,82 @@ const About = () => {
     swipe: true,
   };
 
-  const focalPeople = [
-    // ==================== ACAD DIVISION ====================
-    { title: "OIC-DIVISION CHIEF", name: "Norilix M. Razalan", email: "nmrazalan@dswd.gov.ph", image: Nori, category: "ACAD" },
-    { title: "ACCREDITATION FOCAL", name: "Rosylyn Arnigo", email: "rarnigo@dswd.gov.ph", image: Ros, category: "ACAD" },
-    { title: "CPD FOCAL", name: "Kirsten Patrice E. Maglalang", email: "kpemaglalang@dswd.gov.ph", image: Ten, category: "ACAD" },
-    { title: "CNA FOCAL", name: "Mr. Clifford Robin C. Gabatin", email: "crgcgabatin@dsws.gov.ph", image: Cliff, category: "ACAD" },
-    { title: "CERTIFICATION FOCAL", name: "Analiza S. Ileto", email: "asileto@dswd.gov.ph", image: Ana, category: "ACAD" },
-    { title: "CERTIFICATION FOCAL", name: "Richelle Fem A. Juan", email: "rfajuan@dswd.gov.ph", image: Ritch, category: "ACAD" },
-  ];
+ const focalPeople = [
+  // ==================== ACAD DIVISION ====================
+  { title: "OIC-DIVISION CHIEF", name: "Norilix M. Razalan", email: "nmrazalan@dswd.gov.ph", image: Nori, category: "ACAD" },
+  { title: "ACCREDITATION FOCAL", name: "Rosylyn Arnigo", email: "rarnigo@dswd.gov.ph", image: Ros, category: "ACAD" },
+  { title: "CPD FOCAL", name: "Kirsten Patrice E. Maglalang", email: "kpemaglalang@dswd.gov.ph", image: Ten, category: "ACAD" },
+  { title: "CNA FOCAL", name: "Mr. Clifford Robin C. Gabatin", email: "crgcgabatin@dsws.gov.ph", image: Cliff, category: "ACAD" },
+  { title: "CERTIFICATION FOCAL", name: "Analiza S. Ileto", email: "asileto@dswd.gov.ph", image: Ana, category: "ACAD" },
+  { title: "CERTIFICATION FOCAL", name: "Richelle Fem A. Juan", email: "rfajuan@dswd.gov.ph", image: Ritch, category: "ACAD" },
+
+  // ==================== CBD DIVISION ====================
+  { title: "DIVISION CHIEF", name: "Efleda Joyce Sabater-Consulta", email: "ejsconsulta@dswd.gov.ph", image: DC, category: "CBD" },
+  { title: "SECTION CHIEF", name: "Althea Muriel L. Pineda", email: "amlpineda@dswd.gov.ph", image: Thea, category: "CBD" },
+  { title: "TECHNICAL ASSISTANCE FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
+  { title: "WALANG GUTOM PROGRAM FOCAL", name: "Aljohn C. Purca", email: "acpurca@dswd.gov.ph", image: Aljohn, category: "CBD" },
+  { title: "GENDER AND DEVELOPMENT FOCAL", name: "Althea Muriel L. Pineda", email: "amlpineda@dswd.gov.ph", image: Thea, category: "CBD" },
+  { title: "PRE-MARRIAGE COUNSELING FOCAL", name: "Merielle O. Palacio", email: "mopalacio@dswd.gov.ph", image: Merl, category: "CBD" },
+  { title: "HOUSEPARENTING TRAINING FOCAL", name: "Jan Paolo M. Leyva", email: "jpmleyva@dswd.gov.ph", image: Pao, category: "CBD" },
+  { title: "CRCF TRAININGS FOCAL", name: "Jena Mae C. Aguilar", email: "jmcaguilar@dswd.gov.ph", image: Jena, category: "CBD" },
+  { title: "PMC ONLINE COURSE DEVELOPMENT FOCAL", name: "Mark Angel Malapira", email: "mamalapira@dswd.gov.ph", image: Angel, category: "CBD" },
+  { title: "PSYCHOLOGICAL FIRST AID FOCAL", name: "Jesica S. Mencias", email: "jsmencias@dswd.gov.ph", image: Jes, category: "CBD" },
+  { title: "CAMP COORDINATION AND CAMP MANAGEMENT FOCAL", name: "Perrine D. Padilla", email: "pdpadilla@dswd.gov.ph", image: Perrine, category: "CBD" },
+  { title: "PARENT EFFECTIVENESS SERVICE FOCAL", name: "Noreen N. Data", email: "nndata@dswd.gov.ph", image: Noreen, category: "CBD" },
+  { title: "SPECIAL DRUG EDUCATION CENTER FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
+  { title: "YAKAP BAYAN PROGRAM FOCAL", name: "Nikkita Lyka Gracia L. Ermino", email: "nlglermino@dswd.gov.ph", image: Lyka, category: "CBD" },
+  { title: "COMMUNICATIONS MANAGEMENT FOCAL", name: "Orchid B. Ocampo", email: "obocampo@dswd.gov.ph", image: Orchid, category: "CBD" },
+  { title: "BASIC SOCIAL WORK CONCEPTS FOCAL", name: "Aljohn C. Purca", email: "acpurca@dswd.gov.ph", image: Aljohn, category: "CBD" },
+  { title: "JUVENILE JUSTICE FOCAL", name: "Nancy E. Fortes", email: "nefortes@dswd.gov.ph", image: Nancy, category: "CBD" },
+  { title: "CHILD AND WOMEN FRIENDLY SPACES FOCAL", name: "Nikkita Lyka Gracia L. Ermino", email: "nlglermino@dswd.gov.ph", image: Lyka, category: "CBD" },
+  { title: "WOMEN, PEACE, AND SECURITY FOCAL", name: "Jocelyn M. Edillo", email: "jmedillo@dswd.gov.ph", image: Jo, category: "CBD" },
+  { title: "GENDER-RESPONSIVE CASE MANAGEMENT FOCAL", name: "Klenarchi Mae E. Flores", email: "kmeflores@dswd.gov.ph", image: Kleng, category: "CBD" },
+  { title: "CCTG FOCAL", name: "Eddniel Patrick I. Papa", email: "epipapa@dswd.gov.ph", image: Edd, category: "CBD" },
+  { title: "DRMG FOCAL", name: "Jesica S. Mencias", email: "jsmencias@dswd.gov.ph", image: Jes, category: "CBD" },
+  { title: "GASSG FOCAL", name: "JOCELYN M. EDILLO", email: "jmedillo@dswd.gov.ph", image: Jo, category: "CBD" },
+  { title: "IPDG FOCAL", name: "Marry Ann Dealo", email: "madealo@dswd.gov.ph", image: Meann, category: "CBD" },
+  { title: "LEGISLATIVE & INTERGOVERNMENTAL AFFAIRS GROUP FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
+  { title: "OPERATIONS GROUP FOCAL", name: "Althea Muriel L. Pineda", email: "amlpineda@dswd.gov.ph", image: Thea, category: "CBD" },
+  { title: "OSECG FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
+  { title: "PPG FOCAL", name: "Jan Paolo M. Leyva", email: "jpmleyva@dswd.gov.ph", image: Pao, category: "CBD" },
+  { title: "PEACE AND DEVELOPMENT GROUP FOCAL", name: "Mark Angel Malapira", email: "mamalapira@dswd.gov.ph", image: Angel, category: "CBD" },
+  { title: "RSDIG FOCAL", name: "Perrine D. Padilla", email: "pdpadilla@dswd.gov.ph", image: Perrine, category: "CBD" },
+
+  { title: "FO NCR FOCAL", name: "Nancy E. Fortes", email: "nefortes@dswd.gov.ph", image: Nancy, category: "CBD" },
+  { title: "FO CAR FOCAL", name: "Eddniel Patrick I. Papa", email: "epipapa@dswd.gov.ph", image: Edd, category: "CBD" },
+  { title: "FO I & FO CARAGA FOCAL", name: "Carmina A. Llanto", email: "callanto@dswd.gov.ph", image: Mina, category: "CBD" },
+  { title: "FO II FOCAL", name: "Jan Paolo M. Leyva", email: "jpmleyva@dswd.gov.ph", image: Pao, category: "CBD" },
+  { title: "FO III & FO NIR FOCAL", name: "Jesica S. Mencias", email: "jsmencias@dswd.gov.ph", image: Jes, category: "CBD" },
+  { title: "FO IV-A FOCAL", name: "Jena Mae C. Aguilar", email: "jmcaguilar@dswd.gov.ph", image: Jena, category: "CBD" },
+  { title: "FO MIMAROPA FOCAL", name: "Klenarchi Mae E. Flores", email: "kmeflores@dswd.gov.ph", image: Kleng, category: "CBD" },
+  { title: "FO V FOCAL", name: "Marry Ann Dealo", email: "madealo@dswd.gov.ph", image: Meann, category: "CBD" },
+  { title: "FO VI FOCAL", name: "Mark Angel Malapira", email: "mamalapira@dswd.gov.ph", image: Angel, category: "CBD" },
+  { title: "FO VII & FO XII FOCAL", name: "Merielle O. Palacio", email: "mopalacio@dswd.gov.ph", image: Merl, category: "CBD" },
+  { title: "FO VIII FOCAL", name: "Noreen N. Data", email: "nndata@dswd.gov.ph", image: Noreen, category: "CBD" },
+  { title: "FO IX FOCAL", name: "Nikkita Lyka Gracia L. Ermino", email: "nlglermino@dswd.gov.ph", image: Lyka, category: "CBD" },
+  { title: "FO X FOCAL", name: "Perrine D. Padilla", email: "pdpadilla@dswd.gov.ph", image: Perrine, category: "CBD" },
+  { title: "FO XI FOCAL", name: "Aljohn C. Purca", email: "acpurca@dswd.gov.ph", image: Aljohn, category: "CBD" },
+
+  // ==================== KM DIVISION ====================
+  { title: "DIVISION CHIEF", name: "Marigrace D. Mateum", email: "mdmateum@dswd.gov.ph", image: Anggese, category: "KM" },
+  { title: "SECTION CHIEF, OMS", name: "Elladonna M. Agor", email: "emagor@dswd.gov.ph", image: Ella, category: "KM" },
+  { title: "SECTION CHIEF, KPSS", name: "Daniel D. Alejandre", email: "ddalejandre@dswd.gov.ph", image: Dan, category: "KM" },
+  { title: "MODULE DEVELOPMENT FOCAL", name: "Alma M. David", email: "amdavid@dswd.gov.ph", image: Alma, category: "KM" },
+  { title: "CORE GROUP OF SPECIALISTS (CGS) FOCAL", name: "Jane A. Baldino", email: "jabalino@dswd.gov.ph", image: Jane, category: "KM" },
+  { title: "INTELLECTUAL PROPERTY (IP) FOCAL", name: "Allendale M. De Luna", email: "amdeluna@dswd.gov.ph", image: Dale, category: "KM" },
+  { title: "DSWD ACADEMY FACILITY MANAGER", name: "Efricor B. Sakilayan", email: "ebsakilayan@dswd.gov.ph", image: Pim, category: "KM" },
+  { title: "IT FOCAL - KM PORTAL, DSWD ELMS", name: "Christian Olan R. Dorado", email: "cordorado@dswd.gov.ph", image: Olan, category: "KM" },
+  { title: "REGIONAL LEARNING RESOURCE CENTERS FOCAL", name: "Jonathan P. Futalan", email: "jpfutalan@dswd.gov.ph", image: Nate, category: "KM" },
+
+  // ==================== TAAORSS DIVISION ====================
+  { title: "SECTION CHIEF", name: "Gloria G. Alvarado", email: "ggalvarado@dswd.gov.ph", image: Glo, category: "TAAORSS" },
+  { title: "VISAYAS CLUSTER FOCAL", name: "Christian B. Baylosis", opacity: 1, email: "cbbaylosis@dswd.gov.ph", image: Sky, category: "TAAORSS" },
+  { title: "LUZON B CLUSTER FOCAL", name: "Maria Annele B. Tio", email: "mabtio@dswd.gov.ph", image: "", category: "TAAORSS" },
+  { title: "MINDANAO CLUSTER FOCAL", name: "Mary Ann S. Evangelista", email: "masevangelista@dswd.gov.ph", image: Maan, category: "TAAORSS" },
+  { title: "LUZON A CLUSTER FOCAL", name: "Gelves C. Almiñe", email: "gcalmine@dswd.gov.ph", image: Gelves, category: "TAAORSS" },
+  { title: "", name: "Kathleene Jhoy L. Lesaca", email: "kjllesaca@dswd.gov.ph", image: Kath, category: "TAAORSS" },
+  { title: "", name: "Glenda Fulong", email: "gfulong@dswd.gov.ph", image: Glenda, category: "TAAORSS" }
+];
 
   const filteredPeople = activeFilter === "ALL" 
     ? focalPeople 
@@ -104,21 +171,23 @@ const About = () => {
   const isHoveredRef = useRef(false);
   const isDraggingRef = useRef(false);
   
-  // Custom tracking configurations for unbound dragging mechanics
   const pointerStartXRef = useRef(0);
   const conveyorStartXRef = useRef(0);
 
-  // ✅ Auto-scroll to "Get in Touch" if the URL contains the custom anchor hashtag
   useEffect(() => {
-    if (window.location.hash === "#get-in-touch") {
-      const element = document.getElementById("get-in-touch");
+    const currentHash = window.location.hash;
+    
+    if (currentHash === "#get-in-touch" || currentHash === "#about-portal") {
+      const targetId = currentHash.replace("#", "");
+      const element = document.getElementById(targetId);
+      
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 300); // Small timeout allows content layers to mount correctly
+        }, 300);
       }
     }
-  }, []);
+  }, [window.location.hash]);
 
   // Reset viewport tracking values cleanly to the middle segment if active parameters update
   useEffect(() => {
@@ -599,6 +668,7 @@ const About = () => {
       title: "About this Portal",
       content: (
         <>
+        <div id="about-portal">
           The portal provides a centralized and structured mechanism for Offices, 
           Bureaus, Services, and Units (OBSUs) and Field Offices (FOs) to access 
           technical assistance, submit service requests, and retrieve relevant 
@@ -610,6 +680,7 @@ const About = () => {
           and improved access to institutional knowledge. It supports a more systematic 
           and responsive approach to technical assistance, aligned with departmental 
           standards, operational requirements, and the evolving needs of the workforce.
+        </div> 
         </>
       ),
     },

@@ -13,7 +13,7 @@ import Image2 from "../assets/One.gif";
 const slides = [Image2, Image1];
 
 const slideLinks = {
-  0: "/about#get-in-touch", 
+  0: "/about#about-portal", 
   1: "https://clientfeedback.dswd.gov.ph/"
 };
 
@@ -53,7 +53,6 @@ const HomePage = () => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [dimensions, setDimensions] = useState({ width: 300, height: 400 });
   
-  // Track which card index is currently hovered
   const [hoveredCardIndex, setHoveredCardIndex] = useState(null);
 
   const updateDimensions = useCallback(() => {
@@ -258,8 +257,10 @@ const HomePage = () => {
       </section>
 
       {/* FAQ GRID SECTION */}
-      <section className="max-w-[1400px] mx-auto px-6 pt-12 md:pt-36 pb-20 bg-white">
-        <div className="text-center mb-16">
+      {/* ➡️ Changed pt-12 md:pt-36 to pt-12 md:pt-10 and pb-20 to pb-4 to tightly stitch segments close together */}
+      <section className="max-w-[1400px] mx-auto px-6 pt-12 md:pt-10 pb-8 bg-white">
+        {/* ➡️ Tightened bottom margin of description header block from mb-16 to mb-10 */}
+        <div className="text-center mb-10">
           <h2 className="text-2xl md:text-4xl font-bold text-[#2e3192] mb-4">Frequently Asked Questions</h2>
           <p className="text-gray-700 text-sm md:text-base font-medium">Everything you need to know about our services.</p>
         </div>
@@ -287,7 +288,6 @@ const HomePage = () => {
                 {card.icon}
               </div>
 
-              {/* 🫧 Fixed Upfront Bubble At the Absolute Top edge of Card */}
               <AnimatePresence>
                 {!isMobile && hoveredCardIndex === idx && (
                   <motion.div
@@ -299,8 +299,6 @@ const HomePage = () => {
                     className="absolute bottom-full left-1/2 mb-2 w-[280px] sm:w-[320px] md:w-[360px] bg-slate-900/95 backdrop-blur-sm text-white text-xs font-medium p-4 rounded-2xl shadow-xl border border-white/10 pointer-events-none z-[999] text-center"
                   >
                     <p className="leading-relaxed">{card.description}</p>
-                    
-                    {/* Centered pointer arrow anchored at the exact bottom midpoint of the bubble */}
                     <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full w-0 h-0 border-x-[8px] border-x-transparent border-t-[8px] border-t-slate-900/95" />
                   </motion.div>
                 )}
