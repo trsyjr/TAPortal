@@ -356,8 +356,8 @@ const tableData = [
     id: 40,
     category: "Assessment, Certification, and Accreditation",
     type: "Memorandum",
-    fileName: "Memorandum of Understanding",
-    dateIssued: "2026",
+    fileName: "Memorandum of Understanding with UP",
+    dateIssued: "4 Mar, 2026",
     link: "/pdfs/mou with up_260304_182816.pdf",
   },
   {
@@ -365,7 +365,7 @@ const tableData = [
     category: "Assessment, Certification, and Accreditation",
     type: "Memorandum",
     fileName: "Memorandum of Understanding with CHED",
-    dateIssued: "2026",
+    dateIssued: "4 Mar, 2026",
     link: "/pdfs/mou with ched_260304_182914.pdf",
   },
 ];
