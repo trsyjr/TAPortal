@@ -52,6 +52,7 @@ import Gelves from "/images/Gelves.avif";
 import Sky from "/images/Sky.avif";
 import Kath from "/images/Kath.avif";
 import Roger from "/images/Roger.avif";
+import Chin from "/images/Chin.avif";
 
 const About = () => {
   const navigate = useNavigate();
@@ -147,7 +148,7 @@ const About = () => {
     // ==================== TAAORSS DIVISION ====================
     { title: "SECTION CHIEF, TAAORSS", name: "Gloria G. Alvarado", email: "ggalvarado@dswd.gov.ph", image: Glo, category: "TAAORSS" },
     { title: "VISAYAS CLUSTER FOCAL", name: "Christian B. Baylosis", opacity: 1, email: "cbbaylosis@dswd.gov.ph", image: Sky, category: "TAAORSS" },
-    { title: "LUZON B CLUSTER FOCAL", name: "Maria Annele B. Tio", email: "mabtio@dswd.gov.ph", image: "", category: "TAAORSS" },
+    { title: "LUZON B CLUSTER FOCAL", name: "Maria Annele B. Tio", email: "mabtio@dswd.gov.ph", image: Chin, category: "TAAORSS" },
     { title: "MINDANAO CLUSTER FOCAL", name: "Mary Ann S. Evangelista", email: "masevangelista@dswd.gov.ph", image: Maan, category: "TAAORSS" },
     { title: "LUZON A CLUSTER FOCAL", name: "Gelves C. Almiñe", email: "gcalmine@dswd.gov.ph", image: Gelves, category: "TAAORSS" },
     { title: "", name: "Kathleene Jhoy L. Lesaca", email: "kjllesaca@dswd.gov.ph", image: Kath, category: "TAAORSS" },
