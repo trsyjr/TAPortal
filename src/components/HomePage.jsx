@@ -9,8 +9,9 @@ import { RiArrowDownWideLine } from "react-icons/ri";
 
 import Image1 from "../assets/Kliyentel.png";
 import Image2 from "../assets/One.gif";
+import Image3 from "../assets/FSWBanner.gif"
 
-const slides = [Image2, Image1];
+const slides = [Image2, Image1, Image3];
 
 const slideLinks = {
   0: "/about#about-portal", 
