@@ -25,7 +25,7 @@ const faqCards = [
   { title: "CPD APPLICATION AND COMPLETION PROCESS", icon: <FaFileCircleCheck />, path: "/cpd" },
   { title: "CERTIFICATION PROGRAM", icon: <FaFileCircleCheck />, path: "/certification" },
   { title: "ACCREDITATION PROGRAM", icon: <FaFileLines />, path: "/accreditation" },
-  { title: "PROJECT ASCEND & ETEEAP", icon: <FaNetworkWired />, path: "/ascend-eteeap" },
+  { title: "OTHER LEARNING PATHWAYS", icon: <FaNetworkWired />, path: "/olp" },
 ];
 
 // Master global mapping array for tracking previous/next paths

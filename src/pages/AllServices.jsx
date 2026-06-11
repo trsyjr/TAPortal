@@ -28,14 +28,25 @@ const servicesContentData = {
         isDisabled: true
       },
       { 
-        id: 3, 
-        title: "Certification & Accreditation", 
-        content: "The development and implementation of CNA anchored on Heartwork: DSWD Academy Competency Framework, as well as guidance in the proper completion and interpretation of CNA tools.", 
-        externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfZ4lPSEH1rtPA-cT8jSK0Gf6UdmZxtD59Dv6aigGVRMp9rJQ/viewform", 
-        buttonText: "Certification Application Form" 
-      },
+          id: 3, 
+          title: "Certification", 
+          content: "TA includes responding to queries and providing clarifications on the application process and other info regarding certification process. This will also include expression of interest to be included in the certification process.",
+          isDualButton: true,
+          leftButtonText: "Certification Application Form",
+          leftExternalLink: "https://docs.google.com/document/d/1WpT8k-9YI6mHs2T06yau0SNMjocOGIO9HvjPXw0S0WQ/edit?tab=t.0",
+          rightButtonText: "Certification Submission Form",
+          rightExternalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfZ4lPSEH1rtPA-cT8jSK0Gf6UdmZxtD59Dv6aigGVRMp9rJQ/viewform"
+        },
+        { 
+          id: 4, 
+          title: "Accreditation", 
+          content: "TA includes responding to queries and providing clarifications on the application process and other info regarding accreditation program. This will also include expression of interest to be included in the certification process.", 
+          externalLink: "https://forms.gle/cBFq2gTqUhfeLbpc9 ", 
+          buttonText: "Certification Application Form",
+          isDisabled: true
+        },
       { 
-        id: 4, 
+        id: 5, 
         title: "Project ASCEND & ETEEAP", 
         content: "Clarifications on ETEEAP (BS Social Work), as well as conducting orientations on Project ASCEND and ETEEAP processes. There will be a listing of resources with links where they can see the list of ETEEAP deputized schools, list of requirements and other legal basis for ETEEAP implementation.This will include expression of interest to enroll in ETEEAP.", 
         externalLink: "https://your-external-link-here.com", 

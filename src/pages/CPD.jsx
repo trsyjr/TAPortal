@@ -15,14 +15,14 @@ import { LuBlocks } from "react-icons/lu";
 import TicketModal from "../components/TicketModal"; 
 import JoinModal from "../components/JoinModal";
 import GlobalFaqDial from "../components/GlobalFaqDial";
-import FloatingCardDeck from "../components/FloatingCardDeck"; // 1. Import your deck component
+import FloatingCardDeck from "../components/FloatingCardDeck";
 
 // Top FAQ cards
 const faqCards = [
   { title: "CPD APPLICATION AND COMPLETION PROCESS", icon: <FaFileCircleCheck />, path: "/cpd" },
   { title: "CERTIFICATION PROGRAM", icon: <FaFileCircleCheck />, path: "/certification" },
   { title: "ACCREDITATION PROGRAM", icon: <FaFileLines />, path: "/accreditation" },
-  { title: "PROJECT ASCEND & ETEEAP", icon: <FaNetworkWired />, path: "/ascend-eteeap" },
+  { title: "OTHER LEARNING PATHWAYS", icon: <FaNetworkWired />, path: "/olp" },
 ];
 
 // The master global mapping array passed to the Speed Dial menu

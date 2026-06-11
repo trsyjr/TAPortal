@@ -25,7 +25,7 @@ const faqCards = [
   { title: "CPD APPLICATION AND COMPLETION PROCESS", icon: <FaFileCircleCheck />, path: "/cpd" },
   { title: "CERTIFICATION PROGRAM", icon: <FaFileCircleCheck />, path: "/certification" },
   { title: "ACCREDITATION PROGRAM", icon: <FaFileLines />, path: "/accreditation" },
-  { title: "PROJECT ASCEND & ETEEAP", icon: <FaNetworkWired />, path: "/ascend-eteeap" },
+  { title: "OTHER LEARNING PATHWAYS", icon: <FaNetworkWired />, path: "/olp" },
 ];
 
 // Master global mapping array for button tracking configuration
@@ -39,7 +39,7 @@ const masterFaqRoutes = [
 // Clean FAQ object
 const faqPages = [
   {
-    label: "Ascend & ETEEAP",
+    label: "Other Learning Pathways",
     items: [
       {
         q: "What is Project ASCEND?",
@@ -108,7 +108,7 @@ const faqPages = [
   },
 ];
 
-const AscendETEEAP = () => {
+const OLP = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const cardRefs = useRef([]);
@@ -197,7 +197,7 @@ const AscendETEEAP = () => {
         <h3 className="text-2xl md:text-3xl font-bold mb-2">
           <span className="text-black">FAQS / </span>
           <span className="text-black">Assessment, Certification, and Accreditation / </span>
-          <span className="text-[#2e3192]">Project Ascend & ETEEAP</span>
+          <span className="text-[#2e3192]">Other Learning Pathways</span>
         </h3>
         <h3 className="text-sm md:text-md font-bold mb-20 text-gray-500">
           As of 2026
@@ -228,4 +228,4 @@ const AscendETEEAP = () => {
   );
 };
 
-export default AscendETEEAP;
+export default OLP;

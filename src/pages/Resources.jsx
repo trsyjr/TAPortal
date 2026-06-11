@@ -352,6 +352,22 @@ const tableData = [
     dateIssued: "2026",
     link: "https://drive.google.com/drive/folders/1y0Oue5ojJE0D1D3LeePMxiUhtbfHdhH1",
   },
+  {
+    id: 40,
+    category: "Assessment, Certification, and Accreditation",
+    type: "Memorandum",
+    fileName: "Memorandum of Understanding",
+    dateIssued: "2026",
+    link: "/pdfs/mou with up_260304_182816.pdf",
+  },
+  {
+    id: 41,
+    category: "Assessment, Certification, and Accreditation",
+    type: "Memorandum",
+    fileName: "Memorandum of Understanding with CHED",
+    dateIssued: "2026",
+    link: "/pdfs/mou with ched_260304_182914.pdf",
+  },
 ];
 
 const Resources = () => {

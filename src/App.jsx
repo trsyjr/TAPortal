@@ -37,7 +37,7 @@ const AllServices = lazy(() => import("./pages/AllServices"));
 const CPD = lazy(() => import("./pages/CPD")); 
 const Certification = lazy(() => import("./pages/Certification")); 
 const Accreditation = lazy(() => import("./pages/Accreditation")); 
-const AscendETEEAP = lazy(() => import("./pages/AscendETEEAP")); 
+const OLP = lazy(() => import("./pages/OLP")); 
 const ServicesACA = lazy(() => import("./pages/ServicesACA")); 
 
 // KM
@@ -180,7 +180,7 @@ function AppContent() {
               <Route path="/cpd" element={<CPD />} />
               <Route path="/certification" element={<Certification />} />
               <Route path="/accreditation" element={<Accreditation />} />
-              <Route path="/ascend-eteeap" element={<AscendETEEAP />} />
+              <Route path="/olp" element={<OLP />} />
               <Route path="/services-aca" element={<ServicesACA />} />
 
               {/* KM */}
