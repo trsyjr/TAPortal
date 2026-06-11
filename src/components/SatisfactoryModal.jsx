@@ -1,7 +1,7 @@
 // src/components/SatisfactoryModal.jsx
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Frown, Meh, Smile, Laugh, X, Loader2, CheckCircle2 } from "lucide-react";
+import { Angry, Frown, Meh, Smile, Laugh, X, Loader2, CheckCircle2 } from "lucide-react";
 
 const SatisfactoryModal = ({ isOpen, onClose, spreadsheetId, inquiryType, serviceType }) => {
   const [selectedRating, setSelectedRating] = useState(null);
@@ -10,8 +10,9 @@ const SatisfactoryModal = ({ isOpen, onClose, spreadsheetId, inquiryType, servic
   const [isSuccess, setIsSuccess] = useState(false);
 
   const ratingOptions = [
-    { id: "poor", label: "Poor", icon: Frown, color: "text-red-500", bgColor: "hover:bg-red-50 bg-red-50/10", activeBg: "bg-red-500 text-white" },
-    { id: "okay", label: "Okay", icon: Meh, color: "text-amber-500", bgColor: "hover:bg-amber-50 bg-amber-50/10", activeBg: "bg-amber-500 text-white" },
+    { id: "very_unsatisfied", label: "Very Unsatisfied", icon: Angry, color: "text-red-700", bgColor: "hover:bg-red-100 bg-red-100/10", activeBg: "bg-red-700 text-white" },
+    { id: "poor", label: "Unsatisfied", icon: Frown, color: "text-red-500", bgColor: "hover:bg-red-50 bg-red-50/10", activeBg: "bg-red-500 text-white" },
+    { id: "okay", label: "Neutral", icon: Meh, color: "text-amber-500", bgColor: "hover:bg-amber-50 bg-amber-50/10", activeBg: "bg-amber-500 text-white" },
     { id: "satisfied", label: "Satisfied", icon: Smile, color: "text-emerald-500", bgColor: "hover:bg-emerald-50 bg-emerald-50/10", activeBg: "bg-emerald-500 text-white" },
     { id: "very_satisfied", label: "Very Satisfied", icon: Laugh, color: "text-blue-500", bgColor: "hover:bg-blue-50 bg-blue-50/10", activeBg: "bg-blue-500 text-white" },
   ];
@@ -69,7 +70,7 @@ const SatisfactoryModal = ({ isOpen, onClose, spreadsheetId, inquiryType, servic
             initial={{ scale: 0.95, opacity: 0 }} 
             animate={{ scale: 1, opacity: 1 }} 
             exit={{ scale: 0.95, opacity: 0 }} 
-            className="relative w-full max-w-2xl bg-white p-6 md:p-12 rounded-[36px] text-center shadow-2xl border border-gray-100 max-h-[95vh] overflow-y-auto"
+            className="relative w-full max-w-4xl bg-white p-6 md:p-12 rounded-[36px] text-center shadow-2xl border border-gray-100 max-h-[95vh] overflow-y-auto"
           >
             <button 
               onClick={handleModalClose} 
@@ -93,7 +94,7 @@ const SatisfactoryModal = ({ isOpen, onClose, spreadsheetId, inquiryType, servic
                   </div>
                 )} */}
 
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 mb-6">
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5 mb-6">
                   {ratingOptions.map((option) => {
                     const IconComponent = option.icon;
                     const isSelected = selectedRating?.id === option.id;

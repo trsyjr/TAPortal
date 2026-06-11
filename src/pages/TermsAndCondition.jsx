@@ -9,7 +9,7 @@ const TermsAndConditions = () => {
         </h1>
 
         <p className="text-gray-700 mb-4">
-          These Terms and Conditions govern access to and use of the Capability Building Technical Assistance Portal.
+          These Terms and Conditions govern access to and use of the DSWD Academy Technical Assistance Portal.
         </p>
 
         <h2 className="text-xl font-semibold text-[#2e3192] mt-6 mb-2">Authorized Use</h2>

@@ -16,20 +16,20 @@ const Footer = () => {
               DSWD Academy <br /> TA Portal
             </h3>
             
-            <p className="text-[14px] leading-relaxed text-gray-200 max-w-[280px]">
+            <p className="text-[14px] leading-relaxed text-white max-w-[280px]">
               The DSWD Academy's digital portal for streamlined technical assistance requests, coordination, and support.
             </p>
 
             {/* Contact Us Link with space directly under the description text */}
             <Link 
               to="/about#get-in-touch" 
-              className="mt-5 text-[14px] text-gray-200 underline hover:text-white transition-colors self-start"
+              className="mt-5 text-[14px] text-white underline hover:text-[#FFE066] transition-colors self-start"
             >
               Contact Us
             </Link>
 
             {/* Address Info separated at the bottom */}
-            <p className="text-[14px] pt-4 text-gray-200">
+            <p className="text-[14px] pt-4 text-white">
               111 Block 3, Taguig, 1630 Metro Manila
             </p>
           </div>
@@ -37,9 +37,9 @@ const Footer = () => {
           {/* Column 2: About Us */}
           <div className="md:col-span-3 space-y-5 md:pl-8">
             <h4 className="text-[14px] font-bold uppercase tracking-[0.1em]">About Us</h4>
-            <ul className="space-y-4 text-[14px] text-gray-100">
+            <ul className="space-y-4 text-[14px] text-white">
               <li>
-                <Link to="/about" className="hover:underline">
+                <Link to="/about" className="hover:underline hover:text-[#FFE066]">
                   About TA Portal
                 </Link>
               </li>
@@ -48,18 +48,18 @@ const Footer = () => {
                   href="/pdfs/Official_DSWD L&D Guidebook v.2021.pdf" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="hover:underline"
+                  className="hover:underline hover:text-[#FFE066]"
                 >
                   L&D Guidebook
                 </a>
               </li>
               <li>
-                <Link to="/privacy-policy" className="hover:underline">
+                <Link to="/privacy-policy" className="hover:underline hover:text-[#FFE066]">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link to="/terms-and-conditions" className="hover:underline">
+                <Link to="/terms-and-conditions" className="hover:underline hover:text-[#FFE066]">
                   Terms & Conditions
                 </Link>
               </li>
@@ -69,13 +69,13 @@ const Footer = () => {
           {/* Column 3: Links */}
           <div className="md:col-span-3 space-y-5">
             <h4 className="text-[14px] font-bold uppercase tracking-[0.1em]">Links</h4>
-            <ul className="space-y-4 text-[14px] text-gray-100">
+            <ul className="space-y-4 text-[14px] text-white">
               <li>
                 <a 
                   href="https://www.facebook.com/dswdacademy" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="hover:underline"
+                  className="hover:underline hover:text-[#FFE066]"
                 >
                   DSWD Academy Facebook Page
                 </a>
@@ -85,7 +85,7 @@ const Footer = () => {
                   href="https://academy.dswd.gov.ph/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="hover:underline"
+                  className="hover:underline hover:text-[#FFE066]"
                 >
                   DSWD Academy Portal
                 </a>
@@ -95,7 +95,7 @@ const Footer = () => {
                   href="https://sites.google.com/dswd.gov.ph/swidb-cpd-portal/home" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="hover:underline"
+                  className="hover:underline hover:text-[#FFE066]"
                 >
                   CPD Portal
                 </a>
@@ -105,7 +105,7 @@ const Footer = () => {
                   href="https://kmportal.dswd.gov.ph/" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="hover:underline"
+                  className="hover:underline hover:text-[#FFE066]"
                 >
                   Knowledge Management Portal
                 </a>
