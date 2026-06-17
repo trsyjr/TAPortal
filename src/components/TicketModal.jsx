@@ -28,6 +28,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
   const [isCommunicationOpen, setIsCommunicationOpen] = useState(false);
   const [hasPassedAdvisory, setHasPassedAdvisory] = useState(false);
   const [showCalendarBubble, setShowCalendarBubble] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   const categoryRef = useRef(null);
   const communicationRef = useRef(null);
@@ -60,20 +61,28 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
     { value: "Email", label: "Email" },
   ];
 
-  // Global cycle handling visibility loop of text bubble every 6s
+  // Continuous background loop cycle handler
   useEffect(() => {
     if (isOpen && hasPassedAdvisory) {
       const interval = setInterval(() => {
-        setShowCalendarBubble(true);
+        // Only trigger the flash if the user isn't already hovering over it manually
+        if (!isHovered) {
+          setShowCalendarBubble(true);
+        }
+        
         const timeout = setTimeout(() => {
           setShowCalendarBubble(false);
-        }, 3000); // Bubble stays readable for 3 seconds before hiding
+        }, 3000);
+        
         return () => clearTimeout(timeout);
       }, 6000);
 
       return () => clearInterval(interval);
     }
-  }, [isOpen, hasPassedAdvisory]);
+  }, [isOpen, hasPassedAdvisory, isHovered]);
+
+  // Combined logic: Show bubble if background loop is active OR if user is explicitly hovering
+  const shouldShowBubble = showCalendarBubble || isHovered;
 
   // Set default inquiry category if provided by parent section layouts
   useEffect(() => {
@@ -109,6 +118,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
       setIsCommunicationOpen(false);
       setHasPassedAdvisory(false);
       setShowCalendarBubble(false);
+      setIsHovered(false);
     }
   }, [isOpen, reset]);
 
@@ -129,7 +139,6 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLwMN-lxK6LJD3xZYCMjmiYQl0WNagKQIW9rHp8I40NqEBpTI2ucjrK8PjAWKeaTzNxA/exec";
 
     try {
-      // Clean input: remove @dswd.gov.ph if they explicitly typed it, then force append cleanly
       let inputVal = data.email.trim();
       let cleanUsername = inputVal.toLowerCase().endsWith("@dswd.gov.ph") 
         ? inputVal.slice(0, -12) 
@@ -152,8 +161,6 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
       });
 
       toast.success("Ticket request submitted successfully!");
-      
-      // Pass captured dynamic inquiry data straight back to parent layout execution chain
       onClose(data.category, serviceType || "");
       
     } catch (err) {
@@ -183,7 +190,6 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Changed CSS to a smooth, swaying shake loop animation */}
           <style>{`
             @keyframes sway {
               0%, 75%, 100% { transform: rotate(0deg); }
@@ -265,19 +271,14 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
                             validate: {
                               isValidFormat: (value) => {
                                 const trimmedValue = value.trim().toLowerCase();
-                                
-                                // 1. If they included an '@' symbol, verify it is strictly '@dswd.gov.ph'
                                 if (trimmedValue.includes("@")) {
                                   if (!trimmedValue.endsWith("@dswd.gov.ph")) {
                                     return "Invalid email. Use your DSWD email only.";
                                   }
-                                  // Extract username component to validate character restrictions
                                   const usernamePart = trimmedValue.slice(0, -12);
                                   const isValid = /^[a-zA-Z0-9._%+,-]+$/.test(usernamePart);
                                   return isValid || "Invalid email. Use your DSWD email only.";
                                 }
-                                
-                                // 2. If no '@' symbol, validate username segment formatting rules directly
                                 const isValid = /^[a-zA-Z0-9._%+,-]+$/.test(trimmedValue);
                                 return isValid || "Invalid email. Use your DSWD email only.";
                               }
@@ -451,14 +452,18 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
                       )}
                     </button>
 
-                    <div className="relative transition-transform duration-200 hover:scale-110">
+                    <div 
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                      className="relative transition-transform duration-200 hover:scale-110"
+                    >
                       <AnimatePresence>
-                        {showCalendarBubble && (
+                        {shouldShowBubble && (
                           <motion.div
                             initial={{ opacity: 0, y: 10, scale: 0.95 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: 5, scale: 0.95 }}
-                            className="absolute bottom-full right-0 mb-3 w-48 bg-slate-900 text-white font-semibold rounded-xl p-3 text-[11px] text-center leading-tight shadow-xl pointer-events-none z-[150]"
+                            className="absolute bottom-full right-0 mb-3 w-48 bg-slate-900 text-white font-semibold rounded-xl p-3 text-[11px] text-center leading-tight shadow-xl pointer-events-auto z-[150]"
                           >
                             <div className="absolute bottom-[-5px] right-6 w-2.5 h-2.5 bg-slate-900 rotate-45" />
                             View the Technical Assistance Calendar here
