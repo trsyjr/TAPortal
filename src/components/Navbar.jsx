@@ -26,6 +26,7 @@ const Navbar = () => {
         { name: "TAAORSS", path: "/services-taaorss"},
       ],
     },
+    // { name: "TA Calendar", path: "/ta-calendar" },
     { name: "Training Calendar", path: "https://training-calendar-three.vercel.app/", isExternal: true },
     { name: "Resources", path: "/resources" },
     { name: "About", path: "/about" },

@@ -30,6 +30,7 @@ const CBA = lazy(() => import("./pages/CBA"));
 const CBPlan = lazy(() => import("./pages/CBPlan"));
 const TrainingCalendar = lazy(() => import("./components/TrainingCalendar"));
 const CbServices = lazy(() => import("./pages/CbServices")); 
+const TACalendar = lazy(() => import("./pages/TACalendar"));
 
 const AllServices = lazy(() => import("./pages/AllServices")); 
 
@@ -73,9 +74,6 @@ function AppContent() {
     return !!suppressedSession;
   });
 
-  // =========================================================================
-  // GLOBAL APPLICATION-LEVEL MODAL MANAGEMENT ENGINE
-  // =========================================================================
   const [globalTicketOpen, setGlobalTicketOpen] = useState(false);
   const [globalFeedbackOpen, setGlobalFeedbackOpen] = useState(false);
   const [globalServiceType, setGlobalServiceType] = useState("");
@@ -173,6 +171,7 @@ function AppContent() {
               <Route path="/cbplan" element={<CBPlan />} />
               <Route path="/training-calendar" element={<TrainingCalendar />} />
               <Route path="/cb-services" element={<CbServices />} />
+              <Route path="/ta-calendar" element={<TACalendar />} />
 
               <Route path="/all-services" element={<AllServices />} />
 

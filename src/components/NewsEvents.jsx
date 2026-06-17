@@ -142,9 +142,9 @@ const NewsEvents = () => {
         </div>
 
         {/* Brand Hashtag */}
-        <p className="mt-16 mb-5 text-center text-[#2e3192] font-bold text-xl md:text-3xl lg:text-4xl tracking-tight">
+        {/* <p className="mt-16 mb-5 text-center text-[#2e3192] font-bold text-xl md:text-3xl lg:text-4xl tracking-tight">
           #BawatBuhayMahalagaSaDSWD
-        </p>
+        </p> */}
       </div>
     </section>
   );

@@ -7,6 +7,7 @@ import {
   FaChevronDown,
   FaTicketAlt,
   FaInfoCircle,
+  FaCalendarAlt,
 } from "react-icons/fa";
 import { toast } from "react-toastify";
 import Advisory from "./Advisory";
@@ -26,6 +27,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
   const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [isCommunicationOpen, setIsCommunicationOpen] = useState(false);
   const [hasPassedAdvisory, setHasPassedAdvisory] = useState(false);
+  const [showCalendarBubble, setShowCalendarBubble] = useState(false);
 
   const categoryRef = useRef(null);
   const communicationRef = useRef(null);
@@ -57,6 +59,21 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
     { value: "Google Chat", label: "Google Chat" },
     { value: "Email", label: "Email" },
   ];
+
+  // Global cycle handling visibility loop of text bubble every 6s
+  useEffect(() => {
+    if (isOpen && hasPassedAdvisory) {
+      const interval = setInterval(() => {
+        setShowCalendarBubble(true);
+        const timeout = setTimeout(() => {
+          setShowCalendarBubble(false);
+        }, 3000); // Bubble stays readable for 3 seconds before hiding
+        return () => clearTimeout(timeout);
+      }, 6000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isOpen, hasPassedAdvisory]);
 
   // Set default inquiry category if provided by parent section layouts
   useEffect(() => {
@@ -91,6 +108,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
       setIsCategoryOpen(false);
       setIsCommunicationOpen(false);
       setHasPassedAdvisory(false);
+      setShowCalendarBubble(false);
     }
   }, [isOpen, reset]);
 
@@ -165,6 +183,22 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Added CSS for the 2-second repeat vibrate animation */}
+          <style>{`
+            @keyframes vibrate {
+              0%, 85%, 100% { transform: translate(0, 0); }
+              88% { transform: translate(-2px, 1px); }
+              90% { transform: translate(2px, -1px); }
+              92% { transform: translate(-1px, -1px); }
+              94% { transform: translate(2px, 1px); }
+              96% { transform: translate(-2px, -1px); }
+              98% { transform: translate(1px, 1px); }
+            }
+            .animate-vibrate {
+              animation: vibrate 2s linear infinite;
+            }
+          `}</style>
+
           <motion.div
             className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[9998]"
             initial={{ opacity: 0 }}
@@ -212,7 +246,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
                   <FaTimes size={20} />
                 </button>
 
-                <form className="space-y-4 md:space-y-5" onSubmit={handleSubmit(onSubmit)}>
+                <form className="space-y-4 md:space-y-5" onSubmit={handleSubmit(onSubmit)} autoComplete="off">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
                     <div className="space-y-1">
                       <input
@@ -220,6 +254,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
                         type="text"
                         placeholder="Full Name"
                         className={inputClass(errors.fullname)}
+                        autoComplete="new-password"
                       />
                     </div>
 
@@ -251,7 +286,13 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
                           })}
                           type="text"
                           placeholder="Email Address"
+                          onKeyDown={(e) => {
+                            if (e.key === "@") {
+                              e.preventDefault();
+                            }
+                          }}
                           className={`${inputClass(errors.email)} pr-[115px]`}
+                          autoComplete="new-password"
                         />
                         <span className="absolute right-4 text-gray-400 text-sm select-none font-semibold pointer-events-none">
                           @dswd.gov.ph
@@ -270,6 +311,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
                         type="text"
                         placeholder="Office / Bureau / Division"
                         className={inputClass(errors.office)}
+                        autoComplete="new-password"
                       />
                     </div>
 
@@ -394,20 +436,46 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
                     />
                   </div>
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-[#2e3192] text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40 hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
-                  >
-                    {isSubmitting ? (
-                      <div className="flex items-center justify-center gap-2">
-                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Processing...
-                      </div>
-                    ) : (
-                      "Submit Ticket"
-                    )}
-                  </button>
+                  <div className="flex gap-3 items-center w-full">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="flex-1 bg-[#2e3192] text-white font-bold py-4 rounded-2xl shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40 hover:scale-[1.01] active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center justify-center gap-2">
+                          <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Processing...
+                        </div>
+                      ) : (
+                        "Submit Ticket"
+                      )}
+                    </button>
+
+                    <div className="relative transition-transform duration-200 hover:scale-110">
+                      <AnimatePresence>
+                        {showCalendarBubble && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: 5, scale: 0.95 }}
+                            className="absolute bottom-full right-0 mb-3 w-48 bg-slate-900 text-white font-semibold rounded-xl p-3 text-[11px] text-center leading-tight shadow-xl pointer-events-none z-[150]"
+                          >
+                            <div className="absolute bottom-[-5px] right-6 w-2.5 h-2.5 bg-slate-900 rotate-45" />
+                            View the Technical Assistance Calendar here
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+
+                      <a
+                        href="/ta-calendar"
+                        title="View Calendar"
+                        className="animate-vibrate flex items-center justify-center bg-[#2e3192] hover:bg-[#222475] text-white px-5 h-[56px] rounded-2xl transition-colors duration-200 active:scale-[0.98] shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40"
+                      >
+                        <FaCalendarAlt size={18} />
+                      </a>
+                    </div>
+                  </div>
                 </form>
               </motion.div>
             </div>
