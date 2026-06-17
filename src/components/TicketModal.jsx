@@ -183,19 +183,18 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Added CSS for the 2-second repeat vibrate animation */}
+          {/* Changed CSS to a smooth, swaying shake loop animation */}
           <style>{`
-            @keyframes vibrate {
-              0%, 85%, 100% { transform: translate(0, 0); }
-              88% { transform: translate(-2px, 1px); }
-              90% { transform: translate(2px, -1px); }
-              92% { transform: translate(-1px, -1px); }
-              94% { transform: translate(2px, 1px); }
-              96% { transform: translate(-2px, -1px); }
-              98% { transform: translate(1px, 1px); }
+            @keyframes sway {
+              0%, 75%, 100% { transform: rotate(0deg); }
+              80% { transform: rotate(-6deg); }
+              85% { transform: rotate(5deg); }
+              90% { transform: rotate(-4deg); }
+              95% { transform: rotate(3deg); }
             }
-            .animate-vibrate {
-              animation: vibrate 2s linear infinite;
+            .animate-sway {
+              animation: sway 2.5s ease-in-out infinite;
+              transform-origin: bottom center;
             }
           `}</style>
 
@@ -470,7 +469,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
                       <a
                         href="/ta-calendar"
                         title="View Calendar"
-                        className="animate-vibrate flex items-center justify-center bg-[#2e3192] hover:bg-[#222475] text-white px-5 h-[56px] rounded-2xl transition-colors duration-200 active:scale-[0.98] shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40"
+                        className="animate-sway flex items-center justify-center bg-[#2e3192] hover:bg-[#222475] text-white px-5 h-[56px] rounded-2xl transition-colors duration-200 active:scale-[0.98] shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40"
                       >
                         <FaCalendarAlt size={18} />
                       </a>

@@ -40,15 +40,23 @@ export default function TACalendar() {
       setIsSyncing(true);
     }
     
-    fetch(APPS_SCRIPT_URL)
+    // SPEED BOOST: Added no-cache option to network stream to ensure faster handshake deliveries
+    fetch(APPS_SCRIPT_URL, { cache: "no-cache" })
       .then((res) => {
         if (!res.ok) throw new Error("Network response encountered an error.");
         return res.json();
       })
       .then((data) => {
         if (data.success === false) throw new Error(data.error || "Failed to parse records.");
-        setEvents(Array.isArray(data) ? data : []);
-     
+        const freshEvents = Array.isArray(data) ? data : [];
+        
+        setEvents((prevEvents) => {
+          if (JSON.stringify(prevEvents) === JSON.stringify(freshEvents)) {
+            return prevEvents;
+          }
+          return freshEvents;
+        });
+
         setLoading(false);
         setIsSyncing(false);
       })
@@ -61,6 +69,13 @@ export default function TACalendar() {
 
   useEffect(() => {
     fetchEvents(true);
+
+    // SPEED BOOST: Lowered from 5 seconds to 2 seconds now that the Google Script is optimized
+    const backgroundPollingInterval = setInterval(() => {
+      fetchEvents(false);
+    }, 2000);
+
+    return () => clearInterval(backgroundPollingInterval);
   }, []);
 
   const handleRefreshSync = () => {
@@ -103,7 +118,6 @@ export default function TACalendar() {
     window.addEventListener("scroll", updateCoords);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
-   
       window.removeEventListener("resize", updateCoords);
       window.removeEventListener("scroll", updateCoords);
     };
@@ -199,7 +213,6 @@ export default function TACalendar() {
           evt.colIndex = i;
           placed = true;
           break;
-     
         }
       }
       if (!placed) {
@@ -223,12 +236,10 @@ export default function TACalendar() {
     setCurrentDate(new Date(year, monthIndex, 1));
     setIsMonthOpen(false);
   };
-
   const handleYearChange = (yearValue) => {
     setCurrentDate(new Date(yearValue, month, 1));
     setIsYearOpen(false);
   };
-
   const handlePrevRange = () => {
     if (viewMode === 'month') {
       setCurrentDate(new Date(year, month - 1, 1));
@@ -263,7 +274,6 @@ export default function TACalendar() {
     setIsDescExpanded(false); 
     setIsModalOpen(true);
   };
-
   const isToday = (d, m, y) => {
     const today = new Date();
     return today.getDate() === d && today.getMonth() === m && today.getFullYear() === y;
@@ -295,9 +305,9 @@ export default function TACalendar() {
     }
   }
 
-  const worksInProgress = loading || isSyncing;
-  const rawDescriptionText = selectedEvent ?
-    (selectedEvent.issue || selectedEvent.description || "") : "";
+  const worksInProgress = loading;
+  const showBackgroundSyncing = isSyncing;
+  const rawDescriptionText = selectedEvent ? (selectedEvent.issue || selectedEvent.description || "") : "";
 
   return (
     <div className="min-h-screen bg-cover bg-center bg-no-repeat relative font-sans antialiased" style={{ backgroundImage: `url(${DABuilding})` }}>
@@ -323,7 +333,6 @@ export default function TACalendar() {
 
       <div className="absolute inset-0 bg-white/40 backdrop-blur-[0.5px] pointer-events-none" />
 
-      {/* Outer padding applied evenly top and bottom (py-8 md:py-12) to create balanced vertical spacing */}
       <div className="relative z-10 w-full max-w-[95%] 2xl:max-w-[1600px] mx-auto px-2 md:px-4 pt-36 md:pt-36 pb-16 md:pb-16">
         <div className="w-full bg-white/60 backdrop-blur-[4px] rounded-3xl shadow-2xl border border-white/60 overflow-hidden min-h-[500px] relative flex flex-col">
           
@@ -332,18 +341,16 @@ export default function TACalendar() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 flex-wrap">
               <div className="flex items-center space-x-2 relative">
                 <div className="w-3 h-8 rounded-full flex-shrink-0" style={{ backgroundColor: '#2f3193' }} />
-               
                 <h1 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight pr-12">Technical Assistance Calendar</h1>
               </div>
               
               <div className="flex items-center gap-3 md:gap-4">
                 <div className="bg-slate-200/90 w-[120px] h-9 p-0.5 rounded-xl flex items-center justify-between border border-slate-300 shadow-md flex-shrink-0">
-                  
                   <button onClick={handlePrevRange} className="w-9 h-full text-slate-800 text-sm font-black flex items-center justify-center rounded-lg hover:bg-black/5 active:scale-95 transition-all outline-none border-0">&#8249;</button>
                   <div className="w-px h-4 bg-slate-300" />
     
                   <button onClick={handleRefreshSync} title="Sync/Refresh Records" className="w-9 h-full text-slate-800 flex items-center justify-center rounded-lg hover:bg-black/5 active:scale-95 transition-all outline-none border-0">
-                    <RefreshCw size={14} className={`text-slate-7700 ${worksInProgress ? 'animate-spin text-[#ef1c24]' : ''}`} strokeWidth={2.5} />
+                    <RefreshCw size={14} className={`text-slate-700 ${showBackgroundSyncing || worksInProgress ? 'animate-spin text-[#ef1c24]' : ''}`} strokeWidth={2.5} />
                   </button>
                   <div className="w-px h-4 bg-slate-300" />
                   <button onClick={handleNextRange} className="w-9 h-full text-slate-800 text-sm font-black flex items-center justify-center rounded-lg hover:bg-black/5 active:scale-95 transition-all outline-none border-0">&#8250;</button>
@@ -402,7 +409,6 @@ export default function TACalendar() {
           </div>
 
           <div className="relative flex-1 w-full h-full flex flex-col overflow-x-hidden">
-  
             {worksInProgress && (
               <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/10 backdrop-blur-[1px] pointer-events-none select-none transition-all">
                 <div className="px-5 py-3 rounded-2xl bg-white/90 text-[#2f3193] shadow-2xl border border-slate-200/80 flex items-center gap-3 animate-pulse pointer-events-auto">
@@ -660,7 +666,7 @@ export default function TACalendar() {
                         : (rawDescriptionText.length > 50 
                             ? `${rawDescriptionText.substring(0, 50)}...` 
                             : rawDescriptionText
-                        )
+                          )
                       }
                     </p>
                     {rawDescriptionText.length > 50 && (
