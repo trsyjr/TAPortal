@@ -22,6 +22,7 @@ export default function TACalendar() {
   
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [shouldRenderModal, setShouldRenderModal] = useState(false); // New state to safely coordinate entry and exit transitions
   const [isDescExpanded, setIsDescExpanded] = useState(false);
   const [isMonthOpen, setIsMonthOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
@@ -40,7 +41,6 @@ export default function TACalendar() {
       setIsSyncing(true);
     }
     
-    // SPEED BOOST: Added no-cache option to network stream to ensure faster handshake deliveries
     fetch(APPS_SCRIPT_URL, { cache: "no-cache" })
       .then((res) => {
         if (!res.ok) throw new Error("Network response encountered an error.");
@@ -70,7 +70,6 @@ export default function TACalendar() {
   useEffect(() => {
     fetchEvents(true);
 
-    // SPEED BOOST: Lowered from 5 seconds to 2 seconds now that the Google Script is optimized
     const backgroundPollingInterval = setInterval(() => {
       fetchEvents(false);
     }, 2000);
@@ -272,8 +271,19 @@ export default function TACalendar() {
     e.stopPropagation();
     setSelectedEvent(eventItem);
     setIsDescExpanded(false); 
-    setIsModalOpen(true);
+    setShouldRenderModal(true); // Mount layout immediately
+    setTimeout(() => {
+      setIsModalOpen(true);    // Trigger entry animations smoothly
+    }, 10);
   };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);     // Trigger exit animations smoothly
+    setTimeout(() => {
+      setShouldRenderModal(false); // Cleanly unmount layout from DOM
+    }, 200); // Matches transition duration precisely
+  };
+
   const isToday = (d, m, y) => {
     const today = new Date();
     return today.getDate() === d && today.getMonth() === m && today.getFullYear() === y;
@@ -627,9 +637,15 @@ export default function TACalendar() {
       )}
 
       {/* MODAL CONTAINER */}
-      {isModalOpen && selectedEvent && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm flex items-center justify-center p-4 z-[100]">
-          <div className="bg-white rounded-3xl shadow-[0_25px_60px_-15px_rgba(15,23,42,0.3)] max-w-lg w-full max-h-[85vh] overflow-hidden flex flex-col border-0">
+      {shouldRenderModal && selectedEvent && (
+        <div 
+          onClick={handleCloseModal} // UPDATED: Closes with exit transition
+          className={`fixed inset-0 bg-slate-950/40 backdrop-blur-sm flex items-center justify-center p-4 z-[100] transition-opacity duration-200 ease-out ${isModalOpen ? 'opacity-100' : 'opacity-0'}`}
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()} 
+            className={`bg-white rounded-3xl shadow-[0_25px_60px_-15px_rgba(15,23,42,0.3)] max-w-lg w-full max-h-[85vh] overflow-hidden flex flex-col border-0 transition-all duration-200 ease-out ${isModalOpen ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-4'}`}
+          >
        
             <div className="p-6 pb-2 flex items-start justify-between bg-gradient-to-b from-slate-50 to-white flex-shrink-0">
               <div className="space-y-2 max-w-[85%]">
@@ -643,7 +659,7 @@ export default function TACalendar() {
                 </div>
               </div>
               <button 
-                onClick={() => setIsModalOpen(false)} 
+                onClick={handleCloseModal} // UPDATED: Closes with exit transition
                 className="w-8 h-8 rounded-full bg-slate-100 text-slate-500 hover:bg-[#ef1c24] hover:text-white flex items-center justify-center transition-all duration-200 border-0 outline-none flex-shrink-0"
               >
                 <X size={16} strokeWidth={2.5} />
