@@ -22,7 +22,7 @@ export default function TACalendar() {
   
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [shouldRenderModal, setShouldRenderModal] = useState(false); // New state to safely coordinate entry and exit transitions
+  const [shouldRenderModal, setShouldRenderModal] = useState(false);
   const [isDescExpanded, setIsDescExpanded] = useState(false);
   const [isMonthOpen, setIsMonthOpen] = useState(false);
   const [isYearOpen, setIsYearOpen] = useState(false);
@@ -458,7 +458,7 @@ export default function TACalendar() {
                                 style={{ backgroundColor: '#f4ec59', color: '#2f3193' }}
                                 className="w-full text-left text-[10px] sm:text-[11px] font-black px-1.5 sm:px-2 py-0.5 sm:py-1 rounded shadow-sm truncate block border-0 transition hover:brightness-95 active:scale-[0.98]"
                               >
-                                <span className="mr-1 hidden sm:inline">Ticket:</span>
+                                <span className="mr-1 hidden sm:inline">Ticket: </span>
                                 <span>{evt.ticketNumber || 'N/A'}</span> 
                                 <span className="text-[9px] sm:text-[10px] font-bold opacity-80 ml-1">({evt.time || 'N/A'})</span>
                               </button>
@@ -531,7 +531,7 @@ export default function TACalendar() {
                                   }}
                                   className="absolute border-none rounded p-0.5 sm:p-1.5 md:p-2 overflow-hidden shadow-sm cursor-pointer select-none text-left transform transition hover:scale-[1.04] hover:!z-50 active:scale-95"
                                 >
-                                  <div className="text-[8px] sm:text-[10px] md:text-[11px] font-black truncate">#{evt.ticketNumber || 'N/A'}</div>
+                                  <div className="text-[8px] sm:text-[10px] md:text-[11px] font-black truncate">Ticket: {evt.ticketNumber || 'N/A'}</div>
                                   <div className="text-[8px] md:text-[10px] font-bold opacity-90 truncate hidden sm:block">{evt.time}</div>
                                 </div>
                               );
@@ -594,7 +594,7 @@ export default function TACalendar() {
                               className="absolute border-none rounded-xl p-1.5 sm:p-2 md:p-2.5 shadow-md cursor-pointer select-none text-left transform transition hover:brightness-95 hover:!z-50 active:scale-[0.99] overflow-hidden flex flex-col justify-start"
                             >
                               <div className="text-[10px] sm:text-xs font-black flex flex-wrap sm:flex-nowrap items-center justify-between gap-1 w-full border-b border-slate-900/10 pb-0.5 mb-1">
-                                <span className="truncate max-w-[70%]">Ticket #{evt.ticketNumber || 'N/A'} <span className="hidden sm:inline">- {evt.title}</span></span>
+                                <span className="truncate max-w-[70%]">Ticket: {evt.ticketNumber || 'N/A'} <span className="hidden sm:inline">- {evt.title}</span></span>
                                 <span className="px-1 py-0.5 rounded text-[9px] font-black bg-black/5 whitespace-nowrap flex-shrink-0" style={{ color: '#2f3193' }}>{evt.time}</span>
                               </div>
                               <div className="text-[9px] sm:text-[11px] font-black opacity-80 truncate w-full">{evt.office} <span className="hidden sm:inline">• Assigned: {evt.assignedFocal}</span></div>
@@ -651,7 +651,7 @@ export default function TACalendar() {
               <div className="space-y-2 max-w-[85%]">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-white text-[10px] font-black tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm" style={{ backgroundColor: '#2f3193' }}>
-                    Ticket #{selectedEvent.ticketNumber}
+                    Ticket: {selectedEvent.ticketNumber}
                   </span>
                   <span className="text-[10px] font-extrabold px-2.5 py-0.5 rounded-full bg-slate-100 flex items-center gap-1" style={{ color: '#2f3193' }}>
                     <Clock size={11} strokeWidth={2.5} /> {selectedEvent.time}
