@@ -91,7 +91,7 @@ const NewsEvents = () => {
     },
     {
       image: News8,
-      title: "📺 奠𝗘𝗔𝗧𝗨𝗥𝗘 𝗦𝗘𝗚𝗠𝗘𝗡𝗧 | 𝗗𝗦𝗪𝗗 𝗔𝗰𝗮𝗱𝗲𝗺𝘆 𝗜𝗻𝘁𝗲𝗿𝘃𝗶𝗲𝘄 (𝗨𝗡𝗧𝗩)",
+      title: "📺 𝗙𝗘𝗔𝗧𝗨𝗥𝗘 𝗦𝗘𝗚𝗠𝗘𝗡𝗧 | 𝗗𝗦𝗪𝗗 𝗔𝗰𝗮𝗱𝗲𝗺𝘆 𝗜𝗻𝘁𝗲𝗿𝘃𝗶𝗲𝘄 (𝗨𝗡𝗧𝗩)",
       description: [
         "Sharing key highlights from the recent interview featuring the DSWD Academy, the Department’s training and capacity-building arm. The discussion focuses on how the Academy strengthens the competencies of DSWD social workers, house parents, case managers, and frontline personnel through continuous learning and development initiatives, specialized trainings, and professional capacity-building programs.",
         "This segment highlights the ongoing efforts to ensure that our workforce remains well-equipped, responsive, and aligned with the evolving needs of social welfare service delivery for Filipino individuals, families, and communities.",
