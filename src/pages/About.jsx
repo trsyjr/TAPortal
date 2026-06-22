@@ -154,7 +154,6 @@ const About = () => {
     { title: "", name: "Kathleene Jhoy L. Lesaca", email: "kjllesaca@dswd.gov.ph", image: Kath, category: "TAAORSS" },
     { title: "", name: "Glenda Fulong", email: "gfulong@dswd.gov.ph", image: Glenda, category: "TAAORSS" }
   ];
-
   const filteredPeople = focalPeople.filter((person) => {
     const matchesCategory = activeFilter === "ALL" || person.category === activeFilter;
     // ✅ FIXED SEARCH LOGIC BELOW: Now checks both title and name
@@ -163,10 +162,9 @@ const About = () => {
       person.name.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
-
   // Triple layout items array instantiation to facilitate frictionless left/right edge transitions
   const conveyorItems = (searchQuery.trim() !== "" && filteredPeople.length < 3) ?
-    filteredPeople : [...filteredPeople, ...filteredPeople, ...filteredPeople];
+  filteredPeople : [...filteredPeople, ...filteredPeople, ...filteredPeople];
 
   const cardWidthWithGap = 296; // 280px width + 16px gap (gap-4)
   const totalBaseWidth = filteredPeople.length * cardWidthWithGap;
@@ -176,7 +174,6 @@ const About = () => {
   
   const pointerStartXRef = useRef(0);
   const conveyorStartXRef = useRef(0);
-
   useEffect(() => {
     const currentHash = window.location.hash;
     
@@ -189,6 +186,7 @@ const About = () => {
           element.scrollIntoView({ behavior: "smooth", block: "center" });
         }, 300);
       }
+  
     }
   }, [window.location.hash]);
 
@@ -198,7 +196,6 @@ const About = () => {
       xPosition.set((searchQuery.trim() !== "" && filteredPeople.length < 3) ? 0 : -totalBaseWidth);
     }
   }, [activeFilter, totalBaseWidth, viewMode, searchQuery, filteredPeople.length]);
-
   // Framer Motion continuous loop rendering configuration engine
   useAnimationFrame((time, deltaTime) => {
     // Stop continuous animation ticks if in list view mode to preserve performance, or if searching with less than 3 items
@@ -212,7 +209,6 @@ const About = () => {
     const wrappedX = wrap(-totalBaseWidth * 2, -totalBaseWidth, currentX);
     xPosition.set(wrappedX);
   });
-
   // Native non-passive event configuration binding trackpad inputs specifically to prevent page shifting
   useEffect(() => {
     const targetElement = carouselContainerRef.current;
@@ -224,7 +220,8 @@ const About = () => {
       // Prevent browser default actions (such as horizontal history pagination or window shifting)
       event.preventDefault();
       
-      const trackGestureInput = event.deltaX !== 0 ? event.deltaX : event.deltaY;
+    
+    const trackGestureInput = event.deltaX !== 0 ? event.deltaX : event.deltaY;
       const nextCalculatedX = xPosition.get() - trackGestureInput;
       
       const wrappedX = wrap(-totalBaseWidth * 2, -totalBaseWidth, nextCalculatedX);
@@ -257,17 +254,14 @@ const About = () => {
     const wrappedX = wrap(-totalBaseWidth * 2, -totalBaseWidth, currentX);
     xPosition.set(wrappedX);
   };
-
   const handlePointerUp = () => {
     isDraggingRef.current = false;
     document.removeEventListener("pointermove", handlePointerMove);
     document.removeEventListener("pointerup", handlePointerUp);
   };
-
   const toggleFilter = (filterType) => {
     setActiveFilter((prev) => (prev === filterType ? "ALL" : filterType));
   };
-
   const copyToClipboard = (e, email) => {
     e.preventDefault();
     navigator.clipboard.writeText(email);
@@ -289,6 +283,7 @@ const About = () => {
           The DSWD Academy is the Department’s professional learning institute 
           and training arm responsible for strengthening the competencies of the 
           social welfare and development workforce. It leads the implementation of 
+    
           learning and development, knowledge management, assessment, certification, 
           accreditation, and technical assistance initiatives that support the 
           effective delivery of social welfare and development programs and services.
@@ -302,7 +297,8 @@ const About = () => {
           <br /><br />
           The Academy develops and manages learning programs, technical assistance services, 
           knowledge resources, and professional development pathways aligned with Department 
-          standards and priorities. It also promotes innovation, knowledge exchange, and 
+          standards and priorities.
+          It also promotes innovation, knowledge exchange, and 
           strategic partnerships to advance quality social welfare and development practice.
           <br /><br />
           Through these functions, the DSWD Academy contributes to building a competent, 
@@ -318,6 +314,7 @@ const About = () => {
           The Capability Building Division (CBD) of the DSWD Academy leads 
           the development, implementation, and monitoring of capability-building 
           systems for the internal and external social welfare and development 
+    
           workforce. It is responsible for establishing the roadmap, policies, 
           standards, frameworks, and systems that guide professional learning and 
           development across the Department and its partner-stakeholders.
@@ -331,7 +328,8 @@ const About = () => {
           <br /><br />
           CBD also supports Offices, Bureaus, Services, Units, and Field Offices 
           in identifying capability gaps, aligning training priorities, and 
-          improving the quality of learning interventions. Through its 
+          improving the quality of learning interventions.
+          Through its 
           capability-building initiatives, the Division promotes continuous 
           professional development, organizational learning, and strengthened 
           workforce readiness in response to emerging sectoral demands and 
@@ -364,7 +362,8 @@ const About = () => {
           knowledge into relevant knowledge products and services, policies, and strategies;
           develops technical assistance and knowledge agendas; and establishes KM systems and 
           platforms for capturing, integrating, and managing capacity-building and technical 
-          assistance initiatives. It also establishes and manages Communities of Practice, 
+          assistance initiatives.
+          It also establishes and manages Communities of Practice, 
           oversees the DSWD Library and KM Portal, and monitors and evaluates KM-related 
           technical assistance interventions implemented by the Department.
         </>
@@ -543,7 +542,8 @@ const About = () => {
               
               {/* ✅ OPTION A: CAROUSEL MODE (Image Cards View) */}
               {viewMode === "CAROUSEL" && (
-                filteredPeople.length === 0 ? (
+                filteredPeople.length === 0 ?
+                (
                   <div className="text-white/50 text-center py-12 text-sm font-medium z-20 w-full">
                     No focal people found matching this criteria.
                   </div>
@@ -726,12 +726,14 @@ const About = () => {
           The portal provides a centralized and structured mechanism for Offices, 
           Bureaus, Services, and Units (OBSUs) and Field Offices (FOs) to access 
           technical assistance, submit service requests, and retrieve relevant 
-          resources. It consolidates standard processes, guidance materials, and 
+          resources.
+          It consolidates standard processes, guidance materials, and 
           service channels to improve accessibility, coordination, and documentation.
           <br /><br />
           As part of the Academy’s continuing efforts to strengthen service delivery, 
           the portal promotes more efficient request management, clearer communication, 
-          and improved access to institutional knowledge. It supports a more systematic 
+          and improved access to institutional knowledge.
+          It supports a more systematic 
           and responsive approach to technical assistance, aligned with departmental 
           standards, operational requirements, and the evolving needs of the workforce.
         </div> 
@@ -739,7 +741,6 @@ const About = () => {
       ),
     },
   ];
-
   return (
     <div className="w-full bg-white font-['Montserrat',sans-serif]">
       {/* Slider Header Showcase */}
@@ -761,7 +762,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white mb-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
+            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight tracking-wide text-white mb-4 drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
           >
             Welcome to the DSWD Academy
           </motion.h1>
@@ -769,7 +770,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
+            className="text-3xl md:text-5xl lg:text-6xl font-extrabold tracking-tight tracking-wide text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)]"
           >
             Technical Assistance Portal!
           </motion.p>
@@ -795,9 +796,10 @@ const About = () => {
             {sec.isCustom ? (
               sec.content
             ) : (
-              <p className="text-gray-700 text-base md:text-lg leading-relaxed text-justify">
+              // FIXED: Changed wrapping <p> element to <div> to correctly support descendant <div> tags safely without losing layout/Tailwind classes
+              <div className="text-gray-700 text-base md:text-lg leading-relaxed text-justify">
                 {sec.content}
-              </p>
+              </div>
             )}
 
             {/* Google Map Frame Component */}

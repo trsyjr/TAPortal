@@ -114,7 +114,7 @@ const faqPages = [
               href="/pdfs/OBSU-Academy Focal Persons Directory.pdf"
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 mt-4 bg-[#ee1c25] text-white px-6 py-3 rounded-full font-bold hover:scale-105 transition-transform shadow-md italic"
+              className="inline-flex items-center gap-2 mt-4 bg-[#2e3192] text-white px-6 py-3 rounded-full font-bold hover:bg-[#ee1c25] hover:scale-105 transition-transform shadow-md italic"
             >
               OBSU-Academy Focal Directory 
             </a>

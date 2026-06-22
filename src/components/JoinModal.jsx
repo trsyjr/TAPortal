@@ -71,7 +71,7 @@ const JoinModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[9999] flex items-center justify-center p-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -139,35 +139,42 @@ const JoinModal = ({ isOpen, onClose }) => {
                   Click below to join the Zoom session directly.
                 </p>
 
-                <a
-                  href={
-                    canJoin
-                      ? "https://us06web.zoom.us/j/85004699612?pwd=Sshhb6KiyOkfCLpEdjxoUofzkaX39n.1"
-                      : "#"
-                  }
-                  target={canJoin ? "_blank" : "_self"}
-                  rel="noopener noreferrer"
-                  className={`px-12 py-4 rounded-xl font-semibold text-lg shadow-lg transition transform hover:scale-105 ${
-                    canJoin
-                      ? "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
-                      : "bg-gray-400 text-gray-200 cursor-not-allowed"
-                  }`}
-                >
-                  {canJoin ? "Join Now" : "Unavailable"}
-                </a>
+                <div className="relative group">
+                  {/* Tooltip Bubble */}
+                  {!canJoin && (
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none shadow-xl z-10">
+                      Currently closed. This will be available every Wednesday 2:00 PM - 4:00 PM
+                      {/* Tooltip Arrow */}
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
+                    </div>
+                  )}
+
+                  <a
+                    href={
+                      canJoin
+                        ? "https://us06web.zoom.us/j/85004699612?pwd=Sshhb6KiyOkfCLpEdjxoUofzkaX39n.1"
+                        : "#"
+                    }
+                    target={canJoin ? "_blank" : "_self"}
+                    rel="noopener noreferrer"
+                    className={`px-12 py-4 rounded-xl font-semibold text-lg shadow-lg transition transform hover:scale-105 inline-block ${
+                      canJoin
+                        ? "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+                        : "bg-gray-400 text-gray-200 cursor-not-allowed"
+                    }`}
+                  >
+                    {canJoin ? "Join Now" : "Unavailable"}
+                  </a>
+                </div>
 
                 {!canJoin && countdown && (
                   <>
-                    {/* <p className="text-gray-500 mt-2 text-sm">
+                    <p className="text-gray-500 mt-2 text-sm">
                       Next session in: {countdown}
-                    </p> */}
-                    <p className="text-gray-500 mt-1 text-sm">
-                      Current Time:{" "}
-                      {new Date().toLocaleString("en-US", {
-                        timeZone: "Asia/Manila",
-                        hour12: true,
-                      })}
                     </p>
+                    {/* <p className="text-gray-500 mt-4 text-sm font-medium">
+                      Availability: Every Wednesday, 2:00 PM - 4:00 PM
+                    </p> */}
                   </>
                 )}
               </div>

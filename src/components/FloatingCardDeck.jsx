@@ -105,7 +105,7 @@ const FloatingCardDeck = ({
               </p>
 
               <button 
-                className="bg-[#ee1c25] text-white px-4 py-2 rounded-full font-semibold text-xs hover:scale-105 transition"
+                className="bg-[#2e3192] text-white px-4 py-2 rounded-full font-semibold text-xs hover:scale-105 transition"
                 onClick={(e) => {
                   e.stopPropagation();
                   if (triggerAction) triggerAction();

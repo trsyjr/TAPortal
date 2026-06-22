@@ -13,10 +13,28 @@ const taaorssPaths = ["/tara-program", "/tamp", "/par", "/sdca"];
 const GlobalFaqDial = ({ routes, onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const containerRef = useRef(null);
   const location = useLocation(); 
 
   const handleToggle = () => setIsOpen(!isOpen);
+
+  // Track window size to determine if layout should switch to straight vertical stack
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768); // matches Tailwind's md breakpoint
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // FIXED: Clear simulated hover states on mobile when the dial is closed
+  useEffect(() => {
+    if (!isOpen) {
+      setIsHovered(false);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -102,14 +120,23 @@ const GlobalFaqDial = ({ routes, onNavigate }) => {
       <AnimatePresence>
         {isOpen &&
           routes?.map((route, index) => {
+            let customX = 0;
+            let customY = 0;
             const totalItems = routes.length;
-            const startAngle = 90 * (Math.PI / 180);
-            const endAngle = 0 * (Math.PI / 180);
-            
-            const angle = startAngle - (index / (totalItems - 1)) * (startAngle - endAngle);
-            
-            const customX = Math.cos(angle) * radius;
-            const customY = -Math.sin(angle) * radius;
+
+            if (isMobile) {
+              // FIXED MOBILE ORDER: Invert multiplier calculation so lower indexes (ACA) sit at top position
+              customX = 0;
+              customY = -((totalItems - index) * 76); 
+            } else {
+              // Classic fan-out positioning for non-mobile devices
+              const startAngle = 90 * (Math.PI / 180);
+              const endAngle = 0 * (Math.PI / 180);
+              const angle = startAngle - (index / (totalItems - 1)) * (startAngle - endAngle);
+              
+              customX = Math.cos(angle) * radius;
+              customY = -Math.sin(angle) * radius;
+            }
 
             // Pass both route data and list index position for absolute tracking accuracy
             const isActive = checkIfRouteIsActive(route, index);
@@ -129,8 +156,8 @@ const GlobalFaqDial = ({ routes, onNavigate }) => {
                   setIsOpen(false);
                 }}
               >
-                {/* Hover Floating Title Tooltip */}
-                <div className="absolute left-16 bg-[#2e3192] border border-white/20 text-white text-xs font-bold py-2 px-4 rounded-xl shadow-2xl opacity-0 pointer-events-none -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 uppercase whitespace-nowrap tracking-wide z-[210]">
+                {/* Hover Floating Title Tooltip - Only displays on desktop via Tailwind hidden/md:block overrides */}
+                <div className="hidden md:block absolute left-16 bg-[#2e3192] border border-white/20 text-white text-xs font-bold py-2 px-4 rounded-xl shadow-2xl opacity-0 pointer-events-none -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 uppercase whitespace-nowrap tracking-wide z-[210]">
                   {route.title}
                 </div>
 
