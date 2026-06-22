@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { BsPeopleFill } from "react-icons/bs";
 import { IoClose } from "react-icons/io5"; 
 import TABG from "../assets/TABG.png";
-import News3 from "../assets/News3.png";
 
 const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
