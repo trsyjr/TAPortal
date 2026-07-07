@@ -59,6 +59,30 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Preloader from "./components/Preloader";
 
+// =========================================================================
+// GLOBAL ANALYTICS CONFIGURATION
+// =========================================================================
+const GOOGLE_ANALYTICS_URL = "https://script.google.com/macros/s/AKfycbwGqZyP7_Wt8Wg-Y5z7LnKgqAFc_B4zEawj8CuZg8MHrLjHtccDipBJw9vPddfuCoSaDQ/exec";
+
+const trackEvent = async (type, target) => {
+  if (!GOOGLE_ANALYTICS_URL || GOOGLE_ANALYTICS_URL.startsWith("PASTE_YOUR")) {
+    console.warn("Analytics: Setup incomplete. Missing GOOGLE_ANALYTICS_URL.");
+    return;
+  }
+  try {
+    await fetch(GOOGLE_ANALYTICS_URL, {
+      method: "POST",
+      mode: "no-cors", // Bypasses client-side CORS hurdles with script redirects
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ type, target }),
+    });
+  } catch (error) {
+    console.error("Analytics failure:", error);
+  }
+};
+
 function AppContent() {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(true);
@@ -79,13 +103,21 @@ function AppContent() {
   const [globalServiceType, setGlobalServiceType] = useState("");
   const [globalInquiryType, setGlobalInquiryType] = useState("");
 
-  // Listen to custom DOM events emitted by any deep page down the tree
+  // Track Page Views automatically whenever route changes
+  useEffect(() => {
+    trackEvent("page_view", location.pathname);
+  }, [location.pathname]);
+
+  // Listen to custom DOM events emitted by any deep page down the tree + track click
   useEffect(() => {
     const handleOpenGlobalTicket = (e) => {
       const { inquiryType, serviceType } = e.detail || {};
       setGlobalInquiryType(inquiryType || "");
       setGlobalServiceType(serviceType || "");
       setGlobalTicketOpen(true);
+
+      // Log the click action that generated this portal ticket request
+      trackEvent("button_click", `Open Ticket Modal - Service: ${serviceType || "General"}`);
     };
 
     window.addEventListener("OPEN_PORTAL_TICKET", handleOpenGlobalTicket);
@@ -133,6 +165,7 @@ function AppContent() {
     // Safely block it from reappearing across page-to-page transitions inside this view cycle
     sessionStorage.setItem("dswd_advisory_route_safe", "true");
     setHasDismissed(true);
+    trackEvent("button_click", "Dismissed Announcement Advisory");
   };
 
   return (
@@ -219,6 +252,9 @@ function AppContent() {
             setGlobalInquiryType(inquiry);
             setGlobalServiceType(service);
             setGlobalFeedbackOpen(true);
+            trackEvent("button_click", `Submitted Ticket Success - Inquiry: ${inquiry}`);
+          } else {
+            trackEvent("button_click", "Closed Ticket Modal Abandoned");
           }
         }}
       />
@@ -232,6 +268,7 @@ function AppContent() {
           setGlobalFeedbackOpen(false);
           setGlobalInquiryType("");
           setGlobalServiceType("");
+          trackEvent("button_click", "Closed Feedback Modal");
         }}
       />
     </>
