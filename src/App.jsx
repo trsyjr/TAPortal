@@ -189,7 +189,7 @@ function AppContent() {
   const handleCloseAdvisory = () => {
     sessionStorage.setItem("dswd_advisory_route_safe", "true");
     setHasDismissed(true);
-    trackEvent("button_click", "Dismissed Announcement Advisory");
+    // REMOVED: trackEvent statement here so closing the layout notice doesn't trigger spreadsheet additions
   };
 
   return (
