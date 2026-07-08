@@ -64,7 +64,7 @@ import Preloader from "./components/Preloader";
 // =========================================================================
 const GOOGLE_ANALYTICS_URL = "https://script.google.com/macros/s/AKfycbwGqZyP7_Wt8Wg-Y5z7LnKgqAFc_B4zEawj8CuZg8MHrLjHtccDipBJw9vPddfuCoSaDQ/exec";
 
-// Global script cache locks to absorb double-mount behaviors across mobile layout shuffles
+// Deduplication locks for fast button clicks
 let lastTrackedTimestamp = 0;
 let lastTrackedSignature = "";
 
@@ -74,21 +74,31 @@ const trackEvent = async (type, target) => {
     return;
   }
 
-  // Deduplication check: Ignore if the exact same signature is fired under 500ms
+  // --- PERSISTENT SESSION HOOK LOCK ---
+  // If this is a page view tracking request, check our temporary storage ticket lock
+  if (type === "page_view") {
+    const hasAlreadyFiredOnThisLoad = sessionStorage.getItem("analytics_pv_lock");
+    if (hasAlreadyFiredOnThisLoad === "true") {
+      return; // Stop immediately, we already logged this initial page hit!
+    }
+    // Lock it instantly so subsequent component mount stutters are completely blocked
+    sessionStorage.setItem("analytics_pv_lock", "true");
+  }
+
+  // Rapid interaction debounce window (500ms for clicks/modals)
   const now = Date.now();
   const currentSignature = `${type}_${target}`;
   if (currentSignature === lastTrackedSignature && now - lastTrackedTimestamp < 500) {
     return; 
   }
 
-  // Update validation logs prior to triggering the network request
   lastTrackedTimestamp = now;
   lastTrackedSignature = currentSignature;
 
   try {
     await fetch(GOOGLE_ANALYTICS_URL, {
       method: "POST",
-      mode: "no-cors", // Bypasses client-side CORS hurdles with script redirects
+      mode: "no-cors", 
       headers: {
         "Content-Type": "application/json",
       },
@@ -105,11 +115,9 @@ function AppContent() {
 
   // Layout level state tracking if the user dismissed it during this active session view
   const [hasDismissed, setHasDismissed] = useState(() => {
-    // If they checked "Don't show again" historically, hide it immediately
     const suppressedForever = localStorage.getItem("dswd_internal_advisory_suppressed");
     if (suppressedForever) return true;
 
-    // Otherwise, check if they already dismissed it since the last hard reload/refresh
     const suppressedSession = sessionStorage.getItem("dswd_advisory_route_safe");
     return !!suppressedSession;
   });
@@ -119,7 +127,7 @@ function AppContent() {
   const [globalServiceType, setGlobalServiceType] = useState("");
   const [globalInquiryType, setGlobalInquiryType] = useState("");
 
-  // Track initial page view load only once per hard reload or refresh session
+  // Fire page view analysis on initial bootstrap mount
   useEffect(() => {
     trackEvent("page_view", window.location.pathname);
   }, []); 
@@ -166,11 +174,12 @@ function AppContent() {
     return () => clearTimeout(minTimeout);
   }, [location.pathname]);
 
-  // CLEAR session state when user explicitly reloads, closes/revisits the site, or hard-refreshes
+  // CRITICAL CLEANUP: Wipes the storage validation token during manual user reloads
   useEffect(() => {
     const handleBeforeUnload = () => {
-      // Clearing this ensures that a page refresh or fresh tab revisit forces the modal to show again
       sessionStorage.removeItem("dswd_advisory_route_safe");
+      // Destroy the page view lock right as the user reloads so the new session is allowed to count as exactly 1 again!
+      sessionStorage.removeItem("analytics_pv_lock");
     };
     
     window.addEventListener("beforeunload", handleBeforeUnload);
@@ -178,7 +187,6 @@ function AppContent() {
   }, []);
 
   const handleCloseAdvisory = () => {
-    // Safely block it from reappearing across page-to-page transitions inside this view cycle
     sessionStorage.setItem("dswd_advisory_route_safe", "true");
     setHasDismissed(true);
     trackEvent("button_click", "Dismissed Announcement Advisory");
@@ -263,7 +271,6 @@ function AppContent() {
         defaultInquiryType={globalInquiryType}
         onClose={(inquiry, service) => {
           setGlobalTicketOpen(false);
-          // If inquiry contains a string value, the form submission succeeded
           if (inquiry) {
             setGlobalInquiryType(inquiry);
             setGlobalServiceType(service);
@@ -279,7 +286,7 @@ function AppContent() {
         isOpen={globalFeedbackOpen}
         inquiryType={globalInquiryType}
         serviceType={globalServiceType}
-        spreadsheetId="14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8" // Default fallback ID if route mapping misses
+        spreadsheetId="14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8" 
         onClose={() => {
           setGlobalFeedbackOpen(false);
           setGlobalInquiryType("");
