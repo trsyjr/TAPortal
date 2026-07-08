@@ -1,5 +1,5 @@
 // src/App.jsx
-import React, { Suspense, lazy, useState, useEffect, useRef } from "react"; 
+import React, { Suspense, lazy, useState, useEffect } from "react"; 
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -64,11 +64,27 @@ import Preloader from "./components/Preloader";
 // =========================================================================
 const GOOGLE_ANALYTICS_URL = "https://script.google.com/macros/s/AKfycbwGqZyP7_Wt8Wg-Y5z7LnKgqAFc_B4zEawj8CuZg8MHrLjHtccDipBJw9vPddfuCoSaDQ/exec";
 
+// Global script cache locks to absorb double-mount behaviors across mobile layout shuffles
+let lastTrackedTimestamp = 0;
+let lastTrackedSignature = "";
+
 const trackEvent = async (type, target) => {
   if (!GOOGLE_ANALYTICS_URL || GOOGLE_ANALYTICS_URL.startsWith("PASTE_YOUR")) {
     console.warn("Analytics: Setup incomplete. Missing GOOGLE_ANALYTICS_URL.");
     return;
   }
+
+  // Deduplication check: Ignore if the exact same signature is fired under 500ms
+  const now = Date.now();
+  const currentSignature = `${type}_${target}`;
+  if (currentSignature === lastTrackedSignature && now - lastTrackedTimestamp < 500) {
+    return; 
+  }
+
+  // Update validation logs prior to triggering the network request
+  lastTrackedTimestamp = now;
+  lastTrackedSignature = currentSignature;
+
   try {
     await fetch(GOOGLE_ANALYTICS_URL, {
       method: "POST",
@@ -103,16 +119,10 @@ function AppContent() {
   const [globalServiceType, setGlobalServiceType] = useState("");
   const [globalInquiryType, setGlobalInquiryType] = useState("");
 
-  // Flag to protect against React Strict Mode rendering twice on fresh load/refresh
-  const hasTrackedInitialLoad = useRef(false);
-
-  // --- FIX: Track Page View exactly 1 time per initial load / browser refresh ---
+  // Track initial page view load only once per hard reload or refresh session
   useEffect(() => {
-    if (!hasTrackedInitialLoad.current) {
-      trackEvent("page_view", window.location.pathname);
-      hasTrackedInitialLoad.current = true;
-    }
-  }, []); // Empty array ensures it only executes during the mount phase
+    trackEvent("page_view", window.location.pathname);
+  }, []); 
 
   // Listen to custom DOM events emitted by any deep page down the tree + track click
   useEffect(() => {
