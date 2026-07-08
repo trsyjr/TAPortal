@@ -14,8 +14,8 @@ import Image3 from "../assets/FSWBanner.gif"
 const slides = [Image2, Image1, Image3];
 
 const slideLinks = {
-  0: "/about#about-portal", 
-  1: "https://clientfeedback.dswd.gov.ph/"
+  0: "https://clientfeedback.dswd.gov.ph/",
+  1: "/about#about-portal",
 };
 
 const faqCards = [
