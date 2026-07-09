@@ -38,7 +38,7 @@ const SatisfactoryModal = ({ isOpen, onClose, spreadsheetId, inquiryType, servic
     };
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbwLwMN-lxK6LJD3xZYCMjmiYQl0WNagKQIW9rHp8I40NqEBpTI2ucjrK8PjAWKeaTzNxA/exec", {
+      await fetch("https://script.google.com/macros/s/AKfycbyvDaNfoIL2ZATTfvQDYz3KZi7B2qY72MfdsxSV6f9wdAReJiFLQ-UAnk8YcucL3KX80g/exec", {
         method: "POST",
         mode: "no-cors",
         headers: { "Content-Type": "application/json" },

@@ -383,7 +383,7 @@ const Resources = () => {
 
   // Analytics API Dispatcher
   const trackDocumentAction = async (actionType, item) => {
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLwMN-lxK6LJD3xZYCMjmiYQl0WNagKQIW9rHp8I40NqEBpTI2ucjrK8PjAWKeaTzNxA/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw72sNmva2-UYHBbQAWCgn-05TpSHnXvJfSm9a6mcq6BT_ZePHiMe6Y9G6fmw92n7huAg/exec";
     try {
       await fetch(APPS_SCRIPT_URL, {
         method: "POST",
