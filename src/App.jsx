@@ -62,7 +62,7 @@ import Preloader from "./components/Preloader";
 // =========================================================================
 // GLOBAL ANALYTICS CONFIGURATION
 // =========================================================================
-const GOOGLE_ANALYTICS_URL = "https://script.google.com/macros/s/AKfycbwGqZyP7_Wt8Wg-Y5z7LnKgqAFc_B4zEawj8CuZg8MHrLjHtccDipBJw9vPddfuCoSaDQ/exec";
+const GOOGLE_ANALYTICS_URL = "https://script.google.com/macros/s/AKfycbzhhTUrdvzXhOK3cc3DHhXiyq_wmvDrfEuoK1p-gPELyRyqcJ11b2gFj5Pe_HkSJI0ETw/exec";
 
 // Deduplication locks for fast button clicks
 let lastTrackedTimestamp = 0;

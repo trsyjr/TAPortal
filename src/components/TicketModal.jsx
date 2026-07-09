@@ -136,7 +136,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
-    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwLwMN-lxK6LJD3xZYCMjmiYQl0WNagKQIW9rHp8I40NqEBpTI2ucjrK8PjAWKeaTzNxA/exec";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyj0TMY0TDuKmaX8FKNE90agvBIuiBSRWNahodpkxVKqETfUeCeYxYprv6yZF94yZRf/exec";
 
     try {
       let inputVal = data.email.trim();
