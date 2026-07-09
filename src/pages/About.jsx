@@ -12,6 +12,7 @@ import About4 from "../assets/About4.JPG";
 import About5 from "../assets/About5.JPG";
 import About6 from "../assets/About6.jpg";
 import About7 from "../assets/About7.jpg";
+import About8 from "../assets/KMD.JPG";
 import Cliff from "/images/Cliff-min.avif";
 import Ten from "/images/Ten-min.avif";
 import Ana from "/images/Ana-min.avif";
@@ -64,7 +65,7 @@ const About = () => {
   const carouselContainerRef = useRef(null);
   const slides = [
     About1, About2, About3, About4,
-    About5, About6, About7,
+    About5, About8, About6, About7,
   ];
   const sliderSettings = {
     dots: false, 
