@@ -136,7 +136,7 @@ const JoinModal = ({ isOpen, onClose }) => {
               {/* RIGHT SIDE */}
               <div className="md:w-1/2 p-10 flex flex-col justify-center items-center text-center">
                 <p className="text-gray-600 mb-6 text-lg">
-                  Click below to join the Zoom session directly.
+                  Click below to join the session directly.
                 </p>
 
                 <div className="relative group">
@@ -152,8 +152,9 @@ const JoinModal = ({ isOpen, onClose }) => {
                   <a
                     href={
                       canJoin
-                        ? "https://us06web.zoom.us/j/85004699612?pwd=Sshhb6KiyOkfCLpEdjxoUofzkaX39n.1"
+                        ? "https://meet.google.com/rji-kowp-awy" //gmeet link
                         : "#"
+                        // "https://us06web.zoom.us/j/85004699612?pwd=Sshhb6KiyOkfCLpEdjxoUofzkaX39n.1" zoom link
                     }
                     target={canJoin ? "_blank" : "_self"}
                     rel="noopener noreferrer"
