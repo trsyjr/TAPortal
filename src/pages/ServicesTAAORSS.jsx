@@ -8,7 +8,6 @@ import SatisfactoryModal from "../components/SatisfactoryModal";
 const ServicesTAAORSS = () => {
   const navigate = useNavigate();
   
-  // This page is explicitly dedicated to Tab ID 5 (TAAORSS) in the unified architecture
   const currentCategoryKey = 5;
   const [openAccordionId, setOpenAccordionId] = useState(null); 
   const [isModalOpen, setIsModalOpen] = useState(false); 
@@ -16,7 +15,6 @@ const ServicesTAAORSS = () => {
   const [selectedService, setSelectedService] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Synced precisely with your global application routing blueprint
   const servicesTabs = [
     { id: 1, title: "All", path: "/all-services" },
     { id: 2, title: "Assessment, Certification and Accreditation", path: "/services-aca" },
@@ -25,63 +23,70 @@ const ServicesTAAORSS = () => {
     { id: 5, title: "TAAORSS", path: "/services-taaorss" },
   ];
 
-  // Exclusively holding TAAORSS content (Mapped to Category 5)
+  // Matched exactly with CbServices data structure using heading & steps
   const servicesContent = {
     5: {
       categoryTitle: "TAAORSS",
       items: [
-        { id: 1, title: "Targeting, Assessment, Monitoring, and Planning", content: ["Provision of technical guidance and support to enhance evidence-based planning and performance management of LGUs."] },
+        { 
+          id: 1, 
+          title: "Targeting, Assessment, Monitoring, and Planning", 
+          content: "Provision of technical guidance and support to enhance evidence-based planning and performance management of LGUs." 
+        },
         { 
           id: 2, 
           title: "Plan and Budget Development", 
-          content: [
-            "Support in strengthening FO planning and financial management processes:", 
-            "• Assistance in the preparation of the Work and Financial Plan",
-            "• Guidance on requests for fund modification and/or reallocation and non-withdrawal"
+          content: "Support in strengthening FO planning and financial management processes:", 
+          steps: [
+            "Assistance in the preparation of the Work and Financial Plan",
+            "Guidance on requests for fund modification and/or reallocation and non-withdrawal"
           ]
         },
         { 
           id: 3, 
           title: "Resource Person and Activity Support", 
-          content: [
-            "Facilitation of technical and administrative requirements for capacity-building activities:",
-            "• Guidance on PMC Accreditation",
-            "• Assistance in the request and coordination of resource persons",
-            "• Support for meeting requests and related activities"
+          content: "Facilitation of technical and administrative requirements for capacity-building activities:",
+          steps: [
+            "Guidance on PMC Accreditation",
+            "Assistance in the request and coordination of resource persons",
+            "Support for meeting requests and related activities"
           ]
         },
         { 
           id: 4, 
           title: "SDCA–Information System (SDCA-IS) Support", 
-          content: [
-            "Technical assistance in the use and management of the SDCA Information System:",
-            "• Processing of requests for account activation",
-            "• Provision of orientation and capacity-building sessions on SDCA-IS utilization"
+          content: "Technical assistance in the use and management of the SDCA Information System:",
+          steps: [
+            "Processing of requests for account activation",
+            "Provision of orientation and capacity-building sessions on SDCA-IS utilization"
           ]
         },
         { 
           id: 5, 
           title: "Partnership Development", 
-          content: [
-            "Guidance in establishing and strengthening collaborations:",
-            "• Assistance in the preparation and review of Memorandum of Agreement and Memorandum of Understanding",
-            "• Assistance in the conduct of regional and hosted national consultation dialogue and workshop"
+          content: "Guidance in establishing and strengthening collaborations:",
+          steps: [
+            "Assistance in the preparation and review of Memorandum of Agreement and Memorandum of Understanding",
+            "Assistance in the conduct of regional and hosted national consultation dialogue and workshop"
           ]
         },
         { 
           id: 6, 
           title: "Rewards and Incentives (Panata Ko sa Bayan Program)", 
-          content: [
-            "Support in promoting excellence and recognizing LGU performance:", 
-            "• Guidance on the Panata Ko sa Bayan Program (pursuant to MC No. 18, s. 2023)" 
+          content: "Support in promoting excellence and recognizing LGU performance:", 
+          steps: [
+            "Guidance on the Panata Ko sa Bayan Program (pursuant to MC No. 18, s. 2023)"
           ]
         },
-        { id: 7, title: "Other Technical Assistance Services", content: "Provision of additional TA services not covered under the above categories, based on emerging needs and specific requests of LGUs/LSWDOs." },
+        { 
+          id: 7, 
+          title: "Other Technical Assistance Services", 
+          content: "Provision of additional TA services not covered under the above categories, based on emerging needs and specific requests of LGUs/LSWDOs." 
+        },
       ]
     }
   };
 
-  // Expand accordion automatically if query conditions uniquely match exactly 1 result
   useEffect(() => {
     if (!searchQuery.trim()) {
       setOpenAccordionId(null);
@@ -93,7 +98,10 @@ const ServicesTAAORSS = () => {
 
     if (currentCategory) {
       const matchedItems = currentCategory.items.filter((item) => {
-        const contentStr = Array.isArray(item.content) ? item.content.join(" ") : item.content;
+        const contentStr = item.steps 
+          ? `${item.content} ${item.heading || ""} ${item.steps.join(" ")}` 
+          : (Array.isArray(item.content) ? item.content.join(" ") : item.content || "");
+
         return (
           item.title.toLowerCase().includes(lowerQuery) || 
           contentStr.toLowerCase().includes(lowerQuery)
@@ -128,12 +136,14 @@ const ServicesTAAORSS = () => {
 
   const currentCategory = servicesContent[currentCategoryKey];
 
-  // Filter content items safely considering both array and string variants of .content
   const filteredItems = currentCategory
     ? currentCategory.items.filter((item) => {
         if (!searchQuery.trim()) return true;
         const lowerQuery = searchQuery.toLowerCase();
-        const contentStr = Array.isArray(item.content) ? item.content.join(" ") : item.content;
+        const contentStr = item.steps 
+          ? `${item.content} ${item.heading || ""} ${item.steps.join(" ")}` 
+          : (Array.isArray(item.content) ? item.content.join(" ") : item.content || "");
+
         return (
           item.title.toLowerCase().includes(lowerQuery) || 
           contentStr.toLowerCase().includes(lowerQuery)
@@ -168,22 +178,18 @@ const ServicesTAAORSS = () => {
           </p>
         </div>
 
-        {/* Premium Redesigned Taller Search Bar Container Layout */}
+        {/* Search Bar Container Layout */}
         <div className="max-w-[680px] mx-auto mb-14 px-4">
           <div className="relative group">
-            {/* Background Glow Accent on Focus/Hover */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#2e3192]/12 to-[#ee1c25]/12 rounded-full blur-2xl opacity-0 group-focus-within:opacity-100 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none" />
 
             <div className="relative flex items-center bg-white border border-gray-200 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.03)] group-focus-within:border-[#2e3192] group-focus-within:shadow-[0_15px_45px_rgba(46,49,146,0.1)] transition-all duration-300 overflow-hidden">
-              
-              {/* Search Icon Indicator */}
               <div className="pl-7 pr-3.5 text-gray-400 group-focus-within:text-[#2e3192] transition-colors duration-300 shrink-0">
                 <svg className="w-5.5 h-5.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
               </div>
 
-              {/* Styled Input Field - Taller vertical height with py-5 */}
               <input 
                 type="text"
                 value={searchQuery}
@@ -192,7 +198,6 @@ const ServicesTAAORSS = () => {
                 className="w-full py-5 pr-14 bg-transparent text-[15.5px] font-semibold tracking-wide text-gray-800 placeholder-gray-400/90 focus:outline-none"
               />
 
-              {/* Reset Clear Icon Button */}
               <AnimatePresence>
                 {searchQuery && (
                   <motion.button 
@@ -214,7 +219,7 @@ const ServicesTAAORSS = () => {
           </div>
         </div>
 
-        {/* PREMIUM BUTTON TABS */}
+        {/* Tab Navigation Switches */}
         <div className="max-w-[1100px] mx-auto mb-16">
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             {servicesTabs.map((tab) => {
@@ -238,7 +243,7 @@ const ServicesTAAORSS = () => {
           </div>
         </div>
 
-        {/* COHESIVE BOX ACCORDION AREA */}
+        {/* Accordion Area */}
         <div className="max-w-[1000px] mx-auto">
           <AnimatePresence mode="wait">
             {currentCategory && filteredItems.length > 0 ? (
@@ -260,35 +265,70 @@ const ServicesTAAORSS = () => {
                     
                     return (
                       <div key={subItem.id} className={`w-full overflow-hidden transition-all duration-300 border ${isExpanded ? "bg-[#2e3192] border-[#2e3192] premium-shadow-active rounded-3xl" : "bg-white border-gray-200/70 hover:border-gray-300 premium-shadow rounded-3xl"}`}>
-                        <button onClick={() => toggleAccordion(subItem.id, subItem.title)} className="w-full px-8 py-5 flex items-center justify-between mx-auto text-center focus:outline-none relative">
+                        <button onClick={() => toggleAccordion(subItem.id, subItem.title)} className="w-full px-8 py-5 flex items-center justify-between focus:outline-none relative">
                           <div className="w-5 shrink-0 hidden sm:block"></div>
                           <div className="flex flex-col items-center justify-center mx-auto">
-                            <span className={`font-bold text-[15.5px] tracking-tight transition-colors duration-200 ${isExpanded ? "text-[#FFE066]" : "text-gray-800"}`}>{subItem.title}</span>
+                            <span className={`text-center font-bold text-[15.5px] tracking-tight transition-colors duration-200 ${isExpanded ? "text-[#FFE066]" : "text-gray-800"}`}>{subItem.title}</span>
                             {isExpanded && <div className="accordion-underline w-36 mt-2"></div>}
                           </div>
-                          <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} className={`shrink-0 w-5 h-5 ${isExpanded ? "text-[#FFE066]" : "text-gray-500"}`}>
+                          
+                          <motion.div 
+                            animate={{ rotate: isExpanded ? 180 : 0 }}
+                            transition={{ duration: 0.25, ease: "easeInOut" }}
+                            className={`shrink-0 flex items-center justify-center w-5 h-5 ${isExpanded ? "text-[#FFE066]" : "text-gray-500"}`}
+                          >
                             <svg className="w-5 h-5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                           </motion.div>
                         </button>
 
                         <AnimatePresence initial={false}>
                           {isExpanded && (
-                            <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="text-white">
+                            <motion.div 
+                              initial={{ height: 0, opacity: 0 }} 
+                              animate={{ height: "auto", opacity: 1 }} 
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.25, ease: "easeInOut" }}
+                              className="text-white"
+                            >
                               <div className="px-8 pt-2 pb-7 flex flex-col items-center text-center">
-                                {Array.isArray(subItem.content) ? (
-                                  <div className="max-w-3xl mx-auto mb-5 text-white/85 text-[14.5px] font-medium leading-relaxed flex flex-col items-start text-left">
-                                    <p className="mb-2 self-center text-center">{subItem.content[0]}</p>
-                                    {subItem.content.slice(1).map((textRow, idx) => (
-                                      <p key={idx} className="mt-1 pl-4">{textRow}</p>
-                                    ))}
+                                
+                                {/* Content & Bullet Renderer matching CbServices */}
+                                {subItem.steps ? (
+                                  <div className="w-full max-w-3xl mb-6 space-y-3 text-center flex flex-col items-center">
+                                    {/* Main Content Paragraph */}
+                                    <p className="text-white/85 text-[14.5px] font-medium leading-relaxed">
+                                      {subItem.content}
+                                    </p>
+                                    
+                                    {/* Centered Bold Heading */}
+                                    {subItem.heading && (
+                                      <h3 className="text-[#FFE066] font-bold text-left text-[15px] tracking-wide uppercase pt-2">
+                                        {subItem.heading}
+                                      </h3>
+                                    )}
+                                    
+                                    {/* Structured Bullet List */}
+                                    <div className="w-full max-w-2xl space-y-2.5 pt-1 text-left">
+                                      {subItem.steps.map((step, idx) => (
+                                        <div key={idx} className="flex items-start gap-3">
+                                          <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] shrink-0 mt-2.5" />
+                                          <p 
+                                            className="text-white/90 text-[14px] leading-relaxed font-normal"
+                                            dangerouslySetInnerHTML={{ __html: step }}
+                                          />
+                                        </div>
+                                      ))}
+                                    </div>
                                   </div>
                                 ) : (
-                                  <p className="text-white/85 text-[14.5px] font-medium leading-relaxed max-w-3xl mb-5">{subItem.content}</p>
+                                  <p className="text-white/85 text-[14.5px] font-medium leading-relaxed max-w-3xl mb-5 text-center">
+                                    {subItem.content}
+                                  </p>
                                 )}
                                 
-                                <button 
-                                  onClick={() => openModalWithService(subItem.title)} 
-                                  className="flex items-center gap-2 px-6 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 cursor-pointer"
+                                <button
+                                  onClick={() => openModalWithService(subItem.title)}
+                                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 cursor-pointer"
                                 >
                                   <span>Request Ticket</span>
                                 </button>
@@ -302,7 +342,6 @@ const ServicesTAAORSS = () => {
                 </div>
               </motion.div>
             ) : (
-              /* No matching search query layout fallback */
               <motion.div 
                 key="empty"
                 initial={{ opacity: 0 }}
@@ -322,7 +361,7 @@ const ServicesTAAORSS = () => {
         </div>
       </main>
 
-      {/* TICKET MODAL SYSTEM */}
+      {/* Ticket Modal Integration */}
       <AnimatePresence>
         {isModalOpen && (
           <TicketModal 
@@ -334,7 +373,7 @@ const ServicesTAAORSS = () => {
         )}
       </AnimatePresence>
 
-      {/* SATISFACTORY FEEDBACK MODAL INTEGRATION */}
+      {/* Satisfactory Feedback Modal Integration */}
       <SatisfactoryModal 
         isOpen={isFeedbackModalOpen} 
         onClose={() => setIsFeedbackModalOpen(false)} 

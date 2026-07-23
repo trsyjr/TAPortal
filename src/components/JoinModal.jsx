@@ -152,9 +152,10 @@ const JoinModal = ({ isOpen, onClose }) => {
                   <a
                     href={
                       canJoin
-                        ? "https://meet.google.com/rji-kowp-awy" //gmeet link
+                        ?  "https://us06web.zoom.us/j/85004699612?pwd=Sshhb6KiyOkfCLpEdjxoUofzkaX39n.1"
                         : "#"
                         // "https://us06web.zoom.us/j/85004699612?pwd=Sshhb6KiyOkfCLpEdjxoUofzkaX39n.1" zoom link
+                        // "https://meet.google.com/rji-kowp-awy" gmeet link
                     }
                     target={canJoin ? "_blank" : "_self"}
                     rel="noopener noreferrer"

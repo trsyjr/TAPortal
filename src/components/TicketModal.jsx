@@ -473,6 +473,7 @@ const TicketModal = ({ isOpen, onClose, serviceType, defaultInquiryType }) => {
 
                       <a
                         href="/ta-calendar"
+                        target='_blank'
                         title="View Calendar"
                         className="animate-sway flex items-center justify-center bg-[#2e3192] hover:bg-[#222475] text-white px-5 h-[56px] rounded-2xl transition-colors duration-200 active:scale-[0.98] shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40"
                       >

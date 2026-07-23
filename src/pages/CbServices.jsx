@@ -23,7 +23,10 @@ const CbServices = () => {
     "Request for Review of Capability Building Plan",
     "Request for Training Inclusion",
     "Request for Training Management",
-    "CapBuild Knowledge Bank"
+    "CapBuild Knowledge Bank",
+    "Request for Facilitator",
+    "Request for Training Data",
+    "Guidance on Capability Building"
   ];
 
   // Synced precisely with your global application routing blueprint
@@ -54,7 +57,7 @@ const CbServices = () => {
           leftButtonText: "Request Ticket",
           leftIsModal: true,
           rightButtonText: "CB Plan",
-          rightExternalLink: "/cbplan" // Update with your real link if applicable
+          rightExternalLink: "/cbplan" 
         },
         { 
           id: 3, 
@@ -78,6 +81,39 @@ const CbServices = () => {
           rightButtonText: "Knowledge Bank",
           rightExternalLink: "/knowledgebank"
         },
+        { 
+          id: 6, 
+          title: "Request for Facilitator", 
+          heading: "How to Avail", 
+          content: "Provides resource persons, facilitators, or subject matter experts from the DSWD Academy to support capability building activities, subject to availability, relevance of expertise, and approval of the appropriate authority.",
+          steps: [
+            "Submit an official memorandum addressed to the Director of the DSWD Academy indicating the title, objectives, schedule, venue or platform, target participants, requested topic, and other pertinent details of the activity.",
+            "The request shall be evaluated by the DSWD Academy and endorsed to the appropriate division for appropriate action."
+          ],
+          buttonText: "Request Ticket" 
+        },
+        { 
+          id: 7, 
+          title: "Request for Training Data", 
+          heading: "How to Avail", 
+          content: "Provides available training-related information, records, or reports maintained by the DSWD Academy, subject to existing policies on records management, data privacy, and information confidentiality.",
+          steps: [
+            "Submit an official memorandum addressed to the <strong>Director of the DSWD Academy</strong> specifying the information being requested, its intended purpose, and the period covered, as applicable.",
+            "Requests shall be processed in accordance with existing Department policies and data governance requirements."
+          ],
+          buttonText: "Request Ticket" 
+        },
+        { 
+          id: 8, 
+          title: "Guidance on Capability Building", 
+          heading: "How to Avail", 
+          content: "Provides technical assistance, consultation, and advisory services on capability building concerns, including learning and development planning, training design, implementation, monitoring and evaluation, capability building standards, and other related matters within the mandate of the Capability Building Division.",
+          steps: [
+            "Review the Frequently Asked Questions (FAQs) and available reference materials in the portal.",
+            "If additional assistance is needed, join the <strong>TA Wednesday Virtual Clinic</strong> during the designated schedule or submit a <strong>Technical Assistance Request Ticket</strong> through the portal."
+          ],
+          buttonText: "Request Ticket" 
+        }
       ]
     }
   };
@@ -94,7 +130,10 @@ const CbServices = () => {
 
     if (currentCategory) {
       const matchedItems = currentCategory.items.filter((item) => {
-        const contentStr = Array.isArray(item.content) ? item.content.join(" ") : item.content;
+        const contentStr = item.steps 
+          ? `${item.content} ${item.heading} ${item.steps.join(" ")}` 
+          : (Array.isArray(item.content) ? item.content.join(" ") : item.content || "");
+
         return (
           item.title.toLowerCase().includes(lowerQuery) || 
           contentStr.toLowerCase().includes(lowerQuery)
@@ -122,10 +161,8 @@ const CbServices = () => {
     setIsModalOpen(true);
   };
 
-  // Upgraded closure tracking to preserve cross-modal configuration parameters
   const handleCloseTicketModal = (inquiry, service) => {
     setIsModalOpen(false);
-    // If ticket successfully submitted, verify variables match state
     if (inquiry) {
       setSelectedService(service);
     }
@@ -143,7 +180,10 @@ const CbServices = () => {
     ? currentCategory.items.filter((item) => {
         if (!searchQuery.trim()) return true;
         const lowerQuery = searchQuery.toLowerCase();
-        const contentStr = Array.isArray(item.content) ? item.content.join(" ") : item.content;
+        const contentStr = item.steps 
+          ? `${item.content} ${item.heading} ${item.steps.join(" ")}` 
+          : (Array.isArray(item.content) ? item.content.join(" ") : item.content || "");
+
         return (
           item.title.toLowerCase().includes(lowerQuery) || 
           contentStr.toLowerCase().includes(lowerQuery)
@@ -324,13 +364,43 @@ const CbServices = () => {
                               className="text-white"
                             >
                               <div className="px-8 pt-2 pb-7 flex flex-col items-center text-center">
-                                <p className="text-white/85 text-[14.5px] font-medium leading-relaxed max-w-3xl mb-5">
-                                  {subItem.content}
-                                </p>
+                                
+                                {/* Dynamic Content Renderer */}
+                                {subItem.steps ? (
+                                  <div className="w-full max-w-3xl mb-6 space-y-3 text-center flex flex-col items-center">
+                                    {/* Main Content Paragraph */}
+                                    <p className="text-white/85 text-[14.5px] font-medium leading-relaxed">
+                                      {subItem.content}
+                                    </p>
+                                    
+                                    {/* Centered Bold Heading */}
+                                    {subItem.heading && (
+                                      <h3 className="text-[#FFE066] font-bold text-left text-[15px] tracking-wide uppercase pt-2">
+                                        {subItem.heading}
+                                      </h3>
+                                    )}
+                                    
+                                    {/* Structured Bullet List */}
+                                    <div className="w-full max-w-2xl space-y-2.5 pt-1 text-left">
+                                      {subItem.steps.map((step, idx) => (
+                                        <div key={idx} className="flex items-start gap-3">
+                                          <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] shrink-0 mt-2.5" />
+                                          <p 
+                                            className="text-white/90 text-[14px] leading-relaxed font-normal"
+                                            dangerouslySetInnerHTML={{ __html: step }}
+                                          />
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <p className="text-white/85 text-[14.5px] font-medium leading-relaxed max-w-3xl mb-5 text-center">
+                                    {subItem.content}
+                                  </p>
+                                )}
                                 
                                 {subItem.isDualButton ? (
                                   <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
-                                    {/* Left Button - Dedicated Modal Request Flow */}
                                     <button 
                                       onClick={() => openModalWithService(subItem.title)}
                                       className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 cursor-pointer"
@@ -338,7 +408,6 @@ const CbServices = () => {
                                       <span>{subItem.leftButtonText}</span>
                                     </button>
 
-                                    {/* Right Button - Dedicated Document/Drive Redirection Flow */}
                                     <a 
                                       href={subItem.rightExternalLink || "#"} 
                                       onClick={() => handleExternalLinkClick(subItem.title)}
@@ -412,8 +481,8 @@ const CbServices = () => {
       <SatisfactoryModal 
         isOpen={isFeedbackModalOpen} 
         onClose={() => setIsFeedbackModalOpen(false)} 
-        inquiryType="Capability Building" // 🚀 Connects directly to Route A mapping logic
-        serviceType={selectedService}     // 🚀 Maps specific sub-service title to Column D
+        inquiryType="Capability Building" 
+        serviceType={selectedService}     
         spreadsheetId="14m2v8zTSDXrgOduADBJi9n1JudkswsOPI93A3UhPsn8"
       />
     </div>
