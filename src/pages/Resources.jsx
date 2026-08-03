@@ -150,7 +150,7 @@ const tableData = [
     type: "AO No. 10, s. 2019",
     fileName: "Guidelines on the Grant of Honoraria to Lecturers, Resource Persons, Coordinators, Facilitators in Seminars, Training Programs, and other Similar Activities",
     dateIssued: "15 May, 2019",
-    link: "/pdfs/[SWIDB Guideline]_Guidelines on the Grant of Honoraria.pdf",
+    link: "/pdfs/[SWIDB Guideline]_Guidelines on the Grant of Honoraria.PDF",
   },
   {
     id: 15,
