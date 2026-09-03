@@ -47,7 +47,12 @@ const CbServices = () => {
           id: 1, 
           title: "Review of Activity Proposal and Design", 
           content: "The review of training proposal and design, ensuring the adherence to the training management standards set by the DSWD Academy in support of its mandate to centralize and professionalize learning and development efforts.",
-          buttonText: "Request Ticket" 
+          isDualButton: true,
+          leftButtonText: "Request Ticket",
+          leftIsModal: true,
+          rightButtonText: "Activity Proposal and Design Tracking",
+          rightExternalLink: "/tracker",
+          rightIsDisabled: true
         },
         { 
           id: 2, 
@@ -408,15 +413,24 @@ const CbServices = () => {
                                       <span>{subItem.leftButtonText}</span>
                                     </button>
 
-                                    <a 
-                                      href={subItem.rightExternalLink || "#"} 
-                                      onClick={() => handleExternalLinkClick(subItem.title)}
-                                      target="_blank" 
-                                      rel="noopener noreferrer" 
-                                      className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105"
-                                    >
-                                      <span>{subItem.rightButtonText}</span>
-                                    </a>
+                                    {subItem.rightIsDisabled ? (
+                                      <button
+                                        disabled
+                                        className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-gray-400/50 text-gray-200/80 rounded-full font-bold text-[13px] tracking-wide cursor-not-allowed border border-gray-300/20 backdrop-blur-sm shadow-none"
+                                      >
+                                        <span>Launching Soon</span>
+                                      </button>
+                                    ) : (
+                                      <a 
+                                        href={subItem.rightExternalLink || "#"} 
+                                        onClick={() => handleExternalLinkClick(subItem.title)}
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105"
+                                      >
+                                        <span>{subItem.rightButtonText}</span>
+                                      </a>
+                                    )}
                                   </div>
                                 ) : isModalButton ? (
                                   <button

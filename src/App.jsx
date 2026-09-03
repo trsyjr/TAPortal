@@ -33,6 +33,7 @@ const CbServices = lazy(() => import("./pages/CbServices"));
 const TACalendar = lazy(() => import("./pages/TACalendar"));
 
 const AllServices = lazy(() => import("./pages/AllServices")); 
+const Tracker = lazy(() => import("./pages/Tracker"))
 
 // ACA
 const CPD = lazy(() => import("./pages/CPD")); 
@@ -231,6 +232,8 @@ function AppContent() {
               <Route path="/ta-calendar" element={<TACalendar />} />
 
               <Route path="/all-services" element={<AllServices />} />
+              <Route path="/tracker" element={<Tracker />} />
+
 
               {/* ACA */}
               <Route path="/cpd" element={<CPD />} />
