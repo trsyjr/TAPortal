@@ -1,6 +1,7 @@
+// src/components/AllServices.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation, useNavigate } from "react-router-dom"; 
+import { useLocation } from "react-router-dom"; 
 import TicketModal from "../components/TicketModal"; 
 import SatisfactoryModal from "../components/SatisfactoryModal";
 
@@ -41,9 +42,9 @@ const servicesContentData = {
         id: 4, 
         title: "Accreditation", 
         content: "TA includes responding to queries and providing clarifications on the application process and other info regarding accreditation program. This will also include expression of interest to be included in the certification process.", 
-        externalLink: "https://forms.gle/cBFq2gTqUhfeLbpc9 ", 
+        externalLink: "https://docs.google.com/forms/d/e/1FAIpQLSfZ4lPSEH1rtPA-cT8jSK0Gf6UdmZxtD59Dv6aigGVRMp9rJQ/viewform", 
         buttonText: "Certification Application Form",
-        isDisabled: true
+        isDisabled: false
       },
       { 
         id: 5, 
@@ -62,13 +63,22 @@ const servicesContentData = {
         id: 1, 
         title: "Review of Activity Proposal and Design", 
         content: "The review of training proposal and design, ensuring the adherence to the training management standards set by the DSWD Academy in support of its mandate to centralize and professionalize learning and development efforts.",
-        buttonText: "Request Ticket" 
+        isDualButton: true,
+        leftButtonText: "Request Ticket",
+        leftIsModal: true,
+        rightButtonText: "Activity Proposal and Design Tracking",
+        rightExternalLink: "/tracker",
+        rightIsDisabled: false
       },
       { 
         id: 2, 
         title: "Request for Review of Capability Building Plan", 
         content: "Ensure the adherence to the Learning and Development standards set by the Department of Social Welfare and Development Academy in support of its mandate to centralize and professionalize learning and development efforts.",
-        buttonText: "Request Ticket" 
+        isDualButton: true,
+        leftButtonText: "Request Ticket",
+        leftIsModal: true,
+        rightButtonText: "CB Plan",
+        rightExternalLink: "/cbplan" 
       },
       { 
         id: 3, 
@@ -86,8 +96,11 @@ const servicesContentData = {
         id: 5, 
         title: "CapBuild Knowledge Bank", 
         content: "Selected and high-value TA cases provided by the Capability Building Division – Professional Learning and Development Section (CBD-PLDS) along Learning and Development (L&D) for institutional learning and continuous improvement.", 
-        externalLink: "https://drive.google.com/drive/folders/1tkq8sxM354BrvQShJORFQo2wAcxKMQqe?usp=sharing",
-        buttonText: "Knowledge Bank" 
+        isDualButton: true,
+        leftButtonText: "Request Ticket",
+        leftIsModal: true,
+        rightButtonText: "Knowledge Bank",
+        rightExternalLink: "/knowledgebank"
       },
       { 
         id: 6, 
@@ -356,9 +369,11 @@ const INQUIRY_TYPES = {
   4: "TAAORSS",
 };
 
+// Helper function to check whether a link URL is genuinely external
+const isExternalUrl = (url) => typeof url === "string" && (url.startsWith("http://") || url.startsWith("https://"));
+
 const AllServices = () => {
   const location = useLocation();
-  const navigate = useNavigate(); 
   
   const [activeTabId, setActiveTabId] = useState(0); 
   const [openAccordionId, setOpenAccordionId] = useState(null); 
@@ -431,7 +446,7 @@ const AllServices = () => {
 
   const handleTabChange = (tab) => {
     if (activeTabId !== tab.id) {
-      navigate(tab.path);
+      window.location.href = tab.path;
     }
   };
 
@@ -573,7 +588,7 @@ const AllServices = () => {
                           </div>
                         )}
 
-                        {/* List Items Module Clean Layout (Glassmorphism and Underline Border Removed) */}
+                        {/* List Items Module Clean Layout */}
                         {subItem.listItems && (
                           <div className="w-full pt-3 mb-6 flex justify-center">
                             <div className="w-full max-w-2xl grid grid-cols-1 sm:grid-cols-2 gap-3 text-left text-[14px] text-white/90 font-medium">
@@ -601,35 +616,54 @@ const AllServices = () => {
                               </button>
                             ) : subItem.isDualButton ? (
                               <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
-                                <a 
-                                  href={subItem.leftExternalLink} 
-                                  onClick={() => {
-                                    setSelectedService(`${subItem.title} - ${subItem.leftButtonText}`);
-                                    setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
-                                    setIsFeedbackModalOpen(true);
-                                  }} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 no-underline"
-                                >
-                                  <span className="no-underline">{subItem.leftButtonText}</span>
-                                  <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                                </a>
-                                
-                                <a 
-                                  href={subItem.rightExternalLink} 
-                                  onClick={() => {
-                                    setSelectedService(`${subItem.title} - ${subItem.rightButtonText}`);
-                                    setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
-                                    setIsFeedbackModalOpen(true);
-                                  }} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 no-underline"
-                                >
-                                  <span className="no-underline">{subItem.rightButtonText}</span>
-                                  <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-                                </a>
+                                {/* Left Button Handler */}
+                                {subItem.leftIsModal ? (
+                                  <button 
+                                    onClick={() => openTicketModal(subItem.title, categoryId)}
+                                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 cursor-pointer no-underline"
+                                  >
+                                    <span className="no-underline">{subItem.leftButtonText}</span>
+                                  </button>
+                                ) : (
+                                  <a 
+                                    href={subItem.leftExternalLink} 
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => {
+                                      setSelectedService(`${subItem.title} - ${subItem.leftButtonText}`);
+                                      setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                      setIsFeedbackModalOpen(true);
+                                    }} 
+                                    className={`flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 no-underline ${
+                                      isExternalUrl(subItem.leftExternalLink) ? "external-link" : ""
+                                    }`}
+                                  >
+                                    <span className="no-underline">{subItem.leftButtonText}</span>
+                                  </a>
+                                )}
+
+                                {/* Right Button Handler */}
+                                {subItem.rightIsDisabled ? (
+                                  <button disabled className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-gray-400/50 text-gray-200/80 rounded-full font-bold text-[13px] cursor-not-allowed border border-gray-300/20 shadow-none no-underline">
+                                    <span>Launching Soon</span>
+                                  </button>
+                                ) : (
+                                  <a 
+                                    href={subItem.rightExternalLink} 
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={() => {
+                                      setSelectedService(`${subItem.title} - ${subItem.rightButtonText}`);
+                                      setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
+                                      setIsFeedbackModalOpen(true);
+                                    }} 
+                                    className={`flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 no-underline ${
+                                      isExternalUrl(subItem.rightExternalLink) ? "external-link" : ""
+                                    }`}
+                                  >
+                                    <span className="no-underline">{subItem.rightButtonText}</span>
+                                  </a>
+                                )}
                               </div>
                             ) : (
                               (subItem.buttonText || subItem.externalLink) && (
@@ -643,17 +677,18 @@ const AllServices = () => {
                                 ) : (
                                   <a 
                                     href={subItem.externalLink || "#"} 
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     onClick={() => {
                                       setSelectedService(subItem.title);
                                       setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
                                       setIsFeedbackModalOpen(true);
                                     }} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
-                                    className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 no-underline"
+                                    className={`flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] shadow-md transition-all duration-200 hover:scale-105 no-underline ${
+                                      isExternalUrl(subItem.externalLink) ? "external-link" : ""
+                                    }`}
                                   >
                                     <span className="no-underline">{subItem.buttonText || "Visit External Portal"}</span>
-                                    <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                                   </a>
                                 )
                               )
@@ -661,7 +696,7 @@ const AllServices = () => {
                           </div>
                         )}
 
-                        {/* SubItems Grid Parser (Glassmorphism & Underlines Removed) */}
+                        {/* SubItems Grid Parser */}
                         {subItem.isNestedGroup && subItem.subItems && (
                           <div className="w-full mt-2 space-y-6 pt-4 max-w-2xl mx-auto flex flex-col items-center">
                             {subItem.subItems.map((child) => (
@@ -673,27 +708,31 @@ const AllServices = () => {
                                     <div className="flex flex-wrap items-center justify-center gap-3">
                                       <a 
                                         href={child.leftExternalLink} 
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         onClick={() => {
                                           setSelectedService(`${child.title} - ${child.leftButtonText}`);
                                           setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
                                           setIsFeedbackModalOpen(true);
                                         }}
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
-                                        className="px-5 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105 no-underline"
+                                        className={`px-5 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105 no-underline ${
+                                          isExternalUrl(child.leftExternalLink) ? "external-link" : ""
+                                        }`}
                                       >
                                         {child.leftButtonText}
                                       </a>
                                       <a 
                                         href={child.rightExternalLink} 
+                                        target="_blank"
+                                        rel="noopener noreferrer"
                                         onClick={() => {
                                           setSelectedService(`${child.title} - ${child.rightButtonText}`);
                                           setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
                                           setIsFeedbackModalOpen(true);
                                         }}
-                                        target="_blank" 
-                                        rel="noopener noreferrer" 
-                                        className="px-5 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105 no-underline"
+                                        className={`px-5 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105 no-underline ${
+                                          isExternalUrl(child.rightExternalLink) ? "external-link" : ""
+                                        }`}
                                       >
                                         {child.rightButtonText}
                                       </a>
@@ -701,17 +740,18 @@ const AllServices = () => {
                                   ) : (
                                     <a
                                       href={child.externalLink || "#"}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
                                       onClick={() => {
                                         setSelectedService(child.title);
                                         setActiveSpreadsheetId(SATISFACTORY_SHEETS[categoryId]);
                                         setIsFeedbackModalOpen(true);
                                       }}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
-                                      className="px-6 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105 inline-flex items-center gap-1.5 no-underline"
+                                      className={`px-6 py-2 bg-[#ee1c25] text-white rounded-full font-bold text-[12.5px] shadow-md transition-all hover:scale-105 inline-flex items-center gap-1.5 no-underline ${
+                                        isExternalUrl(child.externalLink) ? "external-link" : ""
+                                      }`}
                                     >
                                       <span>{child.buttonText || "Submit Entry"}</span>
-                                      <svg className="w-3.5 h-3.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                                     </a>
                                   )}
                                 </div>
@@ -815,6 +855,19 @@ const AllServices = () => {
           .premium-shadow-active { box-shadow: 0 12px 30px -8px rgba(46, 49, 146, 0.25); }
           .tapered-underline { height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(46, 49, 146, 0.6) 50%, transparent 100%); }
           a { text-decoration: none !important; }
+
+          /* Render external icon ONLY on links explicitly marked with the external-link class */
+          a.external-link::after {
+            content: "";
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            margin-left: 6px;
+            vertical-align: middle;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2.5' stroke='white'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14' /%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
         `}
       </style>
 
@@ -922,7 +975,7 @@ const AllServices = () => {
       <SatisfactoryModal 
         isOpen={isFeedbackModalOpen} 
         onClose={() => setIsFeedbackModalOpen(false)} 
-        inquiryType={selectedInquiryType || "Knowledge Management"} 
+        inquiryType={selectedInquiryType || "Capability Building"} 
         serviceType={selectedService}       
         spreadsheetId={activeSpreadsheetId}
       />

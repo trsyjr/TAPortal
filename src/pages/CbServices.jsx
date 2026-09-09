@@ -52,7 +52,7 @@ const CbServices = () => {
           leftIsModal: true,
           rightButtonText: "Activity Proposal and Design Tracking",
           rightExternalLink: "/tracker",
-          rightIsDisabled: true
+          rightIsDisabled: false
         },
         { 
           id: 2, 
@@ -380,18 +380,20 @@ const CbServices = () => {
                                     
                                     {/* Centered Bold Heading */}
                                     {subItem.heading && (
-                                      <h3 className="text-[#FFE066] font-bold text-left text-[15px] tracking-wide uppercase pt-2">
-                                        {subItem.heading}
-                                      </h3>
+                                      <div className="w-full max-w-2xl text-left mb-3">
+                                        <h3 className="text-[#FFE066] font-extrabold text-[15px] tracking-wide uppercase no-underline">
+                                          {subItem.heading}
+                                        </h3>
+                                      </div>
                                     )}
                                     
                                     {/* Structured Bullet List */}
-                                    <div className="w-full max-w-2xl space-y-2.5 pt-1 text-left">
+                                    <div className="w-full max-w-2xl space-y-3 mb-6 text-left">
                                       {subItem.steps.map((step, idx) => (
                                         <div key={idx} className="flex items-start gap-3">
-                                          <span className="w-1.5 h-1.5 rounded-full bg-[#FFE066] shrink-0 mt-2.5" />
+                                          <span className="w-2 h-2 rounded-full bg-[#FFE066] shrink-0 mt-2" />
                                           <p 
-                                            className="text-white/90 text-[14px] leading-relaxed font-normal"
+                                            className="text-white/90 text-[14px] leading-relaxed font-normal no-underline"
                                             dangerouslySetInnerHTML={{ __html: step }}
                                           />
                                         </div>
@@ -405,10 +407,10 @@ const CbServices = () => {
                                 )}
                                 
                                 {subItem.isDualButton ? (
-                                  <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
+                                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-2xl mx-auto">
                                     <button 
                                       onClick={() => openModalWithService(subItem.title)}
-                                      className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 cursor-pointer"
+                                      className="flex-1 w-full sm:w-auto h-12 flex items-center justify-center px-6 bg-[#ee1c25] text-white rounded-full font-bold text-xs sm:text-[13px] leading-tight tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 cursor-pointer text-center"
                                     >
                                       <span>{subItem.leftButtonText}</span>
                                     </button>
@@ -416,7 +418,7 @@ const CbServices = () => {
                                     {subItem.rightIsDisabled ? (
                                       <button
                                         disabled
-                                        className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-gray-400/50 text-gray-200/80 rounded-full font-bold text-[13px] tracking-wide cursor-not-allowed border border-gray-300/20 backdrop-blur-sm shadow-none"
+                                        className="flex-1 w-full sm:w-auto h-12 flex items-center justify-center px-6 bg-gray-400/50 text-gray-200/80 rounded-full font-bold text-xs sm:text-[13px] leading-tight tracking-wide cursor-not-allowed border border-gray-300/20 backdrop-blur-sm shadow-none text-center"
                                       >
                                         <span>Launching Soon</span>
                                       </button>
@@ -426,7 +428,7 @@ const CbServices = () => {
                                         onClick={() => handleExternalLinkClick(subItem.title)}
                                         target="_blank" 
                                         rel="noopener noreferrer" 
-                                        className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105"
+                                        className="flex-1 w-full sm:w-auto h-12 flex items-center justify-center px-6 bg-[#ee1c25] text-white rounded-full font-bold text-xs sm:text-[13px] leading-tight tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 text-center"
                                       >
                                         <span>{subItem.rightButtonText}</span>
                                       </a>
@@ -435,7 +437,7 @@ const CbServices = () => {
                                 ) : isModalButton ? (
                                   <button
                                     onClick={() => openModalWithService(subItem.title)}
-                                    className="flex-1 min-w-[200px] flex items-center justify-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 cursor-pointer"
+                                    className="h-12 min-w-[220px] flex items-center justify-center px-6 bg-[#ee1c25] text-white rounded-full font-bold text-xs sm:text-[13px] leading-tight tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 cursor-pointer text-center"
                                   >
                                     <span>{subItem.buttonText || "Request Technical Assistance"}</span>
                                   </button>
@@ -445,7 +447,7 @@ const CbServices = () => {
                                     onClick={() => handleExternalLinkClick(subItem.title)}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-2 px-5 py-2.5 bg-[#ee1c25] text-white rounded-full font-bold text-[13px] tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105"
+                                    className="h-12 min-w-[220px] flex items-center justify-center px-6 bg-[#ee1c25] text-white rounded-full font-bold text-xs sm:text-[13px] leading-tight tracking-wide shadow-md transition-all duration-200 ease-in-out hover:scale-105 text-center"
                                   >
                                     <span>{subItem.buttonText || "Visit External Portal"}</span>
                                   </a>
