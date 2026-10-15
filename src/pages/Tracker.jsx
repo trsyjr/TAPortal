@@ -6,18 +6,61 @@ import {
   ChevronLeft, 
   ChevronRight, 
   Loader2, 
-  Calendar, 
   FileX, 
   RotateCcw, 
   ChevronDown, 
   Check,
   X,
   Copy,
-  CopyCheck
+  CopyCheck,
+  MessageSquare,
+  PieChart,
+  Settings,
+  BookOpen,
+  BarChart3
 } from 'lucide-react';
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip } from 'recharts';
+import { FaLaptopMedical, FaTicket } from 'react-icons/fa6';
+
+// Import external components
+import FloatingCard from '../components/FloatingCardDeck';
+import TicketModal from '../components/TicketModal';
+import JoinModal from '../components/JoinModal';
 
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpmS2obDD3aAZmGpsRZsFWoQ9DivjX9Mir3wWuQXsEUD5Bq28c0-tzQL2_Kj3Mx-lDjA/exec";
+
+// Purely decorative large icons transitioning automatically in a Card Switching Deck
+const CAROUSEL_ICONS = [
+  {
+    id: 'gear',
+    component: Settings,
+    bg: 'bg-[#2E3192]',
+    iconColor: 'text-white',
+  },
+  {
+    id: 'pie',
+    component: PieChart,
+    bg: 'bg-[#FBD24E]',
+    iconColor: 'text-[#FBD24E] fill-white stroke-[2.5]',
+  },
+  {
+    id: 'chat',
+    component: MessageSquare,
+    bg: 'bg-[#EF383A]',
+    iconColor: 'text-white fill-white',
+  },
+  {
+    id: 'book',
+    component: BookOpen,
+    bg: 'bg-[#2E3192]',
+    iconColor: 'text-white',
+  },
+  {
+    id: 'bar',
+    component: BarChart3,
+    bg: 'bg-[#EF383A]',
+    iconColor: 'text-white stroke-[2.5]',
+  }
+];
 
 // Custom Modern Dropdown Component
 function ModernSelect({ label, value, options, onChange, placeholder = "Select option..." }) {
@@ -96,79 +139,6 @@ function ModernSelect({ label, value, options, onChange, placeholder = "Select o
   );
 }
 
-// Compact Dark-Themed Modern Dropdown Component for Chart Filters
-function ChartSelect({ value, options, onChange, placeholder = "Select..." }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const containerRef = useRef(null);
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (containerRef.current && !containerRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, []);
-
-  const selectedOption = options.find(opt => String(opt.value) === String(value));
-
-  return (
-    <div className="relative inline-block text-left" ref={containerRef}>
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className={`bg-indigo-900/80 text-white text-xs rounded-lg px-2.5 py-1.5 border transition-all duration-200 flex items-center gap-1.5 min-h-[32px] touch-manipulation ${
-          isOpen ? 'border-blue-400 ring-2 ring-blue-400/20' : 'border-blue-600/50 hover:border-blue-400'
-        }`}
-      >
-        <span className="truncate font-medium">
-          {selectedOption ? selectedOption.label : placeholder}
-        </span>
-        <ChevronDown className={`w-3.5 h-3.5 text-blue-200 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-white' : ''}`} />
-      </button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -4, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -4, scale: 0.98 }}
-            transition={{ duration: 0.15 }}
-            className="absolute left-0 top-full mt-1 w-32 bg-indigo-950 rounded-xl shadow-xl border border-blue-700/60 py-1 z-[110] divide-y divide-blue-900/40 text-xs max-h-48 overflow-y-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {options.map((option) => {
-              const isSelected = String(option.value) === String(value);
-              return (
-                <button
-                  key={option.value}
-                  type="button"
-                  onClick={() => {
-                    onChange(option.value);
-                    setIsOpen(false);
-                  }}
-                  className={`w-full text-left px-3 py-2 flex items-center justify-between transition-colors min-h-[36px] touch-manipulation ${
-                    isSelected 
-                      ? 'bg-blue-600/30 text-yellow-400 font-semibold' 
-                      : 'text-blue-100 hover:bg-blue-900/50 active:bg-blue-900'
-                  }`}
-                >
-                  <span className="truncate pr-1">{option.label}</span>
-                  {isSelected && <Check className="w-3.5 h-3.5 text-yellow-400 shrink-0" />}
-                </button>
-              );
-            })}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-}
-
 // Copy-to-Clipboard Component for DRN
 function CopyableDRN({ drn, className = "", isDark = false }) {
   const [copied, setCopied] = useState(false);
@@ -206,12 +176,11 @@ function CopyableDRN({ drn, className = "", isDark = false }) {
   );
 }
 
-// Modernized Record Detail Modal
+// Record Detail Modal
 function RecordModal({ row, onClose }) {
   const modalRef = useRef(null);
   const [copiedHeader, setCopiedHeader] = useState(false);
 
-  // Close on ESC Key pressed
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') onClose();
@@ -259,7 +228,6 @@ function RecordModal({ row, onClose }) {
         onClick={(e) => e.stopPropagation()}
         className="bg-white w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[85vh] border border-gray-100"
       >
-        {/* Modern Header */}
         <div className="bg-gradient-to-r from-[#2E3192] to-indigo-900 text-white px-6 py-5 flex items-center justify-between gap-4 border-b border-indigo-800">
           <div className="flex items-center gap-2.5 min-w-0">
             <span className="text-xs font-semibold uppercase tracking-wider text-indigo-200">DRN:</span>
@@ -286,7 +254,6 @@ function RecordModal({ row, onClose }) {
           </button>
         </div>
 
-        {/* Scrollable Content Body */}
         <div className="p-6 overflow-y-auto space-y-6 text-xs [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-gray-50/80 p-3.5 rounded-2xl border border-gray-100">
             {overviewFields.map((item, idx) => (
@@ -323,14 +290,17 @@ function RecordModal({ row, onClose }) {
 export default function Tracker() {
   const [searchTerm, setSearchTerm] = useState('');
   const [rawData, setRawData] = useState([]);
-  const [availableYears, setAvailableYears] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedRecord, setSelectedRecord] = useState(null);
-  
-  // Shared Date Filters
-  const [selectedYear, setSelectedYear] = useState('ALL');
-  const [selectedMonth, setSelectedMonth] = useState('ALL');
+
+  // Modal States
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+  const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
+
+  // Deck State
+  const [deck, setDeck] = useState(CAROUSEL_ICONS);
+  const [isSwitching, setIsSwitching] = useState(false);
 
   // Filter Popover States
   const [isFilterOpen, setIsFilterOpen] = useState(false);
@@ -343,21 +313,48 @@ export default function Tracker() {
   const itemsPerPage = 5;
 
   const filterRef = useRef(null);
-  const monthsList = useMemo(() => ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"], []);
-  
-  // Grid Template Columns (Generous 170px space for DRN)
+
+  // Grid Template Columns
   const gridTemplateColumns = "110px 170px 1fr 180px 110px 100px 1.1fr 1.2fr 130px";
 
-  // Options for Chart Dropdowns
-  const chartYearOptions = useMemo(() => [
-    { label: "All Years", value: "ALL" },
-    ...availableYears.map(yr => ({ label: String(yr), value: String(yr) }))
-  ], [availableYears]);
+  // FloatingCard Deck Definition
+  const customDeckCards = [
+    {
+      title: "TA WEDNESDAY",
+      icon: <FaLaptopMedical />,
+      description: "Virtual Clinic for Technical Assistance opens every Wednesday.",
+      buttonText: "Join Here",
+      onClick: () => setIsJoinModalOpen(true),
+    },
+    {
+      title: "Need Assistance?",
+      icon: <FaTicket />,
+      description: "Submit a support ticket or request guidance from the Academy.",
+      buttonText: "Open Ticket",
+      onClick: () => setIsTicketModalOpen(true),
+    },
+  ];
 
-  const chartMonthOptions = useMemo(() => [
-    { label: "All Months", value: "ALL" },
-    ...monthsList.map((m, idx) => ({ label: m, value: String(idx) }))
-  ], [monthsList]);
+  // Carousel card switch animation
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleSwitchCard();
+    }, 3200);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleSwitchCard = () => {
+    if (isSwitching) return;
+    setIsSwitching(true);
+
+    setTimeout(() => {
+      setDeck((prevDeck) => {
+        const [first, ...rest] = prevDeck;
+        return [...rest, first];
+      });
+      setIsSwitching(false);
+    }, 380);
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -374,47 +371,38 @@ export default function Tracker() {
   }, []);
 
   const fetchData = async (isInitial = false) => {
-  if (isInitial) setLoading(true);
+    if (isInitial) setLoading(true);
 
-  try {
-    const res = await fetch(`${APPS_SCRIPT_URL}?t=${new Date().getTime()}`);
-    if (!res.ok) throw new Error("Failed to fetch sheet data");
-    
-    const resData = await res.json();
-    const fetchedRows = resData.rows || [];
+    try {
+      const res = await fetch(`${APPS_SCRIPT_URL}?t=${new Date().getTime()}`);
+      if (!res.ok) throw new Error("Failed to fetch sheet data");
+      
+      const resData = await res.json();
+      const fetchedRows = resData.rows || [];
 
-    // Correct Sort: Latest dates/times at top -> Undated entries push to bottom by row order
-    const sortedRows = fetchedRows.slice().sort((a, b) => {
-      const timeA = a._timestamp || 0;
-      const timeB = b._timestamp || 0;
+      const sortedRows = fetchedRows.slice().sort((a, b) => {
+        const timeA = a._timestamp || 0;
+        const timeB = b._timestamp || 0;
 
-      // Both have valid dates/timestamps -> sort descending (latest date on top)
-      if (timeA > 0 && timeB > 0) {
-        if (timeB !== timeA) return timeB - timeA;
-      }
+        if (timeA > 0 && timeB > 0) {
+          if (timeB !== timeA) return timeB - timeA;
+        }
 
-      // If one has a date and the other does not -> date always comes first
-      if (timeA > 0 && timeB === 0) return -1;
-      if (timeB > 0 && timeA === 0) return 1;
+        if (timeA > 0 && timeB === 0) return -1;
+        if (timeB > 0 && timeA === 0) return 1;
 
-      // Both are blank/undated -> sort by latest row edit (bottom rows in sheet first)
-      return (b._rowIndex || b.id) - (a._rowIndex || a.id);
-    });
+        return (b._rowIndex || b.id) - (a._rowIndex || a.id);
+      });
 
-    setRawData(sortedRows);
-    
-    if (resData.years && resData.years.length > 0) {
-      setAvailableYears(resData.years);
+      setRawData(sortedRows);
+      setError(null);
+    } catch (err) {
+      console.error("Error fetching data:", err);
+      if (isInitial) setError("Failed to load live data from Google Sheet.");
+    } finally {
+      if (isInitial) setLoading(false);
     }
-
-    setError(null);
-  } catch (err) {
-    console.error("Error fetching data:", err);
-    if (isInitial) setError("Failed to load live data from Google Sheet.");
-  } finally {
-    if (isInitial) setLoading(false);
-  }
-};
+  };
 
   useEffect(() => {
     fetchData(true);
@@ -422,7 +410,6 @@ export default function Tracker() {
     return () => clearInterval(intervalId);
   }, []);
 
-  // Format dropdown options
   const { proponentOptions, reviewerOptions, statusOptions } = useMemo(() => {
     const props = new Set();
     const revs = new Set();
@@ -450,12 +437,8 @@ export default function Tracker() {
     };
   }, [rawData]);
 
-  // Primary filtering logic
   const filteredData = useMemo(() => {
     return rawData.filter((row) => {
-      if (selectedYear !== 'ALL' && String(row._year) !== String(selectedYear)) return false;
-      if (selectedMonth !== 'ALL' && row._monthIndex !== parseInt(selectedMonth, 10)) return false;
-
       if (filterProponent !== 'ALL' && String(row['Proponent'] || '').trim() !== filterProponent) return false;
       if (filterReviewer !== 'ALL' && String(row['Reviewer'] || '').trim() !== filterReviewer) return false;
       if (filterStatus !== 'ALL' && String(row['Status'] || '').trim() !== filterStatus) return false;
@@ -470,63 +453,8 @@ export default function Tracker() {
 
       return true;
     });
-  }, [rawData, selectedYear, selectedMonth, filterProponent, filterReviewer, filterStatus, searchTerm]);
+  }, [rawData, filterProponent, filterReviewer, filterStatus, searchTerm]);
 
-  // Dynamic Graph Computation
-  const { lineChartData, barChartData, filteredByDateCount } = useMemo(() => {
-    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-    
-    const monthlyMap = months.map(m => ({
-      month: m,
-      "Activity Proposal": 0,
-      "Training Design": 0,
-      "Other Documents": 0
-    }));
-
-    const proponentMap = {};
-    let matchedCount = 0;
-
-    rawData.forEach(row => {
-      const rowYear = row._year;
-      const rowMonthIdx = row._monthIndex;
-
-      if (selectedYear !== 'ALL' && String(rowYear) !== String(selectedYear)) return;
-      if (selectedMonth !== 'ALL' && rowMonthIdx !== parseInt(selectedMonth, 10)) return;
-
-      matchedCount++;
-
-      const proponent = row['Proponent'] ? row['Proponent'].toString().trim().toUpperCase() : 'OTHER';
-      proponentMap[proponent] = (proponentMap[proponent] || 0) + 1;
-
-      if (rowMonthIdx >= 0 && rowMonthIdx < 12) {
-        const title = row['Title of Activity'] ? row['Title of Activity'].toString().toUpperCase() : '';
-        if (title.includes('ACTIVITY PROPOSAL')) {
-          monthlyMap[rowMonthIdx]['Activity Proposal']++;
-        } else if (title.includes('TRAINING DESIGN') || title.includes('TRAINING AND PLANNING')) {
-          monthlyMap[rowMonthIdx]['Training Design']++;
-        } else {
-          monthlyMap[rowMonthIdx]['Other Documents']++;
-        }
-      }
-    });
-
-    const maxCount = Math.max(...Object.values(proponentMap), 1);
-    const sortedProponents = Object.entries(proponentMap)
-      .map(([code, count]) => ({
-        code,
-        count,
-        percentage: Math.round((count / maxCount) * 100)
-      }))
-      .sort((a, b) => b.count - a.count);
-
-    return {
-      lineChartData: monthlyMap,
-      barChartData: sortedProponents,
-      filteredByDateCount: matchedCount
-    };
-  }, [rawData, selectedYear, selectedMonth]);
-
-  // Pagination calculation
   const totalEntries = filteredData.length;
   const totalPages = Math.ceil(totalEntries / itemsPerPage) || 1;
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -543,128 +471,65 @@ export default function Tracker() {
 
   return (
     <div className="min-h-screen bg-[#EBECEF] py-4 sm:py-8 font-sans text-gray-800 w-full flex justify-center">
-      <div className="w-full px-4 sm:px-6 md:px-10 lg:px-12 xl:px-16 space-y-6 sm:space-y-8 pt-16 sm:pt-24 pb-10 max-w-[1920px]">
+      <div className="w-full px-4 sm:px-6 md:px-10 lg:px-12 xl:px-16 space-y-6 sm:space-y-8 pt-12 sm:pt-20 pb-10 max-w-[1920px]">
 
         {/* TOP DASHBOARD SECTION */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 pt-10 items-stretch w-full">
-          
-          <div className="lg:col-span-5 bg-transparent xl:pr-4 flex flex-col justify-between">
-            <div>
-              <h1 className="text-2xl sm:text-4xl xl:text-5xl font-extrabold text-[#2E3192] leading-tight">
-                Activity Proposal<br className="hidden sm:inline" />
-                and Design <span className="text-red-500 italic">Tracking</span>
-              </h1>
-              <p className="mt-3 sm:mt-5 text-xs sm:text-base xl:text-lg text-gray-800 leading-relaxed font-medium">
-                Track the status of activity proposals and training designs currently under review by the DSWD Academy. 
-                This page provides proponent OBSUs and FOs with a centralized view of their submitted documents, 
-                assigned reviewer, current review status, expected action, and latest updates.
-              </p>
-              <p className="mt-2 sm:mt-4 text-xs sm:text-base xl:text-lg text-gray-800 leading-relaxed font-medium">
-                Use the information provided to monitor the progress of your submission and identify any action or 
-                revisions that may be needed from the proponent.
-              </p>
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full">
+          <div className="lg:col-span-7 xl:pr-6 flex flex-col justify-center">
+            <h1 className="text-3xl sm:text-4xl xl:text-5xl font-extrabold text-[#2E3192] leading-[1.15]">
+              Activity Proposal<br className="hidden sm:inline" />
+              and Design <span className="text-red-500 italic">Tracking</span>
+            </h1>
+            <p className="mt-4 sm:mt-6 text-xs sm:text-base xl:text-lg text-gray-800 leading-relaxed font-medium">
+              Track the status of activity proposals and training designs currently under review by the DSWD Academy. 
+              This page provides proponent OBSUs and FOs with a centralized view of their submitted documents, 
+              assigned reviewer, current review status, expected action, and latest updates.
+            </p>
+            <p className="mt-3 sm:mt-4 text-xs sm:text-base xl:text-lg text-gray-800 leading-relaxed font-medium">
+              Use the information provided to monitor the progress of your submission and identify any action or 
+              revisions that may be needed from the proponent.
+            </p>
           </div>
 
-          <div className="lg:col-span-4 bg-[#2E3192] text-white p-4 sm:p-6 rounded-2xl shadow-md relative flex flex-col justify-between">
-            <div className="flex flex-col space-y-3">
-              <div className="flex flex-col sm:flex-row justify-between sm:items-start text-xs tracking-wider uppercase font-semibold gap-2">
-                <span>MOST REQUESTED DOCUMENT</span>
-                <div className="text-left sm:text-right text-[10px] space-y-0.5">
-                  <div className="text-yellow-400 font-bold italic">REVIEW OF ACTIVITY PROPOSAL</div>
-                  <div className="text-blue-300 font-bold italic">REVIEW OF TRAINING DESIGN</div>
-                  <div className="text-red-400 font-bold italic">OTHER DOCUMENTS</div>
-                </div>
-              </div>
+          <div className="lg:col-span-5 flex items-center justify-center p-2 min-h-[360px] sm:min-h-[420px]">
+            <div 
+              onClick={handleSwitchCard}
+              className="relative w-64 h-64 sm:w-80 sm:h-80 flex items-center justify-center cursor-pointer select-none group"
+              title="Click to switch card"
+            >
+              {deck.slice(0, 2).map((item, index) => {
+                const isFrontCard = index === 0;
+                const IconComp = item.component;
 
-              <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-blue-800/60 z-20">
-                <div className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-blue-300 shrink-0" />
-                  <span className="text-xs text-blue-200 font-medium">Filter Charts:</span>
-                </div>
-
-                <ChartSelect
-                  value={selectedYear}
-                  options={chartYearOptions}
-                  onChange={(val) => {
-                    setSelectedYear(val);
-                    setCurrentPage(1);
-                  }}
-                  placeholder="Select Year"
-                />
-
-                <ChartSelect
-                  value={selectedMonth}
-                  options={chartMonthOptions}
-                  onChange={(val) => {
-                    setSelectedMonth(val);
-                    setCurrentPage(1);
-                  }}
-                  placeholder="Select Month"
-                />
-              </div>
-            </div>
-
-            <div className="w-full h-48 sm:h-52 mt-4 z-10">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={lineChartData} margin={{ top: 10, right: 10, left: -25, bottom: 0 }}>
-                  <XAxis dataKey="month" stroke="#a5b4fc" fontSize={11} tickLine={false} />
-                  <YAxis stroke="#a5b4fc" fontSize={11} tickLine={false} domain={[0, 'auto']} allowDecimals={false} />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: '#1e1b4b', borderRadius: '8px', border: 'none', fontSize: '12px' }}
-                    itemStyle={{ color: '#fff' }}
-                  />
-                  <Line type="monotone" dataKey="Activity Proposal" stroke="#FBBF24" strokeWidth={2.5} dot={{ r: 3 }} />
-                  <Line type="monotone" dataKey="Training Design" stroke="#60A5FA" strokeWidth={2.5} dot={{ r: 3 }} />
-                  <Line type="monotone" dataKey="Other Documents" stroke="#EF4444" strokeWidth={2.5} dot={{ r: 3 }} />
-                </LineChart>
-              </ResponsiveContainer>
+                return (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={false}
+                    animate={{
+                      x: isFrontCard ? (isSwitching ? -200 : 0) : 32,
+                      y: isFrontCard ? (isSwitching ? 15 : 0) : -26,
+                      scale: isFrontCard ? (isSwitching ? 0.85 : 1) : 0.88,
+                      rotate: isFrontCard ? (isSwitching ? -15 : 0) : 10,
+                      opacity: isFrontCard ? (isSwitching ? 0.5 : 1) : 0.7,
+                      zIndex: isFrontCard ? 20 : 10,
+                    }}
+                    transition={{
+                      duration: 0.48,
+                      ease: [0.25, 1, 0.5, 1]
+                    }}
+                    className={`absolute inset-0 rounded-[2.5rem] sm:rounded-[3rem] ${item.bg} flex items-center justify-center shadow-2xl transition-shadow duration-300 group-hover:shadow-indigo-500/15`}
+                  >
+                    <IconComp className={`w-40 h-40 sm:w-52 sm:h-52 ${item.iconColor}`} />
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
-
-          <div className="lg:col-span-3 bg-[#2E3192] text-white p-4 sm:p-6 rounded-2xl shadow-md flex flex-col justify-between">
-            <div>
-              <div className="flex justify-between items-center text-xs tracking-wider uppercase font-semibold text-gray-300 border-b border-blue-800/60 pb-2 mb-3">
-                <span>MOST REQUEST RECEIVED</span>
-                <span>COUNT</span>
-              </div>
-
-              <div className="space-y-3.5 max-h-48 sm:max-h-52 overflow-y-auto pr-1">
-                {barChartData.length > 0 ? (
-                  barChartData.map((item) => (
-                    <div key={item.code} className="space-y-1">
-                      <div className="flex justify-between text-xs font-bold">
-                        <span className="truncate pr-2">{item.code}</span>
-                        <span>{item.count}</span>
-                      </div>
-                      <div className="w-full h-2 bg-indigo-950 rounded-full overflow-hidden">
-                        <motion.div
-                          initial={{ width: 0 }}
-                          animate={{ width: `${item.percentage}%` }}
-                          transition={{ duration: 0.4 }}
-                          className="h-full bg-gradient-to-r from-blue-400 to-indigo-200 rounded-full"
-                        />
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="text-xs text-gray-300 italic pt-2">No records found</div>
-                )}
-              </div>
-            </div>
-
-            <div className="mt-4 text-right">
-              <div className="text-3xl sm:text-4xl font-extrabold tracking-tight">{filteredByDateCount}</div>
-              <div className="text-[10px] uppercase tracking-wider text-gray-300 font-semibold">
-                FILTERED REQUEST COUNT
-              </div>
-            </div>
-          </div>
-
         </div>
 
         {/* SEARCH & FILTER BAR */}
-        <div className="flex flex-col sm:flex-row justify-end gap-3 items-stretch sm:items-center w-full relative z-30">
+        <div className="flex flex-col sm:flex-row justify-end gap-3 items-stretch sm:items-center w-full relative z-30 pt-4">
           <div className="relative w-full sm:w-auto" ref={filterRef}>
             <button 
               onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -874,6 +739,13 @@ export default function Tracker() {
           />
         )}
       </AnimatePresence>
+
+      {/* Floating Action Card Deck */}
+      <FloatingCard cards={customDeckCards} rotateInterval={4000} />
+      
+      {/* Modals from src/components */}
+      <TicketModal isOpen={isTicketModalOpen} onClose={() => setIsTicketModalOpen(false)} />
+      <JoinModal isOpen={isJoinModalOpen} onClose={() => setIsJoinModalOpen(false)} />
     </div>
   );
 }

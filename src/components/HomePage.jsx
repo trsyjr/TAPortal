@@ -9,9 +9,9 @@ import { RiArrowDownWideLine } from "react-icons/ri";
 
 import Image1 from "../assets/One.gif";
 import Image2 from "../assets/KliyentellBanner.png";
-import Image3 from "../assets/FSWBanner.gif"
 
-const slides = [Image2, Image1, Image3];
+
+const slides = [Image2, Image1];
 
 const slideLinks = {
   0: "https://clientfeedback.dswd.gov.ph/",
