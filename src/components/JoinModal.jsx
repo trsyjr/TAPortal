@@ -150,9 +150,9 @@ const JoinModal = ({ isOpen, onClose }) => {
                 <div className="relative group">
                   {/* Tooltip Bubble */}
                   {!canJoin && (
-                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none shadow-xl z-10">
+                    <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-3 w-72 max-w-[80vw] bg-gray-900 text-white text-xs text-center leading-relaxed whitespace-normal break-words rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none shadow-xl z-10">
                       {isCancelled
-                        ? "Todays TA Wednesday session is cancelled. Please check back next week."
+                        ? "Please be informed that today’s TA Wednesday Clinic is postponed. The clinic will resume on Wednesday, 28 October 2026."
                         : "Currently closed. This will be available every Wednesday 2:00 PM - 4:00 PM"}
                       {/* Tooltip Arrow */}
                       <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
