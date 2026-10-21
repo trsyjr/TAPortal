@@ -151,7 +151,9 @@ const JoinModal = ({ isOpen, onClose }) => {
                   {/* Tooltip Bubble */}
                   {!canJoin && (
                     <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-3 px-4 py-2 bg-gray-900 text-white text-xs rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none shadow-xl z-10">
-                      Currently closed. This will be available every Wednesday 2:00 PM - 4:00 PM
+                      {isCancelled
+                        ? "Todays TA Wednesday session is cancelled. Please check back next week."
+                        : "Currently closed. This will be available every Wednesday 2:00 PM - 4:00 PM"}
                       {/* Tooltip Arrow */}
                       <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-gray-900"></div>
                     </div>
