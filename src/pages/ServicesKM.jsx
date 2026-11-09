@@ -68,7 +68,8 @@ const servicesContentData = {
         title: "Request for Resource Person for DSWD Academy-Offered Training Courses", 
         isCustomRequestLayout: true,
         content: "Requests may be linked to the Directory of Experts (DOE) for easier identification of subject matter specialists.",
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       },
       { 
         id: 5, 
@@ -96,7 +97,8 @@ const servicesContentData = {
           "Knowledge Management Team Quarterly Report",
           "Bayanihang Bayan Program"
         ],
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       },
       {
         id: 4, 
@@ -111,7 +113,8 @@ const servicesContentData = {
           "Other Types of Knowledge Product Review",
           "Knowledge Product Review by Core Group of Specialists"
         ],
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       },
       { 
         id: 3, 
@@ -122,37 +125,43 @@ const servicesContentData = {
           "Activity Design and Activity Proposal for Big Group Knowledge Sharing Session",
           "Documentation of Conducted Big Group Knowledge Sharing Session"
         ],
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       },
       { 
         id: 6, 
         title: "Knowledge Exchange Center Material (Borrowing)", 
         content: "Technical assistance related to the borrowing of materials being offered by the Knowledge Exchange Center.",
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       },
       { 
         id: 7, 
         title: "Intellectual Property Registration", 
         content: "Technical assistance related to the registration of qualified intellectual property for protection.",
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       },
       { 
         id: 8, 
         title: "DSWD Academy Training Facility Reservation", 
         content: "Provide technical assistance to inquiries or concerns related to the reservation and booking processes at the DSWD Academy Facility. This support extends to various stakeholders, including OBS, FOs, and other partners.",
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       },
       { 
         id: 9, 
         title: "Marketing Support", 
         content: "Provide technical assistance to the DSWD Academy divisions to effectively promote and execute their activities and events. This includes offering guidance on marketing strategies, communication materials, events management and promotional campaigns.",
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       },
       { 
         id: 10, 
         title: "Hosting of Courses under the DSWD Academy’s ELMS", 
         content: "This Technical Assistance (TA) service supports DSWD offices and units in the onboarding and hosting of their e-learning courses within the DSWD Academy’s e-Learning Management System (ELMS). It includes guidance on the requirements, standards, and processes for lodging developed digital learning materials into the platform.",
-        buttonText: "Request Ticket" 
+        buttonText: "Request Ticket",
+        isDisabled: true
       }
     ]
   }
@@ -161,7 +170,7 @@ const servicesContentData = {
 const KM_SPREADSHEET_ID = "1KkYaquUwif5M0ybxpXg5MDX62Nrres61w-1xPE-fMUg";
 const KM_INQUIRY_TYPE = "Knowledge Management";
 
-const ServicesKM = () => {
+const ServicesKM = ({ hideHeader = false, searchQuery: externalQuery = "" }) => {
   const location = useLocation();
   const navigate = useNavigate(); 
 
@@ -169,7 +178,10 @@ const ServicesKM = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(""); 
-  const [searchQuery, setSearchQuery] = useState("");
+  const [internalQuery, setInternalQuery] = useState("");
+
+  const searchQuery = hideHeader ? externalQuery : internalQuery;
+  const setSearchQuery = setInternalQuery;
 
   const servicesTabs = [
     { id: 0, title: "All", path: "/all-services" },
@@ -270,91 +282,97 @@ const ServicesKM = () => {
   }) : [];
 
   return (
-    <div className="min-h-screen bg-white text-[#1a1a1a] antialiased select-none font-['Montserrat',sans-serif]">
-      <style>
-        {`
-          @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
-          .premium-shadow { box-shadow: 0 4px 20px -2px rgba(46, 49, 146, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03); }
-          .premium-shadow-active { box-shadow: 0 12px 30px -8px rgba(46, 49, 146, 0.25); }
-          .tapered-underline { height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(46, 49, 146, 0.6) 50%, transparent 100%); }
-          .accordion-underline { height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(252, 225, 102, 0.6) 50%, transparent 100%); }
-        `}
-      </style>
+    <div className={hideHeader ? "" : "min-h-screen bg-white text-[#1a1a1a] antialiased select-none font-['Montserrat',sans-serif]"}>
+      {!hideHeader && (
+        <style>
+          {`
+            @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+            .premium-shadow { box-shadow: 0 4px 20px -2px rgba(46, 49, 146, 0.05), 0 2px 6px -1px rgba(0, 0, 0, 0.03); }
+            .premium-shadow-active { box-shadow: 0 12px 30px -8px rgba(46, 49, 146, 0.25); }
+            .tapered-underline { height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(46, 49, 146, 0.6) 50%, transparent 100%); }
+            .accordion-underline { height: 2px; background: linear-gradient(90deg, transparent 0%, rgba(252, 225, 102, 0.6) 50%, transparent 100%); }
+          `}
+        </style>
+      )}
 
-      <main className="max-w-[1440px] mx-auto px-16 pt-28 pb-24">
-        {/* Header Title Section */}
-        <div className="text-center mb-10">
-          <div className="inline-block mb-4">
-            <h1 className="text-[44px] tracking-tight leading-none mb-2">
-              <span className="text-[#2e3192] font-extrabold">Our </span>
-              <span className="text-[#ee1c25] font-extrabold italic pl-0.5">Services</span>
-            </h1>
-            <div className="tapered-underline w-56 mx-auto mt-2"></div>
-          </div>
-          <p className="text-gray-500 text-[15px] font-medium max-w-[750px] mx-auto leading-relaxed mt-2">
-            DSWD Academy services in one portal. Simplifying processes and making technical assistance more accessible and convenient.
-          </p>
-        </div>
-
-        {/* Search Input Layout */}
-        <div className="max-w-[680px] mx-auto mb-14 px-4">
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#2e3192]/12 to-[#ee1c25]/12 rounded-full blur-2xl opacity-0 group-focus-within:opacity-100 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none" />
-            <div className="relative flex items-center bg-white border border-gray-200 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.03)] group-focus-within:border-[#2e3192] group-focus-within:shadow-[0_15px_45px_rgba(46,49,146,0.1)] transition-all duration-300 overflow-hidden">
-              <div className="pl-7 pr-3.5 text-gray-400 group-focus-within:text-[#2e3192] transition-colors duration-300 shrink-0">
-                <svg className="w-5.5 h-5.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+      <main className={hideHeader ? "" : "max-w-[1440px] mx-auto px-16 pt-28 pb-24"}>
+        {!hideHeader && (
+          <>
+            {/* Header Title Section */}
+            <div className="text-center mb-10">
+              <div className="inline-block mb-4">
+                <h1 className="text-[44px] tracking-tight leading-none mb-2">
+                  <span className="text-[#2e3192] font-extrabold">Our </span>
+                  <span className="text-[#ee1c25] font-extrabold italic pl-0.5">Services</span>
+                </h1>
+                <div className="tapered-underline w-56 mx-auto mt-2"></div>
               </div>
-              <input 
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="What service or topic are you looking for?"
-                className="w-full py-5 pr-14 bg-transparent text-[15.5px] font-semibold tracking-wide text-gray-800 placeholder-gray-400/90 focus:outline-none"
-              />
-              <AnimatePresence>
-                {searchQuery && (
-                  <motion.button 
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.8 }}
-                    onClick={() => setSearchQuery("")}
-                    className="absolute right-5 p-1.5 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all cursor-pointer"
-                  >
-                    <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </motion.button>
-                )}
-              </AnimatePresence>
+              <p className="text-gray-500 text-[15px] font-medium max-w-[750px] mx-auto leading-relaxed mt-2">
+                DSWD Academy services in one portal. Simplifying processes and making technical assistance more accessible and convenient.
+              </p>
             </div>
-          </div>
-        </div>
 
-        {/* Categories Tab Navigation Switch */}
-        <div className="max-w-[1100px] mx-auto mb-16">
-          <div className="flex flex-wrap items-center justify-center gap-3.5">
-            {servicesTabs.map((tab) => {
-              const isActive = tab.id === 3;
-              return (
-                <button
-                  key={tab.id}
-                  onClick={() => handleTabChange(tab)}
-                  className="relative px-7 py-3.5 rounded-full font-bold text-[13.5px] tracking-wide transform active:scale-[0.98] whitespace-nowrap overflow-hidden bg-[#2e3192] text-white transition-colors duration-300 cursor-pointer"
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-[#ee1c25]"
-                    initial={false}
-                    animate={{ clipPath: isActive ? "circle(100% at 50% 50%)" : "circle(0% at 50% 50%)" }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
+            {/* Search Input Layout */}
+            <div className="max-w-[680px] mx-auto mb-14 px-4">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-[#2e3192]/12 to-[#ee1c25]/12 rounded-full blur-2xl opacity-0 group-focus-within:opacity-100 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none" />
+                <div className="relative flex items-center bg-white border border-gray-200 rounded-full shadow-[0_10px_35px_rgba(0,0,0,0.03)] group-focus-within:border-[#2e3192] group-focus-within:shadow-[0_15px_45px_rgba(46,49,146,0.1)] transition-all duration-300 overflow-hidden">
+                  <div className="pl-7 pr-3.5 text-gray-400 group-focus-within:text-[#2e3192] transition-colors duration-300 shrink-0">
+                    <svg className="w-5.5 h-5.5 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                  </div>
+                  <input 
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="What service or topic are you looking for?"
+                    className="w-full py-5 pr-14 bg-transparent text-[15.5px] font-semibold tracking-wide text-gray-800 placeholder-gray-400/90 focus:outline-none"
                   />
-                  <span className="relative z-10 block text-white">{tab.title}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
+                  <AnimatePresence>
+                    {searchQuery && (
+                      <motion.button 
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.8 }}
+                        onClick={() => setSearchQuery("")}
+                        className="absolute right-5 p-1.5 rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all cursor-pointer"
+                      >
+                        <svg className="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </motion.button>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+            </div>
+
+            {/* Categories Tab Navigation Switch */}
+            <div className="max-w-[1100px] mx-auto mb-16">
+              <div className="flex flex-wrap items-center justify-center gap-3.5">
+                {servicesTabs.map((tab) => {
+                  const isActive = tab.id === 3;
+                  return (
+                    <button
+                      key={tab.id}
+                      onClick={() => handleTabChange(tab)}
+                      className="relative px-7 py-3.5 rounded-full font-bold text-[13.5px] tracking-wide transform active:scale-[0.98] whitespace-nowrap overflow-hidden bg-[#2e3192] text-white transition-colors duration-300 cursor-pointer"
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-[#ee1c25]"
+                        initial={false}
+                        animate={{ clipPath: isActive ? "circle(100% at 50% 50%)" : "circle(0% at 50% 50%)" }}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                      />
+                      <span className="relative z-10 block text-white">{tab.title}</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </>
+        )}
 
         {/* Dynamic Accordion Area Canvas */}
         <div className="mt-4">
@@ -458,7 +476,7 @@ const ServicesKM = () => {
                                 <div className="w-full flex items-center justify-center mt-4">
                                   {subItem.isDisabled ? (
                                     <button disabled className="flex items-center gap-2 px-6 py-2.5 bg-gray-400 text-gray-200 rounded-full font-bold text-[13px] tracking-wide shadow-none cursor-not-allowed opacity-80">
-                                      <span>Launching Soon</span> 
+                                      <span>Under Development</span> 
                                     </button>
                                   ) : subItem.isDualButton ? (
                                     <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-xl mx-auto">
@@ -612,4 +630,4 @@ const ServicesKM = () => {
   );
 };
 
-export default ServicesKM;  
+export default ServicesKM;
