@@ -16,6 +16,16 @@ const ServiceHeader = ({ activeTabId, searchQuery, setSearchQuery }) => {
 
   return (
     <>
+      {/* Embedded Underline CSS Styles */}
+      <style>
+        {`
+          .tapered-underline {
+            height: 2px;
+            background: linear-gradient(90deg, transparent 0%, rgba(46, 49, 146, 0.6) 50%, transparent 100%);
+          }
+        `}
+      </style>
+
       {/* Title & Subtitle */}
       <div className="text-center mb-10">
         <div className="inline-block mb-4">
