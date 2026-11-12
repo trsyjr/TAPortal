@@ -14,7 +14,7 @@ import Image2 from "../assets/KliyentellBanner.png";
 const slides = [Image2, Image1];
 
 const slideLinks = {
-  0: "https://clientfeedback.dswd.gov.ph/",
+  0: "https://kliyentell.dswd.gov.ph/",
   1: "/about#about-portal",
 };
 

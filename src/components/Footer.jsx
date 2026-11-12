@@ -124,7 +124,7 @@ const Footer = () => {
             <div className="space-y-3">
               <h4 className="text-[14px] font-bold tracking-[0.1em]">KliyenTell:</h4>
               <a 
-                href="https://clientfeedback.dswd.gov.ph/" 
+                href="https://kliyentell.dswd.gov.ph/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="block transition-transform duration-200 hover:scale-105 active:scale-95"
