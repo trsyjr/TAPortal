@@ -1,7 +1,7 @@
 // src/components/Footer.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-import KliyentelQR from "../assets/KliyentelQR.png";
+import KliyentellQR from "../assets/KliyentellQR.png";
 
 const Footer = () => {
   return (
@@ -130,7 +130,7 @@ const Footer = () => {
                 className="block transition-transform duration-200 hover:scale-105 active:scale-95"
               >
                 <img 
-                  src={KliyentelQR} 
+                  src={KliyentellQR} 
                   alt="QR Code" 
                   className="w-36 h-36 md:w-48 md:h-48 object-contain md:-translate-x-3 md:-translate-y-1 cursor-pointer" 
                 />
